@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="content" style="height:150px;line-height:150px;text-align:center; color: #fff;background-color:#ccc;font-size:80px;"></div>
+	</body>
+	<script type="text/javascript">
+		   let num = 1;
+		    let content = document.getElementById('content');
+			    function count() {
+			        content.innerHTML = num++;
+			    };
+		// 非立即执行版
+		function debounce(func, wait) {
+		    let timer;
+		    return function() {
+		      let context = this; // 注意 this 指向
+		      let args = arguments; // arguments中存着e
+		         
+		      if (timer) clearTimeout(timer);
+		 
+		      timer = setTimeout(() => {
+		        func.apply(context, args)
+		      }, wait)
+		    }
+		}
+		let center = document.getElementById("bur")
+		function count(){
+			center.innerHTML = num++
+		}
+		// function debounce(func, wait, immediate) {
+		//     let timer;
+		//     return function() {
+		//       let context = this,
+		//           args = arguments;
+		//       if (timer) clearTimeout(timer);
+		//       if (immediate) {
+		//         let callNow = !timer;
+		//         timer = setTimeout(() => {
+		//           timer = null;
+		//         }, wait);
+		//         if (callNow) func.apply(context, args);
+		//       } else {
+		//         timer  = setTimeout(() => {
+		//           func.apply
+		//         }, wait)
+		//       }
+		//     }
+		// }
+	content.onmousemove = count;
+	content.onmousemove = debounce(count,1000);
+	
+	
+	// function debounce(func,wait){
+	// 	 let timer;
+	// 	 return function(){
+	// 		 let that = this;
+	// 		 let args = arguments;
+	// 		 if(trimer) clearTimeout(timer);
+	// 		 timer = setTimeout(()=>{
+	// 			 func.apply(that,args)
+	// 		 },wait)
+	// 	 }
+	// }
+	//https://www.cnblogs.com/cc-freiheit/p/10827372.html
+	function debounce(func, wait) {
+	    let timer;
+	    return function() {
+	      let context = this; // 这边的 this 指向谁?
+	      let args = arguments; // arguments中存着e
+	 
+	      if (timer) clearTimeout(timer);
+	      let callNow = !timer;
+	      timer = setTimeout(() => {
+	        timer = null;
+	      }, wait)
+	      if (callNow) func.apply(context, args);
+	    }
+	}
+	 
+	 
+	 function debounce(func,wait){
+		 let time 
+		 return{
+			 var context = this,
+				argus = arguments;
+			if(time)clearTimeout(time);
+			let callNow = !time;
+			time = setTimeout(()=>{
+				let time = null
+			},wait)
+			if(callNow)func.apply(context,agrus)
+		 }
+	 }
+	</script>
+</html>
