@@ -1,0 +1,262 @@
+/* packageYK/pages/deviceSrvOrder/deviceSrvOrder.wxss */
+page{
+background: #f2f2f2;
+height: 100%;
+}
+.key{
+margin: auto;
+display: flex;
+justify-content: space-between;
+align-items: center;
+background: #fff;
+padding: 0 20rpx;
+box-sizing: border-box;
+width: 100%;
+border-bottom: solid 2rpx #ccc;
+}
+.message image{
+  width: 48rpx;
+  height: 34rpx;
+  transform: scale(1.5);
+}
+.message{
+  position: relative;
+  margin: 30rpx 0;
+  margin-right: 20rpx;
+}
+.message view{
+height: 34rpx;
+width: 34rpx;
+border-radius: 50%;
+background: #ff1f1f;
+color: #fff;
+font-size: 24rpx;
+text-align: center;
+line-height: 34rpx;
+position: absolute;
+right: -20rpx;
+top: -20rpx;
+
+}
+.margin{
+  margin-top: 0;
+}
+.massagereCords{
+font-size: 30rpx;
+padding: 20rpx;
+box-sizing: border-box;
+}
+.massagereCords-o{
+  border-radius:10rpx; 
+  padding: 20rpx;
+  box-sizing: border-box;
+  background: #fff;
+  margin-top: 30rpx;
+  box-shadow: 4rpx 4rpx 6rpx 4rpx rgb(8, 8, 8,0.5);
+}
+.ds-o{
+  display: flex;
+  margin-top: 20rpx;
+}
+.ds-o:nth-of-type(1){
+  margin-top: 0;
+}
+.ds-t{
+  width: 23%;
+  white-space: nowrap;
+  color:#A2A2A2;
+}
+.ds-s{
+  width: 77%;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+.ds-w{
+  border: #ccc solid 2rpx;
+  padding: 20rpx 20rpx 15rpx 20rpx;
+  box-sizing: border-box;
+  border-radius:10rpx; 
+  margin-top: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ds-w view{
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+}
+.ds-w view:nth-of-type(2){
+  justify-content: flex-end;
+}
+.fault:hover{
+  text-decoration: underline;
+}
+.business-item{
+  border-radius:10rpx;
+  background: #fff;
+  padding-bottom:10rpx; 
+  margin-top:40rpx; 
+  box-shadow: 10rpx 10rpx 10rpx rgba(204, 204, 204, 0.5); 
+  width: 96%;
+  margin: 20rpx auto;
+  position: relative;
+}
+.business-item .business-item-o{
+  display: flex;
+  padding: 10rpx 30rpx;
+  box-sizing: border-box;
+  font-size: 30rpx;
+}
+.business-item .business-item-o:nth-of-type(1){
+  width: 100%;
+  background: #D6D4D4;
+  border-radius: 10rpx 10rpx 0 0;  
+}
+.business-item-tw{
+  border-bottom: #ccc 2rpx solid;
+}
+
+.business-item-o view{
+  overflow: hidden;
+  word-wrap:  break-word;
+}
+.business-item-o text:nth-of-type(1){
+  font-size: 30rpx;
+  color: #999;
+  white-space:  nowrap;
+  text-overflow: ellipsis;
+  width: 22%;
+}
+.business-item-o text:nth-of-type(2){
+  overflow: hidden;
+  word-wrap: break-word;
+  width: 100%;
+}
+.business-item-t{
+  display: flex;
+  padding: 0 30rpx;
+  padding-top:10rpx; 
+  box-sizing: border-box;
+  font-size: 30rpx;
+  justify-content: space-between;
+}
+.business-item-t view:nth-of-type(2){
+  font-family: DIN Regular;
+}
+.business-item-t view:nth-of-type(1){
+  font-size: 30rpx;
+  color: #999;
+}
+.but{
+  background: #478EEA;
+  padding: 5rpx 16rpx;
+  color: #fff;
+  width: 120rpx;
+  display: flex;
+  align-items: center;
+  border-radius: 10rpx;
+}
+.usetype{
+position: absolute;
+bottom:26%;
+right: 12rpx;
+width: 120rpx;
+height: 120rpx;
+}
+/*时间选择css*/
+.timeSelect{
+display: flex;
+justify-content: space-between;
+margin: 20rpx auto;
+background: #fff;
+padding: 20rpx 20rpx;
+box-sizing: box-border;
+margin-top: 0rpx;
+}
+.datatoday-s-o{
+  display: flex;
+  font-size: 28rpx;
+  color: #999;
+  padding: 5rpx 10rpx;
+  box-sizing: border-box;
+  border: #E3E3E3 solid 1rpx;
+  width: 240rpx;
+  justify-content: space-between;
+  align-items: center;
+}
+.picker{
+float: right;
+margin-top: 10rpx;
+width: 26rpx;
+height: 18rpx;
+}
+.smallRecord{
+  display: flex;
+  margin: 20rpx 0;
+}
+.smallRecord view:nth-of-type(2){
+  width: 38%;
+display: flex;
+justify-content: flex-end;
+}
+.smallRecord view:nth-of-type(3){
+  width: 46%;
+display: flex;
+justify-content: flex-end;
+}
+/*选择酒店样式*/
+.device-i-c{
+  position: relative;
+  display: flex;
+  display:-webkit-flex; 
+  justify-content: space-around;
+  -webkit-justify-content: space-around;
+  align-items: center;
+  -webkit-align-items: center;
+  height: 80rpx;
+  white-space:nowrap;    
+}
+.title{
+  font-size: 34rpx;
+  width: 33%;
+}
+.device-i-c input{
+  width: 67%;
+  border:#ccc solid 2rpx;
+  text-align: center;
+}
+.xia{
+  position: absolute;
+  top: 32rpx;
+  right: 10rpx;
+  height: 18rpx;
+width: 26rpx;
+}
+.xia-v{
+  z-index: 20;
+  box-sizing: border-box;
+  position: absolute;
+top: 60rpx;
+right: 0rpx;
+  width: 67%;
+  background: #fff;
+  border: 2rpx #999 solid;
+  height: 368rpx;
+  overflow-y: auto;
+  transition: height 0.3s；
+}
+.xia-v view{
+  width: 100%;
+  border-bottom: 2rpx #ccc solid;
+  text-align: center;
+  line-height: 50rpx;
+  word-wrap: break-word;
+}
+.freeCharge{
+  display: flex;
+  align-items: center;
+  font-size: 32rpx;
+  padding-left:10rpx; 
+  color: #333;
+}

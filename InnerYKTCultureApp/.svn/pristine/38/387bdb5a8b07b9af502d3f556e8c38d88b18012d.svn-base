@@ -1,0 +1,640 @@
+<!--pages/alittle/alittle.wxml-->
+
+<view style='width:0px;height:0px;overflow:hidden;'>
+  <canvas type="2d" canvas-id="imgCompressCanvas" style="width: {{icImgWidth}}px; height: {{icImgHeight}}px;"></canvas>
+</view>
+<v-folat id="myComponent" />
+<view class="width100">
+  <v-cheirapsisAlert id="chsAlert" pageName="luckdraw" />
+</view>
+<view class="opyunkeTop">
+  <!--轮播图-->
+  <swiper class="swiper plotyuqe" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}"
+    duration="{{duration}}">
+    <block wx:for="{{topBannerList}}" wx:for-item="item" wx:key="id" wx:for-index="index">
+      <swiper-item>
+        <view class="swiperimage">
+          <image mode="aspectFill" src="{{item.imgUrl}}?{{randomNum}}" class="slide-image" />
+        </view>
+      </swiper-item>
+    </block>
+    
+  </swiper>
+  <!--Top标题-->
+  <view class="titlederss">
+    <view class="tracetitle2">
+      <view class="mlerty">海岸城店
+        <view style="height:50rpx;margin-top:-26rpx;margin-left:80rpx;">
+          <view class="iconxy">
+            <image class="weui-iconxy " src="{{SMDataURL}}/images/greenscan.jpg" data-pagetype="0" data-package=""
+              data-page="scanCode" catchtap="gotoCommonPage"></image>
+          </view>
+        </view>
+      </view>
+      <view style="display:flex;  align-items: center;">
+
+        <view class="pat-t">
+          <!-- 0点餐 1外卖 -->
+          <view style="left:0;" data-num="0" class="sbye {{pagetype==0? 'colortype':''}}" catchtap="isHottype">堂食</view>
+          <view style="right:0;" data-num="1" class="sbye {{pagetype==1? 'colortype':''}}" catchtap="isHottype">外卖
+          </view>
+          <!-- <view class="pat-s-g {{pagetype==0? 'cost':''}}"></view> -->
+        </view>
+
+        <!-- 扫码按摩器后显示 -->
+        <block wx:if="{{agentDeviceId>0 || !isFilterCheirapsis}}">
+          <!-- <view class="messmeny" data-pagetype="0" data-package="packageVP" data-page="MywantMassage"
+            catchtap="gotoCommonPage">我要按摩</view> -->
+            <view class="messmeny" data-pagetype="0" data-package="packageVP" data-page="callServe"
+            catchtap="gotoCommonPage">呼叫服务</view>
+        </block>
+      </view>
+    </view>
+    <!-- <view class="notice">
+    <text>公告：</text>买饮品送按摩券,详情请见订购须知。</view> -->
+  </view>
+</view>
+
+<view class="mainContent">
+  <scroll-view scroll-y class="sortlist {{shoppingCartCnt==0?'sortlist2':''}}" catchtouchmove="{{false}}">
+    <block wx:for="{{selProcuctTypeList}}" wx:key="key">
+      <block wx:if="{{synCouponId>0}}">
+        <block wx:if="{{item.id==0}}">
+          <view class="{{index == selProductTypeIndex ? 'listpitch':''}}" bindtap="selectCatalog"
+            data-index="{{index}}">
+            {{item.name}}</view>
+        </block>
+      </block>
+      <block wx:else>
+        <view class="{{index == selProductTypeIndex ? 'listpitch':''}}" bindtap="selectCatalog" data-index="{{index}}">
+          {{item.name}}</view>
+      </block>
+    </block>
+  </scroll-view>
+  <view class="drinkitem" style="{{reptype?'padding-bottom: 300rpx;':''}}">
+    <!-- <view class="tracetitle">{{selProcuctTypeList[selProductTypeIndex].name}}</view> -->
+    <!-- 非拼团商品列表 -->
+    <block wx:if="{{gwNum==0}}">
+      <view class="tea" wx:for="{{dataArray}}" wx:key="key" wx:for-item="item" wx:for-index="index"
+        catchtap="{{item.mold==9 || synCouponId>0?'onchangedetailType':'viewProductDetail'}}" data-index="{{index}}">
+        <view class="tea-image">
+          <image class="milktea" mode="aspectFill" src="{{item.photo}}"></image>
+          <view class="tally" hidden="true">热卖</view>
+        </view>
+        <view class="tea-item">
+          <view class="teaname">{{item.productName}}</view>
+          <view class="teaintroduce">{{item.remark}}</view>
+          <view class="teaprice">￥{{item.showprice}}</view>
+          <view class="count" hidden="{{item.mold!=9}}">
+            <block wx:if="{{item.num >0}}">
+              <view class="adelnum" catchtap="changeCut" data-index="{{index}}"></view>
+              <view class="ufo">{{item.num}}</view>
+            </block>
+            <block wx:else>
+              <view></view>
+            </block>
+            <view class="addnum" catchtap="addProcuctnum" data-index="{{index}}"></view>
+          </view>
+          <view class="count" wx:if="{{item.mold != 9&&item.groupmold==8}}">
+            <image class="iconpin" src="{{SMDataURL}}/images/iconpin.png"></image>
+          </view>
+        </view>
+      </view>
+      <view class="tea" style="min-height:{{(5-dataArray.length)*150}}rpx" wx:if="{{dataArray.length<5}}"></view>
+    </block>
+    <!-- 拼团商品列表 -->
+    <block wx:else>
+      <view class="tea" wx:for="{{dataArray}}" wx:key="key" wx:for-item="item" wx:for-index="index"
+        catchtap="viewGWProductDetail" data-index="{{index}}">
+        <view class="tea-image">
+          <image mode="aspectFill" class="milktea" mode="aspectFill" src="{{item.photo}}"></image>
+        </view>
+        <view class="tea-item">
+          <view class="teaname">{{item.name}}</view>
+          <view class="teaintroduce">{{item.remark}}</view>
+          <view class="teaprice">￥{{item.spellGroupPrice}}</view>
+        </view>
+      </view>
+    </block>
+    <!--按摩器介绍-->
+    <view class="introduce">
+    <view data-pagetype="0" data-package="" data-page="massageIntroduced" catchtap="gotoCommonPage">
+      <image src="{{SMDataURL}}/images/amy-introduce2.png" class="osize"></image>
+      <text>按摩介绍</text>
+    </view>
+    <view catchtap="onchangeExplain">
+      <image src="{{SMDataURL}}/images/amy-explain2.png" class="osize"></image>
+      <text>使用说明</text>
+    </view>
+    <view catchtap="onchangeroof">
+      <image src="{{SMDataURL}}/images/amy-declare2.png" class="osize"></image>
+      <text>注意事项</text>
+    </view>
+    </view>
+  </view>
+
+
+  
+</view>
+<view class="tomcar" hidden="{{shoppingCartCnt==0}}"
+  style="{{isUploadImg||isPreviewImg?'z-index:19':''}} {{reptype?'bottom: 11%;':''}}">
+  <view class="caricon">
+    <view class="cariconab">
+      <!-- 购物车图标 -->
+      <block wx:if="{{shoppingCartCnt>0}}">
+        <view class="cariconre selectback" catchtap="onChagejudgment">
+          <image src="{{SMDataURL}}/images/shopping0.png"></image>
+          <view class="thingnum">{{shoppingCartCnt}}</view>
+        </view>
+      </block>
+      <block wx:else>
+        <view class="cariconre ">
+          <image src="{{SMDataURL}}/images/shopping.png"></image>
+        </view>
+      </block>
+    </view>
+  </view>
+  <view class="close">
+    <view class="close-price">总计
+      <text>￥{{shoppingCartAmount}}</text>
+      <view wx:if="{{pagetype==1}}" hidden="true" style="font-size: 24rpx;">单笔满60元,免费配送</view>
+    </view>
+    <block wx:if="{{shoppingCartCnt>0}}">
+      <view class="close-botton" catchtap="gotoPage">去结算</view>
+    </block>
+    <block wx:elif='{{shoppingCartCnt==0}}'>
+      <view class="close-botton">去结算</view>
+    </block>
+    <block wx:else>
+      <view class="close-botton">休息中</view>
+    </block>
+  </view>
+</view>
+<!--弹窗阴影-->
+<block wx:if="{{(shoppingCartCnt>0&&judgment)||detailType||chilType}}">
+  <view class="windowBackgroud" catchtap="emptyType"></view>
+</block>
+
+
+<!---购物车列表弹窗-->
+<view hidden="{{shoppingCartCnt==0}}" class="windowitem {{judgment?'':'windowout'}}"
+  style="{{reptype?'padding-bottom: 160rpx;':''}}">
+  <view class="milktop" id="milktop">
+    <view>已选商品</view>
+    <view class="milktop-Second" catchtap="clearShopCar">
+      <image src="{{SMDataURL}}/images/amy-alittledrinkdel.png"></image>清空
+    </view>
+  </view>
+  <scroll-view scroll-y="true" class="sroll" id="sroll" catchtouchmove="{{false}}">
+    <view class="itemdetil" wx:for="{{shopCarList}}" wx:key="key">
+      <view class="detilcont">
+        <view>{{item.productName}}</view>
+        <view>已选：{{item.showLabels}}</view>
+      </view>
+      <view class="detilprice">
+        <text>￥</text>{{item.amount}}
+      </view>
+      <view class="totalNum">
+        <!-- 如果为组合劵选择商品购买（仅允许购买一种商品，一个数量）则不允许增减操作 -->
+        <block wx:if="{{synCouponId>0}}">
+          <view class="ufo">{{item.num}}</view>
+        </block>
+        <block wx:else>
+          <view class="adelnum" data-tag="1" data-index="{{index}}" catchtap="changeDrinkNum"></view>
+          <view class="ufo">{{item.num}}</view>
+          <view class="addnum" data-tag="0" data-index="{{index}}" catchtap="changeDrinkNum"></view>
+        </block>
+
+      </view>
+    </view>
+  </scroll-view>
+</view>
+
+<!--饮品介绍弹窗-->
+<view class="commoditydetail {{detailType?'commoditydetailout':''}} ">
+  <scroll-view catchtouchmove="{{false}}" scroll-y="true" style="max-height:1040rpx;position:relative;">
+    <swiper class="swiper" indicator-dots="{{true}}" autoplay="{{autoplay}}" interval="{{interval}}"
+      duration="{{duration}}">
+      <swiper-item wx:for="{{dataArray[selectProductIndex].dPhotos}}" wx:key="key">
+        <view class="swiperimage">
+          <image src="{{item}}" class="slide-image" />
+        </view>
+      </swiper-item>
+    </swiper>
+    <view class="commod">
+      <view class="commodityName">{{dataArray[selectProductIndex].productName}}</view>
+      <view class="hendusk">
+        <view class="henduskprice">￥
+          <text>{{dataArray[selectProductIndex].showprice}}</text>
+        </view>
+        <view class="countt" style="bottom:0;">
+          <block wx:if="{{dataArray[selectProductIndex].num >0}}">
+            <view class="adelnum" catchtap="changeCut" data-index="{{selectProductIndex}}"></view>
+            <view class="ufo">{{dataArray[selectProductIndex].num}}</view>
+          </block>
+          <block wx:else>
+            <view></view>
+          </block>
+          <view class="addnum" catchtap="addProcuctnum" data-index="{{selectProductIndex}}"></view>
+        </view>
+      </view>
+      <text class="taste">{{dataArray[selectProductIndex].remark}}</text>
+    </view>
+    <view class="podelete">
+      <view class="delete" catchtap="onchangedetailType"></view>
+    </view>
+  </scroll-view>
+</view>
+
+<!--选择杯型/冰度/糖度/配料弹窗-->
+<view class="burdening {{chilType?'burdeningout':''}} {{reptype&&chilType?'burdeningout2':''}}"
+  style="{{isUploadImg||isPreviewImg?'z-index:19':''}}">
+  <view style="position: relative;">
+    <view class="ningOne">
+      <image src="{{dataArray[selectProductIndex].photo}}">
+      </image>
+      <view class="Onejieshao">
+        <view>{{dataArray[selectProductIndex].productName}}</view>
+        <view>{{dataArray[selectProductIndex].showSelectLabels}}</view>
+        <view>￥
+          <text>{{dataArray[selectProductIndex].sumprice}}</text>
+        </view>
+      </view>
+    </view>
+    <scroll-view scroll-y style="margin-top: 20rpx;max-height:680rpx;">
+      <block wx:for="{{dataArray[selectProductIndex].detail}}" wx:for-item="item" wx:for-index="index" wx:key="key">
+        <!-- 判断是否是打印图案的商品 -->
+        <block wx:if="{{dataArray[selectProductIndex].photoType==2 && index==0}}">
+          <!--打印图片：1、系统创作库-->
+          <block wx:if="{{pSysImgList.length>0}}">
+            <view class="typeTitle">选择图片
+              <text class="luitex">（您可以从图案库中选择一款你喜欢的图案）</text>
+              <view class="bster" data-est="1" data-otherparams="stype=0" data-pagetype="0" data-package="packageVP" data-page="CYmapdepot" catchtap="gotoCommonPage">
+                更多 <image src="{{SMDataURL}}/images/cy-alitgd.png"></image>
+              </view>
+            </view>
+            <view class="selectCup">
+              <view class="Cup-list2">
+                <!-- 已选中项 -->
+                <block wx:if="{{selPImgItem && selImgType==0 && !isSelInList}}">
+                  <view class="Cup-z2 Cup-z2Succ" data-self="1" data-stype="0" catchtap="selectCustomizeImg">
+                    <view class="Cup-text2">{{selPImgItem.name}}</view>
+                    <!--隐藏未有的ID号-->
+                    <block wx:if="{{false}}">
+                      <view class="Cup-text2" style="color: #747474;">ID:5493465</view>
+                    </block>
+                    <image  data-self="1" data-stype="0" data-isprev="1" catchtap="selectCustomizeImg" src="{{selPImgItem.path}}"></image>
+                    <!--隐藏未有的点击数-->
+                    <block wx:if="{{selPImgItem.print_num>0}}">
+                      <view class="numbop">
+                        <image src="{{SMDataURL}}/images/cy-alitxzl.png"></image><text>{{selPImgItem.print_num}}</text>
+                      </view>
+                    </block>
+                  </view>
+                </block>
+                
+                <view class="Cup-z2 {{selSysImgIndex==imageindex && selImgType==0?'Cup-z2Succ':''}}" wx:for="{{pSysImgList}}"
+                  wx:key='key' wx:for-item="imageitem" wx:for-index="imageindex" data-stype="0" catchtap="selectCustomizeImg"
+                  data-index="{{imageindex}}">
+                  <!-- <view class="{{selSysImgIndex==imageindex?'Cup-text selectSucces':'Cup-text'}}"> -->
+                  <view class="Cup-text2">{{imageitem.name}}</view>
+                  <!--隐藏未有的ID号-->
+                  <block wx:if="{{false}}">
+                    <view class="Cup-text2" style="color: #747474;">ID:5493465</view>
+                  </block>
+                  <image data-tag="0" data-index="{{imageindex}}" data-stype="0" data-isprev="1" catchtap="selectCustomizeImg" src="{{imageitem.path}}"></image>
+                  <!--隐藏未有的点击数-->
+                  <block wx:if="{{imageitem.print_num>0}}">
+                    <view class="numbop">
+                      <image src="{{SMDataURL}}/images/cy-alitxzl.png"></image><text>{{imageitem.print_num}}</text>
+                    </view>
+                  </block>
+                </view>
+              </view>
+              <!--自定义图案-->
+              <block wx:if="{{cycyVersion==1}}">
+                <view class="{{selSysImgIndex<0?'seucces2 selectSucces':'seucces2 '}}"
+                  catchtap="selectCustomizeImg" data-index="-1">自定义图案
+                  <text>￥{{customizeImgPrice}}</text>
+                  <text class="buskl">（您可以上传自己的图片）</text>
+                </view>
+                <view class="bnkol">
+                  <view class="bnkol-z">
+                    <view class="potueimg">
+                      <block wx:if="{{selUploadImgUrl==''}}">
+                        <view class="addimg-img"  data-type="0" catchtap="uploadImg">
+                          <image mode="aspectFit" src="{{SMDataURL}}/images/amy-kaobei.png" ></image>
+                        </view>
+                      </block>
+                      <block wx:else>
+                        <image mode="aspectFit" src="{{selUploadImgUrl}}" data-tag="1" data-index="-1" data-isprev="1"
+                          catchtap="preUploadPrintImage"></image>
+                      </block>
+                    </view>
+                    <block wx:if="{{selUploadImgUrl!=''}}">
+                      <view class='bttbshy' data-type="0" catchtap="uploadImg">重新上传</view>
+                    </block>
+                  </view>
+                </view>
+              </block>
+            </view>
+          </block>
+
+          <!-- 如果为第二版本 -->
+          <block wx:if="{{cycyVersion==2}}">
+            <!--打印图片：2、茶友创作库-->
+            <block wx:if="{{pOtherImgList.length>0}}">
+              <!--茶友创作库-->
+              <view class="typeTitle" style="margin-top:20rpx;">茶友创作库
+                <view class="bster" data-est="1" data-otherparams="stype=1" data-pagetype="0" data-package="packageVP" data-page="CYmapdepot" catchtap="gotoCommonPage">
+                  更多 <image src="{{SMDataURL}}/images/cy-alitgd.png"></image>
+                </view>
+              </view>
+              <view class="Cup-list2">
+                <!-- 已选中项 -->
+                <block wx:if="{{selPImgItem && selImgType==1 && !isSelInList}}">
+                  <view class="Cup-z2 Cup-z2Succ" data-self="1" data-stype="1" catchtap="selectCustomizeImg">
+                    <view class="Cup-text2">{{selPImgItem.name}}</view>
+                    <!--隐藏未有的ID号-->
+                    <block wx:if="{{false}}">
+                      <view class="Cup-text2" style="color: #747474;">ID:5493465</view>
+                    </block>
+                    <image  data-self="1" data-stype="1" data-isprev="1" catchtap="selectCustomizeImg" src="{{selPImgItem.path}}"></image>
+                    <!--隐藏未有的点击数-->
+                    <block wx:if="{{selPImgItem.print_num>0}}">
+                      <view class="numbop">
+                        <image src="{{SMDataURL}}/images/cy-alitxzl.png"></image><text>{{selPImgItem.print_num}}</text>
+                      </view>
+                    </block>
+                  </view>
+                </block>
+
+                <view class="Cup-z2 {{selSysImgIndex==imageindex && selImgType==1?'Cup-z2Succ':''}}" wx:for="{{pOtherImgList}}"
+                  wx:key='key' wx:for-item="imageitem" wx:for-index="imageindex" data-stype="1" catchtap="selectCustomizeImg"
+                  data-index="{{imageindex}}">
+                  <view class="Cup-text2">{{imageitem.name}}</view>
+                  <!-- <view class="Cup-text2" style="color: #747474;">ID:5493465</view> -->
+                  <image data-tag="0" data-index="{{imageindex}}" data-stype="1" data-isprev="1" catchtap="selectCustomizeImg" src="{{imageitem.path}}"></image>
+                  <block wx:if="{{imageitem.print_num>0}}">
+                    <view class="numbop">
+                      <image src="{{SMDataURL}}/images/cy-alitxzl.png"></image><text>{{imageitem.print_num}}</text>
+                    </view>
+                  </block>               
+                </view>
+              </view>
+              
+            </block>
+            <!--打印图片：3、我的创作库-->
+            
+            <view class="typeTitle" style="margin-top:20rpx;">我的创作
+              <view class="bster" data-est="1" data-otherparams="stype=2" data-pagetype="0" data-package="packageVP" data-page="CYmapdepot" catchtap="gotoCommonPage">
+                更多 <image src="{{SMDataURL}}/images/cy-alitgd.png"></image>
+              </view>
+            </view>
+            <view class="Cup-list2">
+              <view class="Cup-z2" data-otherparams="stype=2&act=1" data-pagetype="0" data-package="packageVP" data-page="CYmapdepot" catchtap="gotoCommonPage">
+                <view class="Cup-text2but">新创作</view>
+                <view class="omfhesimg">
+                  <image src="{{SMDataURL}}/images/cy-alitbj.png"></image>
+                </view>
+                <view class="numbop">
+                </view>
+              </view>
+
+              <!-- 已选中项 -->
+              <block wx:if="{{selPImgItem && selImgType==2 && !isSelInList}}">
+                <view class="Cup-z2 Cup-z2Succ" data-self="1" data-stype="2" catchtap="selectCustomizeImg">
+                  <view class="Cup-text2">{{selPImgItem.name}}</view>
+                  <!--隐藏未有的ID号-->
+                  <block wx:if="{{false}}">
+                    <view class="Cup-text2" style="color: #747474;">ID:5493465</view>
+                  </block>
+                  <image  data-self="1" data-stype="2" data-isprev="1" catchtap="selectCustomizeImg" src="{{selPImgItem.path}}"></image>
+                  <!--隐藏未有的点击数-->
+                  <block wx:if="{{selPImgItem.print_num>0}}">
+                    <view class="numbop">
+                      <image src="{{SMDataURL}}/images/cy-alitxzl.png"></image><text>{{selPImgItem.print_num}}</text>
+                    </view>
+                  </block>
+                </view>
+              </block>
+
+              <view class="Cup-z2 {{selSysImgIndex==imageindex && selImgType==2?'Cup-z2Succ':''}}" wx:for="{{pMyImgList}}"
+                wx:key='key' wx:for-item="imageitem" wx:for-index="imageindex" data-stype="2" catchtap="selectCustomizeImg"
+                data-index="{{imageindex}}" wx:if="{{imageindex != 3}}">
+                <view class="Cup-text2">{{imageitem.name}}</view>
+                <!-- <view class="Cup-text2" style="color: #747474;">ID:5493465</view> -->
+                <image data-tag="0" data-index="{{imageindex}}" data-stype="2" data-isprev="1" catchtap="selectCustomizeImg" src="{{imageitem.path}}"></image>
+                <block wx:if="{{imageitem.print_num>0}}">
+                  <view class="numbop">
+                    <image src="{{SMDataURL}}/images/cy-alitxzl.png"></image><text>{{imageitem.print_num}}</text>
+                  </view>
+                </block> 
+              </view>
+              
+            </view>
+          </block>
+          
+        </block>
+
+
+        <view class="typeTitle" style="{{index==1?'margin-top:10rpx;':''}}">{{item.attributeOne}}</view>
+        <view class="selectCup">
+          <block wx:for="{{item.labels}}" wx:for-item="labelitem" wx:for-index="labelindex" wx:key="id">
+            <view class="seucces {{labelitem.checked? 'selectSucces':''}}"
+              catchtap="{{labelitem.available>0?'selectProductLabels':''}}" data-index="{{index}}"
+              data-labelindex="{{labelindex}}">{{labelitem.lblname}}
+              <text wx:if="{{labelitem.lblsingle==0}}">￥{{labelitem.lblprice}}</text>
+              <!-- 无货 -->
+              <view wx:if="{{labelitem.available==0}}" class="pomilk"></view>
+            </view>
+          </block>
+        </view>
+      </block>
+
+    </scroll-view>
+    <view class="butTure" catchtap="selectOK">选好了</view>
+    <view class="poete">
+      <view class="ete" catchtap="changechilType"></view>
+    </view>
+  </view>
+</view>
+
+<!--编辑图片弹窗-->
+<view class="editAimage" wx:if="{{false}}">
+  <view style="position: relative;">
+    <view class="mlitt" style="margin-top:40rpx">
+      <view style="text-indent: 0rem;">注：</view>
+      <view>图片上传大小控制在30mm*50mm最佳。</view>
+      <view>上传图片后可以拖动图片位置区域进行简单调整.</view>
+      <view>最多可以输入20个字符</view>
+    </view>
+    <view class="editAimagetitle">
+      编辑
+    </view>
+    <view class="mlitt" style="width: 440rpx;">
+      <image class="miu" src="{{SMDataURL}}/images/mulist.png"></image>
+      <view>
+        <movable-area class="movearea" id="area">
+          <view style="position: relative;">
+            <image catchtap="Touptch" wx:if="{{imagedddType}}" class="noemse" src="{{SMDataURL}}/images/amy-kaobei.png">
+            </image>
+            <movable-view wx:if="{{!imagedddType}}" id="areaimage" style="{{buuunum==2? 'z-index: 15;':''}}"
+              bind:touchstart="changeball" bind:touchend="changeba" data-tag="0" class="movearea-image" direction="all"
+              x="{{imagerollX}}" y="{{imagerollY}}">
+              <image mode="scaleToFill" src="{{imagePath}}" style="transform: translateX(-8px);"></image>
+            </movable-view>
+            <movable-view bind:touchstart="changeball" style="{{buuunum==1? 'z-index: 15;':''}}" id="areainput"
+              class="movearea-input" direction="all" bind:touchend="changeba" data-tag="1" x="{{inputrollX}}"
+              y="{{inputrollY}}">
+              <textarea value="{{money}}" style="text-indent: 0rem;" maxlength="{{20}}"
+                placeholder="这里最多可以显示二十个字符，不信你数数。" bindinput="changeinpoy"> </textarea>
+            </movable-view>
+          </view>
+        </movable-area>
+      </view>
+    </view>
+    <view class="renbt" catchtap="formSubmit">
+      确定
+    </view>
+  </view>
+</view>
+<!--生成图片cavas-->
+<view class="canvas-box">
+  <canvas id="canvas" style="width:408px;height: 231px; " canvas-id="mycanvas" />
+</view>
+<!--预览图片-->
+<view class="Imageyulan" wx:if="{{isPreviewImg}}">
+  <view style="position: relative;">
+    <view class="bmsktitle">预览</view>
+    <view class="mlistdusk">
+      <image class="sss1" src="{{SMDataURL}}/images/mulist.png"></image>
+      <view class="topComponent">
+        <image class="sss2"
+          src="{{isPreUploadPrintImage?selUploadImgUrl:selPImgItem.path}}">
+        </image>
+      </view>
+    </view>
+    <image class="mlxc6" catchtap="hidePreviewImageDetail" src="{{SMDataURL}}/images/cleardel.png"></image>
+  </view>
+</view>
+
+  <!--使用说明弹窗-->
+  <block wx:if="{{explaintype}}">
+    <view catchtouchmove="true">
+      <view class="tanChuan" catchtap="onchangeExplain">
+        <view class="close2">
+          <view style="width:100%;height:100%;position: relative;" catchtap="onchangeExplain">
+            <view class="close-o"></view>
+            <view class="close-t"></view>
+          </view>
+        </view>
+      </view>
+      <view style="background:#FACD91;" class="tanChuan-v">
+        <scroll-view class="tanChuan-v-t" scroll-y="true">
+          <view class="struction">
+            <view class="title" style="font-size:30rpx;">
+              使用说明
+            </view>
+            <view>
+              <view class="content">1、详细阅读“{{sysName}}”使用注意事项、了解产品的使用要求。</view>
+              <view class="content roof">2、检查产品的电源、电路有无破损，确保使用安全。</view>
+              <view class="content roof">3、准备按摩前请务必佩戴脚套，讲究卫生。</view>
+              <view class="content roof">4、首页每天都赠送一次免费抽奖机会，多种免费按摩时长等你来拿，千万不要错过。</view>
+              <view class="content roof">5、购买按摩时间、或使用按摩劵，点击“开始”按钮后，按摩器开始运行。注：当按摩器开始运作倒计时的时候，如您在倒计时过程中点击暂停，设备会停止，但是倒计时依旧会继续，直到体验分钟数结束为止。</view>
+              <view class="content roof">6、当按摩器启动时，默认为“正转”模式，除此之外，您还可以根据需要来切换“反转”和“捂脚”模式。</view>
+              <view class="content roof">7、按摩器共有五档，启动时强度默认为三挡，您可根据按摩的力度大小进行调节。（1挡为最弱，5挡为最强）</view>
+              <view class="content roof">8、按摩器启动时，默认为“加热”模式，您可根据需要来调节成“不加热”。</view>
+              <view class="content roof">9、保持舒适的体态，开始足部按摩。</view>
+              <view class="content roof">10、按摩结束后，请将按摩器放置到安全的位置，以免造成绊倒，和方便二次使用。</view>
+            </view>
+            <view class="content roof">按摩可以放松我们的身体，双脚作为我们平时行走站立的关键部位，每天都承担着大量的工作，久而久之十分疲累，所以我们也应在每天对双脚进行按摩放松，这样有益我们的健康，长此以往，还能增加我们的寿命。</view>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+  </block>
+
+  <!--注意事项弹窗-->
+  <block wx:if="{{roof}}">
+    <view height="1500rpx" width="100%" catchtouchmove="true">
+      <view class="tanChuan" catchtap="onchangeroof">
+        <view class="close2">
+          <view style="width:100%;height:100%;position: relative;" catchtap="onchangeroof">
+            <view class="close-o"></view>
+            <view class="close-t"></view>
+          </view>
+        </view>
+      </view>
+      <view style="background:#FACD91;" class="tanChuan-v">
+        <scroll-view class="tanChuan-v-t" scroll-y="true">
+          <!--新板块内容-->
+          <view class="struction">
+            <view class="title" style="font-size:30rpx;">
+              重要安全事项说明
+            </view>
+            <view>
+              <view class="content">●为确保安全及正确使用产品，使用前请务必详细参阅操作手册。</view>
+              <view class="content roof">●请务必依照本操作手册内的产品用途使用本产品。</view>
+              <view class="content roof">●使用完毕后或清洁产品前，请将电源插头从插座中拔除。</view>
+              <view class="content roof">●请务必谨慎使用温热功能，避免灼伤。</view>
+              <view class="content roof">●请勿用于感觉迟钝和过于敏感的皮肤，血液循环不良的部位，切勿让儿童或者身心功能障碍者自行使用温热功能，操作不当可能存在危险。</view>
+              <view class="content roof">●为避免因过热而导致走火、触电、或造成伤害，请勿将产品在枕头或毯子下操作。</view>
+              <view class="content roof">●请勿覆盖使用，以免造成马达温度过高而导致故障或损坏。</view>
+              <view class="content roof">●若儿童，身心功能障碍与伤残者使用该产品，需要有旁人指导且能负责其安全。</view>
+              <view class="content roof">●如在按摩进行中感到不适，请立即停止按摩。</view>
+              <view class="content roof">●如果电源线破损时，请立即停止使用，关闭电源开关，将电源线拔离插座，必须到制造商、代理商处修理或更换，以避免危险。</view>
+              <view class="content roof"> ●为确保安全及正确使用产品，使用前请务必详细参阅操作手册。</view>
+              <view class="content roof">●请勿使用非制造商所推荐的零部件。</view>
+              <view class="content roof">●若想切断电源，请将所有的操作控制关闭后，将电源插头由插座中拔除。</view>
+              <view class="content roof">●本产品不能作为自我诊断或治疗之用，如需要诊断或治疗，应由专业医疗人员处理。</view>
+              <view class="content roof">●器具表面发热，对热不敏感的人，使用时必须注意。</view>
+            </view>
+            <view class="title" style="font-size:30rpx;">
+              使用环境
+            </view>
+            <view>
+              <view class="content">●请勿在潮湿或过多灰尘的环境下使用产品，以免产品发生故障。</view>
+              <view class="content roof">●请勿在室温高于40℃的环境下使用本产品。</view>
+              <view class="content roof">●请勿将产品放置户外。</view>
+              <view class="content roof">●请勿将产品置放于电热器旁、炉具附近或者阳光直射处。</view>
+            </view>
+            <view class="title" style="font-size:30rpx;">
+              不适应本产品的人士
+            </view>
+            <view>
+              <view style="color: #666;line-height: 48rpx;font-size:30rpx;">如果您有以下情形，使用前请先咨询医生。</view>
+              <view class="content">●正在接受医生治疗者或身体感觉不适者。</view>
+              <view class="content roof">●高血压、心脏病、脑动脉硬化、脑血栓患者。</view>
+              <view class="content roof">●患有恶性肿瘤者。</view>
+              <view class="content roof">●患有骨骼疏松症。</view>
+              <view class="content roof">●孕妇及月经期妇女。</view>
+              <view class="content roof">●正在使用心脏起搏器或者植入医疗器者。</view>
+              <view class="content roof">●患有急性疾病者。</view>
+              <view class="content roof">●未成年人。</view>
+            </view>
+          </view>
+          <view class="title" style="font-size:30rpx;">
+            开关注意事项
+          </view>
+          <view>
+            <view class="content">●请勿用湿手操作控制开关。</view>
+            <view class="content roof">●请勿让控制开关接触水等液体。</view>
+          </view>
+          <view class="title" style="font-size:30rpx;">
+            注意！
+          </view>
+          <view>
+            <view class="content">●请勿在产品操作时入睡。</view>
+            <view class="content roof">●请勿在酒醉或身体不适时使用本产品。</view>
+            <view class="content roof">●请勿直接将按摩头贴近手部、手肘关节、膝盖、胸部或腹部。</view>
+            <view class="content roof">●连续使用本产品时间请勿超过三十分钟。</view>
+            <view class="content roof">●若产品的布套已经破损，请勿使用。</view>
+            <view class="content roof">●请勿在进食前后一小时使用，以免造成反效果。</view>
+            <view class="content roof">●在偏低室温中使用产品时，切勿骤然使用温热功能，建议将温度逐渐调至正常范围后再使用。</view>
+            <view class="content roof">●若是将产品由低温储存处移至温暖环境使用时，可能会因为机件内水汽聚集而影响产品的正常运作，甚至造成机件故障。建议移动后，先将产品在正常室温放置一小时后再开机使用。</view>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+  </block>

@@ -1,0 +1,83 @@
+<!--pages/shopcar/shopcar.wxml-->
+<view class="main">
+  <view wx:if="{{isHaveDataList}}">
+    <view class="cart-box" style='height:100%;'>
+      <scroll-view scroll-y="true" style="height:100%;position: relative;padding-top:0rpx;"
+        bindscrolltolower="bindDownLoad" bindscrolltoupper="bindTopLoad" scroll-with-animation="true">
+        <view id="top"></view>
+        <view class="cart-shop">
+
+          <block wx:for="{{dataArray}}" wx:for-item="articles" wx:key="key" wx:for-index="dataArrayIndex">
+            <block wx:for="{{articles}}" wx:for-item="item" wx:key="id" wx:for-index="index">
+              <view class="cart-store">
+                <view class="ashopname {{item.isShowShopInfo?'show':'hide'}}" data-shopid='{{item.shopId}}'
+                  catchtap='viewShopDetail'>
+                  <image class="storelogo" mode="aspectFit" src="{{item.shopLogo}}"></image>
+                  <text class="storename">{{item.shopName}}</text>
+                  <view class="storeicon">{{item.shopType}}</view>
+                  <image class="fright" src="{{DataURL}}/images/unfold.png"></image>
+                </view>
+                <view class="cart-list">
+                  <view class="shopdetails">
+                    <block wx:if="{{!item.isSuffStock}}">
+                      <!-- 暂无库存显示 -->
+                      <!-- <view class="nokucun"></view> -->
+                      <view class="nokucuntips">暂无库存</view>
+                      <!-- 暂无库存显示 -->
+                    </block>
+
+                    <icon wx:if="{{item.isSel && item.isSuffStock}}" type="success" class="cart-pro-select"
+                      color="#0066eb" data-dindex='{{dataArrayIndex}}' data-index="{{index}}"
+                      catchtap="{{item.isSuffStock?'selectShoppingCartItem':''}}" />
+                    <icon wx:else type="circle" class="cart-pro-select" data-dindex='{{dataArrayIndex}}'
+                      data-index="{{index}}" catchtap="{{item.isSuffStock?'selectShoppingCartItem':''}}" />
+
+                    <image mode="scaleToFill" class="cart-thumb" src="{{item.photos}}?{{randomNum}}"
+                      data-src='{{item.photos}}' catchtap="viewImg"></image>
+                    <view class='cart-infor'>
+                      <text class="cart-pro-name" data-id="{{item.pid}}" data-did='{{item.productDetailId}}'
+                        catchtap='viewProductDetail'>{{item.productName}}</text>
+                      <text class="cart-pro-no" data-id="{{item.pid}}" data-did='{{item.productDetailId}}'
+                        catchtap='viewProductDetail'>{{item.productNo}}</text>
+                      <view class='cart-norms'>
+                        {{item.isHaveTwo?item.attributeOne+' '+item.attributeTwo:item.attributeOne+item.attributeTwo}}
+                      </view>
+                      <view class='cart-moeny'>
+                        <view class='cart-pro-price'>￥<text>{{item.price}}</text></view>
+                        <view class="cart-count-box">
+                          <text class="cart-count-down" data-dindex='{{dataArrayIndex}}' data-index="{{index}}"
+                            data-tag='-' catchtap='computeItemCount'>-</text>
+                          <text class="cart-count-num">{{item.num}}</text>
+                          <text class="cart-count-add" data-dindex='{{dataArrayIndex}}' data-index="{{index}}"
+                            data-tag='+' catchtap='computeItemCount'>+</text>
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </block>
+          </block>
+        </view>
+        <view id="bottom"></view>
+      </scroll-view>
+
+    </view>
+    <view class="cart-footer">
+      <view class='shoppay'>
+        <view class='total'>合计：<text class='total-text'>￥<text>{{totalPrice}}</text></text></view>
+        <view class='privilege'>优惠：<text>￥{{discountAmount}}</text></view>
+      </view>
+      <view class='now-pay fright' catchtap='gotoPayItems'>提交订单</view>
+    </view>
+  </view>
+  <view wx:else>
+    <view class="cart-no-data">购物车是空的哦~</view>
+  </view>
+</view>
+<!-- 跳转微官网 -->
+<block wx:if="{{isFromSApp}}">
+  <view class="tiaozhuang" catchtap="returnMicroSiteApp">
+    <image class="upimage fright" src='{{DataURL}}/images/tiaozhuang.png'></image>返回微官网
+  </view>
+</block>

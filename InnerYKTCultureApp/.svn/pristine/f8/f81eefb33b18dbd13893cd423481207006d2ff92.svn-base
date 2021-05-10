@@ -1,0 +1,57 @@
+/* pages/walletdetail/walletdetail.wxss */
+/* 上拉下拉所需设置 */
+page{
+  height:100%
+}
+.walletlist{
+  width: 92%;
+  height: 170rpx;
+  border-bottom: solid 2rpx #e5e5e5;
+  margin: 0 auto;
+  padding: 10rpx 0;
+}
+
+.walletlist-name{
+  height: 56rpx;line-height: 56rpx;
+  margin-top: 10rpx;
+  font-weight: 580;
+  font-size: 30rpx;
+  color: #222;
+
+}
+.walletlist-content{
+  height: 56rpx;line-height: 56rpx;
+  margin-top: 10rpx;
+  font-size: 30rpx;
+  color: #222;
+
+}
+.walletlist-time{
+  font-size: 28rpx;
+  color: #999;
+}
+.sum{
+  height: 114rpx;
+  line-height: 114rpx;
+  color: #333;
+  font-family: 'DIN1';
+  font-size: 32rpx;
+}
+.sum text{margin-right: 12rpx;}
+.addsum{
+   color: #136fe6;
+}
+.balance{
+  width: 92%;
+  height: 80rpx;
+  line-height: 80rpx;
+  margin: 0 auto;
+  text-align: right;
+  border-bottom: solid 2rpx #e5e5e5;
+  color: #333;
+}
+.balance text{
+  font-family: "DIN1";
+  padding: 0 12rpx;
+  color: #136fe6;
+}

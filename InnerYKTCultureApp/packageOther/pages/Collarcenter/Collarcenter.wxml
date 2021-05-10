@@ -1,0 +1,36 @@
+<!--packageOther/pages/Collarcenter/Collarcenter.wxml-->
+<view class="collarceter">
+  <view class="collar-coupon">
+    <block wx:for="{{articles}}" wx:for-item="item" wx:key="couponid" wx:for-index="index">
+      <view class="collarA">
+        <view class="Iget {{!item.isGet?'hide':'show'}} "></view> <!-- 已领取显示遮罩层 -->
+        <view class="leftradius"></view>
+        <view class="rightradius"></view>
+        <view class="collarA-top">
+          <view class="coupon-value">￥<text>{{item.discount}}</text></view>
+          <view class="coupon-term" wx:if="{{item.mold == 0}}">
+            <text>满减劵</text>
+            <text>满{{item.full}}可用</text>
+          </view>
+          <view class="coupon-term" wx:if="{{item.mold == 1}}">
+            <text>抵扣券</text>
+          </view>
+          <block wx:if="{{!item.isGet}}">
+            <view class="coupon-btn" data-id="{{item.couponid}}" catchtap="getCoupon">立即领取</view>
+          </block>
+          <block wx:else>
+            <view class="coupon-btn1">您已领取</view>
+          </block>
+        </view>
+        <view class="collarA-bottom">
+          <view class="coupon-time">有效期至：<text>领取后有效期 {{item.validday}} 天</text></view>
+          <view class="coupon-usable">
+            <view>适用范围：</view>
+            <view>{{item.productNames.length>0?item.productNames:item.typename}}</view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>
+

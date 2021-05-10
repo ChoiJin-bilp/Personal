@@ -1,0 +1,36 @@
+<!--packageYK/pages/generated/generated.wxml-->
+<view class="specifications">
+  <view class="apartOf" wx:for="{{modelList}}" wx:key="key" wx:for-item="item" wx:for-index="index">
+    <view class="selectClassify">
+      <view class="ClassifyName">
+        <view>分类名称</view>
+        <view class="classifySecondly" catchtap="onchangeCatetype">
+          <input bindinput="getInput" data-type="0" value="{{item.attributeOne}}" data-index="{{index}}"></input>
+        </view>
+      </view>
+      <view class="classdelbut" catchtap="deleteModel" data-index="{{index}}">删除</view>
+    </view>
+    <view class="susetbuju" wx:for="{{item.labels}}" wx:key="key" wx:for-item="itemLabel" wx:for-index="itemindex">
+      <view class="suset">
+        <text>规格</text>
+        <view class="classifySecondly bfuoeco">
+          <input value="{{itemLabel.lblname}}" bindinput="getInput" data-type="1" data-tag="0" data-index="{{index}}"
+            data-itemindex="{{itemindex}}"></input>
+        </view>
+        <view class="delcompile">
+          <view>售价
+            <input type="number" bindinput="getInput" data-type="1" data-tag="1" data-index="{{index}}"
+              data-itemindex="{{itemindex}}" value="{{itemLabel.lblprice}}"></input>
+            元
+          </view>
+          <image src="{{SMDataURL}}/images/amy-ksudush.png" catchtap="deleteLabel" data-index="{{index}}"
+            data-itemindex="{{itemindex}}"></image>
+        </view>
+      </view>
+    </view>
+    <image class="drinkOadd" src="{{SMDataURL}}/images/amq-drinkOadd.png" catchtap="addLabel" data-index="{{index}}"
+      data-itemindex="{{itemindex}}"></image>
+  </view>
+  <view class="addBut" catchtap="addNew">新增规格</view>
+  <view class="submitBut" catchtap="save">保存</view>
+</view>

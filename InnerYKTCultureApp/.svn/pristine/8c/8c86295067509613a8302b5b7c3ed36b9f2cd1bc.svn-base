@@ -1,0 +1,125 @@
+<!--packageOther/pages/successDetailspa/successDetailspa.wxml-->
+<view hidden="{{order==''}}">
+<!-- <view hidden="{{false}}"> -->
+  <view class="width100 succeed">
+    <view class="paysuc">
+      <view class="pay-suc">
+        <image src="{{DataURL}}/images/amq-xiadan.png"></image>
+        <text>下单成功</text>
+      </view>
+      <view wx:if="{{order.linkNo==9}}" class="paleft">号牌:{{order.sn}}</view>
+      <view wx:else class="paleft">号牌:{{order.sn}} {{order.area==''?'':'座位号:'}}{{order.area}}</view>
+    </view>
+  </view>
+  
+  <!--新增按摩劵样式-->
+  <view class="newPostie" wx:if="{{num>0&&showcoupon!=0}}">
+    <block wx:if="{{isMultipleCoupon}}">
+      <block wx:for="{{payGetCheirapsisList}}" wx:for-item="item" wx:for-index="index" wx:key="src">
+        <view class="Postie-font">
+          <view>恭喜您获得</view>
+          <view class="Postie-z">
+            <view class="ghounbf">{{item.duration}}分钟</view>
+            <view class="Fontplist">免费足底按摩</view>
+          </view>
+        </view>
+        <view class="whsmallfont">如未使用，后续可以在“我的按摩券”记录中开启使用</view>
+        <view class="bserpt">
+          <view class="bunnrserpt" wx:if="{{item.isUse==0}}" data-chg="0" data-tag="1" data-item="{{item}}" catchtap="useMyAward">开始按摩</view>
+          <view wx:else class="bunnrserpt">已使用</view>
+          <view class="bunnrserpt" data-chg="1" data-tag="0" catchtap="useMyAward">换一台按摩器</view>
+        </view>
+      </block>
+    </block>
+  </view>
+
+  <!--订单商品-->
+  <view hidden="{{order.linkNo!=9}}" class="delivery">
+    <image src="{{DataURL}}/images/any-dressmanb.png"></image>
+    <view class="dressItem">
+      <view><text>{{order.area}}</text>{{order.address}}</view>
+      <view>{{order.oname}}<text>{{order.ophone}}</text></view>
+    </view>
+    <view></view>
+  </view>
+
+  <view class="buss">
+    <view class="buss-title">订单商品</view>
+    <view class="buss-item" wx:for="{{order.detail}}" wx:key="key">
+      <view class="it-o">
+        <image src="{{item.detailPhotos}}"></image>
+        <view class="diff" style="position: relative;">
+          <view>{{item.productName}}
+            <block wx:if="{{item.lblnames==null}}">({{item.attributeOne}}{{item.attributeTwo}})</block>
+            <view class="yulan" wx:if="{{synimageList.length>0}}" style="color:#fff;font-size: 24rpx;"
+              catchtap="changeTpe" data-index="{{index}}" hidden="{{synimageList[index]==''}}"><image src="{{synimageList[index]}}"></image>
+            </view>
+          </view>
+          <!-- <view>× {{item.number}}</view> -->
+          <view class="itself">
+            <text wx:if="{{item.lblnames!=null}}" style="font-size: 24rpx;">{{item.lblnames}}</text>
+          </view>
+          <view class="itself">×{{item.number}}</view>
+        </view>
+      </view>
+      <view class="it-t">
+        ￥{{item.amount}}
+      </view>
+    </view>
+    <view class="totalny" wx:if="{{order.coupons.length>0}}" style="color:#FF3333;font-size: 24rpx;padding-top: 0rpx;">
+      （优惠券-￥{{order.coupondiscount}}）</view>
+    <view wx:else class="totalny" hidden="{{order.payamount==order.amount}}"
+      style="color:#FF3333;font-size: 24rpx;padding-top: 0rpx;">（预定-￥8）</view>
+    <view class="buss-bottom">
+      <view>合计</view>
+      <view class="it-t it-t-t">实付：￥{{order.sum}}元</view>
+    </view>
+  </view>
+  <view class="buss">
+    <view class="buss-title">订单详情</view>
+    <view class="buss-item">
+      <view class="itemcolor">就餐方式</view>
+      <view class="itemcolort">{{order.linkNo==9?'外卖':order.way==71?"堂食":"外带"}}</view>
+    </view>
+    <view class="buss-item">
+      <view class="itemcolor">商家名称</view>
+      <view class="itemcolort">{{order.companyName}}</view>
+    </view>
+    <view class="buss-item">
+      <view class="itemcolor">下单时间</view>
+      <view class="itemcolort">{{order.create_date}}</view>
+    </view>
+    <view class="buss-item" hidden="{{order.deliverytime==null}}">
+      <view class="itemcolor">{{order.linkNo==8?'取餐时间':'预计送达'}}</view>
+      <view class="itemcolort">{{order.deliverytime}}{{order.deliveryflag==1? order.linkNo==8?'(立即取餐)':'(立即送达)':''}}
+      </view>
+    </view>
+    <view class="buss-item">
+      <view class="itemcolor">订单号</view>
+      <view class="itemcolort">{{order.orderId}}</view>
+    </view>
+    <view class="buss-item">
+      <view class="itemcolor">备注</view>
+      <view class="itemcolort">{{order.remarks}}</view>
+    </view>
+  </view>
+</view>
+<!--阴影弹窗-->
+<block wx:if="{{ImageyulanType}}">
+  <view class="windowBackgroud" catchtouchmove="{{false}}" catchtap="emptyType"></view>
+</block>
+
+<!--预览图片-->
+<view class="Imageyulan" wx:if="{{ImageyulanType}}">
+  <view style="position: relative;">
+    <view class="bmsktitle">预览</view>
+    <view class="mlistdusk">
+      <image class="sss1" src="{{DataURL}}/images/mulist.png"></image>
+      <view class="topComponent">
+        <image class="sss2" src="{{synimage}}">
+        </image>
+      </view>
+    </view>
+    <image class="mlxc6" src="{{DataURL}}/images/cleardel.png" catchtap="chType"></image>
+  </view>
+</view>

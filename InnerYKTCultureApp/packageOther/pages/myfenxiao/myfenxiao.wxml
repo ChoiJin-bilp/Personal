@@ -1,0 +1,106 @@
+<!-- 轮播图片 -->
+<view class="width94 banner {{distributionADUrlCnt>0?'show':'hide'}}">
+  <swiper class="swiper1" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+    <block wx:for="{{distributionADUrl}}" wx:for-item="item" wx:for-index="index">
+      <swiper-item>
+        <image src="{{item.src}}" class="slide-image" width="345" height="130" data-url='{{item.url}}' data-src='{{item.src}}' catchtap='viewADPage'/>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+
+<view class='topTabSwiper'>
+   <view class="tabbox">
+    <text class='tab  {{currentData == 0 ? "tabBorer" : ""}}' data-current="0" catchtap='checkCurrent'>可返佣商品</text>
+  </view>
+  <view class="tabbox">
+    <text class='tab  {{currentData == 1 ? "tabBorer" : ""}}' data-current="1" catchtap='checkCurrent'>返佣统计</text>
+  </view>
+  <view class="tabbox">
+    <text class='tab  {{currentData == 2 ? "tabBorer" : ""}}' data-current="2" catchtap='checkCurrent'>返佣说明</text>
+  </view>
+</view>
+<swiper current="{{currentData}}" class='swiper' style="height:{{windowH}}px;" duration="300" bindchange="bindchange">
+  <swiper-item>
+    <!-- 页头搜索条 -->
+    <view class='searchbar'>
+      <view class='searchbtn'>
+        <view class="fleft">
+          <view class="paixu">
+            <text data-tag="0" bindtap="filterSearch" style="{{isSelFAll?' color: #0066eb; ':'color:#666666;'}}">全部</text>
+          </view>
+          <view class="paixu">
+            <text data-tag="1" bindtap="filterSearch" style="{{isSelFCommission?' color: #0066eb; ':'color:#666666;'}}">佣金</text>
+            <image src="{{selCommissionConParam==-1?DataURL+'/images/sort.png':selCommissionConParam==0?DataURL+'/images/sort-up.png':DataURL+'/images/sort-down.png'}}"></image>
+          </view>
+          <view class="paixu">
+            <text data-tag="2" bindtap="filterSearch" style="{{isSelFPrice?' color: #0066eb; ':'color:#666666;'}}">价格</text>
+            <image src="{{selPriceConParam==-1?DataURL+'/images/sort.png':selPriceConParam==0?DataURL+'/images/sort-up.png':DataURL+'/images/sort-down.png'}}"></image>
+          </view>
+        </view>
+        <view class="top-share-image">
+          <button open-type='share' class="sharebutton"><image class="shareimage" src="{{DataURL}}/images/shop-shart.png?{{randomNum}}"></image></button>
+        </view>
+      </view>
+    </view>
+    <!-- 数据列表 -->
+    <scroll-view class="main" scroll-y="true" bindscrolltolower="bindDownLoad" bindscrolltoupper="bindTopLoad" scroll-with-animation = "true">
+      <view id = "top"></view>
+      <block wx:for="{{dataArray}}" wx:for-item="articles" wx:for-index="dataArrayIndex" wx:key="key">
+        <block wx:for="{{articles}}" wx:for-item="item" wx:key="{{item.id}}" wx:for-index="index">
+          <view class="chose-txt" data-item="{{item}}" bindtap="viewProductDetail" >
+            <image class='fleft cardimage' mode='aspectFit' src='{{item.photos}}'></image>
+            <view class='card-nav1 fleft'>
+              <view class='fx-brokerage'>佣金 ¥ <text>{{item.commission}}</text></view>
+              <view class='fx-price'>
+                <block wx:if="{{item.isShowPrice1}}">
+                  <view class="fx-yuan">
+                    原价 ¥ <text>{{item.sourcePrice}}</text>
+                  </view>
+                  <view class="fx-quan">
+                    券后价 ¥ <text>{{item.couponPrice}}</text>
+                  </view>
+                </block>
+                <block wx:else>
+                  <view class="fx-quan">
+                    原价 ¥ <text>{{item.sourcePrice}}</text>
+                  </view>
+                </block>
+              </view>
+              <view class='fx-name'>{{item.productName}}</view>
+            </view>
+          </view>
+        </block>
+      </block>
+      <view id = "bottom"></view>
+    </scroll-view>
+  </swiper-item>
+
+  <swiper-item>
+    <view class="statistics">
+      <image src="{{DataURL}}/images/statistics-bg.png"></image>
+      <view class="fx-addup">
+        <view class="fz-stats-name">累计佣金</view>
+        <view class="fz-stats-money">¥<text>{{commissionAmount}}</text></view>
+      </view>
+    </view>
+    <view class="datalink">
+      <view class="fleft" data-pagename='fxdata' catchtap='gotoSMGuidePage'><image src="{{DataURL}}/images/fx-store.png"></image>商品返佣数据</view>
+      <view class="fright" data-pagename='fxorder' catchtap='gotoSMGuidePage'><image src="{{DataURL}}/images/fx-order.png"></image>返佣订单数据</view>
+    </view>
+    <view class="footertips">
+      <block wx:if="{{personApplyDeposit>0.00}}">
+        <text>关于押金退回：如退出分享返佣，申请满{{revokeReturnDepositDays}}天才能退回。</text>
+      </block>
+      <button catchtap='quitDistributionEvent'>退出分享返佣</button>
+    </view>
+  </swiper-item>
+
+  <swiper-item>
+    <view class="show-rich">
+      <rich-text nodes="{{mainDescribeInfo.describes}}"></rich-text>
+    </view>
+  </swiper-item>
+
+</swiper>
+

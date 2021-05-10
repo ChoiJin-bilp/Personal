@@ -1,0 +1,129 @@
+/* pages/tuxedo/tuxedo.wxss */
+page {
+  width: 100%;
+  padding: 20rpx 30rpx;
+  box-sizing: border-box;
+}
+
+/*内容css*/
+.tuxedo-z {
+  display: flex;
+  justify-content: space-between;
+}
+
+.xedoz {
+  width: 220rpx;
+height: 220rpx;
+}
+.xedoz image{
+  width: 100%;
+  height: 100%;
+}
+.xedoo{
+  width: 66%;
+}
+
+.edho {
+font-size: 32rpx;
+font-family: PingFang SC, PingFang SC-Medium;
+font-weight: 500;
+color: #333333;
+line-height: 42rpx;
+}
+
+.edht {
+font-size: 32rpx;
+font-family: PingFang SC, PingFang SC-Regular;
+font-weight: 400;
+text-align: left;
+color: #ff3333;
+display: flex;
+align-items: center;
+margin-top:20rpx;
+
+}
+.edht view:nth-of-type(2){
+font-size: 26rpx;
+text-decoration:  line-through;
+text-align: left;
+color: #999999;
+margin-left: 20rpx;
+}
+.edhs {
+  margin-top: 16rpx;
+  display: flex;
+}
+.edhs view:nth-of-type(1){
+font-size: 26rpx;
+font-family: PingFang SC, PingFang SC-Semibold;
+font-weight: 600;
+color: #ffffff;
+background: #ffad71;
+border-radius: 6rpx;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 4rpx 20rpx;
+}
+.edhs view:nth-of-type(2){
+  margin-left: 30rpx;
+font-size: 32rpx;
+font-family: PingFang SC, PingFang SC-Regular;
+color: #333333;
+}
+/*循环人员*/
+.magsitem{
+  width: 100%;
+  margin-top: 40rpx;
+  border-top: solid 2rpx  #eeeeee;
+}
+.mags-z{
+  display: flex;
+  height: 130rpx;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom:2rpx solid #eeeeee;
+}
+.magstime{
+  display: flex;
+}
+.magstime image{
+  width: 80rpx;
+height: 80rpx;
+border-radius: 50%;
+}
+.teplonenum{
+font-size: 30rpx;
+font-family: DIN;
+font-weight: bold;
+color: #333333;
+}
+.temdnum{
+  margin-top: 10rpx;
+font-size: 30rpx;
+color: #333333;
+}
+.magsnow{
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  justify-content: right;
+}
+.magsnow view:nth-of-type(1){
+  width: 124rpx;
+  padding: 4rpx 0;
+  opacity: 1;
+  background: #999999;
+  border-radius: 6rpx;
+font-size: 28rpx;
+font-family: PingFang SC, PingFang SC-Regular;
+color: #ffffff;
+display: flex;
+justify-content: center;
+}
+.magsnow view:nth-of-type(2){
+  font-size: 26rpx;
+  font-family: DIN;
+  color: #999999;
+  margin-top: 20rpx;
+}

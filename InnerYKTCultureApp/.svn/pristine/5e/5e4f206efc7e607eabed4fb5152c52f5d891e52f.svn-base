@@ -1,0 +1,77 @@
+/* packageVP/pages/Myintegral/Myintegral.wxss */
+page{
+  padding: 20rpx 30rpx;
+  box-sizing: border-box;
+  background: #f6f6f6;
+  height: 100%;
+}
+.inter{
+  width: 98%;
+  height: 310rpx;
+  opacity: 0.8;
+  background: #fff;
+  box-shadow: 1rpx 2rpx 6rpx 0rpx rgba(177,152,106,0.50);
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: auto;
+}
+.inter view:nth-of-type(1){
+  font-size: 24rpx;
+color: #6e5d4c;
+}
+.inter view:nth-of-type(2){
+  font-size: 48rpx;
+  font-family: DIN, DIN-Bold;
+  font-weight: bold;
+  color: #b88a57;
+  margin-top: 4rpx;
+}
+/*列表*/
+.details{
+  margin-top: 60rpx;
+}
+.titlelist{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 34rpx;
+  color: #999999;
+  padding: 0 80rpx;
+  line-height: 60rpx;
+  box-sizing: border-box;
+}
+.choice{font-size: 34rpx;
+  color: #333333;
+border-bottom: solid 4rpx #666666;}
+/*循环主题*/
+.mklj{
+  border-top: solid 2rpx #e5e5e5;
+  margin-top: 20rpx;
+}
+.Foritem{
+  padding: 30rpx 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: solid 2rpx #e5e5e5;
+}
+.context{
+  font-size: 30rpx;
+color: #212121;
+}
+.Timeon{
+  font-size: 28rpx;
+color: #999999;
+margin-top: 10rpx;
+}
+.hotuo{
+  font-size: 46rpx;
+font-family: DIN, DIN-Regular;
+color: #333333;
+}
+.mhcolor{
+  color: #cc9966;
+}

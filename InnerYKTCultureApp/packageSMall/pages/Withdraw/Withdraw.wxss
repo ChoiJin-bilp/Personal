@@ -1,0 +1,81 @@
+/* packageSMall/pages/Withdraw/Withdraw.wxss */
+page{
+  height:100%
+}
+.walletlist{
+  width: 92%;
+  /* height: 114rpx; */
+  border-bottom: solid 2rpx #e5e5e5;
+  margin: 0 auto;
+  padding: 10rpx 0;
+  clear: both;
+}
+
+.walletlist-name{
+  height: 56rpx;line-height: 56rpx;
+  margin-top: 10rpx;
+  font-weight: 580;
+  font-size: 30rpx;
+  color: #222;
+}
+.walletlist-time{
+  font-size: 28rpx;
+  color: #999;
+}
+.sum{
+  height: 114rpx;
+  color: #333;
+  font-family: 'DIN1';
+  font-size: 32RPX;
+}
+.sum .walletlist-name{
+  font-weight: normal;
+}
+.sum text{margin-right: 12rpx;font-family: 'DIN'}
+.addsum{
+   color: #136fe6;
+}
+.nopass{
+  width: 100%;
+  line-height: 36rpx;
+  clear: both;
+  font-size: 28rpx;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp: 2;
+  color: #ff1f1f;
+}
+/*弹窗*/
+.tipsbox{
+  width:86%;
+  height:600rpx;
+  position: fixed;
+  top:50%;left:50%;
+  transform: translate(-50%,-50%);
+  z-index: 9999;
+  overflow: hidden;
+}
+.wl-scroll{
+  height: 480rpx;
+  width: 94%;
+  padding: 10rpx 3%;
+  background:#fff;
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 28rpx;
+  color: #333;
+}
+.delete-box {
+  width: 100%;
+  height: 100rpx;
+  text-align: center;
+}
+
+.del-record {
+  display: inline-block;
+  width: 60rpx;
+  height: 60rpx;
+  vertical-align: middle;
+  margin-top: 20rpx;
+}

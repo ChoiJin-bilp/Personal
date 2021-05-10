@@ -1,0 +1,3 @@
+<!--packageVP/pages/callwww/callwww.wxml-->
+<web-view src="{{Domain}}/tea/leaveanote/index.html"></web-view>
+

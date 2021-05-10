@@ -1,0 +1,35 @@
+<!--pages/conversion/conversion.wxml-->
+<!-- <view class='width100 shopbox'>
+  <block wx:for="{{array}}">
+    <view class="store" data-id="{{index}}" catchtap='conversiondetails' >
+      <image class='shopimg' mode="scaleToFill" src='{{item.image}}'></image>
+      <view class='shopping'>
+        <view class='shopname'>{{item.name}}</view>
+        <view class='shoppay'>
+          <view class='selling'><text>{{item.pay}}</text>积分</view>
+          
+        </view>
+      </view>
+    </view>
+  </block>
+</view> -->
+
+<!-- 商品列表 -->
+<scroll-view class="width100 shopbox" style = "position: relative;" scroll-y="true" bindscrolltolower="bindDownLoad" bindscrolltoupper="bindTopLoad" scroll-with-animation = "true">
+  <view id = "top"></view>
+    <block wx:for="{{dataArray}}" wx:for-item="articles" wx:for-index="dataArrayIndex">
+      <block wx:for="{{articles}}" wx:for-item="item" wx:key="{{item.id}}" wx:for-index="index">
+        <view class="store" data-id="{{item.pid}}" data-ptype="{{item.productType}}" catchtap='viewProductDetail' >
+          <image class='shopimg' mode="scaleToFill" src='{{item.photos}}?{{randomNum}}'></image>
+          <view class='shopping'>
+            <view class='shopname'>{{item.productName}}</view>
+            <view class='shoppay'>
+              <view class='selling'><text>{{item.sellScore}}</text>积分</view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </block>
+
+  <view id = "bottom"></view>
+</scroll-view>

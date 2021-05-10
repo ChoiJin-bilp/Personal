@@ -1,0 +1,234 @@
+<!--bo_list-->
+<view class="bo-list color font-size13 border-bottom1">
+  <view class="bo-list-body between-center">
+    <view class="bo-list-left flex-center">
+      <view class="bo-list-left-left-one">
+        <!-- <img src="../img/huiyuan1.png" class="le-biao"> -->
+        <image class='fleft' src='{{DataURL}}/images/location.png'></image>
+      </view>
+      <view class="bo-list-left-left-two">
+        <view class="mr10">{{order.name}}
+          <text class="ml10">{{order.ophone}}</text>
+        </view>
+        <view>{{order.oaddr}}</view>
+      </view>
+    </view>
+    <view class="bo-list-ri flex-center">
+      <image class="fright" src="{{DataURL}}/images/unfold.png" class="ruh"></image>
+    </view>
+  </view>
+</view>
+<!--bo_list-->
+
+<view class='g_con'>
+  <view class='expressRecord'>
+    <view class="cart-list-one">
+      <view class="title">订单编号:{{order.orderId}}</view>
+      <block wx:for="{{order.detail}}" wx:key="id">
+        <view class="ashopname" catchtap="companyPage">
+          <image class="storelogo" mode="aspectFit" src="{{item.companyLogo}}"></image>
+          <text  class="storename">{{item.companyName}}</text>
+          <view  class="storeicon">{{item.LevelName}}</view>
+          <!-- <image class="fright" src="{{DataURL}}/images/unfold.png"></image> -->
+        </view>
+        <view class="astoredetails">
+          <image class="cart-thumb-one" mode="scaleToFill" src="{{item.detailPhotos}}" data-index="{{index}}" data-itemindex="{{itemindex}}" catchtap="productPage"></image>
+          <view class='cart-infor-one'>
+            <text class="cart-pro-name" data-index="{{index}}" data-itemindex="{{itemindex}}" catchtap="productPage">{{item.productName}}</text>
+            <view class='cart-norms'>{{item.attributeOne}} {{item.attributeTwo}}</view>
+            <view class='cart-moeny-one'>
+              <view class='cart-pro-price-one'>
+                <text wx:if="{{order.linkNo == 1}}">{{item.price}}积分</text>
+                <text wx:else>￥{{item.price}}</text>
+              </view>
+              <view class="cart-count-box-one">
+                <!-- <text class="cart-count-down" bindtap="minusCount" data-obj="{{obj}}" data-index="{{index}}">-</text> -->
+                <text>x{{item.number}}</text>
+                <!-- <text class="cart-count-add" bindtap="addCount" data-index="{{index}}">+</text> -->
+              </view>
+            </view>
+          </view>
+        </view>
+        <!-- 赠品 -->
+        <view class="allshopmame" wx:for="{{order.detail}}" wx:key="id" wx:for-item="item" wx:for-index="detailindex">
+          <view hidden="{{item.gdetailId==null}}" class="complimentary" catchtap="showpopgigt" data-item="{{detailindex}}">
+            <view class="fleft">赠品</view>
+            <image class="flfet" mode="aspectFit" src=""></image>
+            <text>{{item.gproductName}}</text>
+            <image class="fright" src="{{DataURL}}/images/unfold.png" data-shopid='{{proDataInfo.shopId}}'></image>
+          </view>
+        </view>
+
+      </block>
+    </view>
+    <!-- 物流时间轴 -->
+    <view class="title">
+      <view class="co">
+        <text class="fleft">合计：</text>
+        <text wx:if="{{order.linkNo == 1}}">{{order.amount}}积分</text>
+        <text wx:else>￥{{order.sum}} (含运费:￥{{order.expressFee}})</text>
+      </view>
+      <view class="co">
+        <text class="fleft">交易时间:</text>{{order.create_date}}</view>
+      <view class="co">
+        <text class="fleft">优惠情况：</text>{{order.couponname}}</view>
+      <view class="co">
+        <text class="fleft">物流公司：</text>
+        <text class="title2">{{order.expressName}}</text>
+      </view>
+      <view class="co">
+        <text class="fleft">买家备注：</text>
+        <text class="remarks">{{order.remarks}}</text>
+      </view>
+    </view>
+
+    <!-- 单个物流记录点时间轴：当前正在进行的物流状态 -->
+    <view class='expressRecord-single-close' wx:for="{{expressInformation.data}}" wx:key="key">
+
+      <!-- 左边子容器 -->
+      <view class='expressRecord-single-noReach-online-top-close'>
+        <!-- 相对父级容器绝对定位的日期 -->
+        <view class='expressRecord-dating'>
+          <view class='expressRecord-date-text FF-DIN1'>
+            {{item.date}}
+          </view>
+          <view class='expressRecord-date-time FF-DIN1'>
+            {{item.ttime}}
+          </view>
+        </view>
+        <view class="progress">
+          <!-- 正在进行的时间轴点 -->
+          <view class='dot-closing'></view>
+          <!-- 正在进行的时间轴上半个时间线 -->
+          <!-- <view class='online-top-closingnone'></view> -->
+          <!-- 正在进行的时间轴下半个时间线 -->
+          <view class='online-bottom' hidden="{{index==expressInformation.data.length-1}}"></view>
+        </view>
+      </view>
+      <!-- 右边子容器 -->
+      <view class='expressRecord-text'>
+        <view class='expressRecord-status-address'>{{item.context}}</view>
+      </view>
+    </view>
+
+    <!-- 单个物流记录点时间轴：已经过去的物流状态 -->
+    <!-- <view class='expressRecord-single-close'>
+      <view class='expressRecord-single-noReach-online-top-close'>
+        <view class='online-top-close'></view>
+        <view class='dot-close'></view>
+        <view class='online-bottom'></view>
+      </view>
+      <view class='expressRecord-text'>
+        <view class='expressRecord-status'></view>
+        <view class='expressRecord-status-address'>武汉转运中心公司 已收入</view>
+      </view>
+      <view class='expressRecord-date'>
+        <view class='expressRecord-date-text'>
+          2019-10-15
+        </view>
+        <view class='expressRecord-date-time'>
+          20:37
+        </view>
+      </view>
+    </view>
+    <view class='expressRecord-single-close'>
+      <view class='expressRecord-single-noReach-online-top-close'>
+        <view class='online-top-close'></view>
+        <view class='dot-close'></view>
+        <view class='online-bottom'></view>
+      </view>
+
+      <view class='expressRecord-text'>
+        <view class='expressRecord-status'></view>
+        <view class='expressRecord-status-address'>湖北省孝感市汉川市公司 已打包</view>
+      </view>
+      <view class='expressRecord-date'>
+        <view class='expressRecord-date-text'>
+          昨天
+        </view>
+        <view class='expressRecord-date-time'>
+          14:37
+        </view>
+      </view>
+    </view>
+    <view class='expressRecord-single-close'>
+      <view class='expressRecord-single-noReach-online-top-close'>
+        <view class='online-top-close'></view>
+        <view class='dot-close'></view>
+        <view class='online-bottom'></view>
+      </view>
+      <view class='expressRecord-text'>
+        <view class='expressRecord-status-address'>湖北省孝感市汉川市公司 已收件</view>
+      </view>
+      <view class='expressRecord-date'>
+        <view class='expressRecord-date-text'>
+          昨天
+        </view>
+        <view class='expressRecord-date-time'>
+          14:17
+        </view>
+      </view>
+    </view>
+    <view class='expressRecord-single-close'>
+      <view class='expressRecord-single-noReach-online-top-close'>
+        <view class='online-top-close'></view>
+        <view class='dot-close'></view>
+        <!-- 起始位置，下半个时间轴线不用 -->
+    <!-- <view class='online-bottom-start'></view>
+      </view>
+
+      <view class='expressRecord-text'>
+        <view class='expressRecord-status-address'>卖家发货
+          <text class="expressRecord-status-addressing">13544444444</text>
+        </view>
+      </view>
+
+      <view class='expressRecord-date'>
+        <view class='expressRecord-date-text'>
+          昨天
+        </view>
+        <view class='expressRecord-date-time'>
+          13:50
+        </view>
+      </view>
+    </view> -->
+
+  </view>
+  <view hidden="{{order.status!=1}}" class="qx-order">
+    <button catchtap="refund">取消订单</button>
+  </view>
+</view>
+
+<!-- 赠品弹窗 -->
+<view class="userule" wx:if="{{showpopgift}}" catchtouchmove="true">
+  <view class="bgopcity" style="position: fixed;"></view>
+  <view class="popgift" style="position: fixed;">
+    <scroll-view scroll-y="true" class="giftscroll" wx:for="{{giftDetail}}" wx:key="key">
+      <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+        <block wx:for="{{item.productphotos}}" wx:key="key" wx:for-item="itemindex">
+          <swiper-item>
+            <image mode="aspectFit" src="{{itemindex}}" class="gift-image" width="355" height="132" />
+          </swiper-item>
+        </block>
+      </swiper>
+      <view class="bgwhite giftname width92">
+        <view>¥ {{item.price}}</view>
+        <text>{{item.productName}}</text>
+      </view>
+      <view class="bgwhite giftrule width92">
+        <view>商品规格</view>
+        <text>{{item.attributeOne +' '+ item.attributeTwo}}</text>
+      </view>
+      <view class="bgwhite giftinfor width92">
+        <view>商品描述</view>
+        <text>{{item.productremark}}</text>
+        <block wx:for="{{item.detailPhotos}}" wx:for-index="index" wx:key="item" wx:for-item="itemindex">
+          <image class="fenxiaoimage" mode="widthFix" src="{{itemindex}}" data-src='{{itemindex}}' catchtap="viewImg"></image>
+        </block>
+      </view>
+    </scroll-view>
+    <view class="detimg">
+      <image bindtap="hidepopgigt" src='{{DataURL}}/images/clearpop.png'></image>
+    </view>
+  </view>
+</view>

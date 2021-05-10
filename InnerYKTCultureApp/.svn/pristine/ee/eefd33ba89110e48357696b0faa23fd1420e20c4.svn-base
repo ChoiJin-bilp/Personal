@@ -1,0 +1,39 @@
+<!--pages/adddvice/adddvice.wxml-->
+<view class="adddvice">
+  <view class="diff" >
+    <image class="" src="{{SMDataURL}}/images/scan.jpg"></image>
+    <view>扫一扫</view>
+  </view>
+  <view class="adddvice-s">
+    <view class="adddvice-s-s">
+      <view style="position: relative;">
+        <view class="all"></view>设备编号</view>
+      <input></input>
+     </view>
+    <view class="adddvice-s-s">
+      <view style="position: relative;">
+        <view class="all"></view>
+        设备型号
+      </view>
+      <input></input>
+    </view>
+    <view class="adddvice-s-s">
+      <view>设备备注</view>
+      <input></input>
+    </view>
+    <view class="adddvice-s-s">
+      <view>蓝牙地址</view>
+      <input></input>
+    </view>
+    <view class="adddvice-s-s">
+      <view class="shu">设备分类</view>
+      <view style="width:65%">
+        <picker bindchange="" value="{{0}}" range="{{array}}" >
+          <input value="一楼设备">
+          </input>
+        </picker>      
+      </view>
+    </view>
+  </view>
+  <view class="anniu">添加</view>
+</view>

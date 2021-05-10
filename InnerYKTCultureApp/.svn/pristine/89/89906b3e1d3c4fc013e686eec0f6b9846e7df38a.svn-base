@@ -1,0 +1,87 @@
+<!--pages/groupdata/groupdata.wxml-->
+<import src="../../../pages/template/loginPop.wxml"/>
+<template is = "loginPop" data='{{showModallogin:showModallogin,Password:Password}}'/>
+<import src="../../../pages/template/authorizationPop.wxml"/>
+<!-- 注册授权弹窗 -->
+<template is = "authorizationPop" data='{{isShowAuthor:isShowAuthor,sysName:sysName,sysLogoUrl:sysLogoUrl}}'/>
+<view class='groupbox'>
+  <view class='wx-title'>
+    <text>群名称</text> 
+  </view>
+  <input wx:if='{{identity == 1 || identity == 2}}' class="groupname" placeholder='请输入共享群名称' bindinput='onChangeName'  placeholder-class='placeholder1' disabled='{{disabled}}' maxlength='12' value='{{cardgroupList.name}}'/>
+  <!--分享后 共享群名称 -->
+  <view wx:if='{{identity == 0}}' class='groupname1'>{{cardgroupList.name}}</view> 
+  <view class='wx-title'>
+    <text>群图片</text> 
+    <image wx:if="{{cardgroupList.img.length < 6 && !disabled}}" bindtap="uploadImage" class="uploadimages" src='{{DataURL}}/images/upimg.png'></image>
+  </view>
+  <view class='groupimg'>
+    <view class="width100" wx:if='{{identity == 1 || identity == 2}}'>
+      <block wx:if='{{cardgroupList.img}}'>
+        <view class='image-box'  wx:for="{{cardgroupList.img}}" wx:key="{{index}}" wx:for-item="item" wx:for-index="index">
+          <image class='photo' mode='aspectFill' src='{{item}}' data-src='{{item}}' catchtap="viewImg">{{item}}</image>
+          <image wx:if="{{(identity == 1 || identity == 2) && !disabled}}" class='del-img' data-index="{{index}}" catchtap="showModaltip" src='{{DataURL}}/images/image-del.png'></image>
+        </view>
+        </block>
+      <block wx:else>
+      <image  class='groupup' src='{{DataURL}}/images/groupbanner.jpg' data-src='{{DataURL}}/images/groupbanner.jpg' catchtap='viewImg'></image> 
+      </block>
+    </view>
+    <!-- 群组员显示 图片滚动 -->
+    <block wx:if='{{identity == 0|| identity == 2}}'>
+    <swiper wx:if='{{cardgroupList.img}}' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <view  wx:for="{{cardgroupList.img}}">
+        <swiper-item>
+          <image src="{{item}}" class="slide-image"/>
+        </swiper-item>
+      </view>
+    </swiper>
+     <image  wx:if='{{!cardgroupList.img}}'  class='groupup' src='{{DataURL}}/images/groupbanner.jpg' data-src='{{DataURL}}/images/groupbanner.jpg' catchtap='viewImg'></image> 
+     </block>
+     
+    <view class='clearfix'></view>
+  </view>
+
+  <view class='wx-title'>
+    <text>群介绍</text> 
+  </view>
+  <view class='grouptext'>
+    <!-- 输入时显示 -->
+    <textarea wx:if='{{identity == 1|| identity == 2}}' class='groupintroduce' placeholder='请输入群介绍,200字内' maxlength='201' placeholder-class='placeholder' disabled='{{disabled}}' bindinput='changeInpu' value='{{cardgroupList.intro}}'></textarea>
+    <!-- 无群介绍 -->
+    <view wx:if='{{identity == 0 &&!cardgroupList.intro}}' class='nogrouptext'>暂无群介绍</view>
+     <textarea wx:if='{{identity == 0 && cardgroupList.intro}}' class='groupintroduce'  maxlength='201' placeholder-class='placeholder' disabled='true' value='{{cardgroupList.intro}}'></textarea>
+  </view>
+</view>
+
+<view class='guidancepop-btn' wx:if='{{identity == 1|| identity == 2}}'>
+  <button class="{{!disabled? 'borderblack' :''}}" disabled="{{!disabled}}" bindtap="hidecardbeizhu">编辑</button>
+  <button class="{{disabled? 'borderblack' :''}}" disabled="{{disabled}}" bindtap='updateGroupData'>保存</button>
+</view>  
+<view class='guidancepop-btn' wx:if='{{isJoinBut}}'>
+  <button bindtap="JumpPage">进入主页</button>
+  <button  bindtap="showSelMyCardPop">加入该群</button>
+</view>  
+
+<!-- 选择名片  -->
+<view class="userule" wx:if="{{isShowSelMyCard}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="choosecard">
+    <scroll-view class="pop-mycarlist" scroll-y style="{{userData.length > 5 ? 'height:920rpx' : ''}}">
+      <block wx:for="{{userData}}" wx:for-item="item" wx:key="{{item.id}}" wx:for-index="index">
+        <view class="chose-txt1" data-index="{{index}}" bindtap="selectVCard" style="{{index == selectCardIndex?' border:2rpx solid #0066eb; ':'border:2rpx solid #e5e5e5;'}}">
+          <image mode='aspectFill' class='fleft cardimage' src="{{item.headerImg? item.headerImg : DataURL+'/images/head.jpg'}}"></image>
+          <view class='card-nav1 fleft'>
+            <view class='cardname'>{{item.contact}}</view>
+            <view class='job'>{{item.job}}</view>
+            <view class='company'>{{item.company}}</view>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+    <view class='pop-btncard'>
+      <button bindtap="hideSelMyCardPop">取消</button>
+      <button bindtap="sweepCodeGroup">确定</button>
+    </view>
+ </view>
+</view>

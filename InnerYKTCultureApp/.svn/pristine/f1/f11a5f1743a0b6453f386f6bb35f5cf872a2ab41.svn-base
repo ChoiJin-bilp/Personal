@@ -1,0 +1,669 @@
+<!--pages/myorders/myorders.wxml-->
+<!-- <block wx:if="{{logistics}}"> -->
+<!-- <view class="skip">  
+    <view class="skipview0" catchtap="goAddar">
+      <image src="{{DataURL}}/images/mymine-icon2.png"></image>
+      <text>联系方式</text>
+    </view> 
+</view> -->
+<view class='topTabSwiper'>
+  <!-- <view class="foot-btn" wx:if='{{isOpenMerchantPlatform}}'>
+    <button wx:if="{{shopkeeperStat == 1}}" catchtap="enterShop">我要开店</button>
+    <button wx:if="{{shopkeeperStat == 2}}" catchtap="enterShop">店铺管理</button>
+    <button wx:if="{{shopkeeperStat == 3}}" catchtap="enterShop">店铺审核中</button>
+  </view> -->
+
+  <view class="tabbox">
+    <text class='tab  {{currentData == 0 ? "tabBorer" : ""}}' data-current="0" catchtap='checkCurrent'>待付款</text>
+  </view>
+  <!-- <view class="tabbox">
+    <text class='tab  {{currentData == 1 ? "tabBorer" : ""}}' data-current="1" catchtap='checkCurrent'>待发货</text>
+  </view> -->
+  <view class="tabbox">
+    <text class='tab  {{currentData == 1 ? "tabBorer" : ""}}' data-current="1" catchtap='checkCurrent'>待使用</text>
+  </view>
+  <view class="tabbox">
+    <text class='tab  {{currentData == 2 ? "tabBorer" : ""}}' data-current="2" catchtap='checkCurrent'>已完成</text>
+  </view>
+
+  <!-- <view class="tabbox">
+    <text class='tab  {{currentData == 4 ? "tabBorer" : ""}}' data-current="4" catchtap='checkCurrent'>团拼分享</text>
+  </view> -->
+  <!-- <view class="tabbox">
+    <text class='tab  {{currentData == 3 ? "tabBorer" : ""}}'  data-current = "3" catchtap='checkCurrent'>收货地址</text>
+  </view> -->
+  <!-- <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">获取用户信息</button> -->
+</view>
+<swiper current="{{currentData}}" class='swiper' style="height:94%" duration="300" bindchange="swiperChange">
+  <!-- 待付款 -->
+  <swiper-item>
+    <scroll-view scroll-y="true" style="height:100%;position: relative;padding-top:0rpx;" bindscrolltolower="bindDownLoad" bindscrolltoupper="bindTopLoad" scroll-with-animation="true">
+      <view class='width94'>
+        <view class="main">
+          <view wx:if="{{orderList}}" wx:for="{{orderList}}" class="main-shop" wx:key="id" wx:for-item="orders" wx:for-index="index">
+            <!-- 防止待发货滑动 数据显示在 待付款 -->
+            <block wx:if="{{orders.cnt!=null}}">
+              <view class="cart-box">
+                <view class="storenumber" wx:key="id">订单编号:{{orders.cnt==1?orders.orderId:orders.payNo}}</view>
+                <block wx:if="{{orders.cnt==1}}" wx:for="{{orders.orders}}" wx:key="id" wx:for-item="order" wx:for-index="orderindex">
+                  <view class="cart-list-one" wx:for="{{order.detail}}" wx:key="id" wx:for-item="item" wx:for-index="itemindex">
+                    <view class="ashopname" data-item="{{item}}" catchtap="orderPage" data-index="{{index}}" data-itemindex="{{itemindex}}">
+                      <image class="storelogo" mode="aspectFit" src="{{item.companyLogo}}"></image>
+                      <text  class="storename">{{item.companyName}}</text>
+                      <!-- <view  class="storeicon">{{item.LevelName}}</view> -->
+                    </view>
+                    <view class="astoredetails">
+                      <image class="cart-thumb-one" mode="scaleToFill" src="{{item.detailPhotos}}" data-index="{{index}}" data-itemindex="{{itemindex}}" data-item="{{item}}" catchtap="orderPage"></image>
+                      <view class='cart-infor-one'>
+                        <view class="cart-pro-name" data-item="{{item}}" data-index="{{index}}" data-itemindex="{{itemindex}}" catchtap="orderPage">{{item.productName}}</view>
+                        <view class='cart-norms'>{{item.attributeOne +' '+ item.attributeTwo}}</view>
+                        <view class='cart-moeny-one'>
+                          <view wx:if="{{order.linkNo == 1}}" class='cart-pro-price-one'>
+                            <text>{{item.price}} 积分</text>
+                          </view>
+                          <view wx:else class='cart-pro-price-one'>￥
+                            <text>{{item.price}}</text>
+                          </view>
+                          <view class="cart-count-box-one">
+                            <text>x{{item.number}}</text>
+                          </view>
+                        </view>
+                      </view>
+                    </view>
+
+                    <!-- 赠品 -->
+                    <view class="allshopmame">
+                      <view hidden="{{item.gdetailId==null}}" class="complimentary" catchtap="showpopgigt" data-item="{{item}}">
+                        <view class="fleft">赠品</view>
+                        <image class="flfet" mode="aspectFit" src=""></image>
+                        <text>{{item.gproductName}}</text>
+                        <image class="fright" src="{{DataURL}}/images/unfold.png" data-shopid='{{proDataInfo.shopId}}'></image>
+                      </view>
+                    </view>
+
+                  </view>
+                </block>
+                <!-- 多个商品图片 -->
+                <view wx:if="{{orders.cnt!=1}}" class="storeimage">
+                  <image class="fleft" mode="scaleToFill" src="{{item}}" wx:for="{{orders.detailPhotos}}" wx:key="key"></image>
+                </view>
+              </view>
+
+              <!-- 多个商品合计 -->
+              <view wx:if="{{orders.linkNo==4&&orders.state==12}}" class="heji">应付尾款：￥
+                <text>{{orders.amount}}</text>
+              </view>
+              <view wx:elif="{{orders.cnt!=1}}" class="heji">合计：￥
+                <text>{{orders.amount}}</text>
+              </view>
+
+              <view class='width100 orderdetails'>
+                <text>{{orders.create_date}}</text>
+                <view class="order-btn">
+                  <text wx:if="{{orders.status == -1 && currentData == 0}}" data-index="{{index}}"> 已失效</text>
+                  <text wx:elif="{{orders.status == -3 && currentData == 0}}" data-index="{{index}}"> 已取消</text>
+
+                  <!-- 待入住 -->
+                  <block wx:if="{{currentData == 1}}">
+                    <button catchtap="updateOrderStatus" data-status="2" data-index="{{index}}">确认入住</button>
+                    <button catchtap="showlogistics" data-index="{{index}}">查看物流</button>
+                  </block>
+                  <!-- 待支付  -->
+                  <block wx:if="{{currentData == 0 && orders.status != -1}}">
+                    <!-- <button wx:if="{{orders.linkNo==4&&orders.state==12}}" catchtap="refund" data-item="{{orders.orders[0]}}">取消订单</button> -->
+                    <button wx:if="{{orders.status!=-3&&orders.linkNo==4&&orders.state==12}}" catchtap="updateOrders" data-status="3" data-item="{{orders}}" data-state="1">取消订单</button>
+                    <button wx:elif="{{orders.status != -3}}" catchtap="updateOrders" data-status="3" data-item="{{orders}}">取消订单</button>
+
+                    <button style="color:#666666" wx:if="{{orders.status == -2}}">尾款未开始</button>
+                    <button wx:elif="{{orders.status != -3&&(orders.state == 0||orders.state == 12)}}" catchtap="toDelivery" data-index="{{index}}">继续支付</button>
+                  </block>
+                  <!-- 已完成订单 -->
+                  <button wx:if="{{(orders.status == -1||orders.status==-3) && currentData == 0}}" catchtap="updateOrders" data-status="5" data-item="{{orders}}">删除</button>
+                </view>
+              </view>
+            </block>
+          </view>
+          <view wx:if="{{orderList.length ==0}}">
+            <view class="cart-no-data">没有订单哦~</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </swiper-item>
+
+  <!-- 待发货 -->
+  <!-- <swiper-item>
+    <scroll-view scroll-y="true" style="height:100%;position: relative;padding-top:0rpx;" bindscrolltolower="bindDownLoad" bindscrolltoupper="bindTopLoad" scroll-with-animation="true">
+      <view class='width94'>
+        <view class="main">
+          <view wx:if="{{orderList}}" wx:for="{{orderList}}" wx:key="id" wx:for-item="order" wx:for-index="index">
+           
+            <block wx:if="{{order.cnt==null}}">
+              <view class="cart-box">
+                <view class="storenumber">订单编号:{{order.orderId}}</view>
+                <view class="cart-list-one" wx:for="{{order.detail}}" wx:key="id" wx:for-item="item" wx:for-index="itemindex">
+                  <view class="ashopname" catchtap="logisticsPage" data-index="{{index}}" data-itemindex="{{itemindex}}">
+                 
+                    <image class="storelogo" mode="aspectFit" src="{{item.companyLogo}}"></image>
+                    <text  class="storename">{{item.companyName}}</text>
+                    <view  class="storeicon">{{item.LevelName}}</view>
+                    <image class="fright" src="{{DataURL}}/images/unfold.png"></image>
+                  </view>
+                  <view class="astoredetails" data-index="{{index}}">
+                    <image class="cart-thumb-one" mode="scaleToFill" src="{{item.detailPhotos}}" data-index="{{index}}" data-itemindex="{{itemindex}}" catchtap="logisticsPage"></image>
+                    <view class='cart-infor-one'>
+                      <view class="cart-pro-name" data-index="{{index}}" data-itemindex="{{itemindex}}" catchtap="logisticsPage">{{item.productName}}</view>
+                      <view class='cart-norms'>{{item.attributeOne +' '+ item.attributeTwo}}</view>
+                      <view class='cart-moeny-one'>
+                        <view wx:if="{{order.linkNo == 1}}" class='cart-pro-price-one'>
+                          <text>{{item.price}} 积分</text>
+                        </view>
+                        <view wx:else class='cart-pro-price-one'>￥
+                          <text>{{item.price}}</text>
+                        </view>
+                        <view class="cart-count-box-one">                          
+                          <text>x{{item.number}}</text>
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+              <view class="allshopmame" wx:for="{{order.detail}}" wx:key="id" wx:for-item="item" wx:for-index="detailindex">
+                <view hidden="{{item.gdetailId==null}}" class="complimentary" catchtap="showpopgigt" data-item="{{item}}">
+                  <view class="fleft">赠品</view>
+                  <image class="flfet" mode="aspectFit" src=""></image>
+                  <text>{{item.gproductName}}</text>
+                  <image class="fright" src="{{DataURL}}/images/unfold.png" data-shopid='{{proDataInfo.shopId}}'></image>
+                </view>
+              </view>
+
+              <view class='width100 orderdetails'>
+                <text>{{order.create_date}}</text>
+                <view class="order-btn">
+                  <text> 已支付</text>
+                  <text wx:if="{{order.status == -1 && currentData == 0}}" data-index="{{index}}"> 已失效</text>
+
+                
+                  <block wx:if="{{currentData == 2}}">
+                    <button catchtap="updateOrderStatus" data-status="2" data-index="{{index}}">确认入住</button>
+                    <button catchtap="showlogistics" data-index="{{index}}">查看物流</button>
+                  </block>
+                 
+                  <block wx:if="{{currentData == 1}}">
+                    <button catchtap="refund" data-item="{{order}}" data-index="{{index}}">取消订单</button>
+                    <button wx:if="{{order.status == 0}}" catchtap="toDelivery" data-index="{{index}}">继续支付</button>
+                  </block>
+                 
+                  <button wx:if="{{currentData == 3}}" catchtap="updateOrderStatus" data-status="5" data-index="{{index}}">删除记录</button>
+                </view>
+              </view>
+            </block>
+          </view>
+          <view wx:if="{{orderList.length ==0}}">
+            <view class="cart-no-data">没有订单哦~</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </swiper-item> -->
+
+  <!-- 待入住 -->
+  <swiper-item>
+    <scroll-view scroll-y="true" style="height:100%;position: relative;padding-top:0rpx;" bindscrolltolower="bindDownLoad" bindscrolltoupper="bindTopLoad" scroll-with-animation="true">
+      <view class='width94'>
+        <view class="main">
+          <view wx:if="{{orderList}}" wx:for="{{orderList}}" wx:key="id" wx:for-item="order" wx:for-index="index">
+           <!-- 防止待付款滑动 数据显示在 待发货 -->
+           <block wx:if="{{order.cnt==null}}">
+            <view class="cart-box">
+              <view class="storenumber">订单编号:{{order.orderId}}</view>
+              <view class="cart-list-one" wx:for="{{order.detail}}" wx:key="id" wx:for-item="item" wx:for-index="itemindex">
+                <view class="ashopname" catchtap="logisticsPage" data-index="{{index}}" data-itemindex="{{itemindex}}">
+                  <!-- <image src="{{DataURL}}/images/zz.png"></image> -->
+                  <image class="storelogo" mode="aspectFit" src="{{item.companyLogo}}"></image>
+                  <text  class="storename">{{item.companyName}}</text>
+                  <!-- <view  class="storeicon">{{item.LevelName}}</view> -->
+                  <!-- <image class="fright" src="{{DataURL}}/images/unfold.png"></image> -->
+                </view>
+                <view class="astoredetails" catchtap="logisticsPage" data-index="{{index}}">
+                  <image class="cart-thumb-one" mode="scaleToFill" src="{{item.detailPhotos}}" data-index="{{index}}" data-itemindex="{{itemindex}}"></image>
+                  <view class='cart-infor-one'>
+                    <view class="cart-pro-name" data-index="{{index}}" data-itemindex="{{itemindex}}" catchtap="logisticsPage">{{item.productName}}</view>
+                    <view class='cart-norms'>{{item.attributeOne +' '+ item.attributeTwo}}</view>
+                    <view class='cart-moeny-one'>
+                      <view wx:if="{{order.linkNo == 1}}" class='cart-pro-price-one'>
+                        <text>{{item.price}} 积分</text>
+                      </view>
+                      <view wx:else class='cart-pro-price-one'>￥
+                        <text>{{item.price}}</text>
+                      </view>
+                      <view class="cart-count-box-one">
+                        <!-- <text class="cart-count-down" bindtap="minusCount" data-obj="{{obj}}" data-index="{{index}}">-</text> -->
+                        <text>x{{item.number}}</text>
+                        <!-- <text class="cart-count-add" bindtap="addCount" data-index="{{index}}">+</text> -->
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+            <!-- 赠品 -->
+            <view class="allshopmame" wx:for="{{order.detail}}" wx:key="id" wx:for-item="item" wx:for-index="detailindex">
+              <view hidden="{{item.gdetailId==null}}" class="complimentary" catchtap="showpopgigt" data-item="{{item}}">
+                <view class="fleft">赠品</view>
+                <image class="flfet" mode="aspectFit" src=""></image>
+                <text>{{item.gproductName}}</text>
+                <image class="fright" src="{{DataURL}}/images/unfold.png" data-shopid='{{proDataInfo.shopId}}'></image>
+              </view>
+            </view>
+
+            <view class='width100 orderdetails'>
+              <text>{{order.create_date}}</text>
+              <view class="order-btn">
+                <text wx:if="{{order.status == -1 && currentData == 0}}" data-index="{{index}}"> 已失效</text>
+
+                <!-- 待入住 -->
+                <block wx:if="{{currentData == 1}}">
+                  <button catchtap="updateOrderStatus" data-status="2" data-index="{{index}}">确认入住</button>
+                  <!-- <button catchtap="showlogistics" data-index="{{index}}">查看物流</button> -->
+                </block>
+                <!-- 待支付  -->
+                <block wx:if="{{currentData == 0}}">
+                  <button catchtap="updateOrderStatus" data-status="3" data-index="{{index}}">取消订单</button>
+                  <button wx:if="{{order.status == 0}}" catchtap="toDelivery" data-index="{{index}}">继续支付</button>
+                </block>
+                <!-- 已完成订单 -->
+                 <button catchtap="refund" data-item="{{order}}" data-index="{{index}}">取消订单</button>
+                <button wx:if="{{currentData == 3}}" catchtap="updateOrderStatus" data-status="5" data-index="{{index}}">删除记录</button>
+              </view>
+            </view>
+             </block>
+          </view>
+          <view wx:if="{{orderList.length ==0}}">
+            <view class="cart-no-data">没有订单哦~</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </swiper-item>
+
+  <!-- 已完成 -->
+  <swiper-item>
+    <scroll-view scroll-y="true" style="height:100%;position: relative;padding-top:0rpx;" bindscrolltolower="bindDownLoad" bindscrolltoupper="bindTopLoad" scroll-with-animation="true">
+      <view class='width94'>
+        <view class="main">
+          <view wx:if="{{orderList}}" wx:for="{{orderList}}" wx:key="id" wx:for-item="order" wx:for-index="index">
+            <view class="cart-box">
+              <view class="storenumber">订单编号:{{order.orderId}}</view>
+              <view class="cart-list-one" wx:for="{{order.detail}}" wx:key="id" wx:for-item="item" wx:for-index="itemindex">
+                <view class="ashopname" catchtap="logisticsPage" data-index="{{index}}" data-itemindex="{{itemindex}}">
+                  <!-- <image src="{{DataURL}}/images/zz.png"></image> -->
+                  <image class="storelogo" mode="aspectFit" src="{{item.companyLogo}}"></image>
+                  <text  class="storename">{{item.companyName}}</text>
+                  <!-- <view  class="storeicon">{{item.LevelName}}</view> -->
+                  <!-- <image class="fright" src="{{DataURL}}/images/unfold.png"></image> -->
+                </view>
+                <view class="astoredetails">
+                  <image class="cart-thumb-one" mode="scaleToFill" src="{{item.detailPhotos}}" data-index="{{index}}" data-itemindex="{{itemindex}}" catchtap="logisticsPage"></image>
+                  <view class='cart-infor-one'>
+                    <view class="cart-pro-name" data-index="{{index}}" data-itemindex="{{itemindex}}" catchtap="logisticsPage">{{item.productName}}</view>
+                    <view class='cart-norms'>{{item.attributeOne +' '+ item.attributeTwo}}</view>
+                    <view class='cart-moeny-one'>
+                      <view wx:if="{{order.linkNo == 1}}" class='cart-pro-price-one'>
+                        <text>{{item.price}} 积分</text>
+                      </view>
+                      <view wx:else class='cart-pro-price-one'>￥
+                        <text>{{item.price}}</text>
+                      </view>
+                      <view class="cart-count-box-one">
+                        <!-- <text class="cart-count-down" bindtap="minusCount" data-obj="{{obj}}" data-index="{{index}}">-</text> -->
+                        <text>x{{item.number}}</text>
+                        <!-- <text class="cart-count-add" bindtap="addCount" data-index="{{index}}">+</text> -->
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+            <!-- 赠品 -->
+            <view class="allshopmame" wx:for="{{order.detail}}" wx:key="id" wx:for-item="item" wx:for-index="detailindex">
+              <view hidden="{{item.gdetailId==null}}" class="complimentary" catchtap="showpopgigt" data-item="{{item}}">
+                <view class="fleft">赠品</view>
+                <image class="flfet" mode="aspectFit" src=""></image>
+                <text>{{item.gproductName}}</text>
+                <image class="fright" src="{{DataURL}}/images/unfold.png" data-shopid='{{proDataInfo.shopId}}'></image>
+              </view>
+            </view>
+            <view class='width100 orderdetails'>
+              <text>{{order.create_date}}</text>
+              <view class="order-btn">
+                <text wx:if="{{order.status == -1 && currentData == 0}}" data-index="{{index}}"> 已失效</text>
+                <!-- 待收货 -->
+                <block wx:if="{{currentData == 1}}">
+                  <button catchtap="updateOrderStatus" data-status="2" data-index="{{index}}">确认入住</button>
+                  <button catchtap="showlogistics" data-index="{{index}}">查看物流</button>
+                </block>
+                <!-- 待支付  -->
+                <block wx:if="{{currentData == 0}}">
+                  <button catchtap="updateOrderStatus" data-status="3" data-index="{{index}}">取消订单</button>
+                  <button wx:if="{{order.status == 0}}" catchtap="toDelivery" data-index="{{index}}">继续支付</button>
+                </block>
+                <!-- 已完成订单 -->
+                <block wx:if="{{currentData == 2}}">
+                  <!-- <button wx:if="{{order.servicestatus==null}}" catchtap="service" data-index="{{index}}">申请售后</button>
+                  <button wx:else style="color:#666666">已申请售后</button> -->
+                  <button catchtap="updateOrderStatus" data-status="5" data-index="{{index}}">删除记录</button>
+                </block>
+              </view>
+            </view>
+          </view>
+          <view wx:if="{{orderList.length ==0}}">
+            <view class="cart-no-data">没有订单哦~</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </swiper-item>
+
+  <!-- 团拼分享 -->
+  <!-- <swiper-item >
+    <scroll-view scroll-y="true" style="height:100%;position: relative;padding-top:0rpx;" bindscrolltolower="bindDownLoad" bindscrolltoupper="bindTopLoad" scroll-with-animation="true">
+      <view class='width94'>
+        <view class="main">
+          <view wx:if="{{orderList}}" wx:for="{{orderList}}" wx:key="id" wx:for-item="order" wx:for-index="index">
+            <view class="cart-box">
+              <view class="storenumber">订单编号:{{order.orderId}}</view>
+              <view class="cart-list-one" wx:for="{{order.detail}}" wx:key="id" wx:for-item="item" wx:for-index="itemindex">
+                <view class="ashopname" catchtap="logisticsPage" data-index="{{index}}" data-itemindex="{{itemindex}}">
+                  <image class="storelogo" mode="aspectFit" src="{{item.companyLogo}}"></image>
+                  <text  class="storename">{{item.companyName}}</text>
+                  <view  class="storeicon">{{item.LevelName}}</view>
+                  <image class="fright" src="{{DataURL}}/images/unfold.png"></image>
+                </view>
+                <view class="astoredetails">
+                  <image class="cart-thumb-one" mode="scaleToFill" src="{{item.detailPhotos}}" data-index="{{index}}" data-itemindex="{{itemindex}}" catchtap="logisticsPage"></image>
+                  <view class='cart-infor-one'>
+                    <view class="cart-pro-name" data-index="{{index}}" data-itemindex="{{itemindex}}" catchtap="logisticsPage">{{item.productName}}</view>
+                    <view class='cart-norms'>{{item.attributeOne +' '+ item.attributeTwo}}</view>
+                    <view class='cart-moeny-one'>
+                      <view wx:if="{{order.linkNo == 1}}" class='cart-pro-price-one'>
+                        <text>{{item.price}} 积分</text>
+                      </view>
+                      <view wx:else class='cart-pro-price-one'>￥
+                        <text>{{item.price}}</text>
+                      </view>
+                      <view class="cart-count-box-one">
+
+                        <text>x{{item.number}}</text>
+
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+            <view class="allshopmame" wx:for="{{order.detail}}" wx:key="id" wx:for-item="item" wx:for-index="detailindex">
+              <view hidden="{{item.gdetailId==null}}" class="complimentary" catchtap="showpopgigt" data-item="{{item}}">
+                <view class="fleft">赠品</view>
+                <image class="flfet" mode="aspectFit" src=""></image>
+                <text>{{item.gproductName}}</text>
+                <image class="fright" src="{{DataURL}}/images/unfold.png" data-shopid='{{proDataInfo.shopId}}'></image>
+              </view>
+            </view>
+            <view class='width100 orderdetails'>
+              <text>{{order.create_date}}</text>
+              <view class="order-btn">
+                <text wx:if="{{order.status == -1 && currentData == 4}}" data-index="{{index}}"> 团拼失败</text>
+
+
+                <block wx:if="{{currentData == 1}}">
+                  <button catchtap="updateOrderStatus" data-status="2" data-index="{{index}}">确认入住</button>
+                  <button catchtap="showlogistics" data-index="{{index}}">查看物流</button>
+                </block>
+
+                <block wx:if="{{currentData == 0}}">
+                  <button catchtap="updateOrderStatus" data-status="3" data-index="{{index}}">取消订单</button>
+                  <button wx:if="{{order.status == 0}}" catchtap="toDelivery" data-index="{{index}}">继续支付</button>
+                </block>
+
+                <button wx:if="{{currentData == 2}}" catchtap="updateOrderStatus" data-status="5" data-index="{{index}}">删除记录</button>
+
+                <button hidden="{{order.status == -1}}" open-type="share" data-index="{{index}}">分享好友</button>
+              </view>
+            </view>
+          </view>
+          <view wx:if="{{orderList.length ==0}}">
+            <view class="cart-no-data">没有订单哦~</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </swiper-item> -->
+
+  <!-- <swiper-item>
+    <view class="main">
+      <view >
+          <view class="cart-header">
+          <block wx:if="{{scene == 0 && carts.length>0}}">
+              <icon wx:if="{{selectAllStatus}}" type="success_circle" color="#666" class="total-select" catchtap="selectAll"/>
+              <icon wx:else type="circle" color="#666" class="total-select" catchtap="selectAll"/>
+              <text>全选</text>
+              </block>
+              <view class='butbox'>
+                <button catchtap="shownewaddress">新建</button>
+                <button catchtap="showEditAddress">编辑</button> 
+                <button wx:if="{{scene==0}}" catchtap="delAddress">删除</button> 
+              </view>
+              
+          </view>
+          <view class="cart-box2">
+            <view class="cart-list" wx:for="{{carts}}" wx:key="{{index}}" wx:for-index="index">
+                <icon wx:if="{{item.choice}}" type="success" color="#0066eb" data-index="{{index}}"  class="cart-pro-select" catchtap="selectList"/>
+                <icon wx:else type="circle" class="cart-pro-select" data-index="{{index}}" catchtap="selectList"/>
+                <view class='cart-infor'>
+                  <view class='use-order'>{{item.name}}<text>{{item.mobile}}</text></view>
+                  <view class='use-address'>{{item.area[0]}}-{{item.area[1]}}-{{item.area[2]}}-{{item.address}}</view>
+                </view>
+                <view wx:if='{{item.selected}}' class="BGdefault" data-index="{{index}}" >默认</view>
+                <view wx:else class="default" catchtap="defaultAddress" data-index="{{index}}">默认</view>
+            </view>
+          </view>
+      </view>
+      <view wx:if="{{carts.length == 0}}">
+          <view class="cart-no-data">暂无收货地址赶快添加吧~</view>
+      </view>
+    </view>
+  </swiper-item> -->
+</swiper>
+
+<!-- <view class="userule" wx:if="{{logistics}}" catchtouchmove="ture" catchtap="hidelogistics">
+  <view class="bgopcity"></view>
+  <view class='savebox1'>
+    <scroll-view class="pop-array1">
+      <view class='SP-infor'>
+        <text>物流公司：</text>
+        <text>{{orderList[orderIndex].expressName}}</text>
+      </view>
+      <view class='SP-infor'>
+        <text>物流单号：</text>
+        <text>{{orderList[orderIndex].expressNo}}</text>
+        
+      </view>
+    </scroll-view>
+    <view class='delete-box' style='text-align: center;'>
+      <image class='del-record' catchtap="hidelogistics" src='{{DataURL}}/images/clearpop.png'></image>
+    </view>
+  </view>
+</view> -->
+
+<view class="userule" wx:if="{{exitlogin}}" catchtouchmove="ture">
+  <view class="bgopcity"></view>
+  <view class="savebox">
+    <text class='exitlogin'>您是否退出登录？</text>
+    <view class='guidancepop-btn'>
+      <button catchtap="hideexitlogin">取消</button>
+      <button catchtap=''>确定</button>
+    </view>
+  </view>
+</view>
+
+<view class="userule" wx:if="{{newaddress}}">
+  <view class="bgopcity"></view>
+  <view class="recordbox">
+    <text class='tilte'>新建收货地址</text>
+    <view class='ListBoxItem'>
+      <text class='List-name'>收货人</text>
+      <input bindinput='getInputContent' data-type='1' maxlength='10' data-field='addAddressData.name' />
+    </view>
+    <view class='ListBoxItem'>
+      <text class='List-name'>联系电话</text>
+      <input bindinput='getInputContent' type='number' data-type='2' maxlength='11' data-field='addAddressData.mobile' />
+    </view>
+    <view class='ListBoxItem'>
+      <text class='List-name'>所在地区</text>
+      <picker mode="region" data-type='1' bindchange="bindRegionChange" custom-item="{{customItem}}">
+        <view class="picker">
+          {{addAddressData.area[0]}}-{{addAddressData.area[1]}}-{{addAddressData.area[2]}}
+        </view>
+        <image class="xiala" src='{{DataURL}}/images/xiala.png'></image>
+      </picker>
+
+    </view>
+    <view class='ListBoxItem'>
+      <text class='List-name'>详细地址</text>
+      <input bindinput='getInputContent' data-type='3' maxlength='50' data-field='addAddressData.address' />
+    </view>
+    <view class='ListBoxItem'>
+      <text class='List-name'>邮政编码</text>
+      <input bindinput='getInputContent' type='number' data-type='4' data-field='addAddressData.postalCode' maxlength='6' />
+    </view>
+    <view class='guidancepop-btn'>
+      <button catchtap="hidenewaddress">取消</button>
+      <button catchtap='confirmAddress'>确定</button>
+    </view>
+  </view>
+</view>
+<view class="userule" wx:if="{{editAddressStat}}">
+  <view class="bgopcity"></view>
+  <view class="recordbox">
+    <text class='tilte'>编辑收货地址</text>
+    <view class='ListBoxItem'>
+      <text class='List-name'>收货人</text>
+      <input bindinput='getUpInputContent' maxlength='10' value='{{carts[editIndex].name}}' data-field='upAddressData.name' />
+    </view>
+    <view class='ListBoxItem'>
+      <text class='List-name'>联系电话</text>
+      <input bindinput='getUpInputContent' maxlength='11' value='{{carts[editIndex].mobile}}' data-field='upAddressData.mobile' />
+    </view>
+    <view class='ListBoxItem'>
+      <text class='List-name'>所在地区</text>
+      <picker mode="region" data-type='2' bindchange="bindRegionChange" custom-item="{{customItem}}">
+        <view class="picker">
+          {{carts[editIndex].area[0]}}-{{carts[editIndex].area[1]}}-{{carts[editIndex].area[2]}}
+        </view>
+      </picker>
+      <image class="xiala" src='{{DataURL}}/images/xiala.png'></image>
+    </view>
+    <view class='ListBoxItem'>
+      <text class='List-name'>详细地址</text>
+      <input bindinput='getUpInputContent' maxlength='50' value='{{carts[editIndex].address}}' data-field='upAddressData.address' />
+    </view>
+    <view class='ListBoxItem'>
+      <text class='List-name'>邮政编码</text>
+      <input bindinput='getUpInputContent' type='number' value='{{carts[editIndex].postalCode}}' data-field='upAddressData.postalCode' maxlength='6' />
+    </view>
+    <view class='guidancepop-btn'>
+      <button catchtap="hideEditAddress">取消</button>
+      <button catchtap='confirmUpAddress'>确定</button>
+    </view>
+  </view>
+</view>
+<!-- </block> -->
+
+<!-- 物流弹框 -->
+
+<view class="userule" wx:if="{{logistics}}" catchtouchmove="true">
+
+  <view class="bgopcity"></view>
+  <view class="tenant-model">
+    <view class="wl-scroll">
+      <scroll-view scroll-y class="scroll">
+        <!-- 物流时间轴 -->
+        <view class='expressRecord'>
+          <view class="title">物流公司：
+            <text class="title2">{{expressInformation.com}}</text>
+          </view>
+
+          <!-- 单个物流记录点时间轴：当前正在进行的物流状态 -->
+          <view class='expressRecord-single-close' wx:for="{{expressInformation.data}}" wx:key="key" data-index="index">
+
+            <!-- 左边子容器 -->
+            <view class='expressRecord-single-noReach-online-top-close'>
+              <!-- 相对父级容器绝对定位的日期 -->
+              <view class='expressRecord-dating'>
+                <view class='expressRecord-date-text FF-DIN1'>
+                  {{item.date}}
+                </view>
+                <view class='expressRecord-date-time FF-DIN1'>
+                  {{item.ttime}}
+                </view>
+              </view>
+              <view class='progress'>
+                <!-- 正在进行的时间轴点 -->
+                <view class='dot-closing'></view>
+                <!-- 正在进行的时间轴上半个时间线 -->
+                <!-- <view class='online-top-closingnone'></view> -->
+                <!-- 正在进行的时间轴下半个时间线 -->
+                <view class='online-bottom' hidden="{{index==expressInformation.data.length-1}}"></view>
+              </view>
+            </view>
+
+            <!-- 右边子容器 -->
+            <view class='expressRecord-text'>
+              <view class='expressRecord-status-address'>{{item.context}}</view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+    <view class="delete-box">
+      <image class='del-record' catchtap="hidelogistics" src='{{DataURL}}/images/clearpop.png'></image>
+    </view>
+  </view>
+</view>
+
+
+<!-- 赠品弹窗 -->
+<view class="userule" wx:if="{{showpopgift}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="popgift">
+    <scroll-view scroll-y="true" class="giftscroll" wx:for="{{giftDetail}}" wx:key="key">
+      <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+        <block wx:for="{{item.productphotos}}" wx:key="key" wx:for-item="itemindex">
+          <swiper-item>
+            <image mode="aspectFit" src="{{itemindex}}" class="gift-image" width="355" height="132" />
+          </swiper-item>
+        </block>
+      </swiper>
+      <view class="bgwhite giftname width92">
+        <view>¥ {{item.price}}</view>
+        <text>{{item.productName}}</text>
+      </view>
+      <view class="bgwhite giftrule width92">
+        <view>商品规格</view>
+        <text>{{item.attributeOne +' '+ item.attributeTwo}}</text>
+      </view>
+      <view class="bgwhite giftinfor width92">
+        <view>商品描述</view>
+        <text>{{item.productremark}}</text>
+        <block wx:for="{{item.detailPhotos}}" wx:for-index="index" wx:key="item" wx:for-item="itemindex">
+          <image class="fenxiaoimage" mode="widthFix" src="{{itemindex}}" data-src='{{itemindex}}' catchtap="viewImg"></image>
+        </block>
+      </view>
+    </scroll-view>
+    <view class="detimg">
+      <image bindtap="hidepopgigt" src='{{DataURL}}/images/clearpop.png'></image>
+    </view>
+  </view>
+</view>

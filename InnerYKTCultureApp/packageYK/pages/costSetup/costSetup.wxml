@@ -1,0 +1,185 @@
+<!--packageYK/pages/costSetup/costSetup.wxml-->
+
+<view class="item">
+  <!--投放公司-->
+  <block wx:if="{{pageType==1}}">
+    <view class="device-i-c">
+      <view class="title">投放公司</view>
+      <input bindtap="showSelectCompanyList" disabled="{{true}}" value="{{deviceCompanyName}}"></input>
+      <image bindtap="showSelectCompanyList" class="xia" src='{{DataURL}}/images/xiala.png'></image>
+      <view class="xia-v" wx:if="{{isShowSelectCompanyList}}">
+        <block wx:for="{{agentUserCompanyList}}">
+          <view data-item="{{item}}" catchtap="selCompanyListItem">{{item.companyName}}</view>
+        </block>
+      </view>
+    </view>
+  </block>
+
+	<view class="item-for">
+		<view class="item-for-top" wx:if="{{pageType==0}}">
+			<view>当前设备</view>
+			<view>
+				<text>设备编号：</text>
+				<text>{{deviceNumber}}</text>
+			</view>
+		</view>
+		<view class="item-for-bottom">
+			<!-- 服務費用塊-->
+			<view class="item-for-bottom-flex">
+				<text style="padding-left:10rpx;">服务费用</text>
+				<view class="item-for-bottom-flex-text">
+					<text hidden="true">编辑</text>
+					<text hidden="true">保存</text>
+					<text catchtap="showAddSrvCostPop">添加</text>
+				</view>
+			</view>
+
+      <block wx:for="{{serviceDataList}}" wx:fdevice-i-cor-item="item" wx:for-index="index" wx:key="id">
+        <view class="content">
+          <view class="content-v" data-item="{{item}}" catchtap="showAddSrvCostPop">
+            <text>{{index+1}}.</text>
+            <!-- <input disabled="true" value="{{item.price}}"></input>
+            <text>元</text> -->
+            <input disabled="true" value="{{item.duration}}"></input>
+            <text>分钟</text>
+            <view>
+            <image catchtap="deleteServer" data-id="{{item.id}}" style="width:40rpx;height:40rpx;" src="{{DataURL}}/images/deletype.png"></image>
+          </view>
+          </view>
+          <block wx:for="{{item.prices}}" wx:for-item="itemPrice" wx:for-index="indexPrice" wx:key="id">
+          <view class="eletron">
+            <view>价格类别：<text>{{itemPrice.priceTypeName}}</text></view>        
+            <view>正常价：<text>{{itemPrice.actprice}}元</text></view>
+            <view>优惠价：<text>{{itemPrice.specialprice}}元</text></view>
+            <view>继续优惠价：<text>{{itemPrice.halfprice}}元</text></view>
+            <block wx:if="{{itemPrice.priceType==2 || itemPrice.priceType==3}}">
+              <view>开始时间：<text>{{itemPrice.promotionstart}}</text></view>
+              <view>结束时间：<text>{{itemPrice.promotionend}}</text></view>
+            </block>
+            
+            <view class="list-lv">
+              <view>优先等级：<text>{{itemPrice.sort}}</text></view>
+            </view>
+
+          </view>
+          </block>
+        </view>
+      </block>
+		</view>
+	</view>
+</view>
+
+<!-- 修改/新增弹窗 -->
+<block wx:if="{{true}}" wx:if="{{isShowAddSrvCostPop}}" >
+<view class="tanChuan"></view>
+<view class="tanChuan-v">
+    <view  class="tanChuan-v-o" >{{srvFeeDataInfo.id>0?'编辑':'新增'}}服务费用</view>
+    <view>
+    
+    </view>
+    <view  class="tanChuan-v-t">
+      <view class="tine">
+        <!-- <input type="digit" data-cid='price' bindblur='changeValueMainData' value="{{srvFeeDataInfo.price>0.00?srvFeeDataInfo.price:''}}" cursor-spacing="10"></input>
+        元 -->
+        <input type="number" data-cid='duration' bindinput='changeValueMainData' value="{{srvFeeDataInfo.duration>0?srvFeeDataInfo.duration:''}}" cursor-spacing="10"></input>
+        分钟
+      </view>
+      <view catchtap="onChangeShowPriceTypeList" class="business-tit-v">
+        <input style="text-overflow:clip;width: 80%;" disabled="true" value="{{curPriceTypeItem==null?'请选择':curPriceTypeItem.name}}"></input>
+        <image src="{{SMDataURL}}/images/xiala.png" class="{{isShowPriceTypeList? 'zhuandong':''}}">
+        </image>
+        <view class="xiala" wx:if="{{isShowPriceTypeList}}">
+        <block wx:for="{{priceTypeList}}" wx:for-item="item" wx:for-index="index" wx:key="id">
+          <view catchtap="onSelectPriceType" data-item="{{item}}">{{item.name}}</view>
+        </block>
+        </view>
+      </view>
+      <view class="but" catchtap="addPriceItemEvent">
+        添加
+      </view>
+    </view>
+
+    <scroll-view scroll-y="true" class="ele">
+      <view class="eletron" wx:for="{{srvFeeDataInfo.price}}" wx:for-item="item" wx:for-index="index" wx:key="index">
+      <block wx:if="{{item.invalid==0}}">
+        <view>价格类别：<text>{{item.priceTypeName}}</text></view>        
+        <view class="ce-o">
+          <view>正常价:</view>
+          <input type="digit" data-index="{{index}}" data-cid='actprice' bindblur='changeValueMainData' value="{{item.actprice>0?item.actprice:''}}" cursor-spacing="10"></input>
+        </view>
+        <view class="ce-o">
+          <view>优惠价:</view>
+          <input type="digit" data-index="{{index}}" data-cid='specialprice' bindblur='changeValueMainData' value="{{item.specialprice>0?item.specialprice:''}}" cursor-spacing="10"></input>
+        </view>
+        <view class="ce-o">
+          <view>继续优惠价:</view>
+          <input type="digit" data-index="{{index}}" data-cid='halfprice' bindblur='changeValueMainData' value="{{item.halfprice>0?item.halfprice:''}}" cursor-spacing="10"></input>
+        </view>
+
+        <!-- 需要设置起始日期 -->
+        <block wx:if="{{item.priceType==2 || item.priceType==4}}">
+          <view class="me-o">
+            <view class="section__title">开始时间:</view>
+            <input data-index="{{index}}" data-tag="0" catchtap="chooseDateTime" value="{{item.promotionstart}}"></input>
+          </view>
+          <view class="me-o">          
+            <view class="section__title">结束时间:</view>          
+            <input data-index="{{index}}" data-tag="0" catchtap="chooseDateTime" value="{{item.promotionend}}"></input>
+          </view>
+        </block>
+        <!-- 需要设置时段 -->
+        <block wx:if="{{item.priceType==3}}">
+          <view class="me-o">
+            <view class="section__title">开始时间:</view>
+            <picker mode="time" value="{{item.promotionstart}}" start="00:00" end="23:59" data-index="{{index}}" data-cid='dtstart' bindchange="changeValueMainData">
+              <view class="picker">
+              {{item.promotionstart}}
+              </view>
+            </picker>
+          </view>
+          <view class="me-o">          
+            <view class="section__title">结束时间:</view>          
+            <picker mode="time" value="{{item.promotionend}}" start="00:00" end="23:59" data-index="{{index}}" data-cid='dtend' bindchange="changeValueMainData">
+              <view class="picker">
+              {{item.promotionend}}
+              </view>
+            </picker>
+          </view>
+        </block>
+        
+        <view class="list-lv">
+          <view class="le">
+            <view class="lt">优先等级</view>
+            <image class="age" src="{{SMDataURL}}/images/amq-enhance.png" data-index="{{index}}" data-tag="+" data-cid='sort' catchtap="changeValueMainData"></image>
+            <view class="lv">{{item.sort}}</view>
+            <image class="age" src="{{SMDataURL}}/images/amq-reduce.png" data-index="{{index}}" data-tag="-" data-cid='sort' catchtap="changeValueMainData"></image>
+          </view>
+          <view class="but" style="margin:0;height: 50rpx;" data-index="{{index}}" data-cid='del' catchtap="changeValueMainData"> 删除</view>
+        </view>
+      </block>
+      </view>
+    </scroll-view>
+    <block wx:if="{{isShowPriceLimit}}">
+      <view class="ce-o ce-p">
+        <view>限制总数:</view>
+        <input type="number" data-cid='p-num' bindblur='changeValueMainData' value="{{srvFeeDataInfo.num>0?srvFeeDataInfo.num:''}}" cursor-spacing="10"></input>
+      </view>
+      <view class="ce-o ce-p">
+        <view>单人限制总数:</view>
+        <input type="number" data-cid='p-single_num' bindblur='changeValueMainData' value="{{srvFeeDataInfo.single_num>0?srvFeeDataInfo.single_num:''}}" cursor-spacing="10"></input>
+      </view>
+      <view class="ce-o ce-p">
+        <view>间隔天数:</view>
+        <input type="number" data-cid='p-interval_day' bindblur='changeValueMainData' value="{{srvFeeDataInfo.interval_day>0?srvFeeDataInfo.interval_day:''}}" cursor-spacing="10"></input>
+      </view>
+      <view class="ce-o ce-p">
+        <view>单人每次限制总数:</view>
+        <input type="number" data-cid='p-limit_num' bindblur='changeValueMainData' value="{{srvFeeDataInfo.limit_num>0?srvFeeDataInfo.limit_num:''}}" cursor-spacing="10"></input>
+      </view>
+    </block>
+    <view  class="tanChuan-v-s">
+      <view catchtap="addServiceCostInfo">确认</view>
+      <view catchtap="ondelhidtype">取消</view>
+    </view>
+  </view>
+</block>

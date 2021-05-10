@@ -1,0 +1,70 @@
+<!--pages/ccompany/ccompany.wxml-->
+<view class='wid-100 tac Profiles'>
+  <image mode='aspectFit' class='comp-image' src='{{companyData.cLogoUrl}}'></image>
+  <view class='comp-name wid-100 '>
+    {{companyData.cName}}
+  </view>
+</view>
+
+<!-- 联系我们 -->
+<view class="portion wid-100 {{tag==1?'show':'hide'}}" style="{{tag==1?'margin-top: 0;':''}}">
+  <!-- <view class="nav-title relative">
+    <view class="border-l absolute"></view> 
+    <view class="title-name">
+      <view class='nav-name fleft'>联系我们<text>Contact Information</text></view>
+    </view>
+  </view> -->
+  <view class='Contact'>
+    <view class="Contact-way">电话：{{companyData.cPhone}}</view>
+    <view class="Contact-way">邮箱：{{companyData.cEmail}}</view>
+    <view class="Contact-way">网址：{{companyData.cWebSite}}</view>
+    <view class="Contact-way">地址：{{companyData.cAddr}}</view>
+    <view class="Contact-way nav-name" style='color:#999;margin-top: 10rpx;'>位置</view>
+  </view>
+  <view class='clear wid-100'></view>
+</view>
+
+<view class="wid-100 portion {{tag==1?'show':'hide'}}" style='margin-top: 0;'>
+  <map class='map' id='mpCompany' longitude="{{companyData.mapLocation.longitude}}" latitude="{{companyData.mapLocation.latitude}}" scale="14" markers="{{companyData.mapLocation.markers}}">
+  </map>  
+  <!-- <view class='noticetext' data-addr="{{companyData.cAddr}}" catchtap='navigateToHere'>我要导航</view> -->
+</view>
+<view class="traffic">
+   <view class="Contact-way nav-name" style='color:#999;margin-top: 10rpx;'>交通</view>
+   <view class="line">
+    <image src="{{DataURL}}/images/traffic.png" class="fleft"></image>
+    <view class="fright">
+      <block wx:for="{{companyData.trafficTitle.airportTitle}}" wx:for-item="item" wx:key="key" wx:for-index="index">
+        <view class="trafficway">
+          <view>{{item}}</view>
+          <text>{{companyData.trafficValue.airportValue[index]}}</text>
+        </view>
+      </block>
+    </view>
+    <view class="clearfix"></view>
+   </view>
+   <view class="line">
+    <image src="{{DataURL}}/images/traffic2.png" class="fleft"></image>
+    <view class="fright">
+      <block wx:for="{{companyData.trafficTitle.trainTitle}}" wx:for-item="item" wx:key="key" wx:for-index="index">
+        <view class="trafficway">
+          <view>{{item}}</view>
+          <text>{{companyData.trafficValue.trainValue[index]}}</text>
+        </view>
+      </block>
+    </view>
+    <view class="clearfix"></view>
+   </view>
+   <view class="line">
+    <image src="{{DataURL}}/images/traffic1.png" class="fleft"></image>
+    <view class="fright">
+      <block wx:for="{{companyData.trafficTitle.metroTitle}}" wx:for-item="item" wx:key="key" wx:for-index="index">
+        <view class="trafficway">
+          <view>{{item}}</view>
+          <text>{{companyData.trafficValue.metroValue[index]}}</text>
+        </view>
+      </block>
+    </view>
+    <view class="clearfix"></view>
+   </view>
+</view>

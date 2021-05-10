@@ -1,0 +1,40 @@
+<!--pages/deviceCode/deviceCode.wxml-->
+<view class="deviceCode">
+  <view class="deviceCode-o">
+    <view class="de-o">
+      <view>小程序码</view>
+      <input placeholder="请输入小程序编码"></input>
+      <image src="{{SMDataURL}}/images/zmy-sm.png"></image>
+    </view>
+    <view class="de-t">
+      <view>设备地址</view>
+      <input placeholder="请输入设备码"></input>
+      <image src="{{SMDataURL}}/images/zmy-sm.png"></image>    
+    </view>
+    <view class="de-s">
+      绑定
+    </view>
+  </view>
+
+  <view class="tit">绑定记录</view>
+  <view class="deviceCode-t">
+    <view class="Code-t">
+      <view class="Code-t-o"><text>小程序码</text><text>0868540050041918</text></view>
+      <view class="succse">绑定成功</view>
+    </view>    
+    <view class="Code-t">
+      <view class="Code-t-o"><text>设备地址</text><text>SDFDF5454521212124</text></view>
+      <view class="de-w">测试</view>
+    </view>
+  </view>
+  <view class="deviceCode-t">
+    <view class="Code-t">
+      <view class="Code-t-o"><text>小程序码</text><text>0868540050041918</text></view>
+      <view class="del">绑定失败</view>
+    </view>    
+    <view class="Code-t">
+      <view class="Code-t-o"><text>设备地址</text><text>SDFDF5454521212124</text></view>
+      <view class="de-w delcs">测试</view>
+    </view>
+  </view>
+</view>

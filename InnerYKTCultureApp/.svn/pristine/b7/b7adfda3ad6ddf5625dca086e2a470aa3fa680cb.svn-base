@@ -1,0 +1,277 @@
+<!--pages/amited/amited.wxml-->
+<!-- 支付方式选择弹窗 -->
+<v-payModeChosePop id="payPop" pageName="luckdraw" bind:onDowithAfterPayfor="onCompontDowithAfterPayfor" />
+
+<view style="margin-top: 4rpx;"></view>
+<view class="sitdown" hidden="{{pagetype==1}}">
+  <view class="eat-sit">
+    <view class="sit-o">{{agentPutAddress}}</view>
+    <view class="sit-t">请确定下单位置是否正确</view>
+  </view>
+  <view>
+    <view class="pat-t">
+      <!-- 71堂食 70外带 -->
+      <view style="left:0;" data-num="1" class="sbye {{isHot==1? 'colortype':''}}" catchtap="isHottype">堂食</view>
+      <view style="right:0;" data-num="0" class="sbye {{isHot==0? 'colortype':''}}" catchtap="isHottype">外带</view>
+      <view class="pat-s-g {{isHot==1? 'cost':''}}"></view>
+    </view>
+  </view>
+</view>
+<view class="delivery" catchtap="gotoPage" hidden="{{pagetype==0}}">
+  <image src="{{SMDataURL}}/images/any-dressmanb.png"></image>
+  <block wx:if="{{curAddress.length==0}}">
+    <view class="wehtFont">请添加收货地址</view>
+  </block>
+  <block wx:else>
+    <view class="dressItem">
+      <view>{{curAddress.area}}<text>{{curAddress.address}}</text></view>
+      <view>{{curAddress.name}}（{{curAddress.sex}}）<text>{{curAddress.mobile}}</text></view>
+    </view>
+  </block>
+  <view></view>
+  <image src="{{SMDataURL}}/images/amy-demtdusk.png"></image>
+</view>
+<view class="amitedO" catchtap="onChangtimeOut" style="margin-top:10rpx;">
+  <view class="amitedTime">预订时间</view>
+  <view class="amitedcommit">
+    <view>
+      {{selectTimeIndex==0?'立即取餐':showSelectDate}}
+      <view>
+        <view style="color:#D9001B;font-size:22rpx;margin-top: 10rpx;float: right;">
+          预订超{{reserveOverTime}}小时享优惠！
+        </view>
+      </view>
+    </view>
+    <image src="{{SMDataURL}}/images/amy-demtdusk.png"></image>
+  </view>
+</view>
+<view class="amitedO" style="margin-top:10rpx;" hidden="{{orderNum==0}}">
+  <view class="amitedTime">排队进度</view>
+  <view class="schedule">前面还有<text>{{orderNum}}单</text>制作中</view>
+</view>
+<view class="mainPortion">
+  <view class="adressTitle">{{companyName}}</view>
+  <view class="drinkItem" wx:for="{{shopCarList}}" wx:key="key">
+    <image src="{{item.photos[0]}}"></image>
+    <view style="width: 75%;">
+      <view class="itemconse">
+        <text>{{item.productName}}</text>
+        <view style="display: flex;align-items:center;"><view class="yulan" 
+              catchtap="changeTpe" data-index="{{index}}"><image src="https://e.amjhome.com//baojiayou/tts_upload/741/20210413/s_tts_741_20210413164616_202.jpg"></image>
+            </view>
+         ￥{{item.amount}}</view>
+      </view>
+      <view class="itself">
+        <text>{{item.showLabels}}</text>
+        <text>×{{item.num}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="usenote">
+    <view class="note-o">活动详情：每一个商品仅赠送一张按摩劵</view>
+    <view class="note-t"><text>赠送</text>：足底按摩劵 <text>×{{numAnMoCoupon}}</text></view>
+  </view>
+  <view class="distribution" hidden="true">
+    <text>配送费</text>
+    <text>￥5.00</text>
+  </view>
+  <view class="totalny">小计<text>￥{{temptotalDouble}}</text></view>
+  <view class="totalny" wx:if="{{isCanReserveFavourable&&isReserveOverTime}}"
+    style="color:#FF3333;font-size: 24rpx;padding-top: 0rpx;">（预定-￥8）</view>
+</view>
+
+<!--充值免单-->
+<block wx:if="{{freeOrderRCList.length>0}}">
+  <view class="freepay">
+    <view class="fpay">
+      <view>充值免单</view>
+    </view>
+    <block wx:for="{{freeOrderRCList}}" wx:for-item="item" wx:key="{{item.id}}" wx:for-index="index">
+      <view class="fpay-o">
+        <view class="contfont">充值{{item.price}}元，到账{{item.price}}余额，后续余额支付打<text>9折</text>本次消费{{item.discount}}元以内，即可<text>免单</text>。</view>
+        <view class="choicefont">
+          即刻充值
+          <label class="radio" catchtap="checkedFreeOrder">
+              <radio value="r1" checked="{{isFreeOrder}}"/>
+          </label>
+        </view>
+      </view>
+    </block>
+    
+  </view>
+</block>
+<!-- 优惠劵相关 -->
+<block wx:if="{{!isFreeOrder}}">
+  <view class='use-privilege' bindtap='showSelCouponsPop' hidden="{{couponsList.length==0}}">
+    <view class='tips-title fleft' style="width: 600rpx;">使用优惠券
+      <!-- <text style="margin-left:20rpx;color:#FF3333;">{{discountSum>0?"(抵扣"+discountSum+"元)":""}}</text> -->
+    </view>
+    <view class='choose fright'>
+      <text wx:if="{{selectCoupons.length>0}}" class="note-item-text fright">
+        {{selectCoupons.mold==2?'使用0元免单':'抵扣'+discountSum+'元'}}
+      </text>
+      <text wx:else class="note-item-text fright">您有{{couponsList.length}}张优惠券可以使用</text>
+    </view>
+    <!-- <view class='choose fright' wx:if='{{selectCoupons}}'>
+      <text class='{{selectCoupons.content.length>17?"note-item-text17 fright":"note-item-text fright"}}'>5元抵扣劵</text>
+    </view> -->
+    <image class="dropdown fright" src='{{SMDataURL}}/images/dropdown.png'></image>
+  </view>
+
+  <!-- 已选优惠劵列表 -->
+  <view class="Acoupon" style="margin:20px auto 20px auto;z-index:99;" wx:if='{{selectCoupons}}'>
+    <image src='{{SMDataURL}}/images/coupon.png'></image>
+    <view class="shadow"></view>
+    <view class="Acouponinfor">
+      <view class="facevalue">
+        <view class="facevalue-price fleft">
+          {{selectCoupons.mold == 2?"":"￥"}}<text>{{selectCoupons.mold == 2?'0元免单':selectCoupons.discount}}</text>
+        </view>
+        <view class="facevalue-name fright" wx:if='{{selectCoupons.mold == 0}}'>满减劵</view>
+        <view class="facevalue-name fright" wx:if='{{selectCoupons.mold == 1}}'>抵扣券</view>
+        <view class="facevalue-name fright" wx:if='{{selectCoupons.mold == 2}}'>免单券</view>
+      </view>
+      <view class="condition">
+        <view class="facevalue-data fleft">有效期至 {{selectCoupons.valid_date}}</view>
+        <view wx:if='{{selectCoupons.mold == 0}}' class="facevalue-uses fright">满{{selectCoupons.full}}可用</view>
+      </view>
+    </view>
+    <view class="Acouponuser">
+      <view class='fleft'>{{selectCoupons.typename}}</view>
+    </view>
+  </view>
+  <view class="amitedO" style="margin-top:10rpx;">
+    <view class="remark">备注</view>
+    <input style="{{type? 'text-align:left;':'text-align:right;'}}" bindfocus="focusOut" bindblur="blurOut"
+      placeholder="备注说明" bindinput="getInput" data-tag="0" value="{{remarks}}"></input>
+  </view>
+</block>
+
+
+
+
+
+
+<view class="pobottom">
+  <block wx:if="{{isFreeOrder}}">
+    <view>待充值<text>￥{{rechargeAmount}}</text></view>
+  </block>
+  <block wx:else>
+    <view>待支付<text>￥{{totalDouble}}</text></view>
+  </block>
+  
+  <view wx:if="{{pagetype==1&&isOverDistan}}" style="width: 320rpx;background: #999;">{{showTipTxet}}</view>
+  <view wx:elif="{{orderId==''}}" catchtap="submitOrder">{{isFreeOrder?'立即充值':'提交订单'}}</view>
+  <view wx:else style="background:red;color:#fff;" catchtap="startPay">{{isFreeOrder?'立即充值':'支 付'}}</view>
+</view>
+
+<block wx:if="{{timeOut||ImageyulanType}}" >
+  <view class="windowBackgroud" style="{{ImageyulanType?'z-index:170':''}}" catchtouchmove="{{false}}" catchtap="emptyType"></view>
+</block>
+
+
+<view class="takeFoodtime {{timeOut?'':'takeFoodtimeout'}}">
+  <view class="dingCantitle">选择预计送到时间</view>
+  <view class="dingCan" catchtouchmove="{{false}}">
+    <scroll-view scroll-y="true" class="sroll btouch">
+      <block wx:for="{{reserveDates}}" wx:key='key'>
+        <view class="{{index==selectDateIndex?'aaview aaviewcolor':'aaview'}}" catchtap="selectWeek"
+          data-index="{{index}}">
+          {{item.showTime}}</view>
+      </block>
+    </scroll-view>
+    <scroll-view scroll-y="true" class="sroll ytouch">
+      <block wx:for="{{reserveDates[selectDateIndex].defaultTimes}}" wx:key='key'>
+        <view class="{{index==selectTimeIndex?'bbview srollcolor':'bbview'}}" catchtap="selectTime"
+          data-index="{{index}}">
+          {{0==index?'立即取餐':item.time}}
+          <text hidden="{{!item.isReserveOverTime}}"
+            style="{{index==selectTimeIndex?'color:#2FA1FC;':'color:#008665;'}}">(立减8.0元)</text>
+          <text hidden="{{index!=selectTimeIndex}}">√</text>
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+  <view class="del" catchtap="onChangtimeOut">取消</view>
+</view>
+
+<!-- 可使用优惠券选择弹窗 -->
+<view class="userule" wx:if="{{isShowSelCouponsPop}}" catchtouchmove="true">
+  <view class="bgopcity" catchtap="showSelCouponsPop"></view>
+  <view class='couponbox'>
+    <view class="tipsbox">
+      <scroll-view class="pop-array" scroll-y style="{{couponsList.length > 3 ? 'height:800rpx' : ''}}">
+        <view class='checkbox-con'>
+          <text class="coupontext">请选择优惠劵</text>
+          <!-- <radio-group bindchange="radioChange"> -->
+          <radio-group>
+            <label class="{{item.checked?'checkbox checked':'checkbox'}}" wx:for="{{couponsList}}" wx:for-item="item"
+              data-index="{{index}}" data-item="{{item}}" wx:key="key" bindtap="choseTxtColor">
+              <radio class="fleft" value="{{item.name}}" checked="{{item.checked}}" />
+              <view class="Acoupon fleft">
+                <image src='{{SMDataURL}}/images/coupon.png'></image>
+                <view class="shadow"></view>
+                <view class="Acouponinfor">
+                  <view class="facevalue">
+                    <view class="facevalue-price fleft">
+                      {{item.mold == 2?"":"￥"}}<text>{{item.mold == 2?'0元免单':item.discount}}</text>
+                    </view>
+                    <view class="facevalue-name fright" wx:if='{{item.mold == 0}}'>满减劵</view>
+                    <view class="facevalue-name fright" wx:if='{{item.mold == 1}}'>抵扣券</view>
+                    <view class="facevalue-name fright" wx:if='{{item.mold == 2}}'>免单券</view>
+                  </view>
+                  <view class="condition">
+                    <view class="facevalue-data fleft">有效期至 {{item.valid_date}}</view>
+                    <!-- <view class="facevalue-uses fright">{{item.content}}</view> -->
+                    <view wx:if='{{item.mold == 0}}' class="facevalue-uses fright">满{{item.full}}可用</view>
+                  </view>
+                </view>
+                <view class="Acouponuser">
+                  <view class='fleft'>{{item.typename}}</view>
+                </view>
+              </view>
+            </label>
+          </radio-group>
+        </view>
+      </scroll-view>
+      <view class='pop-btn'>
+        <button class="btn-qx" bindtap="showSelCouponsPop">取消</button>
+        <button class="btn-qx" bindtap="choseAll" hidden="true">全选</button>
+        <button class="btn-qd" bindtap="submitSelCoupons">确定</button>
+      </view>
+    </view>
+  </view>
+</view>
+<!--新增弹窗跳转充值-->
+<block wx:if="{{TLstype}}">
+<view class="fonts3">
+<view class="fonts">
+</view>
+</view>
+<view class="productTypedetail" wx:if="{{true}}">
+  <view class="fonts1">
+    <!-- <view class="fotitle">提示</view> -->
+    <image class="dropdel" catchtap="TLstype" src='{{SMDataURL}}/images/yk-delz.png'></image>
+    <view class="foitem">
+      现有充值福利，充200元即可获得<text>50元</text>抵扣券，还有更多充值活动等你解锁!
+    </view>
+    <view class="foitebut">
+      <view   data-pagetype="0" data-package="packageVP" data-page="Mymember" catchtap="gotoCommonPage" >立即充值</view>
+    </view>
+  </view>
+</view>
+</block>
+<!--预览图片-->
+<view class="Imageyulan" wx:if="{{ImageyulanType}}">
+  <view style="position: relative;">
+    <view class="bmsktitle">预览</view>
+    <view class="mlistdusk">
+      <image class="sss1" src="{{SMDataURL}}/images/mulist.png"></image>
+      <view class="topComponent">
+        <image class="sss2" src="https://e.amjhome.com//baojiayou/tts_upload/741/20210413/s_tts_741_20210413164616_202.jpg">
+        </image>
+      </view>
+    </view>
+    <image class="mlxc6" src="{{SMDataURL}}/images/cleardel.png" catchtap="emptyType"></image>
+  </view>
+</view>

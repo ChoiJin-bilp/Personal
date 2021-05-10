@@ -1,0 +1,252 @@
+/* pages/hotelorderdetail/hotelorderdetail.wxss */
+page{
+  background: #f6f6f6;
+}
+.expressRecord {
+  width: 710rpx;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 10rpx;
+  padding-bottom: 40rpx;
+}
+
+.cart-pro-name {
+  width: 100%;
+  height: 72rpx;
+  line-height: 36rpx;
+  overflow: hidden;
+  word-break: break-all;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #000;
+}
+.cart-list-one {
+  background:white;
+  margin-top: 20rpx;
+  border-radius: 10rpx;
+  padding-top: 10rpx;
+}
+.expressRecord .title {
+  font-size: 28rpx;
+  color: #666;
+  padding-left: 20rpx;
+}
+.astoredetails {
+  width: 94%;
+  margin: 12rpx auto;
+  height: 164rpx;
+  padding-bottom: 20rpx;
+  border-bottom: solid 1px #e5e5e5;
+}
+
+.cart-thumb-one {
+  float: left;
+  width: 164rpx;
+  height: 164rpx;
+  border: solid 2rpx #f8f8f8;
+  box-sizing: border-box;
+  border-radius: 12rpx;
+}
+.cart-norms {
+  width: 100%;
+  height: 46rpx;
+  line-height: 46rpx;
+  font-size: 30rpx;
+  color: #333;
+}
+.cart-infor-one {
+  height: 164rpx;
+  width: 480rpx;
+  float: left;
+  margin-left: 20rpx;
+}
+
+.cart-moeny-one {
+  width: 100%;
+  height: 46rpx;
+  line-height: 46rpx;
+  font-size: 30rpx;
+  color: #333;
+}
+
+.cart-pro-price-one {
+  display: inline-block;
+  color: #ff1f1f;
+  font-size: 24rpx;
+}
+
+.cart-count-box-one {
+  float: right;
+  width: 220rpx;
+  height: 46rpx;
+}
+
+.cart-list .cart-thumb {
+  position: absolute;
+  top: 10rpx;
+  left: 20rpx;
+  width: 164rpx;
+  height: 164rpx;
+  border: solid 2rpx #f8f8f8;
+  box-sizing: border-box;
+  border-radius: 12rpx;
+}
+
+.qx-order{
+  width: 100%;
+  margin: 40rpx auto;
+  text-align: center;
+}
+.qx-order button{
+  display: inline-block;
+  padding: 0 40rpx;
+  height: 64rpx;
+  border: solid 2rpx #0066eb;
+  color: #0066eb;
+  background: none;
+  border-radius: 32rpx;
+  line-height: 60rpx;
+  font-size: 30rpx;
+  margin-left: 80rpx;
+}
+.qx-order button:first-child{
+  margin-left: 0;
+}
+.heji{
+  clear: both;
+  width: 96%;
+  margin: 0 auto;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  background: #fff;
+  padding: 0 2%;
+  border-top: 1rpx solid #e5e5e5;
+}
+.heji text{
+  display: inline-block;
+  color: #ff1f1f;
+  font-size: 30rpx;
+}
+.orderdetails {
+  width: 96%;
+  height: 68rpx;
+  clear: both;
+  margin: 0 auto;
+  background: white;
+  /* border-top: 1rpx solid #e5e5e5; */
+  padding: 0;
+}
+
+.orderdetails text {
+  float: left;
+  height: 68rpx;
+  line-height: 68rpx;
+  font-size: rpx;
+  color: #666;
+}
+
+.orderdetails button {
+  display: inline-block;
+  background: #fff;
+  height: 52rpx;
+  line-height: 48rpx;
+  margin-top: 8rpx;
+  border: solid 2rpx #136fe6;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  padding: 0 26rpx;
+  border-radius: 26rpx;
+  color: #136fe6;
+}
+
+.ashopname,.ashopname1{
+   width: 94%;
+   height: 60rpx;
+   padding: 10rpx 3%;
+   position: relative;
+ }
+.ashopname image.storelogo{
+  float: left;
+  width: 60rpx;
+  height: 60rpx;
+  border-radius:50%;
+  overflow: hidden; 
+  margin-right: 20rpx;
+  background: white;
+}
+.ashopname view.storename{
+  float: left;
+  height: 60rpx;
+  line-height: 60rpx;
+  margin-right: 20rpx;
+  font-size: 30rpx;
+  font-weight: bold;
+  max-width: 42%;
+  overflow: hidden;white-space:nowrap;text-overflow:ellipsis;
+}
+.ashopname text.storename{
+  display: inline-block;
+  float: left;
+  height: 60rpx;
+  line-height: 60rpx;
+  margin-right: 20rpx;
+  font-size: 30rpx;
+  font-weight: bold;
+  max-width: 65%;
+  overflow: hidden;white-space:nowrap;text-overflow:ellipsis;
+}
+.ashopname image.fright{
+  display: inline-block;
+  height: 48rpx;
+  width: 48rpx;
+  padding: 6rpx;
+}
+
+.expressRecord .title {
+  font-size: 28rpx;
+  color: #666;
+  padding-left: 20rpx;
+}
+
+.expressRecord .co {
+  margin-bottom: 10px;
+  width: 100%;
+  clear: both;
+}
+.expressRecord .co text.fleft{display: inline-block;width: 22%;line-height: 56rpx;}
+.expressRecord .co view.fright{
+  float: right;
+  max-width: 76%;
+  padding-right: 2%;
+  line-height: 56rpx;
+}
+.expressRecord .title2 {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.qx-order{
+  width: 100%;
+  margin: 40rpx auto;
+  text-align: center;
+  margin-top: 320rpx;
+}
+.qx-order button{
+  display: inline-block;
+  padding: 0 40rpx;
+  height: 64rpx;
+  border: solid 2rpx #0066eb;
+  color: #0066eb;
+  background: none;
+  border-radius: 32rpx;
+  line-height: 60rpx;
+  font-size: 30rpx;
+  margin-left: 80rpx;
+}
+.qx-order button:first-child{
+  margin-left: 0;
+}

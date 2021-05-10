@@ -1,0 +1,414 @@
+// packageOther/pages/successDetailspa/successDetailspa.js
+const app = getApp()
+var MD5JS = require('../../../utils/md5.js');
+const util = require('../../../utils/util.js');
+var Utils = require('../../../utils/util.js');
+var URL = app.getUrlAndKey.url,
+  KEY = app.getUrlAndKey.key,
+  DataURL = app.getUrlAndKey.dataUrl;
+var appUserInfo = app.globalData.userInfo,sOptions = null,
+  defaultItemImgSrc = DataURL + app.data.defaultImg;
+var mainPackageUrl = "../../../pages",isGetOrder=false;
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    DataURL: DataURL,
+    isLoad: false,             //是否已经加载
+    loginType:0,               //登录类型：0支付加载，1查询加载
+    // 可领取优惠券查询 付款成功
+    mold: "20",
+    // 按摩优惠券
+    AnMoCoupons: [],
+    num: 0,
+    orderId: "",
+    order: "",
+    showTips: false,
+    // 打印图案
+    synimageList: [],
+
+    isMultipleCoupon: false,
+    payGetCheirapsisList: [],
+    synimage: "https://e.amjhome.com//baojiayou/tts_upload/6796/20210105/s_tts_6796_20210105163947_646.jpg",
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    let that=this;
+    sOptions=options;
+    appUserInfo = app.globalData.userInfo;
+    if (appUserInfo == null) {
+      console.log('开始登陆...')
+      app.getLoginUserInfo(that);
+    } else {
+      console.log("加载：......");
+      that.dowithAppRegLogin(9);
+    }
+  },
+  //方法：APP注册登录页面处理方法
+  //参数：tag——0，显示授权弹窗；1，注册或登录完成处理事务
+  dowithAppRegLogin: function (tag) {
+    var that = this,isMultipleCoupon = false,mlst = 0;
+    switch (tag) {
+      case 0:
+        that.setData({
+          isShowAuthor: true,
+        })
+
+        break;
+
+      default:
+        appUserInfo = app.globalData.userInfo;
+        console.log('=========onload============');
+        let loginType=0;
+        try {
+          if (Utils.isNotNull(sOptions.mlst)){
+            mlst = parseInt(sOptions.mlst);
+            mlst = isNaN(mlst) ? 0 : mlst;
+          }            
+        } catch (e) {}
+        try {
+          if (Utils.isNotNull(sOptions.lp)){
+            loginType = parseInt(sOptions.lp);
+            loginType = isNaN(loginType) ? 0 : loginType;
+          }            
+        } catch (e) {}
+        that.setData({
+          num: Utils.isNotNull(sOptions.anmocouponnum) ? sOptions.anmocouponnum : null,
+          duration: Utils.isNotNull(sOptions.anmotime) ? sOptions.anmotime : null,
+          anmocouponid: Utils.isNotNull(sOptions.anmocouponid) ? sOptions.anmocouponid : null,
+          mold: Utils.isNotNull(sOptions.mold) ? sOptions.mold : null,
+          orderId: sOptions.oid,
+          // 0不显示按摩券
+          showcoupon: Utils.isNotNull(sOptions.showcoupon) ? sOptions.showcoupon : null,
+          companyId: Utils.isNotNull(sOptions.companyId) ? sOptions.companyId : null,
+          linkNo: Utils.isNotNull(sOptions.linkNo) ? sOptions.linkNo : null,
+          isUse: Utils.isNotNull(sOptions.isUse) ? sOptions.isUse : null,
+    
+          ["loginType"]:loginType,
+          ["isMultipleCoupon"]: mlst == 1 ? true : false,
+          ["payGetCheirapsisList"]: mlst == 1 ? app.data.payGetCheirapsisList : [],
+        })
+        //******************************* */
+        // 不使用传参，数据直接请求接口获取按摩劵记录
+        that.data.num = ""
+        if (Utils.isNull(that.data.num)) {
+          that.getCanCoupons(that.data.loginType)
+        } else {
+          that.data.showTips = true
+          that.queryOrders()
+        }
+        console.log(this.data.payGetCheirapsisList)
+        break;
+    }
+  },
+  //事件：取消注册
+  cancelRegAuthorization: function (e) {
+    var that = this;
+    app.cancelRegAuthorization(that);
+  },
+  //事件：授权用户信息
+  getAuthorizeUserInfo: function (e) {
+    var that = this;
+    app.getAuthorizeUserInfo(that, e);
+  },
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    app.data.pageLayerTag = "../../../";
+    //按摩进行时，当界面显示立即同步时间（处理微信小程序锁屏导致定时器延时问题）
+    app.data.isOnShowQueryCheirapsisTime = app.data.isDeviceMyUsing ? true : false;
+
+    let that=this;
+    if (!that.data.isLoad)
+      that.data.isLoad = true;
+    else {
+      appUserInfo = app.globalData.userInfo;
+      if (appUserInfo == null) 
+        return;
+      else{
+        //刷新按摩劵记录（主要获取最新的使用状态）
+        that.getCanCoupons(1);
+      }      
+    }
+  },
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  },
+
+  /**
+   * 查询订单详情
+   */
+  queryOrders() {
+    var that = this
+    var timestamp = Date.parse(new Date());
+    timestamp = timestamp / 1000;
+    var orderId = that.data.orderId
+    var userId = appUserInfo.userId
+    // orderId = "B202103290046"
+    // userId = 14324
+    var urlParam = "cls=product_order&action=QueryOrders" + "&appId=" + app.data.appid + "&timestamp=" + timestamp + "&userId=" + userId + "&orderId=" + orderId;
+    var otherParam = ""
+    app.doGetData(that, app.getUrlAndKey.smurl, urlParam, otherParam, 0, "查询订单详情")
+  },
+  /**
+   * 获取饮品支付成功按摩的优惠券
+   */
+  getCanCoupons(loginType) {
+    let that = this,orderId = that.data.orderId,otherParam="";
+    // 测试环境
+    // orderId = "20201109182144185"
+
+    if (app.data.isPayforFreeCheirapsis) {
+      let urlParam = "cls=product_coupons&action=QueryCanCoupons";
+      otherParam = "&userId=" + appUserInfo.userId + "&companyId=" + app.data.companyId + "&orderId=" + orderId + "&flag=0&mold=20"
+      app.doGetData(this, app.getUrlAndKey.smurl, urlParam, otherParam, 1, "获取饮品支付成功按摩的优惠券")
+    } else {
+      if(loginType==0){
+        //获取商品送劵按摩记录
+        otherParam = "&xcxAppId=" + app.data.wxAppId + "&operation=add&orderonlyone=1";
+        otherParam += "&orderNo=" + orderId;
+        app.getProductCheirapsisCouponList(that, otherParam);
+      }else{
+        //获取商品所拥有的按摩记录
+        otherParam = "&xcxAppId=" + app.data.wxAppId + "&duration=0&isCancelShare=0&userId=" + appUserInfo.userId + "&isUse=0&orderField=createDate";
+        otherParam += "&orderNo=" + orderId;
+        app.getShareStatData(that, otherParam, 1000000, 1);
+      }
+    }
+  },
+  //方法：获取分成统计信息列表结果处理函数
+  dowithGetShareStatData: function (dataList, tag, errorInfo, pageIndex) {
+    let that = this;
+    switch (tag) {
+      case 1:
+        console.log("获取商品所拥有的按摩记录信息：")
+        console.log(dataList);
+        if (Utils.isNotNull(dataList) && Utils.isNotNull(dataList.dataList) && dataList.dataList.length > 0) {
+          that.setData({
+            isMultipleCoupon: true,
+            payGetCheirapsisList: dataList.dataList,
+            num: dataList.dataList.length,
+          })
+        }
+        
+        break;
+
+      default:
+        break;
+    }
+    that.queryOrders();
+  },
+
+  //方法：获取商品送劵按摩记录结果处理函数
+  dowithGetProductCheirapsisCouponList: function (dataList, tag, errorInfo) {
+    let that = this;
+    switch (tag) {
+      case 1:
+        console.log("获取商品送劵按摩记录列表信息：")
+        console.log(dataList);
+        if (Utils.isNotNull(dataList)) {
+          if (Utils.isNotNull(dataList.resultMap) && dataList.resultMap.length > 0) {
+            that.setData({
+              isMultipleCoupon: true,
+              payGetCheirapsisList: dataList.resultMap,
+              num: dataList.resultMap.length,
+            })
+          }
+        }
+        
+        break;
+
+      default:
+        break;
+    }
+    that.queryOrders();
+  },
+
+  getRuslt: function (data, code, error, tag) {
+    let that = this;
+    switch (code) {
+      case 1:
+        console.log(data)
+        switch (tag) {
+          case 0:
+            that.data.isLoad=true;
+            isGetOrder=true;
+            if (data.length > 0) {
+              var order = data[0]
+              if (Utils.isNull(order.synimage)) {
+                order.synimage = ""
+              }
+              var synimageList = order.synimage.split(",")
+              if (Utils.isNull(order.area)) {
+                order.area = order.oaddr
+              }
+              if (Utils.isNull(order.remarks)) {
+                order.remarks = ""
+              }
+              if (!Utils.isNull(order.name)) {
+                let names = order.name.split(",")
+                order.oname = names[0] + "(" + names[1] + ")"
+              }
+              var sum = 0
+              if (!Utils.isNull(order.payamount)) {
+                sum = order.payamount
+              }
+              for (let index = 0; index < order.detail.length; index++) {
+                const element = order.detail[index];
+                if (Utils.isNull(element.attributeOne)) {
+                  element.attributeOne = ""
+                }
+                if (Utils.isNull(element.attributeTwo)) {
+                  element.attributeTwo = ""
+                }
+                //图片处理
+                var dp = element.detailPhotos
+                if (Utils.isNull(dp)) {
+                  dp = element.productPhotos
+                }
+                if (!Utils.isNull(dp)) {
+                  var imagesArray = dp.split(",");
+                  element.detailPhotos = imagesArray != null && imagesArray.length > 0 ? imagesArray[0] : defaultItemImgSrc;
+                }
+              }
+
+              var coupondiscount = 0
+              // 优惠券价格
+              for (let i = 0; i < order.coupons.length; i++) {
+                const element = order.coupons[i];
+                coupondiscount = coupondiscount + element.discount
+              }
+              order.coupondiscount = coupondiscount
+
+              // 合计总价
+              order.sum = parseFloat(sum).toFixed(2)
+
+              that.setData({
+                order: order,
+                synimageList: synimageList,
+              })
+
+              if (that.data.showTips) {
+                if (!Utils.isNull(app.data.agentDeviceId) && app.data.agentDeviceId > 0) {
+                  wx.showModal({
+                    title: '提示',
+                    content: "已成功下单,您已获得赠送的按摩券,如需使用,请戴好脚套后点击开始按摩",
+                    cancelText: "稍后再说",
+                    cancelColor: "#c6c6c6",
+                    confirmText: "开始按摩",
+                    confirmColor: "#333333",
+                    success(res) {
+                      if (res.confirm) {
+                        that.useMyAward(null);
+                      } else if (res.cancel) {}
+                    }
+                  })
+                }
+              }
+            }
+            break
+          case 1:
+            console.log("获取商品相关按摩记录列表信息：")
+            console.log(data)
+            if (data.length > 0) {
+              // 显示多张
+              if (data.length > 1) {
+                that.setData({
+                  isMultipleCoupon: true,
+                  payGetCheirapsisList: data,
+                  num: data.length,
+                })
+              } else {
+                that.setData({
+                  num: data.length,
+                  duration: data[0].duration,
+                  anmocouponid: data[0].id,
+                  isUse: data[0].isUse,
+                })
+              }
+
+            }
+            that.queryOrders();
+            break
+        }
+        break;
+      default:
+        console.log(error)
+        switch (tag) {
+          case 1:
+            that.queryOrders()
+            break
+        }
+        break
+    }
+  },
+
+  useMyAward: function (e) {
+    let that = this,isSingle = true,item = null,chgTag=0;
+    if (Utils.isNotNull(e)) {
+      let tag = 0;
+      try {
+        tag = parseInt(e.currentTarget.dataset.tag);
+        tag = isNaN(tag) ? 0 : tag;
+      } catch (e) {}
+      try {
+        chgTag = parseInt(e.currentTarget.dataset.chg);
+        chgTag = isNaN(chgTag) ? 0 : chgTag;
+      } catch (e) {}
+      if (tag == 1) {
+        try {
+          item = e.currentTarget.dataset.item;
+        } catch (e) {}
+      }
+      if (Utils.isNotNull(item) && tag == 1) isSingle = false;
+    }
+
+    let url = "";
+    app.data.agentDeviceId=chgTag==1?0:app.data.agentDeviceId;
+    if (isSingle) {
+      url = mainPackageUrl + "/cheirapsisWork/cheirapsisWork?ncw=1&id=" + that.data.anmocouponid + "&mcnt=" + that.data.duration + "&sqy=1&did=" + app.data.agentDeviceId;
+    } else {
+      url = mainPackageUrl + "/cheirapsisWork/cheirapsisWork?ncw=1&id=" + item.id + "&mcnt=" + item.duration + "&sqy=1&did=" + app.data.agentDeviceId;
+    }
+    
+    wx.navigateTo({
+      url: url,
+    });
+  },
+  emptyType() {
+    this.setData({
+      ImageyulanType: false
+    })
+  },
+  changeTpe(e) {
+    var that = this
+    var index = e.currentTarget.dataset.index
+    if (Utils.isNull(index)) {
+      that.setData({
+        ImageyulanType: !that.data.ImageyulanType,
+      })
+      return
+    }
+    var synimageList = that.data.synimageList
+    that.setData({
+      synimage: synimageList[index],
+      ImageyulanType: !that.data.ImageyulanType,
+    })
+  },
+  chType(e) {
+    var that = this;
+
+    this.setData({
+      ImageyulanType: !this.data.ImageyulanType,
+    })
+  },
+})

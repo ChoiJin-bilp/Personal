@@ -1,0 +1,66 @@
+/* packageYK/pages/beverageList/beverageList.wxss */
+page {
+  height: 100%;
+  background: #f2f2f2;
+  font-size: 32rpx;
+}
+
+.beverage-list {
+  background: #fff;
+  width: 92%;
+  padding: 20rpx;
+  box-sizing: border-box;
+  margin: auto;
+  border-radius: 10rpx;
+  /* box-shadow: 2rpx 0rpx 2rpx 0rpx rgb(8, 8, 8,0.5); */
+  margin-top: 20rpx;
+  position: relative;
+}
+
+.cart-no-data {
+  padding: 80rpx 0;
+  color: #999;
+  text-align: center;
+}
+
+.beverage-top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2rpx solid #f2f2f2;
+  padding: 10rpx 0 20rpx 0;
+  box-sizing: border-box;
+}
+
+.beverage-top image {
+  width: 28rpx;
+  height: 26rpx;
+  margin-right: 14rpx;
+  transform: scale(1.3);
+}
+
+.item-list {
+  color: #666;
+  line-height: 60rpx;
+}
+
+.dtue {
+  font-size: 30rpx;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: #999;
+}
+
+.beverage-bottom {
+  display: flex;
+  justify-content: space-between;
+  color: #333;
+}
+
+.sheed {
+  position: absolute;
+  bottom: 32px;
+  right: 40rpx;
+  width: 110rpx;
+  height: 110rpx;
+}

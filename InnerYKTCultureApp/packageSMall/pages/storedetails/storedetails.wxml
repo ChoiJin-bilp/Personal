@@ -1,0 +1,654 @@
+<!--pages/storedetails/storedetails.wxml-->
+
+<view class="width100 relative">
+  <!-- 优惠劵可用张数提示 -->
+  <view class="couponbox {{couponCnt>0?'show':'hide'}}">
+    <view id='txt2' class='txt' style='left: 20px' catchtap='gotoCouponPage'>{{couponAlertMsg}}</view>
+  </view>
+</view>
+<swiper class="swiper0 {{proDataInfo.isHavePhoto?'show':'hide'}}" indicator-dots="true">
+  <block wx:for="{{proDataInfo.videoList}}" wx:for-item="item" wx:for-index="index" wx:key="item">
+    <swiper-item>
+      <view class='course-pannle-item'>
+        <view class='video-item'>
+          <video id="myVideo" src="{{item.src}}" poster="{{item.poster}}" controls autoplay='{{false}}'
+            show-center-play-btn="true"></video>
+        </view>
+      </view>
+    </swiper-item>
+  </block>
+  <block wx:for="{{proDataInfo.photos}}" wx:for-item="item" wx:for-index="index" wx:key="item">
+    <swiper-item>
+      <image mode="aspectFit" class="img_toplist{{index}} slide-image"
+        src="{{item.isShow? item.src+'?'+randomNum : ''}}" data-src='{{item.src}}' catchtap="viewImg"
+        bindLoad="imageLoad" data-index="0" />
+    </swiper-item>
+  </block>
+</swiper>
+<view class="name-price">
+  <text class="commodity-name">{{proDataInfo.productName}}</text>
+  <!-- 普通商品详情 -->
+  <view class="commodity-price {{vtype!=1?'show':'hide'}}">
+    <!-- 分销商为当前用户则显示佣金 -->
+    <view class="current-price fleft {{distributorId==currentUserId?'show':'hide'}}">
+      <text>佣金¥</text>{{proDataInfo.commission}}</view>
+    <!-- 有劵后价或特惠、套装价时原价显示 -->
+    <view
+      class="current-price-cost fleft {{proDataInfo.productDetailList[selDIndex].isShowPrice1 || proDataInfo.productDetailList[selDIndex].isShowPrice2?'show':'hide'}}">
+      <text style="font-size:28rpx;">原价¥</text>{{proDataInfo.productDetailList[selDIndex].sourcePrice}}</view>
+    <!-- 没有劵后价或特惠、套装价时原价显示 -->
+    <view
+      class="current-price fleft {{!proDataInfo.productDetailList[selDIndex].isShowPrice1 && !proDataInfo.productDetailList[selDIndex].isShowPrice2?'show':'hide'}}">
+      <text>¥</text>{{proDataInfo.productDetailList[selDIndex].sourcePrice}}</view>
+
+    <view class="current-price fleft {{proDataInfo.productDetailList[selDIndex].isShowPrice2?'show':'hide'}}">
+      <text>{{proDataInfo.productDetailList[selDIndex].discountType==0?'特惠':'套装'}}价¥</text>{{proDataInfo.productDetailList[selDIndex].discountPrice}}
+    </view>
+    <view
+      class="current-price-three fleft {{proDataInfo.productDetailList[selDIndex].isShowPrice1 && proDataInfo.productDetailList[selDIndex].isShowPrice3?'show':'hide'}}">
+      <text>劵后价¥</text>{{proDataInfo.productDetailList[selDIndex].couponPrice}}</view>
+    <view class="current-price-dj fleft {{proDataInfo.presellstatus==1?'show':'hide'}}">
+      <text>订金价 ¥</text>{{proDataInfo.deposit}}
+    </view>
+  </view>
+  <!-- 积分兑换商品详情 -->
+  <view class="commodity-price {{vtype==1?'show':'hide'}}">
+    <view class="current-price fleft">{{proDataInfo.productDetailList[selDIndex].dScore}}</view>
+    <view class="original-price0 fleft">积分</view>
+  </view>
+  <view class="enjoyicon">
+    <!-- 分享 ：代理商品不能分享 -->
+    <block wx:if="{{vtype!=2}}">
+      <image src="{{DataURL}}/images/shop-shart.png?{{randomNum}}" catchtap="shareWXStoreProduct"></image>
+    </block>
+
+    <!-- 普通查看显示二维码，分享查看显示返回 -->
+    <block wx:if="{{isNormalView==1}}">
+      <!-- 二维码 ：代理商品不能生成二维码 -->
+      <block wx:if="{{vtype!=2}}">
+        <image src="{{DataURL}}/images/share_icon.png?{{randomNum}}" catchtap="shareStoreDetails"></image>
+      </block>
+    </block>
+    <block wx:else>
+      <image src="{{DataURL}}/images/back2.png?{{randomNum}}" catchtap="gotoHomePage"></image>
+    </block>
+  </view>
+</view>
+<!-- 预售流程 -->
+<view class="width100 ys-flow {{proDataInfo.presellstatus==1?'show':'hide'}}">
+  <view class="ys-time ysend">预售结束时间：
+    <text>{{proDataInfo.presellEndDate}}</text>
+  </view>
+  <view class="ys-time yspay">尾款支付时间：
+    <text>{{proDataInfo.finalPayMentStartDate}}</text>至
+    <text>{{proDataInfo.finalPayMentEndDate}}</text>
+  </view>
+  <view class="ys-flow-explain">
+    <view class="ys-title">流程：</view>
+    <text>1.提交订单</text>
+    <image src='{{DataURL}}/images/unfold.png'></image>
+    <text>2.支付定金</text>
+    <image src='{{DataURL}}/images/unfold.png'></image>
+    <text>3.支付尾款</text>
+    <image src='{{DataURL}}/images/unfold.png'></image>
+    <text>4.下单成功</text>
+  </view>
+</view>
+<!-- 0316新增 领劵 -->
+<block>
+  <view class="getcoupon">
+    <view class="manjian">
+      <block wx:for="{{proDataInfo.couponsList}}" wx:for-item="couponItem" wx:key="id" wx:for-index="couponIndex">
+        <block wx:if="{{couponItem.mold == 0 && couponItem.discount>0}}">
+          <text>满￥{{couponItem.full}}减{{couponItem.discount}}满减券</text>
+        </block>
+        <block wx:if="{{couponItem.mold == 1 && couponItem.discount>0}}">
+          <text>￥{{couponItem.discount}}抵扣券</text>
+        </block>
+        <block wx:if="{{couponItem.discount==0}}">
+          <text>{{couponItem.name}}</text>
+        </block>
+      </block>
+    </view>
+    <view class="getway" catchtap='showGetCouponPop'>领劵
+      <image class="getwayicon" src='{{DataURL}}/images/unfold.png'></image>
+    </view>
+  </view>
+</block>
+
+
+<!-- 赠品 -->
+<block wx:if="{{proDataInfo.giftId!=''}}">
+  <view class="allshopmame" data-id='{{proDataInfo.giftId}}' catchtap="showGiftDetailPop">
+    <view class="complimentary">
+      <view class="fleft">赠品</view>
+      <image class="flfet" mode="aspectFit" src="{{proDataInfo.gphotos}}"></image>
+      <text>{{proDataInfo.giftName}}</text>
+      <image class="fright" src="{{DataURL}}/images/unfold.png"></image>
+    </view>
+  </view>
+</block>
+
+<!-- 规格 -->
+<view class="allshopmame">
+  <view class="storerule" catchtap="{{isShop?'':'showProductSpecsPop'}}">
+    <view class="fleft">规格</view>
+    <block wx:if="{{proSDetailId==''}}">
+      <text>选择规格</text>
+    </block>
+    <block wx:else>
+      <text>已选：{{proDataInfo.productDetailList[selDIndex].isHaveTwo?proDataInfo.productDetailList[selDIndex].attributeOne+' '+proDataInfo.productDetailList[selDIndex].attributeTwo:proDataInfo.productDetailList[selDIndex].attributeOne+proDataInfo.productDetailList[selDIndex].attributeTwo}}</text>
+    </block>
+    <image class="fright" src="{{DataURL}}/images/unfold.png" data-shopid='{{proDataInfo.shopId}}'></image>
+  </view>
+  <!-- 规格图片：所选规格图片红框标识 -->
+  <view class="store-type" catchtap="{{isShop?'':'showProductSpecsPop'}}">
+    <view class="store-style">
+      <block wx:if="{{selDIndex>4}}">
+        <image mode="aspectFit" style="border: solid 1px #ff1f1f;" src="{{proHeadPhotoList[selDIndex]}}"
+          data-src='{{item}}'></image>
+      </block>
+      <block wx:for="{{proHeadPhotoList}}" wx:for-item="item" wx:for-index="index" wx:key="item">
+        <block wx:if="{{selDIndex<=4 && index<=4}}">
+          <image mode="aspectFit" style="{{selDIndex==index?'border: solid 1px #ff1f1f;':''}}" src="{{item}}"
+            data-src='{{item}}' catchtap="{{isShop?'exchangeDetail':''}}" data-index="{{index}}"></image>
+        </block>
+        <block wx:if="{{selDIndex>4 && index<=3}}">
+          <image mode="aspectFit" style="{{selDIndex==index?'border: solid 1px #ff1f1f;':''}}" src="{{item}}"
+            data-src='{{item}}'></image>
+        </block>
+      </block>
+    </view>
+    <text>共有 {{proDataInfo.productDetailCnt}} 种规格可选</text>
+  </view>
+</view>
+
+<view class="allshopmame">
+  <view class="ashopname relative">
+    <image class="storelogo" mode="aspectFit" src="{{proDataInfo.shopLogo}}" data-shopid='{{proDataInfo.shopId}}'
+      catchtap='viewShopDetail'></image>
+    <view class="storename" data-shopid='{{proDataInfo.shopId}}' catchtap='viewShopDetail'>{{proDataInfo.shopName}}
+    </view>
+    <view class="storeicon" data-shopid='{{proDataInfo.shopId}}' catchtap='viewShopDetail'>{{proDataInfo.shopType}}
+    </view>
+    <image class="fright" src="{{DataURL}}/images/unfold.png" data-shopid='{{proDataInfo.shopId}}'
+      catchtap='viewShopDetail'></image>
+    <button class="kefu fright" open-type='contact' session-from=''>
+      <view class="kefu-btn">
+        <image src="{{DataURL}}/images/kefu.png"></image>
+        <text class="btn-kf">客服</text>
+      </view>
+    </button>
+  </view>
+</view>
+
+<view class="inventory">商品库存
+  <text>剩<text>{{proDataInfo.productDetailList[selDIndex].strStock}}</text>件</text>
+</view>
+
+<view class="width100 Groupon">
+  <!-- 分享新拼单 -->
+  <view class="width94 Groupon-box {{isNormalView==0 && groupBuyId>0 && leaveGBCnt>0?'':'hide'}}"
+    hidden="{{isHideGroup || proDataInfo.productDetailList[selDIndex].groupMoney<=0.00}}">
+    <view class="width100 Groupon-member">
+      <view class="fleft color-ff1f1f">您参与的团拼还差
+        <text>{{leaveGBCnt}}</text>个名额</view>
+      <view class="fright" wx:for="{{listData}}" wx:key="key">
+        <view>{{item.memberNickname}}</view>
+        <view>{{item.countDown}}</view>
+      </view>
+    </view>
+    <view class="width100 Groupon-image">
+      <block wx:for="{{gbMenList}}" wx:for-item="item" wx:for-index="index" wx:key="key">
+        <view class="Groupon-member-image">
+          <!-- 用户头像 -->
+          <image class="{{item==1?'head':'nobody'}}" mode="aspectFill"
+            src="{{DataURL}}/images/{{item==1?'perfect.png':'nobody.png'}}"></image>
+        </view>
+      </block>
+    </view>
+    <view class="width100 Groupon-image">
+      <button catchtap='shareWXStoreProduct'>分享好友</button>
+      <button data-gid='{{groupBuyId}}' catchtap="sharejoinGroupon">参与拼单</button>
+    </view>
+  </view>
+  <!-- 其它拼单 -->
+  <view class="width94 Groupon-box {{vtype==1 || isNormalView==0?'hide':''}}"
+    hidden="{{isHideGroup || proDataInfo.productDetailList[selDIndex].groupMoney<=0.00}}">
+    <view class="width100 Groupon-member">
+      <view class="fleft">共
+        <text class="color-ff1f1f">{{productOrder.total}}</text>人发起拼团{{validGBCnt>0?'，可直接参与'+validGBCnt+'个拼团':''}}
+      </view>
+    </view>
+    <scroll-view class="scrollview" scroll-y style="{{validGBCnt > 3 ? 'height:290rpx' : ''}}">
+      <view class="width100 Groupon-other" wx:for="{{productOrder.data}}" wx:key="key">
+        <!-- 用户头像 -->
+        <image wx:if="{{item.headerImg.length > 0}}" class="fleft other-head" mode="aspectFill"
+          src="{{item.headerImg}}"></image>
+        <!-- 暂无用户头像 -->
+        <image wx:else class="fleft other-head" mode="aspectFill" src="{{DataURL}}/images/perfect.png"></image>
+        <text class="fleft other-name">{{item.contact}}</text>
+        <view class="fleft">
+          <view>{{item.memberNickname}}</view>
+          <view>{{item.countDown}}</view>
+        </view>
+        <button class="fright" catchtap="showjoinGroupon" data-index="{{index}}">去拼单</button>
+      </view>
+    </scroll-view>
+  </view>
+  <view class="clearfix"></view>
+</view>
+
+<view class="baby-details">
+  <text></text>
+  <view>商品详情</view>
+</view>
+<view class="" style="margin-bottom:50px;">
+  <block wx:if="{{proDataInfo.isHaveRemark}}">
+    <view class="spdetail">{{proDataInfo.remark}}</view>
+  </block>
+
+  <block wx:for="{{proDataInfo.introductionImgs}}" wx:for-item="item" wx:for-index="index" wx:key="item">
+    <image class="img_introduce{{index}} detailsimage" mode="widthFix"
+      src="{{item.isShow? item.src+'?'+randomNum : ''}}"></image>
+  </block>
+</view>
+<view class="carttips {{proDataInfo.presellstatus==1?'show':'hide'}}">支付定金后，如果取消订单将不会退回</view>
+<!-- 普通商品 -->
+<view class="footer {{vtype==0 || vtype==3?'show':'hide'}}">
+  <!-- 购物车 -->
+  <view class='shopimgbox' catchtap='gotoShoppingCart' hidden="{{newpage==0}}">
+    <view class='car-num'>{{shoppingCartCnt}}</view>
+    <image class='car-icon' src='{{DataURL}}/images/shopping.png'></image>
+  </view>
+  <!-- 新增商品数量 -->
+  <view class=" adddel" hidden="{{!isShop}}">
+    <view><text class="cart-count-num1">商品数量</text></view>
+    <view style="margin-top: 18rpx;display: flex;justify-content: center;">
+      <view class="cart-count-down" style="border-radius: 0;" data-tag='-' catchtap='computeItemCount'>-</view>
+      <text class="cart-count-num" style="margin: 0 20rpx;width:auto">{{buyNum}}</text>
+      <view class="cart-count-add" style="border-radius: 0;" data-tag='+' catchtap='computeItemCount'>+</view>
+    </view>
+  </view>
+  <!-- 判断是否下架 -->
+  <view
+    class="but-pay {{proDataInfo.shelfStatus ==0 && proDataInfo.productDetailList[selDIndex].dShelfStatus==0?'show':'hide'}}">
+    <view class="{{proDataInfo.productDetailList[selDIndex].stock>0.00?'now-pay':'now-pay1'}}"
+      data-ptype='{{isShop?"11":"1"}}' catchtap='{{isShop?"addShoppingCarEvent":"showProductSpecsPop2"}}'>立即购买
+    </view>
+    <view wx:if="{{!isHideGroup && proDataInfo.productDetailList[selDIndex].groupMoney>0.00}}" class='sponsor'
+      data-ptype='0' catchtap='groupPurchase'>发起拼单</view>
+    <block wx:if="{{distributorId>0}}">
+      <view class='add-car' catchtap='shareWXStoreProduct'>分享</view>
+    </block>
+    <block wx:else>
+      <view hidden="{{newpage==0}}" class='add-car' data-ptype='0'
+        catchtap='{{isShop?"addShoppingCarEvent":"showProductSpecsPop2"}}'>加入购物车
+      </view>
+    </block>
+  </view>
+  <view
+    class="but-pay1 {{proDataInfo.shelfStatus ==1 || proDataInfo.productDetailList[selDIndex].dShelfStatus==1?'show':'hide'}}">
+    <view class='noshelf'>对不起，该商品已下架</view>
+  </view>
+</view>
+<!-- 积分兑换商品 -->
+<view class="footer {{vtype==1?'show':'hide'}}">
+  <view class='but-pay'>
+    <view class='now-pay0' catchtap='addSMScoreOrderInfo'>立即兑换</view>
+  </view>
+</view>
+<!-- 代理商品 -->
+<view class="footer {{vtype==2?'show':'hide'}}">
+  <view class='but-pay'>
+    <view class='now-pay0' data-ptype='1' catchtap='showProductSpecsPop2'>立即下单</view>
+  </view>
+</view>
+
+<!-- 生成图片 -->
+<view class="userule" wx:if="{{isShowQRCode}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="qrimages">
+    <view class="imagesbox">
+      <view class="imgtop">
+        <image class='logo-image' src="{{cardImagUrl}}"></image>
+      </view>
+    </view>
+    <view class='width100 btn-operation' style='height:100rpx;'>
+      <button catchtap='hideModalQRcode'>取消</button>
+      <button catchtap="showCardImages">确定</button>
+    </view>
+  </view>
+</view>
+
+<!-- 分享优惠提示弹窗 -->
+<!-- <view class="userule" wx:if="{{!isShowCADImgAlert && !isShowAuthor && !showguidance && !isShowReceiveCouponPop && isShowCPAMsg}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="recordbtn borderpop">
+    <view class='record1'>
+      <text class="fenxiang">分享提示</text>
+      <view class='qr-box'>
+        <view class="fenxiang-nav">{{couponPopAlertMsg}}</view>
+      </view>
+    </view>
+    <view class="delete-btn">
+      <button class="del-btn" bindtap='noShowCPAMsgPop'>不再提示</button>
+      <button class="del-btn" bindtap="hideShowCPAMsgPop">关闭</button>
+    </view>
+  </view>
+</view> -->
+<!-- 注册授权弹窗 -->
+<view class="userule" wx:if="{{isShowAuthor && !showguidance}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="authorization tac">
+    <view class='title-top'>需要您的授权</view>
+    <view class="poptextnav">为了您能更好地使用{{sysName}}服务，</view>
+    <view class="poptextnav">请点击“授权”按钮</view>
+    <view class="width100 pop-foot-sq">
+      <button class="iknow" bindtap="cancelRegAuthorization">拒绝</button>
+      <button class="iknow" open-type='getUserInfo' bindgetuserinfo='getAuthorizeUserInfo'>授权</button>
+    </view>
+  </view>
+</view>
+<!-- 分享 -->
+<view class="userule" wx:if="{{showsaveimage}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="save-image">
+    <view class="boxhongbao">
+      <block wx:if="{{roleStatus==1}}">
+        <view class='save-title relative'>商品价格<button catchtap="showChgSharePricePop">修改</button></view>
+      </block>
+      <text class='save-title'>分享标题</text>
+      <view class="pop-save">
+        <input class="save-text" placeholder='{{shareWXAlert}}' placeholder-class='placeholder' cursor-spacing="10"
+          value='{{shareWXAlert}}' bindinput="changeWXSSAlert" cursor-spacing="10" maxlength='30'></input>
+      </view>
+      <text class='save-title'>分享图片</text>
+      <!-- 发送图片 -->
+      <view class="pop-saveimg">
+        <image mode='aspectFit' class="mr-image fleft" src='{{shareWXImg}}' data-src='{{shareWXImg}}'
+          catchtap="viewImg"></image>
+        <view class="change-image fleft" data-type="2" catchtap="uploadImg">更换图片></view>
+      </view>
+
+    </view>
+    <view class='width100 btn-operation' style='position: absolute;left: 0;bottom: 0; background: #fff; height:100rpx;'>
+      <button catchtap='cancelWXSend'>取消</button>
+      <button open-type='share'>确定</button>
+    </view>
+  </view>
+</view>
+
+<!-- 参与拼单 -->
+<view class="userule" wx:if="{{joinGroupon}}">
+  <view class="bgopcity"></view>
+  <view class="textrule" style="width:94%;">
+    <!-- 分享新拼单 -->
+    <view class="width94 Groupon-box">
+      <view class="width100 Groupon-member">
+        <view class="fleft">您的拼团还剩
+          <text class="color-ff1f1f">{{currentGroup.groupPerson-currentGroup.groupCnt}}</text>个名额</view>
+      </view>
+      <view class="width100 Groupon-image">
+        <!-- 有用户拼团 -->
+        <view class="Groupon-member-image" wx:for="{{currentGroup.groups}}" wx:key="key">
+          <!-- 用户头像 -->
+          <image wx:if="{{item.headerImg.length > 0}}" class="head" mode="aspectFill" src="{{item.headerImg}}"></image>
+          <!-- 暂无用户头像 -->
+          <image wx:else class="head" src="{{DataURL}}/images/perfect.png"></image>
+        </view>
+        <!-- 还剩下几个用户没拼团 -->
+        <view class="Groupon-member-image" wx:for="{{currentGroup.groupPerson-currentGroup.groups.length}}"
+          wx:key="key">
+          <image class="nobody" src="{{DataURL}}/images/nobody.png"></image>
+        </view>
+      </view>
+      <view class="width100 Groupon-image">
+        <button catchtap="hidejoinGroupon">取消</button>
+        <button wx:if="{{isGroup}}" style="color:#6e6e6e;" catchtap="hidejoinGroupon">已参与拼单</button>
+        <button wx:else catchtap="showjoinGrouponsize">参与拼单</button>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 参与拼单 选择规格 -->
+<view class="userule" wx:if="{{joinGrouponsize}}">
+  <view class="bgopcity"></view>
+  <view class="textrule" style="width:94%;">
+    <!-- 选择规格 -->
+    <view class="width94 Groupon-box">
+      <view class="width100 Groupon-member">
+        <view class="fleft">请选择商品规格</view>
+      </view>
+      <view class='SP-size' style="padding:20rpx 0;">
+        <block wx:for="{{proDataInfo.productDetailList}}" wx:for-index="index" wx:key="productDetailId">
+          <view class="chose-txt" data-index="{{index}}" bindtap="exchangeDetail"
+            style="{{index == selDIndex?' border:2rpx solid #136fe6;color:#136fe6;':'border:2rpx solid #e5e5e5;color#666;'}}">
+            {{proDataInfo.productDetailList[index].isHaveTwo?proDataInfo.productDetailList[index].attributeOne+' '+proDataInfo.productDetailList[index].attributeTwo:proDataInfo.productDetailList[index].attributeOne+proDataInfo.productDetailList[index].attributeTwo}}
+          </view>
+        </block>
+      </view>
+      <view class="width100 Groupon-image">
+        <button catchtap="hidejoinGrouponsize">取消</button>
+        <button data-ptype='1' catchtap='groupPurchase'>确定</button>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 赠品弹窗 -->
+<view class="userule" wx:if="{{isShowGiftDetail}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="popgift">
+    <scroll-view scroll-y="true" class="giftscroll">
+      <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}"
+        duration="{{duration}}">
+        <block wx:for="{{giftDataInfo.detailPhoto}}" wx:for-item="item" wx:key="item">
+          <swiper-item>
+            <image mode="aspectFit" src="{{item}}" data-src='{{item}}' catchtap="viewImg" class="gift-image" width="355"
+              height="132" />
+          </swiper-item>
+        </block>
+      </swiper>
+      <view class="bgwhite giftname width92">
+        <view>¥ {{giftDataInfo.sellPrice}}</view>
+        <text>{{giftDataInfo.productName}}</text>
+      </view>
+      <block wx:if="{{giftDataInfo.remark!=''}}">
+        <view class="bgwhite giftinfor width92">
+          <view>商品描述</view>
+          <text>{{giftDataInfo.remark}}</text>
+        </view>
+      </block>
+      <view class="bgwhite giftinfor width92">
+        <view>商品详情</view>
+        <block wx:for="{{giftDataInfo.gIntroductionImgs}}" wx:for-index="index" wx:key="item">
+          <image class="fenxiaoimage width100" mode="widthFix" src="{{item}}?{{randomNum}}" data-src='{{item}}'
+            catchtap="viewImg"></image>
+        </block>
+      </view>
+    </scroll-view>
+    <view class="detimg" style="background:none">
+      <image bindtap="hideGiftDetailPop" src='{{DataURL}}/images/clearpop.png'></image>
+    </view>
+  </view>
+</view>
+
+<!-- 规格弹窗 -->
+<view class="userule" wx:if="{{isShowProductSpecs}}" catchtouchmove="true">
+  <view class="bgopcity" bindtap="hideProductSpecsPop"></view>
+  <view class="poprule">
+    <scroll-view scroll-y="true" class="rulescroll">
+      <view class="popruleimage">
+        <image mode="aspectFit" src="{{proHeadPhotoList[selDIndex]}}" data-src='{{proHeadPhotoList[selDIndex]}}'
+          catchtap="viewImg"></image>
+      </view>
+      <view class="totalpay">
+        <block
+          wx:if="{{!proDataInfo.productDetailList[selDIndex].isShowPrice1 && !proDataInfo.productDetailList[selDIndex].isShowPrice2}}">
+          <view class="total">
+            <text>￥{{buyAmountSource}}</text>
+          </view>
+        </block>
+        <block wx:if="{{proDataInfo.productDetailList[selDIndex].isShowPrice2}}">
+          <view class="total">{{proDataInfo.productDetailList[selDIndex].discountType==0?'特惠':'套装'}}价：
+            <text>￥{{buyAmountDiscount}}</text>
+          </view>
+        </block>
+        <block
+          wx:if="{{proDataInfo.productDetailList[selDIndex].isShowPrice1 && proDataInfo.productDetailList[selDIndex].isShowPrice3}}">
+          <view class="total">券后价：
+            <text>￥{{buyAmountCoupon}}</text>
+          </view>
+        </block>
+      </view>
+      <view class="commodity-detail">
+        <view class="namecommodity">商品规格</view>
+        <view class='SP-size'>
+          <block wx:for="{{proDataInfo.productDetailList}}" wx:for-index="index" wx:key="productDetailId">
+            <view class="chose-txt" data-index="{{index}}" bindtap="exchangeDetail"
+              style="{{index == selDIndex?' border:2rpx solid #136fe6;color:#136fe6;':'border:2rpx solid #e5e5e5;color#666;'}}">
+              {{proDataInfo.productDetailList[index].isHaveTwo?proDataInfo.productDetailList[index].attributeOne+' '+proDataInfo.productDetailList[index].attributeTwo:proDataInfo.productDetailList[index].attributeOne+proDataInfo.productDetailList[index].attributeTwo}}
+            </view>
+          </block>
+        </view>
+        <view class="namecommodity">商品数量</view>
+        <view class="cart-count-box">
+          <block wx:if="{{vtype==3 && proDataInfo.productDetailList[selDIndex].sofeNum>0}}">
+            <text class="cart-count-num1">{{buyNum}}</text>
+          </block>
+          <block wx:else>
+            <text class="cart-count-down" data-tag='-' catchtap='computeItemCount'>-</text>
+            <text class="cart-count-num">{{buyNum}}</text>
+            <text class="cart-count-add" data-tag='+' catchtap='computeItemCount'>+</text>
+          </block>
+        </view>
+      </view>
+      <!-- 代理商品外显示总计 -->
+      <block wx:if="{{vtype!=2}}">
+        <view class="totalpay">
+          <view class="total">总计：
+            <text>￥{{buyAmount}}</text>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+    <view class="detimg">
+      <block wx:if="{{isMainShopCar}}">
+        <!-- 商品中点“加入购物车”或“立即购买”按钮，所打开的规格弹窗按钮形式 -->
+        <button class="gopay" data-ptype='12' catchtap='addShoppingCarEvent'>确 定</button>
+      </block>
+      <block wx:else>
+        <!-- 商品中选择规格，所打开的规格弹窗按钮形式 -->
+        <view class="but-pay2 {{vtype==0 || vtype==3?'show':'hide'}}">
+
+          <block wx:if="{{distributorId>0}}">
+            <view class='add-car2' catchtap='shareWXStoreProduct'>分享</view>
+          </block>
+          <block wx:else>
+            <view wx:if="{{newpage==0}}" class='add-car2' data-ptype='0' catchtap='groupPurchase'>发起拼单</view>
+            <view wx:else class='add-car2' data-ptype='0' catchtap='addShoppingCarEvent'>加入购物车</view>
+          </block>
+          <view class="now-pay2" class="{{proDataInfo.productDetailList[selDIndex].stock>0.00?'now-pay2':'now-pay21'}}"
+            data-ptype='11' catchtap="addShoppingCarEvent">立即购买</view>
+        </view>
+        <!-- 积分兑换 -->
+        <view class="but-pay21 {{vtype==1?'show':'hide'}}">
+          <view class='now-pay0' catchtap='addSMScoreOrderInfo'>立即兑换</view>
+        </view>
+        <!-- 代理商品 -->
+        <view class="but-pay21 {{vtype==2?'show':'hide'}}">
+          <view class='now-pay0' data-ptype='11' catchtap="addShoppingCarEvent">立即下单</view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+
+<!-- 领劵弹窗 -->
+<view class="userule" wx:if="{{getcouponpop}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="popgetcoupon">
+    <scroll-view scroll-y class="collar-coupon">
+      <block wx:for="{{articles}}" wx:for-item="item" wx:key="couponid" wx:for-index="index">
+        <view class="collarA">
+          <view class="Iget {{!item.isGet?'hide':'show'}} "></view>
+          <!-- 已领取显示遮罩层 -->
+          <view class="leftradius"></view>
+          <view class="rightradius"></view>
+          <view class="collarA-top">
+            <view class="coupon-value">￥
+              <text>{{item.discount}}</text>
+            </view>
+            <view class="coupon-term" wx:if="{{item.mold == 0}}">
+              <text>满减劵</text>
+              <text>满{{item.full}}可用</text>
+            </view>
+            <view class="coupon-term" wx:if="{{item.mold == 1}}">
+              <text>抵扣券</text>
+            </view>
+            <block wx:if="{{!item.isGet}}">
+              <view class="coupon-btn" data-id="{{item.couponid}}" catchtap="getCoupon">立即领取</view>
+            </block>
+            <block wx:else>
+              <view class="coupon-btn1">您已领取</view>
+            </block>
+          </view>
+          <view class="collarA-bottom">
+            <view class="coupon-time">有效期至：
+              <text>领取后有效期 {{item.validday}} 天</text>
+            </view>
+            <view class="coupon-usable">
+              <view>适用范围：</view>
+              <view>{{item.productNames.length>0?item.productNames:item.typename}}</view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+    <view class="backdetails">
+      <button catchtap="hideGetCouponPop">返 回</button>
+    </view>
+  </view>
+</view>
+
+<!-- 生成宣传图片提示框 -->
+<view hidden="true" class="userule" wx:if="{{!isProhibitCADImgMsg && isShowCADImgAlert}}" catchtouchmove="ture">
+  <view class="bgopcity"></view>
+  <view class="guidance">
+    <view class='guidancenav'>
+      <view class='tipsguidance'>点击此图标“
+        <image src='{{DataURL}}/images/share_icon.png'></image>”生成图片，便于微信收藏和转发</view>
+      <view class="delete-btn">
+        <button class="del-btn" bindtap="noAlertCADImg">不再提示</button>
+        <button class="del-btn" bindtap="hideCADImgAlert">知道了</button>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 分享商品修改价格 -->
+<view class="userule" wx:if="{{isShowChgSharePricePop}}" catchtouchmove="ture">
+  <view class="bgopcity"></view>
+  <view class="changemoney">
+
+    <view class='changemoneynav'>
+      <text class="navtitle">商品价格</text>
+      <block wx:for="{{proDataInfo.productDetailList}}" wx:for-item="item" wx:for-index="index"
+        wx:key="productDetailId">
+        <view class="sptype">
+          <text
+            class="sptypename">{{item.isHaveTwo?item.attributeOne+' '+item.attributeTwo:item.attributeOne+item.attributeTwo}}</text>
+          <view>元</view>
+          <input type='digit' cursor-spacing="10" data-cid="shareprice" data-sn="{{item.sn}}"
+            bindinput='changeValueMainData' placeholder='请输入价格' placeholder-class='placeholder'></input>
+        </view>
+      </block>
+    </view>
+    <view class='width100 btn-operation' style='position: absolute;left: 0;bottom: 0; background: #fff; height:100rpx;'>
+      <button catchtap='hideChgSharePricePop'>取消</button>
+      <button catchtap='submitChgSharePricePop'>确定</button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,197 @@
+/* packageYK/pages/signin/signin.wxss */
+page{
+  background-color: #FDAC6F;
+}
+.Top{
+  position: relative;
+}
+.Top image{
+  width: 100%;
+  height: 570rpx;
+}
+.mlItem{
+  position: absolute;
+  top: 450rpx;
+  left: 3%;
+  width: 94%;
+background: #ffffff;
+border-radius: 10rpx;
+padding: 20rpx;
+box-sizing: border-box;
+}
+.forstart{
+ width: 19%;
+ float: left;
+ text-align: center;
+ background: #fff1d1;
+ border-radius: 10rpx;
+ padding: 8rpx 18rpx;
+ box-sizing: border-box;
+ font-size: 28rpx;
+ color: #911a00;
+ margin-left: 6rpx;
+ margin-top: 20rpx;
+ padding-bottom: 18rpx;
+}
+.forstart view{
+  text-align: center;
+}
+.forstart image{
+  margin: 16rpx 0;
+  width: 64rpx;
+height: 64rpx;
+}
+.font-sibe text{
+  font-family: DIN;
+  font-size: 42rpx;
+}
+.forend{
+  float: left;
+  width: 19%;
+  text-align: center;
+  background: #efebeb;
+  border-radius: 10rpx;
+  padding: 8rpx 18rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  color: #999;
+  margin-left: 6rpx;
+  margin-top: 20rpx;
+ }
+ .forend view{
+   text-align: center;
+ }
+ .forend image{
+  margin: 16rpx 0;
+   width: 64rpx;
+ height: 74rpx;
+ }
+ .font-sibe text{
+   font-family: DIN;
+   font-size: 42rpx;
+ }
+ .kfcj{
+  font-size: 30rpx;
+  text-align: center;
+  color: #ff3333;
+  margin:30rpx 0;
+ }
+ .imag{
+   text-align: center;
+ }
+ .imag image{
+  width: 357rpx;
+  height: 88rpx;
+ }
+ /*字体*/
+ .mlosp{
+  font-size: 30rpx;
+  color: #333333;
+  line-height: 32rpx;
+  letter-spacing: 1rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+ }
+ .article{
+  font-size: 26rpx;
+  color: #666666;
+  line-height: 36rpx;
+  letter-spacing: 1rpx;
+ }
+ .Top .put{
+  position: absolute;
+  top: 18rpx;
+  right: 0rpx;
+  background: transparent;
+ }
+ .Top .kop{
+  width: 50rpx;
+  height: 50rpx;
+ }
+ /*分享弹窗*/
+ /*阴影css*/
+.windowBackgroud {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(7, 7, 7, 0.6);
+  z-index: 10000;
+}
+/*签到弹窗*/
+.productTypedetail{
+  position: fixed;
+  bottom: 50%;
+  left: 50%;
+  transform: translate(-50%,50%);
+  z-index: 10001;
+  border-radius: 20rpx;
+  box-sizing: border-box;
+  font-size: 34rpx;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.fonts{
+  background-repeat: no-repeat;background-size: 100% 100%;
+  width: 544rpx;
+  height: 646rpx;
+}
+.fonts .mlput{
+  font-size: 30rpx;
+  text-decoration: underline;
+  text-align: center;
+  color: #428ceb;
+  line-height: 48rpx;
+  width: 410rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+.mlput image{
+  margin-left: 10rpx;
+  width: 36rpx;
+height: 36rpx;
+}
+.fotle{
+font-size: 30rpx;
+text-align: center;
+color: #CF1211;
+line-height: 32rpx;
+margin-top: 277rpx;
+letter-spacing: 1rpx;
+}
+.fotler{
+  font-size: 30rpx;
+text-align: center;
+color: #333333;
+line-height: 46rpx;
+}
+.fotle text{
+  font-size: 48rpx;
+  font-family: DIN;
+}
+.fotbnt{
+  width: 340rpx;
+  height: 64rpx;
+opacity: 1;
+margin: auto;
+margin-top: 82rpx;
+background: linear-gradient(0deg,#feb71f 0%, #fcdb70 100%);
+border-radius: 32rpx;
+display: flex;
+align-items: center;
+justify-content: center;
+color: #CF1211;
+line-height: 29rpx;
+font-size: 30rpx;
+}
+.mon image{
+  width: 53rpx;
+height: 53rpx;
+margin-top:48rpx;
+}

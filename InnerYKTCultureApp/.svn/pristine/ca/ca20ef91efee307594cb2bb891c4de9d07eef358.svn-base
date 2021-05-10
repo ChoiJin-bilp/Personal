@@ -1,0 +1,573 @@
+<!--pages/personal/personal.wxml-->
+<import src="../template/authorizationPop.wxml" />
+<!-- 注册授权弹窗 -->
+<template is="authorizationPop"
+  data='{{isShowAuthor:isShowAuthor,sysName:sysName,showguidance:showguidance,DataURL:DataURL,sysLogoUrl:sysLogoUrl}}' />
+<!--新增平台账号-->
+<view class="container" wx:if="{{userInfo}}">
+  <view class="title-name">个人信息
+    <text class='required'>*</text>
+  </view>
+  <block wx:if="{{accountRecordId>0}}">
+    <view class="title-name" style="color:#000;">
+      {{user_roleId==1?'普通用户':user_roleId==2?'平台':user_roleId==3?'代理商':user_roleId==4?'酒店':user_roleId==5?'平台业务员':'合伙人'}}账号
+    </view>
+    <view class="otherbox">
+      <view class='perfect-list'>
+        <text class='fleft'>当前账号</text>
+        <input class='fleft' disabled="true" minlength="0" maxlength="{{name_max}}" data-cid='contact'
+          bindinput='changeValueMainData' value='{{accountUserName}}' cursor-spacing="10"></input>
+      </view>
+      <view class='perfect-list'>
+        <text class='fleft'>密 码</text>
+        <input disabled="true" class='fleft' style='width:48%;padding-right:28%;' minlength="0" maxlength="{{mobile_max}}"
+          data-cid='mobile' bindinput='changeValueMainData' value='{{accountUserPWD}}' cursor-spacing="10" type="number"
+          confirm-type='done' id='3' bindconfirm='nextBlur' focus='{{blurId == 3 ? true : false }}'
+          confirm-hold='true'></input>
+        <button class='post-absolute password' catchtap="showpassword" data-tag="0">修改</button>
+      </view>
+      <!-- 编辑后显示 -->
+      <view class='perfect-list'>
+        <text class='fleft'>绑定ID</text>
+        <input class='fleft' placeholder-style='color:#999;font-size:28rpx;' disabled="true"
+          disabled="{{userStatus == true ? 'true' : disabled}}" maxlength="{{password_max}}" data-cid='password'
+          bindinput='changeValueMainData' value="{{accountBindUserId}}" style='width:40%;' confirm-type='next' id='1'
+          bindconfirm='nextBlur' focus='{{blurId == 1 ? true : false }}' confirm-hold='true'></input>
+        <button class='password bindconfirm post-absolute' catchtap="bindAccount">绑定</button>
+        <button class='password bindconfirm post-absolute' style="right:80rpx;" catchtap="unbindAccount">解绑</button>
+      </view>
+    </view>
+    <view class='bg-color'></view>
+  </block>
+  
+</view>
+<!--原先的个人信息现在的云客智能账号-->
+<view class="container" wx:if="{{userInfo}}">
+  <view class="title-name" style="color:#000;">{{sysName}}账号</view>
+  <view class="otherbox">
+    <view class='perfect-list'>
+      <text class='fleft'>姓 名</text>
+      <input class='fleft' disabled='{{disabled}}' minlength="0" maxlength="{{name_max}}" data-cid='contact'
+        bindinput='changeValueMainData' value='{{userInfo.contact}}' cursor-spacing="10"></input>
+    </view>
+    <view class='perfect-list'>
+      <text class='fleft'>手机</text>
+      <input disabled="true" class='fleft' style='width:48%;padding-right:28%;' minlength="0" maxlength="{{mobile_max}}"
+        data-cid='mobile' bindinput='changeValueMainData' value='{{userInfo.mobile}}' cursor-spacing="10" type="number"
+        confirm-type='done' id='3' bindconfirm='nextBlur' focus='{{blurId == 3 ? true : false }}'
+        confirm-hold='true'></input>
+      <button class='post-absolute password' catchtap="showphone">修改</button>
+    </view>
+    <!-- 编辑后显示 -->
+    <view class='perfect-list'>
+      <text class='fleft'>密 码</text>
+      <input class='fleft' placeholder='输入密码' placeholder-style='color:#999;font-size:28rpx;'
+        disabled="{{userStatus == true ? 'true' : disabled}}" maxlength="{{password_max}}" data-cid='password'
+        bindinput='changeValueMainData' value="{{userStatus == true ? '**********' : userInfo.password }}"
+        password="true" style='width:40%;' confirm-type='next' id='1' bindconfirm='nextBlur'
+        focus='{{blurId == 1 ? true : false }}' confirm-hold='true'></input>
+      <button wx:if="{{userStatus}}" class='post-absolute password' catchtap="showpassword" data-tag="1">修改</button>
+    </view>
+    <view class='clearfix'></view>
+    <view class='perfect-list' wx:if="{{!userStatus}}">
+      <text class='fleft'>密 码</text>
+      <input class='fleft' placeholder='再次输入密码' placeholder-style='color:#999;font-size:28rpx;' disabled='{{disabled}}'
+        maxlength="{{password_max}}" data-cid='password2' bindinput='changeValueMainData' value='{{userInfo.password2}}'
+        password="true" confirm-type='next' id='2' bindconfirm='nextBlur' focus='{{blurId == 2 ? true : false }}'
+        confirm-hold='true'>
+      </input>
+    </view>
+    <block wx:if="{{isOpenCompetitionActivity}}">
+      <view class="perfect-list">
+        <text class='fleft'>赛事参与</text>
+        <button wx:if='{{userInfo.userMold == 0}}' class="fleft Competition"
+          bindtap="showCompetition">申请为“{{actionTitle}}”参赛成员</button>
+        <button wx:if='{{userInfo.userMold == 1}}' class="fleft Competition">您已是“{{actionTitle}}”参赛成员</button>
+      </view>
+    </block>
+  </view>
+  <view class='bg-color'></view>
+  <!-- <view class='show-qyb'>
+    <view class="othername" data-cid='clientother' data-cid='qpother' data-item='{{showOtherItems}}' catchtap="onChangeShowItemDetailState">
+      <text>更多个人资料 {{showOtherItems?'-':'+'}}</text>
+    </view>
+  </view> -->
+  <!-- <view class='show-qyb' wx:if="{{!showOtherItems}}">
+    <view wx:if="{{userInfo.companyType == 1 || userInfo.companyStatus!=1}}" class='fleft' catchtap='applyEnterprise'>申请企业版</view>
+  </view> -->
+  <view class="otherbox {{showOtherItems?'show':'hide'}}">
+    <view class='perfect-list relative' bindtap="showisShowSel">
+      <text class='fleft'>所在行业</text>
+      <text wx:if='{{!disabled}}' class='hangye'>请选择您所属行业</text>
+      <view class='attention' wx:if="{{userInfo.personalTrade}}">
+        <checkbox-group name="checkbox" class="check">
+          <label disabled='true' wx:key="{{id}}" wx:for="{{userInfo.personalTrade}}" wx:for-index="index"
+            data-index="{{index}}" class='{{is_checked}}'>
+            {{item}}
+          </label>
+        </checkbox-group>
+      </view>
+      <image class="xiala" style='top:36rpx;' src='{{DataURL}}/images/xiala.png'></image>
+    </view>
+
+    <view class='perfect-list'>
+      <text class='fleft'>我的角色</text>
+      <radio-group class="radio-group" data-cid='role' bindchange="changeValueMainData">
+        <label class="radio role" wx:for="{{myitems}}" wx:key="{{index}}" wx:key="key">
+          <radio disabled='{{disabled}}' value="{{item}}" checked="{{userInfo.personalClass==item?true:false}}" />
+          {{item}}
+        </label>
+      </radio-group>
+    </view>
+    <view class='perfect-list' bindtap="showisShowGZSel">
+      <text class='fleft'>关注行业</text>
+      <text wx:if='{{!disabled}}' class='hangye'>请选择您所属行业</text>
+      <view class='attention' wx:if="{{userInfo.productInfo}}">
+        <checkbox-group name="checkbox" class="check">
+          <label disabled='true' wx:key="key" wx:for="{{userInfo.productInfo}}" wx:for-index="index"
+            data-index="{{index}}" class='{{is_checked}}'>
+            {{item}}
+          </label>
+        </checkbox-group>
+        <image class="xiala" style='top:36rpx;' src='{{DataURL}}/images/xiala.png'></image>
+      </view>
+    </view>
+    <view class='perfect-list'>
+      <text class='fleft'>销售金额</text>
+      <view class="section fright">
+        <picker disabled='{{disabled}}' bindchange="bindSalePickerChange" value="{{index}}" range="{{saleMoney}}">
+          <view wx:if="{{userInfo.saleMoney}}" class="picker">{{userInfo.saleMoney}}</view>
+          <view wx:if="{{!userInfo.saleMoney && !disabled}}" class="picker">请选择您的销售金额</view>
+        </picker>
+      </view>
+      <view class='post-unit'>元
+        <text>(每年)</text>
+      </view>
+    </view>
+    <view class='perfect-list'>
+      <text class='fleft'>头 像</text>
+      <view class="up-image">
+        <image wx:if="{{userInfo.headerImg}}" disabled='{{disabled}}' mode='aspectFit' src='{{userInfo.headerImg}}'
+          data-src='{{userInfo.headerImg}}' catchtap="{{disabled?'viewImg':'uploadImg'}}"></image>
+        <image wx:if="{{!userInfo.headerImg && !disabled}}" disabled='{{disabled}}' mode='aspectFit'
+          src='{{headerURLImg}}' data-src='{{userInfo.headerImg}}' catchtap="uploadImg"></image>
+      </view>
+    </view>
+    <view class='perfect-list'>
+      <text class='fleft'>性 别</text>
+      <radio-group class="radio-group" data-cid='sex' bindchange="changeValueMainData">
+        <label class="radio" wx:for="{{items}}" wx:key="{{index}}" wx:key="key">
+          <radio disabled='{{disabled}}' value="{{item.value}}" checked="{{userInfo.sex==item.value?true:false}}" />
+          {{item.name}}
+        </label>
+      </radio-group>
+    </view>
+    <view class='perfect-list'>
+      <text class='fleft'>学 历</text>
+      <view class="selectbox fleft">
+        <view class='list-msg2' catchtap="{{disabled?'':'bindShowSelEducation'}}">
+          <text wx:if="{{!disabled}}">{{!userInfo.education?'请选择' : userInfo.education}}</text>
+          <text wx:else>{{!userInfo.education?'' : userInfo.education}}</text>
+          <image src='{{topURLImg}}'></image>
+        </view>
+        <view class="select_box" wx:if="{{selectEducationed}}">
+          <block wx:for="{{educationItems}}" wx:for-item="item" wx:key="{{item.value}}" wx:for-index="index">
+            <view class="select_one" catchtap="onSelectEducation" data-id="{{item.value}}" data-name="{{item.name}}">
+              {{item.name}}</view>
+          </block>
+        </view>
+      </view>
+    </view>
+    <view class='perfect-list'>
+      <text class='fleft'>职 业</text>
+      <input disabled='{{disabled}}' class='fleft' minlength="0" maxlength="{{occupation_max}}" data-cid='job'
+        bindinput='changeValueMainData' value='{{userInfo.job}}' cursor-spacing="10" confirm-type='next' id='5'
+        bindconfirm='nextBlur' focus='{{blurId == 5 ? true : false }}' confirm-hold='true'></input>
+    </view>
+    <view class='perfect-list'>
+      <text class='fleft'>生 日</text>
+      <view class="section">
+        <picker disabled='{{disabled}}' mode="date" data-cid='birthday' value="{{userInfo.birthday}}" start="1916-01-01"
+          end="{{dateTime}}" bindchange="changeValueMainData">
+          <view class="picker" wx:if="{{disabled}}">
+            {{!userInfo.birthday?'' : userInfo.birthday}}
+          </view>
+          <view class="picker" wx:else>
+            {{!userInfo.birthday?'请选择' : userInfo.birthday}}
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class='perfect-list'>
+      <text class='fleft'>爱 好</text>
+      <input disabled='{{disabled}}' class='fleft' minlength="0" maxlength="{{hobby_max}}" data-cid='hobby'
+        bindinput='changeValueMainData' value='{{userInfo.hobby}}' cursor-spacing="10" confirm-type='next' id='6'
+        bindconfirm='nextBlur' confirm-hold='true'></input>
+    </view>
+    <view class='perfect-list'>
+      <text class='fleft'>备 注</text>
+      <view class="section">
+        <textarea wx:if="{{!showRemarkTeLabel}}" class="{{selectRemarks?'hide':'show'}}" disabled='{{disabled}}'
+          minlength="0" maxlength="{{remark_max}}" data-cid='remark' bindinput='changeValueMainData'
+          value='{{userInfo.remark}}' cursor-spacing="10" bindblur='showRemarkText' id='7' />
+        <text wx:if="{{showRemarkTeLabel}}" class=" text-box {{selectRemarks?'hide':'show'}}" data-cid='remark' catchtap='hideRemarkText' cursor-spacing="10">{{userInfo.remark}}</text>
+      </view>
+    </view>
+  </view>
+  <view class='show-qyb' wx:if="{{showSrvRightOpen}}">
+    <view class='fleft' catchtap='manageSrvRight'>服务管理</view>
+  </view>
+  <view class="save">
+    <button wx:if="{{!userStatus}}" class="btn-foot btn-enable" data-type="1" catchtap="submitDataInfo">保 存</button>
+    <button class='btn-foot btn-enable' catchtap="showcancel">注销</button>
+    <button class='btn-foot btn-enable' data-pagetype="0" data-package="" data-page="userLogin" catchtap="gotoCommonPage"> {{user_roleId<=0?'立即登录':'切换账户'}}</button>
+  </view>
+</view>
+<!-- 选择所在行业弹窗 -->
+<view class="userule" wx:if="{{isShowSelselection}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="choosecard1" style='padding-top:20rpx;'>
+    <scroll-view class="pop-mycarlist" scroll-y>
+      <view class='attention'>
+        <checkbox-group name="checkbox" class="check">
+          <label bindtap='clicks2' wx:for="{{industrySort}}" wx:key="{{industrySort}}" wx:for-index="index" data-index="{{index}}" class='{{item.checked?"is_checked":""}}'>
+            <checkbox value="{{item.name}}" data-val="{{item.name}}" hidden='false' checked='{{item.checked}}' /> {{item.name}}
+          </label>
+        </checkbox-group>
+      </view>
+    </scroll-view>
+    <view class='pop-btncard'>
+      <button bindtap="hideisShowSel">确定</button>
+    </view>
+  </view>
+</view>
+<!-- 选择关注行业弹窗 -->
+<view class="userule" wx:if="{{isShowGZSelselection}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="choosecard1" style='padding-top:20rpx;'>
+    <scroll-view class="pop-mycarlist" scroll-y>
+      <view class='attention'>
+        <checkbox-group name="checkbox" class="check">
+          <label bindtap='clicksGZ' wx:for="{{focusIndustry}}" wx:key="{{focusIndustry}}" wx:for-index="index" data-index="{{index}}" class='{{item.checked?"is_checked":""}}'>
+            <checkbox value="{{item.name}}" data-val="{{item.name}}" hidden='false' checked='{{item.checked}}' /> {{item.name}}
+          </label>
+        </checkbox-group>
+      </view>
+    </scroll-view>
+    <view class='pop-btncard'>
+      <button bindtap="hideisShowSelGZ">确定</button>
+    </view>
+  </view>
+</view>
+
+<!-- 绑定 -->
+<view class="userule" wx:if="{{showBind}}" catchtouchmove="ture">
+  <view class="bgopcity"></view>
+  <view class="Edit-Profile borderpop">
+    <view class="login-put">
+      <view>绑定</view>
+      <label>
+        <text>用户ID</text>
+        <input type="number" data-id='1' bindinput='getInput' placeholder='输入用户ID'/>
+      </label>
+    </view>
+    <button class="fleft ben-style-left" catchtap="hideBind">取消</button>
+    <button class="fleft ben-style-right" catchtap="submitBind">确定</button>
+  </view>
+</view>
+
+<!-- 修改密码弹窗 -->
+<view class="userule" wx:if="{{showpassword}}" catchtouchmove="ture">
+  <view class="bgopcity"></view>
+  <view class="Edit-Profile borderpop">
+    <view class="login-put">
+      <view>修改密码</view>
+      <label>
+        <text>新密码</text>
+        <input password='true' data-id='1' bindinput='changeValueMainPassword' />
+      </label>
+      <label>
+        <text>再次输入</text>
+        <input password='true' data-id='2' bindinput='changeValueMainPassword' />
+      </label>
+    </view>
+    <button class="fleft ben-style-left" catchtap="hidepassword">取消</button>
+    <button class="fleft ben-style-right" catchtap="submitPassword">确定</button>
+  </view>
+</view>
+<!-- 修改手机弹窗 -->
+<view class="userule" wx:if="{{showphone}}" catchtouchmove="ture">
+  <view class="bgopcity"></view>
+  <view class="Edit-phone borderpop">
+    <view class="login-put">
+      <view>修改绑定手机</view>
+      <label>
+        <text>新手机号</text>
+        <input minlength="0" maxlength="{{mobile_max}}" data-cid='newMobile' bindinput='changeValueMainData' cursor-spacing="10" />
+      </label>
+      <label>
+        <text>验证码</text>
+        <input style='width:40%;' minlength="0" maxlength="{{pin_max}}" data-cid='PhonelPIN' bindinput='changeValueMainData' cursor-spacing="10" />
+        <button disabled='{{getPerDisabled}}' data-id="3" catchtap='getPersonPIN'>{{time}}</button>
+      </label>
+    </view>
+    <button class="fleft ben-style-left" catchtap="hidephone">取消</button>
+    <button class="fleft ben-style-right" catchtap="submitphone">确定</button>
+  </view>
+</view>
+<!-- 协议弹窗 -->
+<view class="serveprotocol" wx:if="{{showModalserve}}" catchtouchmove="ture">
+  <view class="bgopcity" catchtap="hideModalserve"></view>
+  <view class="servetext borderpop">
+    <button catchtap="hideModalserve" class="clearserver">返 回</button>
+    <view class="YQrule">
+      <view class="yqtext">
+        <view class='topname'>{{sysName}}使用协议</view>
+        <view class='namebox'>本协议为{{sysName}}《使用协议》的初版，自2019年1月1日公布。</view>
+        <view class='namebox'>请您务必审慎阅读、充分理解协议中相关条款内容，特别是粗体标注的内容。您一旦注册{{sysName}}，即视为您已了解并完全同意本协议各项内容，包括{{sysName}}对使用协议随时所做的任何修改。如您不同意本协议及/或随时对其的修改，请您立即停止注册及使用{{sysName}}所提供的全部服务。
+        </view>
+        <view class="tittext">
+          <view>1、接受条款</view>
+          <text>1.1 {{sysName}}的运营者及相关关联公司（以下简称“{{sysName}}”）根据本使用协议的条款及不时发布的规则为您提供基于{{sysName}}（包括{{sysName}}pc端、{{sysName}}小程序）的互联网服务。本协议的条款可由{{sysName}}随时修改，修改后的使用协议在网站上一经公布即有效代替原来的使用协议。您一旦在{{sysName}}注册，即成为{{sysName}}用户（以下简称“用户”或“您”），并受本协议的约束。</text>
+          <text>1.2您应遵守本协议的各项条款，合法合理使用{{sysName}}提供的服务，否则，{{sysName}}有权依据本协议中断或终止为您提供服务。同时，{{sysName}}保留在任何时候收回您所使用的账号的权利。</text>
+        </view>
+        <view class="tittext">
+          <view>2、服务说明</view>
+          <text>2.1 {{sysName}}向用户提供包括但不限于如下服务发送及查看报价单、询价单、下订单，建立自己的产品库，上传产品、分享产品，创建自己的名片，分享名片、保存他人名片等。除非本协议另有其它明示规定，{{sysName}}增加或强化目前本服务的任何新功能，包括所推出的新产品，均受本使用协议之规范。</text>
+          <text>2.2 用户了解并同意，{{sysName}}的服务、产品与资料仅依其当前所呈现的状况提供，而且{{sysName}}明确地表示拒绝对于“服务”、“资料”或“产品”等给予任何明示或暗示之担保或保证，包括但不限于，为商业使用、适合于特定目的或未侵害他人权利之担保或保证等。{{sysName}}对于因“服务”、 “产品”或“资料”等所产生之任何直接、间接、附带的或因此而导致之衍生性损失概不负责。{{sysName}}对于任何用户信息或个性化设定之时效、删除、传递错误、未予储存或其它任何问题，均不承担任何责任</text>
+          <text>2.3 您同意{{sysName}}有权制订关于使用本服务的一般措施及限制，包括但不限于本服务将保留所发布内容或其它发布内容之最长期间，以及一定期间内您使用本服务之次数上限（及/或每次使用时间之上限）。通过本服务发布或传送之任何信息、通讯资料和其它内容，如被删除或未予储存，您同意{{sysName}}无须承担任何责任。您也同意，{{sysName}}有权依其自行之考虑，不论通知与否，随时变更这些一般措施及限制。</text>
+        </view>
+        <view class="tittext">
+          <view>3、您的注册义务</view>
+          <text>3.1 为了能使用本服务，按照中国法律的要求，您同意以下事项依本服务注册提示填写您正确的注册邮箱、名号、手机号码等信息，并确保今后更新的登录邮箱、名号、头像及手机号码等资料的真实性、有效性和合法性。若您提供任何违法、不道德或{{sysName}}认为不适合在{{sysName}}上展示的资料；或者{{sysName}}有理由怀疑您的行为属于程序或恶意操作，{{sysName}}有权无须事先通知即可暂停或终止您使用账号，并拒绝您于现在和未来使用本服务之全部或任何部分。</text>
+          <text>3.2 {{sysName}}无须对您（任何用户）的任何注册或登记资料承担任何责任，包括但不限于鉴别、核实任何注册或登记资料的真实性、正确性、完整性、适用性及/或是否为最新资料的责任。</text>
+        </view>
+        <view class="tittext">
+          <view>4、用户账号及安全 </view>
+          <text>4.1 您应对所有使用您的账号的行为负完全的责任。您同意</text>
+          <text class='SJ'>1）您的{{sysName}}账号遭到未获授权的使用，或者发生其它任何安全问题时，您将立即通知{{sysName}}； </text>
+          <text class='SJ'>2）如果您未保管好自己的账号信息，因此而产生的任何损失或损害，{{sysName}}不承担任何责任；</text>
+          <text class='SJ'>3）您要对使用账号的所有行为给您、{{sysName}}或第三方造成的损害负全责，包括您未保管好自己的账号信息的情形。</text>
+          <text>4.2 由于通过账号可获取到用户的个人信息，且账号的所有权归{{sysName}}所有，除法律明文规定外，未经{{sysName}}同意，用户不得将账号转让、出售或出借给他人使用。</text>
+          <text>4.3 若您连续六个月未登录{{sysName}}平台，且不存在未到期的有效业务，{{sysName}}有权限制您对账号的使用。由此造成的不利后果由您自行承担。</text>
+        </view>
+        <view class="tittext">
+          <view>5、用户个人信息保护</view>
+          <text>5.1 保护您个人信息安全既是法律要求，也是{{sysName}}长期坚持的一项基本原则。您提供的注册资料及{{sysName}}保留的有关您的其它资料将受到中国有关法律的保护。{{sysName}}将根据中国法律、本协议的规定收集、存储、使用和透露您的个人信息。</text>
+        </view>
+        <view class="tittext">
+          <view>6、提供者之责任</view>
+          <text>6.1 根据有关法律法规，{{sysName}}在此郑重提请您注意，任何经由本服务而发布、上传的文字、图片、图形或其他资料（以下简称“内容 ”），无论系公开还是非公开传送，均由内容提供者承担责任。{{sysName}}仅为用户提供信息存储空间服务，无法控制经由本服务传送之内容，因此不保证内容的正确性、完整性或有效性。您已预知使用本服务时，可能会接触到令人不快、不适当或令人厌恶之内容。在任何情况下，{{sysName}}均不为任何内容负责，但{{sysName}}有权依法停止传输任何前述内容并采取相应行动，包括但不限于暂停用户使用本服务的全部或部分，保存有关记录，并向有关机关报告等。</text>
+          <text>6.2 您明确了解并同意，基于以下原因而造成的，包括但不限于经济、信誉、数据损失或其他无形损失，{{sysName}}不承担任何直接、间接、附带、特别、衍生性或惩罚性赔偿责任</text>
+          <text class='SJ'>1）本服务之使用或无法使用；</text>
+          <text class='SJ'>2）为替换从或通过本服务购买或取得之任何商品、数据、信息、服务，收到的讯息，或与第三方缔结交易而发生的成本；</text>
+          <text class='SJ'>3）您的传输或数据遭到未获授权的存取或改变；</text>
+          <text class='SJ'>4）任何第三方在本服务中所作之声明或行为；</text>
+          <text class='SJ'>5）第三方以任何方式发布或投递欺诈性信息，或诱导用户受到经济损失；</text>
+          <text class='SJ'>6）与本服务相关的其他事宜，但本使用协议有明确规定的除外。</text>
+        </view>
+        <view class="tittext">
+          <view>7、服务变更、中断或终止</view>
+          <text>7.1 {{sysName}}可能会对服务内容进行变更、也可能会中断、终止服务。</text>
+          <text>7.2 鉴于网络服务的特殊性（包括但不限于服务器的稳定性问题、恶意的网络攻击等行为或{{sysName}}无法控制的情形），您同意{{sysName}}有权随时中断或终止部分或全部的服务。</text>
+          <text>7.3 您理解，{{sysName}}需要定期或不定期对提供服务的平台或相关设备进行维护、升级或其他目的暂停部分或全部服务，如因此类情况而造成服务在合理时间内的中断，{{sysName}}无需为此承担任何责任。</text>
+          <text>7.4 如发生以下任何一种情形，{{sysName}}有权随时中断或终止向您提供本协议项下的服务而无需对您或任何第三方承担责任</text>
+          <text class='SJ'>1）您提供个人资料不真实；</text>
+          <text class='SJ'>2）您违反法律、政策或违反本使用协议。</text>
+          <text>7.5 您同意{{sysName}}基于其自行之考虑，因任何理由，包含但不限于缺乏使用，或{{sysName}}认为您已经违反本使用协议，终止您的账号或本服务之使用（或服务之任何部分），并将您在本服务内任何内容加以移除并删除。您同意依本使用协议任何规定提供之服务，无需进行事先通知即可中断或终止。您承认并同意，{{sysName}}可立即关闭或注销您的账号及删除您账号中所有相关信息及文件，及/或禁止继续使用前述文件或本服务。此外，您同意若本服务之使用被中断或终止或您的账号及相关信息和文件被关闭或注销，{{sysName}}对您或任何第三人均不承担任何责任。</text>
+        </view>
+        <view class="tittext">
+          <view>8、担保与保证</view>
+          <text>8.1 您明确了解并同意∶</text>
+          <text class='SJ'>1）本使用协议的任何规定不会免除{{sysName}}因过错而造成您人身伤害或财产损失的任何责任；</text>
+          <text class='SJ'>2）{{sysName}}不保证以下事项∶</text>
+          <text class='SJ'> · 本服务将符合您的要求；</text>
+          <text class='SJ'> · 本服务将不受干扰、及时提供、安全可靠或不会出错；</text>
+          <text class='SJ'> · 使用本服务取得之结果正确可靠；</text>
+          <text class='SJ'> · 您经由本服务购买或取得之任何产品、服务、资讯或其它信息将符合您的期望；</text>
+          <text class='SJ'>3）是否使用本服务下载或取得任何资料应由您自行考虑且自负风险，因任何资料之下载而导致的您电脑系统之任何损坏或数据丢失等后果，由您自行承担；</text>
+          <text class='SJ'>4）您自{{sysName}}或经由本服务取得的任何建议或信息，无论是书面或口头形式，除非本使用协议有明确规定，将不构成本使用协议以外之任何保证。</text>
+        </view>
+        <view class="tittext">
+          <view>9、用户行为</view>
+          <text>9.1 您应遵守中华人民共和国相关法律法规，并同意对以任何方式使用您的登录账号而使用本服务的任何行为及其结果承担全部责任。如您的行为违反国家法律，您将依法承担全部法律责任；如涉嫌构成犯罪，司法机关将追究您的刑事责任，{{sysName}}将严格按照法律规定的义务及司法机关的要求进行配合。同时，如果{{sysName}}有理由认为您的任何行为，包括但不限于您的任何言论或其它行为违反或可能违反国家法律法规的任何规定，{{sysName}}可在任何时候不经任何事先通知终止向您提供服务。</text>
+          <text>9.2 您同意将不会利用本服务进行任何违法或不正当的活动，包括但不限于下列行为∶</text>
+          <text class='SJ'>1）发布或以其他方式传送含有下列内容之一的信息</text>
+          <text class='SJ'> · 反对宪法所确定的基本原则的；</text>
+          <text class='SJ'> · 危害国家安全，泄露国家秘密，颠覆国家政权，破坏国家统一的；</text>
+          <text class='SJ'> · 损害国家荣誉和利益的；</text>
+          <text class='SJ'> · 煽动民族仇恨、民族歧视、破坏民族团结的；</text>
+          <text class='SJ'> · 破坏国家宗教政策，宣扬邪教和封建迷信的；</text>
+          <text class='SJ'> · 散布谣言，扰乱社会秩序，破坏社会稳定的；</text>
+          <text class='SJ'> · 散布淫秽、色情、赌博、暴力、凶杀、恐怖或者教唆犯罪的；</text>
+          <text class='SJ'> · 侮辱或者诽谤他人，侵害他人合法权利的；</text>
+          <text class='SJ'> · 含有虚假、诈骗、有害、胁迫、侵害他人隐私、骚扰、侵害、中伤、粗俗、猥亵、或其他道德上令人反感的内容；</text>
+          <text class='SJ'> · 含有中国法律、法规、（部门）规章以及任何具有法律效力之规范所限制或禁止的其他内容的；</text>
+          <text class='SJ'> · 含有{{sysName}}认为不适合在{{sysName}}展示的内容；</text>
+          <text class='SJ'>2）以任何方式危害他人的合法权益；</text>
+          <text class='SJ'>3）冒充其他任何人或机构，或以虚伪不实的方式陈述或谎称与任何人或机构有关；</text>
+          <text class='SJ'>4）将依据任何法律、合约或法定关系（例如由于雇佣关系和依据保密合约所得知或揭露之内部资料、专属及机密资料）而知悉但无权传送之任何内容加以发布、发送电子邮件或以其它方式传送；</text>
+          <text class='SJ'>5）将侵害他人著作权、专利权、商标权、商业秘密、或其他专属权利（以下简称“专属权利”）之内容加以发布或以其他方式传送；</text>
+          <text class='SJ'>6）将任何“广告信函”、“促销资料”、“垃圾邮件”、“滥发信件”、“连锁信件”、“直销”或其他任何形式的劝诱资料加以发布、发送或以其它方式传送；</text>
+          <text class='SJ'>3）7）将设计目的在于干扰、破坏或限制任何计算机软件、硬件或通讯设备功能之计算机病毒（包括但不限于木马程序（trojan horses）、蠕虫（worms）、定时炸弹、删除蝇（cancelbots）（以下简称“病毒”）或其他计算机代码、档案和程序之任何资料，加以发布、发送或以其他方式传送；</text>
+          <text class='SJ'>8）干扰或破坏本服务或与本服务相连线之服务器和网络，或违反任何关于本服务连线网络之规定、程序、政策或规范；</text>
+          <text class='SJ'>9）跟踪、人肉搜索或以其他方式骚扰他人；</text>
+          <text class='SJ'>10）故意或非故意地违反任何适用的当地、国家法律，以及任何具有法律效力的规则；</text>
+          <text class='SJ'>11）未经合法授权而截获、篡改、收集、储存或删除您或他人的个人信息、站内邮件或其他数据资料，或将获知的此类资料用于任何非法或不正当目的。您已认可{{sysName}}未对用户的使用行为进行全面控制，您使用任何内容时，包括依赖前述内容之正确性、完整性或有效性时，您同意将自行加以判断并承担所有风险，而不依赖于{{sysName}}。但{{sysName}}依其自行之考虑，有权拒绝和删除经由本服务提供之违反本条款的或其他引起{{sysName}}反感的任何内容。</text>
+          <text>9.3 由于您通过本服务提供、发布或传送之内容、您与本服务连线、您违反本使用协议、或您侵害他人任何权利因而衍生或导致任何第三人提出任何索赔或请求，包括但不限于合理的律师费、诉讼费，您同意赔偿{{sysName}}及其子公司、关联公司、高级职员、代理人、品牌共有人或其他合作伙伴及员工，并使其免受损害，并承担由此引发的全部法律责任。</text>
+          <text>9.4 您同意不对本服务任何部分或本服务之使用或获得，进行复制、拷贝、出售、转售或用于任何其他商业目的。</text>
+        </view>
+        <view class="tittext">
+          <view>10、用户专属权利</view>
+          <text>10.1 {{sysName}}尊重他人合法权益（包括知识产权、名誉权、商誉权等），呼吁您也尊重他人合法权益。</text>
+          <text>10.2 如果您违反法律法规的禁止性规定、对他人的合法权益或公众利益造成了侵害，{{sysName}}将依国家法律法规的规定，或在适当的情形下，依本协议或其相关规定，删除特定内容或以至终止您对账户的使用。</text>
+          <text>10.3 若您认为您的合法权益遭到侵害，请您电话或邮件提交投诉，{{sysName}}将依法进行处理。</text>
+        </view>
+        <view class="tittext">
+          <view>11、未成年人使用条款</view>
+          <text>如您是未成年用户，请在法定监护人的陪同下仔细阅读本使用协议，您及法定监护人应按照法律及本协议规定承担责任。</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 注销用户弹窗 -->
+<view class="userule" wx:if="{{showcancel}}" catchtouchmove="ture">
+  <view class="bgopcity"></view>
+  <view class="Edit-cancel borderpop">
+    <view class="login-put">
+      <view class='tips-cancel'>
+        <text>您确定要注销吗？</text>
+        <text>注销后该账号下的所有</text>
+        <text>报价单、询价单、订单、名片等数据都将消失。</text>
+      </view>
+      <view class="serves" wx:if="{{userInfo.companyStatus == 1 && userInfo.companyType == 2}}">
+        <checkbox class="boxcheck" catchtap="checkPersAccount"></checkbox>
+        <text>同时注销该账号的个人版资料</text>
+      </view>
+      <label>
+        <text>手机号</text>{{userInfo.mobile}}</label>
+      <label>
+        <text>验证码</text>
+        <input style='width:40%;' minlength="0" maxlength="{{pin_max}}" data-cid='CancelPIN' bindinput='changeValueMainData' cursor-spacing="10" catchtap='checkVcode'></input>
+        <button disabled='{{getPerDisabled}}' data-id="2" catchtap='getPersonPIN'>{{time}}</button>
+      </label>
+    </view>
+    <button class="fleft ben-style-left" catchtap="hidecancel">取消</button>
+    <button class="fleft ben-style-right" catchtap="submitcancel">确定</button>
+  </view>
+</view>
+
+<!-- 新人领劵弹窗 -->
+<view class="userule" wx:if="{{isShowReceiveCoupon}}">
+  <view class="bgopcity"></view>
+  <view class="textrule">
+    <image class='Sendcoupon' src='{{DataURL}}/images/Sendcoupon.png'></image>
+    <view class="couponbox1">
+      <view class="Acoupon" wx:for="{{couponData}}" wx:key="{{index}}" wx:for-index="index" data-index="{{index}}">
+        <image src='{{DataURL}}/images/coupon.png'></image>
+        <view class="shadow"></view>
+        <view class="Acouponinfor">
+          <view class="facevalue">
+            <view class="facevalue-price fleft">￥
+              <text>{{item.discount}}</text>
+            </view>
+            <view class="facevalue-name fright">满减劵</view>
+          </view>
+          <view class="condition">
+            <view class="facevalue-data fleft">有效期至 {{item.endTime}}</view>
+            <view class="facevalue-uses fright">{{item.content}}</view>
+          </view>
+        </view>
+        <view class="Acouponuser">
+          <view class='fleft'>所有商品使用</view>
+          <!-- <view catchtap="hideReceiveCouponPop" class='fright'>立即用劵</view> -->
+        </view>
+      </view>
+      <image class="clearimg" catchtap="hideReceiveCouponPop" src='{{DataURL}}/images/clearpop.png'></image>
+    </view>
+  </view>
+</view>
+<!-- 赛事活动参与弹窗 -->
+<view class="userule" wx:if="{{showCompetition && !isShowReceiveCoupon}}" catchtouchmove="ture">
+  <view class="bgopcity"></view>
+  <view class="Edit-Profile" style="width:92%">
+    <view class="login-put1">
+      <view class="top-put">“{{actionTitle}}”参赛申请</view>
+      <view class='perfect-list'>
+        <text class='fleft'>性别</text>
+        <radio-group class="radio-group" data-cid='sex' bindchange="changeValueMainData">
+          <label class="radio" wx:for="{{items}}" wx:key="{{index}}">
+            <radio disabled='{{disabled}}' value="{{item.value}}" checked="{{userInfo.sex==item.value?true:false}}" /> {{item.name}}
+          </label>
+        </radio-group>
+      </view>
+      <view class='perfect-list'>
+        <text class='fleft'>生  日</text>
+        <view class="section">
+          <picker disabled='{{disabled}}' mode="date" data-cid='birthday' value="{{userInfo.birthday}}" start="1916-01-01" end="{{dateTime}}" bindchange="changeValueMainData">
+            <view class="picker" wx:if="{{disabled}}">
+              {{!userInfo.birthday?'' : userInfo.birthday}}
+            </view>
+            <view class="picker" wx:else>
+              {{!userInfo.birthday?'请选择' : userInfo.birthday}}
+            </view>
+          </picker>
+        </view>
+      </view>
+      <view class='perfect-list'>
+        <text class='fleft'>微信号</text>
+        <input placeholder-class="placeholder" bindinput="changeValueWXnumber"></input>
+      </view>
+      <view class='perfect-list'>
+        <text class='fleft'>邮箱</text>
+        <input placeholder-class="placeholder" bindinput="changeValueEmail"></input>
+      </view>
+      <view class='perfect-list'>
+        <text class='fleft'>邀请码</text>
+        <input placeholder-class="placeholder" bindinput='changeValueCode'></input>
+      </view>
+    </view>
+    <view hidden="true" class="showtext">赛事参与：
+      <text>邀请码通过后则为赛事成员</text>
+    </view>
+    <button class="fleft ben-style-left" catchtap="hideCompetition">取消</button>
+    <button class="fleft ben-style-right" catchtap="submitCode">确定</button>
+  </view>
+</view>
+<!-- 是否创建小队弹窗 -->
+<view class="userule" wx:if="{{isShowAlertNewTeam}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="maintipsbox tac">
+    <view class="tipstext">您的其他小队成员是否已创建小队，如果没有则点击创建，有则点击取消，让创建了小队的成员邀请您加入。</view>
+    <view class="width100 pop-foot" id="function">
+      <button catchtap="hideNewTeamAlertPop">取消</button>
+      <button catchtap="showNewTeamCreatePop">创建</button>
+    </view>
+  </view>
+</view>
+
+
+<!-- 创建小队弹窗 -->
+<view class="userule" wx:if="{{isShowCreateNewTeam}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="Edit-Profile" style="width:92%">
+    <view class="login-put1">
+      <view class='perfect-list'>
+        <text class='fleft'>小队名称</text>
+        <input minlength="0" maxlength="{{teamName_max}}" data-cid='teamname' bindinput='changeValueMainData' value='{{teamName}}' cursor-spacing="10"></input>
+      </view>
+      <view class='perfect-list'>
+        <text class='fleft'>角色</text>
+        <view class="section">
+          <picker bindchange="bindTeamRolePickerChange" value="{{index}}" range="{{teamRoleList}}">
+            <view class="picker">{{teamRole==""?"请选择":teamRole}} </view>
+            <image class="xiala" style='top:30rpx;' src='{{DataURL}}/images/xiala.png'></image>
+          </picker>
+        </view>
+      </view>
+    </view>
+    <button class="fleft ben-style-left" catchtap="hideCreateNewTeamPop">取消</button>
+    <button class="fleft ben-style-right" catchtap="submitNewTeam">确定</button>
+   </view>
+</view>

@@ -1,0 +1,38 @@
+<!--pages/massageIntroduced/massageIntroduced.wxml-->
+<view class="option {{flexType?'flexfg':''}}" style="{{numType==1?'background:#FFD7A6;':''}}">
+  <view class="tion-o" data-num="0" catchtap="changeNumType">
+    <view class="tion-s {{numType==0?'colormg':''}}" style="{{numType==0?'border-bottom:solid 6rpx rgb(65, 184, 253);':''}}">按摩器介绍</view>
+  </view>
+  <view class="tion-o"  data-num="1" catchtap="changeNumType" >
+    <view class="tion-s {{numType==1?'colormg':''}}" style="{{numType==1?'border-bottom:solid 6rpx rgb(65, 184, 253);':''}}">按摩好处介绍</view>
+  </view>
+</view>
+<image src="{{DataURL}}/images/amy-massageIntroduced.png" style="width:100%;height:1120rpx;"></image>
+<view class="foot">
+  <image src="{{DataURL}}/images/amq-detail.jpg" style="width:100%;height:560rpx;"></image>
+  <view class="title">足底按摩器的神奇功效</view>
+  <view class="content">
+      人体脚底有60多个穴位，6条经络起止于脚上，代表人体脏腑的反射区，成千上万个的末梢神经，与大脑和心脏及人体各部脏器密切联系。如果身体有一些疾病，基本都能够在脚底的一些穴位上找到痛点，在相应的足反射区就会出现疼痛、酸胀、结节或者是硬块等。所以对脚底反射区进行按摩刺激，可以调节人体相应的脏腑器官的机能，起到保健治疗、强身健体的效果，由此可见脚底保健的重要性。
+  </view>
+  <view class="content">足底按摩可促进脚部血液流畅，把远端血液推向心脏和全身，减低心脏负担，调节阴阳平衡，防治疾病，健身益寿。其中，与大脑、小脑、脑干、鼻、舌、口腔、颈部动脉、淋巴腺等器官（组织）有关的反射区都集中在脚趾部位，如对其进行按摩刺激，就能够促进足部和全身血液循环，改善心脏功能，降低心脏负荷，提高机体免疫力、少生病、抗衰老、调节睡眠中枢促进睡眠，改善疲劳，加速代谢、美容养颜。</view>
+  <view class="content roof2" style="font-size:30rpx;font-weight:bold;color:#333;">1.改善睡眠</view>
+  <view class="content roof">“涌泉穴”位于足底前部，是好眠的重要穴道，辅以发热效果更好；另一个失眠穴又被称为“百敲穴”，位于足底跟部脚跟的中心处。按摩这两个穴位均 可以调节睡眠中枢，有助于安眠入睡。</view>
+  <view class="content roof2" style="font-weight:bold;font-size:30rpx;color:#333;">2、缓解肌肉疲劳</view>
+  <view class="content roof">人体肌肉出现疲劳，首先出现问题的是血液循环，特别是脚部的血液循环不畅导致体内的新陈代谢的产物乳酸等堆积在体内，不能够及时的排出体外，这就是肌肉疲劳出现的主要原因。想要缓解肌肉疲劳，按摩脚底是一个最简单也是最有效的方法。</view>
+  <view class="content roof2" style="font-weight:bold;font-size:30rpx;color:#333;">3、治疗颈椎病</view>
+  <view class="content roof">颈椎病是一种骨骼病症，按摩脚底，可以刺激颈椎骨周边的脚底反射区。治疗颈椎病最好是穴道出現稍微的痛感最好，每日十分钟到半小时，坚持不懈2个礼拜就可以出現明显的效果。</view>
+  <view class="content roof2" style="font-weight:bold;font-size:30rpx;color:#333;">4、美容护肤</view>
+  <view class="content roof">按摩脚底，能够最大限度的排出来身体沉积的毒素和废料，令我们的皮肤尽快恢复、白里透红有光泽度。长期性坚持不懈按摩脚底，除开美容护肤皮肤以外，还可以合理的去除痘痘，令皮肤修复光滑、嫩白。</view>
+  <view class="content roof2" style="font-weight:bold;font-size:30rpx;color:#333;">5、提高人体抵抗能力</view>
+  <view class="content roof">按摩脚底可以刺激性体细胞，令体细胞减缓衰老，推动人体五脏六腑的融洽，令身体阴阳调和。长期性坚持不懈按摩脚底，可以提高人体抵抗能力，减少生病的机会。</view>
+  <view class="content roof2" style="font-weight:bold;font-size:30rpx;color:#333;">6、促进体内新陈代谢</view>
+  <view class="content roof">按摩脚底，增加气血循环，体内将能够分泌出更多的各种各样的激素，例如肾上腺素，这种激素能够很好的促进体内新陈代谢，最终达到提高人体免疫力、抵抗力的作用.</view>
+  <view class="content roof2" style="font-weight:bold;font-size:30rpx;color:#333;">7． 中老年人</view>
+  <view class="content roof">按摩足底，对中老年人的常见病如神经官能症、更年期综合症、高血压、低血压、心律不齐、心血管病、心脏病、动脉硬化、脑梗塞、哮喘、肺气肿、高血脂、气管炎、颈椎病、月经不调、肾病、肾功能不良、便密、胃病及十二指肠病等，均有较好的辅助治疗作用。</view>
+  <view class="content roof2" style="font-weight:bold;font-size:30rpx;color:#333;">8． 常坐着工作或学习的人士</view>
+  <view class="content roof">长期坐着工作的人士，活动量过少，出现下肢血液循环不畅，小腿或脚会发胀、发麻，也较常出现精神不振、疲惫乏力、健忘、神经衰弱、肠胃病、肥胖症、过敏症、食欲不振、湿疹、皮炎、抵抗力下降等现象。通过脚底按摩可以改善亚健康，消除或降低以上症状，长期使用可以达到较好的保健效果。</view>
+  <view class="content roof2" style="font-weight:bold;font-size:30rpx;color:#333;">9.经常步行、跑步的运动人士</view>
+  <view class="content roof">长时间步行、爬山或跑步以后，双脚会很疲劳，发酸发胀，足底按摩会使肌肉容易放松，快速恢复运动劳累。</view>
+  <view class="content roof2" style="font-weight:bold;font-size:30rpx;color:#333;">10.爱穿高跟鞋的女士</view>
+  <view class="content roof">穿高跟鞋的女士，脚底长期处于非自然的紧张状态，极易疲劳，脚部会发生酸痛、发胀或麻木。足底按摩能使双脚放松，减轻疲劳，恢复正常；同时，足底按摩能促进全身血循环，促进肌肤靓丽，起到美容效果。</view>
+</view>

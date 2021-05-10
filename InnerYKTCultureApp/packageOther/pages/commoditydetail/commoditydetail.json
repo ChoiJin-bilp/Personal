@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "商品发布",
+  "usingComponents": {
+    "mylist-c": "/components/protocol/protocol"
+  }
+}

@@ -1,0 +1,24 @@
+/* packageSMall/pages/infor/infor.wxss */
+.modeview{
+  width: 25%;
+  text-align: center;
+  margin-top: 30rpx;
+  position: relative;
+}
+.modeview image{
+  vertical-align: middle;
+  margin: 0;padding: 0;
+  width: 80rpx;
+  height: 80rpx;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.modeview text{
+  display: block;
+  width: 100%;
+  margin-top: 12rpx;
+  font-size:28rpx;
+  color: rgba(102, 102, 102);
+  font-weight: 400;
+}
+

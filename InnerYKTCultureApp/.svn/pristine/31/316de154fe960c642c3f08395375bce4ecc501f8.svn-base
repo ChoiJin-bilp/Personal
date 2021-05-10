@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "",
+  "usingComponents": {
+    "v-scanCode": "/components/scanCode/scanCode"
+  }
+}

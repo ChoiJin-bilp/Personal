@@ -1,0 +1,29 @@
+<!--packageSMall/pages/Withdraw/Withdraw.wxml-->
+<view class='walletlist'>
+  <view class='fleft explain'>
+    <view class='walletlist-name'>提现</view>
+    <view class='walletlist-time'>2019-05-15 13:00:00</view>
+  </view>
+  <view class='fright sum'>
+    <view class="walletlist-name">￥<text>66.00</text></view>
+    <view class='walletlist-time t-a-r'>审核中</view>
+  </view>
+  <view class="nopass"  catchtap="shownopasscause">
+    <text>提示：违反本公司相关规定，违反本公司相关规定违反本公司相关规定违反本公司相关规定，违反本公司相关规定违反本公司相关规定</text>
+  </view>
+  <view class="clearfix"></view>
+</view>
+
+<view class="userule" wx:if="{{nopasscause}}">
+  <view class="bgopcity"></view>
+  <view class="tipsbox">
+    <view class="wl-scroll">
+      <scroll-view scroll-y class="scroll">
+        违反本公司相关规定，违反本公司相关规定违反本公司相关规定违反本公司相关规定，违反本公司相关规定违反本公司相关规定
+      </scroll-view>
+    </view>
+    <view class="delete-box">
+      <image class='del-record' catchtap="hidenopasscause" src='{{DataURL}}/images/clearpop.png'></image>
+    </view>
+  </view>
+</view>

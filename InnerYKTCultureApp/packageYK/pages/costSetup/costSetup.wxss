@@ -1,0 +1,373 @@
+/* packageYK/pages/costSetup/costSetup.wxss */
+page{
+  margin: 0;
+  padding: 0;
+  background-color: #f2f2f2;
+  font-size: 34rpx;
+}
+.service{
+  width: 100%;
+  height: 80rpx;
+  padding: 40rpx;
+  display: flex;
+  position: relative;
+  box-sizing: border-box;
+}
+.weui-input{
+  width: 95%;
+  height: 60rpx;
+  padding-left:20rpx; 
+  font-size: 34rpx;
+  border: #D6D6D6 2rpx solid;
+}
+.weui-icon{
+    z-index: 30;
+    position: absolute;
+    top: 52rpx;
+    right: 140rpx;
+    width: 40rpx;
+    height: 40rpx;
+}
+.weui-iconx{
+  margin-left:40rpx;
+  margin-top: 6rpx; 
+  width: 50rpx;
+  height: 50rpx;
+}
+.item{
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 30rpx;
+}
+.item-for{
+  padding: 20rpx;
+  border-radius: 10rpx;
+  box-sizing: border-box;
+  margin-top: 20rpx; 
+}
+.item-for-top{
+  border-bottom: #ccc solid 2rpx;
+  padding-bottom:10rpx; 
+  line-height: 60rpx;
+  
+}
+.item-for-bottom{
+  margin-top:20rpx; 
+  width: 100%;
+}
+.item-for-bottom-flex{
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+}
+.item-for-bottom-flex-text{
+  color: #1773FF;
+  padding-left:20rpx; 
+}
+.content{
+  margin-top:30rpx; 
+  padding-right:20rpx; 
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+}
+.content input{
+  border-bottom: #ccc solid 2rpx;
+  width: 30%;
+}
+.content-v{
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+}
+.content-v input{
+  text-align: center;
+}
+
+
+
+
+
+
+
+/*新增*/
+.tanChuan{
+  z-index: 200;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #7B7B7B;
+  opacity: 0.5;
+}
+.tanChuan-v{
+  padding: 20rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 92%;
+  height: auto;
+  background: #fff;
+  border-radius: 20rpx;
+  padding-bottom:58rpx;
+  top:50%;
+  left:50%;
+  transform: translateX(-50%) translateY(-50%);
+  position: fixed;z-index: 9999;
+}
+.tanChuan-v-o{
+  width: 100%;
+  text-align: center;
+  font-size: 38rpx;
+  font-weight: bold;
+  margin: 20rpx 0;
+}
+
+.tanChuan-v-t{
+  font-size: 36rpx;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-around;
+  border-bottom: #ccc 2rpx solid;
+  padding-bottom: 20rpx;
+  margin-top:20rpx;
+}
+.tanChuan-v-t input{
+  width: 50%;
+}
+.tanChuan-v-s{
+  display: flex;
+  font-size: 32rpx;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 40rpx;
+}
+.tanChuan-v-s view{
+  font-size: 38rpx;
+  padding: 0 20rpx;
+  width: 25%;
+  line-height: 70rpx;
+  border-radius: 10rpx;
+  text-align: center;
+  border: 2rpx solid #999;
+}
+.business-tit-v{
+  border: #ccc solid 2rpx;
+  box-sizing: border-box;
+  border-radius: 10rpx;
+  position: relative;
+  width: 40%;
+  height: 85%;
+}
+.business-tit-v input{
+  padding-left:10rpx; 
+  padding-right:52rpx; 
+  font-size: 30rpx;
+  text-align: center;
+  height: 50rpx;
+  color: #000;
+  margin-right: 40rpx;
+}
+.business-tit-v image{
+  position: absolute;
+  top: 16rpx;
+  right: 6rpx;
+  width: 30rpx;
+  height: 20rpx;
+  transition: transform 0.5s;
+  margin-right: 6rpx;
+}
+.xiala{
+  z-index: 20;
+  font-size:30rpx;
+  color: #000;
+  padding: 0 10rpx;
+  box-sizing: border-box;
+  position: absolute;
+  border: #ccc solid 2rpx;
+  background: #fff;
+  top: 50rpx;
+  left: -1rpx;
+  width: 100%;
+  height: 210rpx;
+  border-radius:10rpx; 
+  text-align: center;
+  line-height: 50rpx;
+  overflow-y: auto;
+}
+.xiala view{
+  border-bottom: #ccc solid 2rpx;
+  height: 25%；
+}
+.tine{
+  width:30%;
+  display: flex;
+  white-space:nowrap;
+}
+.tine input{
+  border: #ccc solid 2rpx;
+  margin-right: 10rpx;
+  padding-left: 10rpx;
+}
+.but {
+  background: #169BD5;
+  padding: 5rpx 16rpx;
+  color: #fff;
+  width: 90rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10rpx;
+  margin: auto;
+}
+.time{
+  display: flex;
+}
+.me-o{
+display: flex;
+font-size: 34rpx;
+color: #000;
+padding: 5rpx 0rpx;
+box-sizing: border-box;
+width: 100%;
+justify-content: flex-start;
+align-items: center;
+}
+.section__title{
+width: 30%; 
+}
+picker{
+  width: 60%; 
+}
+.picker{
+border: #E3E3E3 solid 2rpx; 
+width: 100%; 
+}
+.price{
+  display: flex;
+}
+.ce-o{
+  width: auto;
+  display: flex;
+  font-size: 34rpx;
+  justify-content: flex-start;
+  align-items: center;
+  white-space:  nowrap;
+  margin-top:10rpx;
+}
+.ce-o input{
+  border: #E3E3E3 solid 2rpx;  
+  width: 60%;
+}
+.ce-o view{
+  width: 30%;
+  font-size: 28rpx;
+}
+.age{
+  width: 40rpx;
+  height: 40rpx;
+  box-sizing: border-box;
+  margin: 0 20rpx;
+}
+.lv{
+  height: 40rpx;
+  width: 40rpx;
+  border: #000 solid 2rpx;
+  text-align: center;
+  line-height: 40rpx;
+  color: #000;
+  border-radius:4rpx; 
+}
+.le{
+  display:flex;
+  font-size: 34rpx;
+  margin: 10rpx 0;
+}
+.lt{
+  white-space: nowrap;
+}
+.con{ 
+}
+.list-lv{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.eletron{
+width: 95%;
+margin: auto;
+box-shadow: 0rpx 0rpx 12rpx 0rpx rgb(120, 120, 120,0.8);
+border-radius: 20rpx;
+margin-top: 30rpx;
+padding: 10rpx;
+background: #fff;
+color: #999;
+margin-bottom: 20rpx;
+}
+.eletron text{
+  color: #000;
+}
+.eletron input{
+  color: #000;
+}
+.ele{
+  max-height: 600rpx;
+  box-sizing:border-box;
+  overflow-y: auto;
+}
+.device-i-c{
+  position: relative;
+  display: flex;
+  display:-webkit-flex; 
+  justify-content: space-around;
+  -webkit-justify-content: space-around;
+  align-items: center;
+  -webkit-align-items: center;
+  height: 80rpx;
+  white-space:nowrap;    
+}
+.title{
+  font-size: 34rpx;
+  width: 20%;
+}
+.device-i-c input{
+  width: 70%;
+  border:#ccc solid 2rpx;
+  text-align: center;
+}
+.xia{
+  position: absolute;
+  top: 36rpx;
+  right: 33rpx;
+  height: 20rpx;
+width: 30rpx;
+}
+.xia-v{
+  z-index: 20;
+  box-sizing: border-box;
+  position: absolute;
+  top: 63rpx;
+  right: 22rpx;
+  width: 70%;
+  background: #fff;
+  border: 2rpx #999 solid;
+  height: 368rpx;
+  overflow-y: auto;
+  transition: height 0.3s；
+}
+.xia-v view{
+  width: 100%;
+  border-bottom: 2rpx #ccc solid;
+  text-align: center;
+  height: 50rpx;
+line-height: 50rpx;
+}
+.ce-p{
+  justify-content: space-between;
+}

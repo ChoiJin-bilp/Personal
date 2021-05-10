@@ -1,0 +1,68 @@
+<!--pages/Gifts/Gifts.wxml-->
+<view class="Giftstop">
+  <view class="userName">
+    <view>用户ID</view>
+    <input placeholder="请输入用户ID" bindinput="getInput" data-tag="0" type="number"></input>
+  </view>
+  <view class="useTime">
+    <view>赠送时间</view>
+    <input placeholder="请输入时间" bindinput="getInput" data-tag="1" type="number" value="{{duration}}"></input>
+    <view class="unit">分钟</view>
+    <view class="addUptime">(今日累计:{{now.duration}})</view>
+  </view>
+  <view class="Giftnum">
+    <view class="kou">赠送数量</view>
+    <view style="width: 32%;position: relative;" catchtap="changeType">
+      <input value="1" disabled="false" value="{{nums[numIndex]}}"> </input>
+      <image src="{{DataURL}}/images/xiala.png"></image>
+      <view class='option_box' style="{{type? '':'height:0;'}}">
+        <text class='option' wx:for='{{nums}}' wx:key="key" data-index='{{index}}' catchtap='optionTaps'>{{item}}</text>
+      </view>
+    </view>
+    <view class="unit">张</view>
+    <view class="addUpnum">(今日累计:{{now.cnt}})</view>
+  </view>
+  <view class="bon" catchtap="giveCoupons">赠送</view>
+</view>
+
+<view class="giftRecord">
+  <view class="recordTitle">赠送记录</view>
+  <view class="timeSelect">
+    <view>时间</view>
+    <view class="datatoday-s-o">
+      <picker mode="date" value="{{startDate}}" data-tag="0" end="{{endDate}}" bindchange="bindDateChange"
+        style="width:100%;">
+        <text>{{startDate}}</text>
+        <image class="picker" src="{{DataURL}}/images/xiala.png">
+        </image>
+      </picker>
+    </view>
+    <view>至</view>
+    <view class="datatoday-s-o">
+      <picker mode="date" value="{{endDate}}" data-tag="1" start="{{startDate}}" bindchange="bindDateChange"
+        style="width:100%;">
+        <text>{{endDate}}</text>
+        <image class="picker" src="{{DataURL}}/images/xiala.png">
+        </image>
+      </picker>
+    </view>
+    <image src="{{DataURL}}/images/search.png" style="width:44rpx;height:44rpx;" catchtap="serachOK"></image>
+  </view>
+  <view class="smallRecord">
+    <view>小计</view>
+    <view>数量:{{all.cnt}}张</view>
+    <view>时长:{{all.duration}}分钟</view>
+  </view>
+  <view class="recordList">
+    <view class="recordList-title">
+      <view class="First">用户ID</view>
+      <view class="Second">赠送数量(张)</view>
+      <view class="Third">赠送时长(分钟)</view>
+    </view>
+    <view class="recordList-item" wx:for="{{couponList}}" wx:key="key">
+      <view class="First">{{item.userId}}</view>
+      <view class="Second">1</view>
+      <view class="Third">{{item.duration}}</view>
+    </view>
+  </view>
+</view>

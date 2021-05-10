@@ -1,0 +1,195 @@
+<!--pages/shopcar/shopcar.wxml-->
+<view class="main">
+  <view wx:if="{{goodsList}}">
+    <view wx:if="{{showAddess}}" class="cart-header" catchtap='navigateAddress'>
+      <image class='fleft' src='{{DataURL}}/images/location.png'></image>
+      <view class='recipients'>
+        <view class='use-order'>{{carts.name}}
+          <text>{{carts.mobile}}</text>
+        </view>
+        <view class='use-address'>{{carts.area[0]}}-{{carts.area[1]}}-{{carts.area[2]}}-{{carts.address}}</view>
+      </view>
+      <image class='fright' src='{{DataURL}}/images/jump.png'></image>
+    </view>
+    <view wx:if="{{!showAddess}}" catchtap='navigateNewAddress'>
+      <view class="cart-no-data">暂无收货地址赶快添加吧~</view>
+    </view>
+    <view class="cart-box" wx:for="{{goodsList}}" wx:key="index">
+      <view class="cart-list">
+        <view class="storenumber">订单编号:{{orderList.orderId}}</view>
+        <view class="ashopname">
+          <!-- <image src="{{DataURL}}/images/zz.png"></image> -->
+          <image class="storelogo" mode="aspectFit" src="{{item.companyLogo}}"></image>
+          <text class="storename">{{item.companyName}}</text>
+          <view class="storeicon">{{item.LevelName}}</view>
+          <!-- <image class="fright" src="{{DataURL}}/images/unfold.png"></image> -->
+        </view>
+        <image class="cart-thumb" mode="scaleToFill" src="{{item.detailPhotos}}"></image>
+        <view class='cart-infor'>
+          <text class="cart-pro-name">{{item.productName}}</text>
+          <view class='cart-norms'>{{item.attributeOne +' '+ item.attributeTwo}}</view>
+          <view class='cart-moeny'>
+            <view class='cart-pro-price'>￥
+              <!-- 使用了优惠卷就显示原价 -->
+              <text wx:if="{{selectCoupons}}">{{item.productprice}}</text>
+              <text wx:else>{{item.price}}</text>
+            </view>
+            <view class="cart-count-box">
+              <!-- <text class="cart-count-down" bindtap="minusCount" data-obj="{{obj}}" data-index="{{index}}">-</text> -->
+              <view>
+                <text>x</text>{{item.number}}</view>
+              <!-- <text class="cart-count-add" bindtap="addCount" data-index="{{index}}">+</text> -->
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class='use-YH' wx:if='{{couponsList.length> 0}}'>
+        <view class='use-privilege' bindtap='showprivilege'>
+          <view class='tips-title fleft'>使用优惠券</view>
+
+          <view class='choose fright' wx:if='{{!selectCoupons}}'>
+            <text class="note-item-text fright">您有{{couponsList.length}}张优惠券可以使用</text>
+          </view>
+
+          <view class='choose fright' wx:if='{{selectCoupons}}'>
+            <text class='{{selectCoupons.content.length>17?"note-item-text17 fright":"note-item-text fright"}}'>{{selectCoupons.content}}</text>
+          </view>
+
+          <image class="dropdown fright" src='{{DataURL}}/images/dropdown.png'></image>
+        </view>
+      </view>
+      <view class="Acoupon" style="margin:0 auto 20px auto;z-index:99;" wx:if='{{selectCoupons}}'>
+        <image src='{{DataURL}}/images/coupon.png'></image>
+        <view class="shadow"></view>
+        <view class="Acouponinfor">
+          <view class="facevalue">
+            <view class="facevalue-price fleft">￥
+              <text>{{selectCoupons.discount}}</text>
+            </view>
+            <view class="facevalue-name fright" wx:if='{{selectCoupons.mold == 0}}'>满减劵</view>
+            <view class="facevalue-name fright" wx:if='{{selectCoupons.mold == 1}}'>现金劵</view>
+          </view>
+          <view class="condition">
+            <view class="facevalue-data fleft">有效期至 {{selectCoupons.valid_date}}</view>
+            <view class="facevalue-uses fright">{{selectCoupons.content}}</view>
+          </view>
+        </view>
+        <view class="Acouponuser">
+          <view class='fleft'>{{selectCoupons.typename}}</view>
+        </view>
+      </view>
+      <!-- 赠品 -->
+      <view class="allshopmame" wx:for="{{orderList.detail}}" wx:key="id" wx:for-item="item" wx:for-index="detailindex">
+        <view hidden="{{item.gdetailId==null}}" class="complimentary" catchtap="showpopgigt" data-item="{{detailindex}}">
+          <view class="fleft">赠品</view>
+          <image class="flfet" mode="aspectFit" src=""></image>
+          <text>{{item.gproductName}}</text>
+          <image class="fright" src="{{DataURL}}/images/unfold.png" data-shopid='{{proDataInfo.shopId}}'></image>
+        </view>
+      </view>
+      <view class="usenote">配送方式
+        <view class="expressage">{{item.expressCompanyName}}</view>
+      </view>
+      <view class="usenote">运费
+        <view class="freight">￥
+          <text>{{item.expressFee}}</text>
+        </view>
+      </view>
+      <view class="usenote">买家备注
+        <text wx:if="{{showRemarkTeLabel}}" catchtap='hideRemarkText' class="textnote">{{remark}}</text>
+         <!-- 点击输入框显示 textarea -->
+        <textarea wx:else minlength="0" class="textnote" bindinput='changeValueData' value='{{remark}}' ></textarea>
+      </view>
+    </view>
+
+    <view class="cart-footer">
+      <view class='shoppay'>
+        <view class='total'>合计：
+          <text class='total-text'>￥<text>{{orderList.paymentPrice}}</text></text>
+        </view>
+        <view wx:if='{{selectCoupons.discount}}' class='privilege'>优惠：
+          <text>￥{{selectCoupons.discount}}</text>
+        </view>
+      </view>
+      <view class='now-pay fright' catchtap='updateOrderAddress'>立即支付</view>
+    </view>
+  </view>
+  <view wx:else>
+    <view class="cart-no-data"></view>
+  </view>
+</view>
+
+<!-- 优惠券弹窗 -->
+<view class="userule" wx:if="{{showprivilege}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class='couponbox'>
+    <view class="tipsbox">
+      <scroll-view class="pop-array" scroll-y style="{{couponsList.length > 3 ? 'height:800rpx' : ''}}">
+        <view class='checkbox-con'>
+          <text class="coupontext">请选择优惠劵</text>
+          <!-- <radio-group bindchange="radioChange"> -->
+          <radio-group>
+            <label class="{{item.checked?'checkbox checked':'checkbox'}}" wx:for="{{couponsList}}" bindtap='radio' data-index="{{index}}" wx:key="name" bindtap="choseTxtColor">
+              <checkbox class="fleft" value="{{item.name}}" checked="{{item.checked}}" />
+              <view class="Acoupon fleft">
+                <image src='{{DataURL}}/images/coupon.png'></image>
+                <view class="shadow"></view>
+                <view class="Acouponinfor">
+                  <view class="facevalue">
+                    <view class="facevalue-price fleft">￥
+                      <text>{{item.discount}}</text>
+                    </view>
+                    <view class="facevalue-name fright" wx:if='{{item.mold == 0}}'>满减劵</view>
+                    <view class="facevalue-name fright" wx:if='{{item.mold == 1}}'>现金劵</view>
+                  </view>
+                  <view class="condition">
+                    <view class="facevalue-data fleft">有效期至 {{item.valid_date}}</view>
+                    <view class="facevalue-uses fright">{{item.content}}</view>
+                  </view>
+                </view>
+                <view class="Acouponuser">
+                  <view class='fleft'>{{item.typename}}</view>
+                </view>
+              </view>
+            </label>
+          </radio-group>
+        </view>
+      </scroll-view>
+      <view class='pop-btn'>
+        <button class="btn-qx" bindtap="hideModaltip">取消</button>
+        <button class="btn-qd" bindtap="determineModaltip">确定</button>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 赠品弹窗 -->
+<view class="userule" wx:if="{{showpopgift}}" catchtouchmove="true">
+  <view class="bgopcity" style="position: fixed;"></view>
+  <view class="popgift" style="position: fixed;">
+    <scroll-view scroll-y="true" class="giftscroll" wx:for="{{giftDetail}}" wx:key="key">
+      <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+        <block wx:for="{{item.images}}" wx:key="key" wx:for-item="itemindex">
+          <swiper-item>
+            <image src="{{itemindex}}" class="gift-image" width="355" height="132" />
+          </swiper-item>
+        </block>
+      </swiper>
+      <view class="bgwhite giftname width92">
+        <view>¥ {{item.price}}</view>
+        <text>{{item.productName}}</text>
+      </view>
+      <view class="bgwhite giftrule width92">
+        <view>商品规格</view>
+        <text>{{item.attributeOne +' '+ item.attributeTwo}}</text>
+      </view>
+      <view class="bgwhite giftinfor width92">
+        <view>商品描述</view>
+        <text>{{item.productremark}}</text>
+      </view>
+    </scroll-view>
+    <view class="detimg">
+      <image bindtap="hidepopgigt" src='{{DataURL}}/images/clearpop.png'></image>
+    </view>
+  </view>
+</view>

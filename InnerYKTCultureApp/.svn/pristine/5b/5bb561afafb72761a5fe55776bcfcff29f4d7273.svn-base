@@ -1,0 +1,602 @@
+/* pages/detailsgood/detailsgood.wxss */
+page {
+  background: #F6F6F6;
+  padding-bottom: 100rpx;
+}
+
+/*轮播图*/
+.slide-image {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper {
+  width: 100%;
+  height: 376rpx;
+}
+
+.swiperimage {
+  width: 100%;
+  height: 100%;
+}
+.imlk{
+  width: 90rpx;
+height: 90rpx;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+/*主题内容*/
+.messItem {
+  width: 100%;
+  padding: 10rpx 20rpx;
+  box-sizing: border-box;
+}
+
+.meton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.memo-z {
+  display: flex;
+  align-items: center;
+}
+
+.memo-z view:nth-of-type(2) {
+  margin-left: 10rpx;
+}
+
+.memoprice {
+  font-size: 30rpx;
+  font-family: PingFang SC, PingFang SC-Medium;
+  text-align: left;
+  color: #ff1f1f;
+}
+
+.memoprice text {
+  font-size: 36rpx;
+  font-family: DIN;
+  font-weight: bold;
+}
+
+.ktprice {
+  font-size: 26rpx;
+  font-family: PingFang SC, PingFang SC-Regular;
+  text-decoration: line-through;
+  color: #666666;
+  display: flex;
+  align-items: center;
+  margin-left: 20rpx;
+}
+
+.peonum {
+  background: #ff984d;
+  border-radius: 6rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  padding: 4rpx 20rpx;
+  font-size: 26rpx;
+  font-family: PingFang SC, PingFang SC-Semibold;
+}
+
+.nowtime {
+  font-size: 26rpx;
+  font-family: PingFang SC, PingFang SC-Regular;
+  color: #666666;
+  line-height: 42rpx;
+  margin-left: 20rpx;
+}
+
+.memt {
+  position: relative;
+  width: 163rpx;
+  height: 76rpx;
+}
+
+.memt image {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 163rpx;
+  height: 76rpx;
+  z-index: 13;
+}
+
+.ment-z {
+  position: absolute;
+  width: 163rpx;
+  height: 76rpx;
+  right: 0;
+  top: 0;
+  z-index: 14;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 26rpx;
+  font-family: PingFang SC, PingFang SC-Regular;
+  color: #ff9966;
+}
+.agtime{
+font-size: 24rpx;
+color: #f25e04;
+line-height: 48rpx;
+}
+.productName {
+  font-size: 32rpx;
+  font-family: PingFang SC, PingFang SC-Medium;
+  font-weight: bold;
+  color: #333333;
+  margin-top: 10rpx;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pation {
+  margin-top: 20rpx;
+  height: 144rpx;
+  background: #ffffff;
+  border-radius: 10rpx;
+  display: flex;
+  justify-content: space-around;
+}
+
+.tion-z {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 24rpx;
+  font-family: PingFang SC, PingFang SC-Regular;
+  color: #666666;
+}
+
+.tion-z image {
+  width: 44rpx;
+  height: 40rpx;
+}
+.bute{
+  color: #999999;
+  display: flex;
+}
+.bute image{
+  width: 34rpx;
+  height: 38rpx;
+}
+.Ctdetail {
+  font-size: 28rpx;
+  font-family: PingFang SC, PingFang SC-Regular;
+  color: #333333;
+  padding: 10rpx;
+  box-sizing: border-box;
+  background: #ffffff;
+  border-radius: 10rpx;
+  margin-top: 20rpx;
+}
+
+.detail-z {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Tcyrs {
+  height: 58rpx;
+  position: relative;
+}
+
+.cyrs {
+  position: absolute;
+  width: 58rpx;
+  height: 58rpx;
+  border-radius: 50%;
+  top: 0;
+  border: #fff 4rpx solid;
+}
+/*底部内容*/
+.bot{
+  padding: 18rpx;
+  background: #ffffff;
+border-radius: 10rpx;
+  box-sizing: border-box;
+  margin-top:20rpx;
+  font-size: 32rpx;
+}
+.bot-z{
+  display: flex;
+  align-items: center;
+}
+.bot-z view:nth-of-type(1){
+  color: #333333;
+  padding-right: 20rpx;
+  border-right: solid 2rpx #cccccc;
+  
+}
+.bot-z view:nth-of-type(2){
+  color: #999999;
+  padding-left: 20rpx;
+  display: flex;
+  align-items: center;
+}
+.bot-z view:nth-of-type(2) image{
+  width: 28rpx;
+height: 28rpx;
+margin-left: 10rpx;
+}
+.jsfont{
+  font-size: 26rpx;
+font-family: PingFang SC, PingFang SC-Regular;
+color: #666666;
+line-height: 34rpx;
+margin-top: 16rpx;
+padding-bottom: 24rpx;
+border-bottom: solid 2rpx #f6f6f6;
+}
+.minty{
+  width: 100%;
+  height: 400rpx;
+  margin-top:10rpx;
+}
+/*阴影css*/
+.windowBackgroud {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(7, 7, 7, 0.6);
+  z-index: 20;
+}
+/*拼团规则css*/
+.commoditydetail {
+  position: fixed;
+  bottom: -1000rpx;
+  left: 0;
+  z-index: 30;
+  background: #f6f8fa;
+  transition: bottom 0.4s;
+  width: 100%;
+  height: 760rpx;
+background: #ffffff;
+border-radius: 20rpx;
+}
+
+.commoditydetailout {
+  bottom: 0;
+}
+.commod-z{
+  position: relative;
+  padding: 60rpx;
+  box-sizing: border-box;
+}
+.commd-title{
+font-size: 34rpx;
+font-family: PingFang SC, PingFang SC-Medium;
+font-weight: 500;
+text-align: left;
+color: #333333;
+display: flex;
+justify-content: space-around;
+margin-bottom: 40rpx;
+}
+.commd-font{
+font-size: 30rpx;
+font-family: PingFang SC, PingFang SC-Regular;
+color: #666666;
+line-height: 42rpx;
+margin-top: 20rpx;
+}
+.bpoisk{
+  width: 454rpx;
+height: 83rpx;
+background: #ffffff;
+border: 2rpx solid #666666;
+border-radius: 22rpx;
+display: flex;
+justify-content: center;
+align-items: center;
+color: #333333;
+font-size: 30rpx;
+margin: auto;
+margin-top: 40rpx;
+}
+
+/*结算框*/
+.jieSuan{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100rpx;
+opacity: 1;
+background: #eeeeee;
+box-shadow: 0rpx 1rpx 0rpx 0rpx #cbcbcb inset; 
+box-sizing: border-box;
+display: flex;
+justify-content: space-between;
+padding: 20rpx;
+font-size: 20rpx;
+font-family: PingFang SC, PingFang SC-Regular;
+color: #333333;
+padding-left: 40rpx;
+}
+.jieSuan image{
+  width: 36rpx;
+  height: 40rpx;
+}
+.jieSuan botton{
+  height: 130%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.sybt{
+  margin-left: 64rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 130%;
+}
+.commite{
+  width: 327rpx;
+height: 70rpx;
+opacity: 1;
+background: linear-gradient(0deg,#ff1f1f 0%, #ff592d 100%);
+border-radius: 35rpx;
+font-size: 28rpx;
+font-family: PingFang SC, PingFang SC-Regular;
+font-weight: 400;
+color: #ffffff;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.commite2{
+  width: 327rpx;
+height: 70rpx;
+opacity: 1;
+background: linear-gradient(0deg,#a09e9e 0%, #6b6b6a 100%);
+border-radius: 35rpx;
+font-size: 28rpx;
+font-family: PingFang SC, PingFang SC-Regular;
+font-weight: 400;
+color: #ffffff;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+/* 视频样式 */
+.video-item {
+  position: relative;
+  width: 100%;
+  height:730rpx;
+}
+video {
+  width: 100%;
+  height: 100%;
+}
+.video-cover {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.video-play-btn {
+  position: absolute;
+  width: 120rpx;
+  height: 120rpx;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+.video-duration {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  color: #fff;
+}
+/*商品规格弹窗*/
+.productdetail{
+  position: fixed;
+  bottom: -9999999rpx;
+  left: 0;
+  z-index: 30;
+  background: #f6f8fa;
+  transition: bottom 0.4s;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 20rpx;
+}
+.productTdetailout{
+  bottom: 0rpx;
+}
+.tdeta-z{
+  position: relative;
+  width: 100%;
+  padding-bottom: 100rpx;
+  box-sizing: border-box;
+  overflow: auto;
+}
+.tdeta-z image{
+  width: 100%;
+  height: 270rpx;
+}
+.dtaz{
+  padding: 10rpx 30rpx;
+}
+.dtazprice{
+  font-family: DIN;
+  color: #ff3333;
+  font-size: 34rpx;
+}
+.dtaztitle{
+  color: #333333;
+  font-size: 30rpx;
+  margin-top: 16rpx;
+}
+.dtazgg{
+  display: flex;
+  flex-wrap: wrap;
+}
+.dtazgg .datem:nth-of-type(1){
+  margin-left: 0rpx;
+}
+.datem{
+  padding: 6rpx 10rpx;
+  border: #ccc solid 2rpx;
+  border-radius: 10rpx;
+  color: #333;
+  font-size: 28rpx;
+  margin-left: 10rpx;
+  margin-top: 10rpx;
+}
+.datchoice{
+  color: #297CE8;
+  border: #297CE8 solid 2rpx;
+}
+.pronum{
+  margin-top: 10rpx;
+  display: flex;
+  width:200rpx;
+  justify-content: space-between;
+  color: #333;
+  border: #ccc solid 2rpx;
+  border-radius: 10rpx;
+  align-items: center;
+}
+.numdel{
+  height: 50rpx;
+  width: 50rpx;
+  font-size: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: #333 solid 2rpx;
+  border-radius: 10rpx 0rpx 0rpx 10rpx;
+  position: relative;
+}
+.numadd{
+  height: 50rpx;
+  width: 50rpx;
+  font-size: 24rpx;
+  border: #333 solid 2rpx;
+  border-radius: 0rpx 10rpx 10rpx 0rpx;
+  position: relative;
+}
+.numdel view{
+  border-bottom: solid 2rpx #000;
+  width: 30rpx;
+}
+.numadd view:nth-of-type(1){
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 30rpx;
+  border-bottom: solid 2rpx #000;
+}
+.numadd view:nth-of-type(2){
+  position: absolute;
+  width: 30rpx;
+  left: 18%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-bottom: solid 2rpx #000;
+  transform: rotate(90deg);
+}
+.total{
+  margin-top: 20rpx;
+}
+.total text{
+  font-family: DIN;
+  color: #ff3333;
+  font-size: 34rpx;
+}
+.muback{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: #f2f2f2;
+  height: 100rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.muback view{
+  display: flex;
+  width: 260rpx;
+  height: 70rpx;
+  align-items: center;
+  letter-spacing: 10rpx;
+  background: #FF3333;
+  border-radius: 10rpx;
+  justify-content: center;
+  font-weight: bold;
+  color:#FFF;
+}
+
+
+.selectCup {
+  width: 100%;
+  display: flex;
+  flex-wrap:  wrap;
+}
+.typeTitle {
+  font-size: 30rpx;
+  position: relative;
+}
+.seucces{
+  font-size: 26rpx;
+ background: #EFF0F2;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+  padding: 10rpx 20rpx;
+ color: #4B5156;
+ margin-right: 20rpx;
+ margin-bottom: 20rpx;
+ margin-top: 20rpx;
+ position: relative;
+}
+.seucces2{
+  font-size: 26rpx;
+ background: #EFF0F2;
+  padding: 10rpx 20rpx;
+ color: #4B5156;
+ margin-right: 20rpx;
+ margin-bottom: 20rpx;
+ margin-top: 20rpx;
+ position: relative;
+}
+.selectSucces{
+  background: #CEEBE6;
+  color: #1B9777;
+ }
+ /*支付方式*/
+ .commoditydetai {
+  position: fixed;
+  bottom: -1000rpx;
+  left: 0;
+  z-index: 30;
+  background: #f6f8fa;
+  transition: bottom 0.4s;
+  width: 100%;
+  height: 580rpx;
+background: #ffffff;
+border-radius: 20rpx 20rpx 0rpx 0rpx;
+}
+
+.commoditydetailou {
+  bottom: 0;
+}
+ 

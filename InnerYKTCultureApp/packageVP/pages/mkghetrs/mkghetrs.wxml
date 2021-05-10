@@ -1,0 +1,11 @@
+<!--packageVP/pages/mkghetrs/mkghetrs.wxml-->
+<view class="lrte">
+  <view class="lpor" catchtap="gotoSCanQRCodeRCVPage">
+      <image src="{{SMDataURL}}/images/mine-code.png"></image>
+      <view>扫码核销</view>
+  </view>
+  <view class="lpor" data-pagetype="0" data-package="packageVP" data-page="verification" catchtap="gotoCommonPage">
+    <image src="{{SMDataURL}}/images/VP-xq.png"></image>
+    <view>核销记录</view>
+  </view>
+</view>

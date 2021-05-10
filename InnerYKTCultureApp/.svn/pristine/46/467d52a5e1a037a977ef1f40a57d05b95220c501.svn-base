@@ -1,0 +1,44 @@
+<!--packageVP/pages/mkghetrstwo/mkghetrstwo.wxml-->
+<view class="lrte">
+  <view class="lpor">
+      <image src="{{SMDataURL}}/images/mine-code.png"></image>
+      <view>扫码核销</view>
+  </view>
+  <view class="lpor" data-pagetype="0" data-isaudit="0" data-package="" data-page="verification" data-param="" catchtap="gotoPage">
+    <image src="{{SMDataURL}}/images/VP-xq.png"></image>
+    <view>核销记录</view>
+  </view>
+</view>
+
+<view>
+  <!--充值记录-->
+  <view class="mstuo">充值记录</view>
+  <view class="forTime">
+    <view class="item"  wx:for="{{putrList}}"  wx:key="listindex">
+      <view class="fpsye">{{item.name}}</view>
+      <view class="contexts">{{item.kgyu}}</view>
+    </view>
+  </view>
+  <!--恭喜你已获得-->
+  <view class="sprye">恭喜您已获得：</view>
+  <view class="herd">
+    <view class="tit">送价值499元大礼包</view>
+    <view class="tit2">
+      <view>299会员积分</view>
+      <view>可1元购299元电动牙刷*1</view>
+      <view>免费打印奶茶杯</view>
+    </view>
+  </view>
+    <!--核销信息-->
+    <view class="sprye2">核销信息</view>
+  <view class="herd">
+    <view class="tit2 tit3">
+      <view>核销地址：南山海岸城云客茶语</view>
+      <view>操作人：张三</view>
+      <view>操作人ID：5561545</view>
+      <view>核销时间：2020-09-05 09：00：12</view>
+    </view>
+  </view>
+  <!--按钮-->
+  <view class="mlpbut">已核销</view>
+</view> 

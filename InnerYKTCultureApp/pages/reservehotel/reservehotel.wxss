@@ -1,0 +1,225 @@
+/* pages/reservehotel/reservehotel.wxss */
+page{
+  background: #f6f6f6;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 100rpx;
+}
+
+/* 酒店列表 */
+.showhotle{
+  width: 100%;
+  height: 510rpx;
+  background: #fff;
+  /* border-radius: 10px; */
+  overflow: hidden;
+  margin-top: 20rpx;
+}
+.showhotle .hotelimage{
+  width: 100%;
+  height: 280rpx;
+}
+.navview{
+  width: 100%;
+  padding: 0 2%;
+  box-sizing: border-box;
+  height:54rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.navview .hotelprice{
+  display: inline-block;
+  height:54rpx;
+  line-height: 54rpx;
+  margin-right: 20rpx;
+}
+.navview view.hotelprice{
+  font-size: 32rpx;
+  color: #ff1f1f;
+}
+.navview view.hotelprice text{
+  font-size: 36rpx;
+  font-family: 'DIN';
+}
+.navview text.hotelprice{
+  font-size: 28rpx;
+  color: #333;
+  direction: inherit; 
+  text-decoration:line-through;
+}
+.navview text.hotelprice text{
+  font-size: 32rpx;
+  font-family: 'DIN';
+}
+.navview .hotelname{
+  width: 100%;
+  height:54rpx;
+  line-height: 54rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #000;
+}
+.navview .distance{
+  display: inline-block;
+  height: 42rpx;
+  line-height: 42rpx;
+  margin-top: 6rpx;
+  font-size: 30rpx;
+  color: #666;
+  padding: 0 20rpx; 
+  border-left: solid 1rpx #e5e5e5;
+}
+.navview .distance:first-child{
+  border-left:none;
+  padding-left: 0;
+}
+.navview .serve{
+  display: inline-block;
+  height: 42rpx;
+  line-height:42rpx;
+  border-radius: 6rpx;
+  padding: 0 20rpx;
+  margin-top: 6rpx; 
+  background: #ffe9cd;
+  color: #db8725;
+  margin-right: 20rpx;
+}
+
+/* 筛选框 */
+.filtermenu{
+  height: 60rpx;
+  margin: 20rpx auto 0;
+}
+.filtermenu picker{
+  display: inline-block;
+  width: 32%;
+  height: 60rpx;
+  line-height: 56rpx;
+  border: solid 1px #e5e5e5;
+  font-size: 30rpx;
+  padding:0 40rpx 0 10rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+  box-sizing: border-box;
+  border-radius: 16rpx;
+  margin-right: 2%
+}
+.filtermenu button{
+  display: inline-block;
+  float: right;
+  width: 32%;
+  height: 60rpx;
+  line-height: 56rpx;
+  border: solid 1px #e5e5e5;
+  font-size: 30rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+  box-sizing: border-box;
+  border-radius: 16rpx;
+}
+.xiala{
+  width: 28rpx;
+  height: 16rpx;
+  position: absolute;
+  right:10rpx;
+  top: 22rpx;
+}
+
+view.cityview{
+  display: inline-block;
+  width: 32%;
+  height: 60rpx;
+  line-height: 60rpx;
+  border: solid 1px #e5e5e5;
+  font-size: 30rpx;
+  padding:0 40rpx 0 10rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+  box-sizing: border-box;
+  border-radius: 16rpx;
+}
+.function{
+margin: 20rpx auto 0rpx auto;
+  /* justify-content: space-between;
+  display: flex; */
+}
+.function view.fleft{
+  width: 25%;
+  height: 140rpx;
+  text-align: center;
+}
+.function image{
+  width: 80rpx;
+  height: 80rpx;
+}
+.function text{
+  display:inline-block;
+  width: 100%;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #666
+}
+/* 酒店信息弹窗 */
+.hotelinformation{
+  width:94%;
+  position: absolute;
+  top:50%;left:50%;
+  transform: translate(-50%,-50%);
+  z-index: 9999;
+  /* border-radius: 8px; */
+  background: #fff;
+  overflow: hidden;
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+.hotelinformation image.fleft{
+  width: 240rpx;
+  height: 180rpx;
+  position: absolute;
+  left: 20rpx;
+  top: 20rpx;
+}
+.hotelinformation view.fright{
+  width:100%;
+  height: 180rpx;
+  padding-left: 250rpx;
+
+  box-sizing: border-box;
+}
+.hotelinformation view.fright view{
+  width: 100%;
+  height: 42rpx;
+  line-height: 42rpx;
+  font-size: 28rpx;
+  color: #000;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; 
+}
+.hotelinformation view.fright view.name{
+  font-size: 32rpx;
+  font-weight: bold;
+}
+.hotelinformation view.fright view.price{
+  height: 54rpx;
+  line-height: 54rpx;
+  /* text-align: right; */
+}
+.hotelinformation view.fright view.price text{
+  font-size: 32rpx;
+  color: #ff1f1f;
+  margin-right: 10rpx;
+}
+.sdf{
+  padding: 0 3%;
+  box-sizing: border-box;
+}

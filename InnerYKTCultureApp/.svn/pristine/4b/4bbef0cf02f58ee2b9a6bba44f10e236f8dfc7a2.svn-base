@@ -1,0 +1,177 @@
+/* pages/myspelling/myspelling.wxss */
+page{
+  background: #F6F6F6;
+  font-size: 30rpx;
+}
+.choiceclass{
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 88rpx;
+  display: flex;
+  background: #fff;
+  justify-content: space-between;
+  padding: 6rpx 20rpx;
+  box-sizing: border-box;
+  z-index: 6;
+}
+.choice{
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.chiocess{
+  color: #428ceb;
+  border-bottom: 4rpx #428ceb solid;
+}
+.itembhke{
+  margin-top: 88rpx;
+  padding: 20rpx 30rpx;
+}
+.bhkez{
+  width: 690rpx;
+  background: #ffffff;
+border-radius: 10rpx;
+margin-top: 20rpx;
+}
+.rzz-z{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  font-family: DIN;
+  height: 53rpx;
+  padding: 0 20rpx;
+  background: #fff7df;
+}
+.rzz-z view:nth-of-type(1){
+  position: absolute;
+  top: -17%;
+  left: -1%;
+  width: 175rpx;
+  height: 75rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  padding-bottom:4rpx;
+  box-sizing: border-box;
+  font-size: 30rpx;
+}
+.bunt{
+  font-size: 24rpx;
+  color: #f25e04;
+  line-height: 48rpx;}
+  .rzz-o{
+    padding:30rpx 28rpx;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 0;
+  }
+  .rzz-o image{
+    width: 202rpx;
+  height: 202rpx;
+  /* border: 1rpx solid #3f3f3f; */
+  border-radius: 10rpx;
+  box-shadow: 2rpx 2rpx 2rpx 2rpx rgb(48, 47, 47,0.3);
+  }
+  .zzo-z{
+    width: 60%;
+    }
+    .puctName{
+    font-size: 32rpx;
+    font-weight: 500;
+    color: #333333;
+    line-height: 42rpx;
+    } 
+    .dutiao{
+      display: flex;
+      align-items: center;
+      margin-top: 20rpx;
+    }
+    .bena{
+      width: 260rpx;
+    height: 24rpx;
+    background: #e2dfdf;
+    border-radius: 12rpx;
+    position: relative;
+    
+    }
+    .benb{
+      font-size: 24rpx;
+      margin-left: 16rpx;
+      font-family: DIN;
+      color: #f25e04;
+      }
+    .bena-in{
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 24rpx;
+      background: #f4793b;
+      border-radius: 12rpx;
+    }
+    .ductprice{
+      display: flex;
+      align-items: center;
+      margin-top: 20rpx;
+    }
+    .ductprice view:nth-of-type(1){
+    font-size: 24rpx;
+    font-weight: R;
+    color: #ff1a17;
+    line-height: 36rpx;
+    }
+    .ductprice view:nth-of-type(1) text{
+      font-size: 34rpx;
+      font-weight: bold;
+      }
+    .ductprice view:nth-of-type(2){
+      margin-left: 20rpx;
+    font-size: 24rpx;
+    font-family: PingFang SC, PingFang SC-Regular;
+    font-weight: 400;
+    text-decoration:  line-through;
+    color: #999999;
+    line-height: 48rpx;
+    }
+    .itembhke .bhkez:nth-of-type(1){
+      margin-top: 0rpx;
+    }
+    /*头像css*/
+    .detail-z {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 30rpx 28rpx;
+      box-sizing: border-box;
+      padding-top:20rpx ;
+    }
+    
+    .Tcyrs {
+      height: 60rpx;
+      position: relative;
+      line-height: 60rpx;
+    }s
+    
+    .cyrs {
+      position: absolute;
+      width: 58rpx;
+      height: 58rpx;
+      border-radius: 50%;
+      top: 0;
+      border: #fff 4rpx solid;
+    }
+    .pmh{
+      display: flex;
+      align-items: center;
+      font-size: 28rpx;
+      color: #333333;
+    }
+    .pmh image{
+      width: 40rpx;
+      height: 40rpx;
+    }

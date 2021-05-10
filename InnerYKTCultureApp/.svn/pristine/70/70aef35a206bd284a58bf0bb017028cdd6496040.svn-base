@@ -1,0 +1,135 @@
+<!--packageVP/pages/CYmapdepot/CYmapdepot.wxml-->
+<!--图库分类-->
+<view class="viewforTop">
+  <view class="viewforTop2">
+    <block wx:for="{{imgTypeList}}" wx:for-item="typeItem" wx:key="id" wx:for-index="index">
+      <view class="viewfor {{index==selTypeIndex?'viewforhu':''}}" data-index="{{index}}" data-item="{{typeItem}}" catchtap="selectPImgType">{{typeItem.name}}</view>
+    </block>    
+  </view>
+  <block wx:if="{{SDataType==2}}">
+    <view style="display:flex;justify-content: space-between;">
+      <view class="viewfor" catchtap="setEditMyImgStatus">编辑</view>
+    </view>
+  </block>
+</view>
+<view class="pltur" style="{{SDataType==2?'margin-top: 100rpx;':''}}">
+  <view class="selectCup">
+    <view class="Cup-list2">
+      <!-- 新创作 -->
+      <block wx:if="{{SDataType==2 && selTypeIndex!=0}}">
+        <view class="Cup-z2" catchtap="addMyImgObj" >
+          <view class="addimg-img">
+            <image mode="aspectFit" src="{{DataURL}}/images/amy-kaobei.png" ></image>
+          </view>
+        </view>
+      </block>
+      <!-- 图片列表 -->
+      <block wx:for="{{printImgList}}" wx:for-item="item" wx:key="id" wx:for-index="index">
+        <view class="Cup-z2 {{index==selPImgIndex?'Cup-z2Succ':''}}" data-index="{{index}}" catchtap="selectCustomizeImg">
+          <!-- 编辑我的图片 -->
+          <block wx:if="{{isEditMyImg}}">
+            <view class="lfrpimg">
+              <image data-tag="-1" data-item="{{item}}" catchtap="selectEditMyImgObj" src="{{DataURL}}/images/PV-depot.png"></image>
+              <image data-tag="0" data-item="{{item}}" catchtap="selectEditMyImgObj" src="{{DataURL}}/images/PV-deppry.png"></image>
+            </view>
+          </block>
+          
+          <view class="Cup-text2">{{item.name}}</view>
+          <view class="Cup-text2" style="color: #747474;">ID:{{item.id}}</view>
+          <view class="plfyurt">
+            <image src="{{item.path}}" data-isprv="1" data-index="{{index}}" catchtap="selectCustomizeImg"></image>
+          </view>
+          <view class="numbop"> <image src="{{DataURL}}/images/cy-alitxzl.png"></image><text>{{item.print_num}}</text></view>
+        </view>
+      </block>
+      
+    </view>
+  </view>
+</view>
+<!-- 确定选择图片按钮 -->
+<block wx:if="{{loginType==0}}">
+  <view class="butprety" catchtap="submitSelCurPImgItem">确定</view>
+</block>
+
+
+<!-- 弹窗半透明浮动层 -->
+<block wx:if="{{isShowEditPop||isShowDelPop || isPreviewImg}}">
+  <view class="windowBackgroud" catchtouchmove="{{false}}" catchtap="hideAllPop"></view>
+</block>
+<!-- 编辑我的图片弹窗 -->
+<view class="productTypedetail" wx:if="{{isShowEditPop}}">
+  <view class="fonts">
+    <view class="fotitle"> 名称 <input class="mlsyinput" type="text" value="{{editImgObj.name}}" data-cid='name' bindinput="changeValueMainData" cursor-spacing="10" /></view>
+    <view class="fotitle fot"> 分类     
+      <view class="sour" catchtap="showEditPopSelImgTypeList">
+        <input disabled="true" value="{{editImgObj.image_type_id>0?editImgObj.image_type_name:'分类'}}"></input>
+        <image src='{{DataURL}}/images/xiala.png'></image>
+        <view class="xiala-v" style="{{!isShowEditPopSelImgTypeList?'display:none':''}}">
+          <block wx:for="{{imgTypeList}}" wx:for-item="sTypeItem" wx:key="id" wx:for-index="index">
+            <block wx:if="{{sTypeItem.id>0}}">
+              <view data-id="{{sTypeItem.id}}" catchtap="selectEditImgType">            
+                {{sTypeItem.name}}
+              </view>
+            </block>
+          </block>
+          
+      </view>
+    </view>
+  
+    </view>
+    <view class="pleasechoose">
+      
+      <checkbox-group data-cid='open' bindchange="changeValueMainData">
+        是否公开<checkbox class="boxcheck" checked="{{editImgObj.open==0?true:false}}"></checkbox>
+      </checkbox-group>
+      
+    </view>
+    <view class="foitem">
+      <!-- 显示图片 -->
+      <block wx:if="{{editImgObj.id>0 || editImgObj.path!=''}}">
+        <view class="addimg-img" data-type="0" catchtap="{{editImgObj.id>0?'':'uploadImg'}}">
+          <image mode="aspectFit" src="{{editImgObj.path}}" ></image>
+        </view>
+      </block>
+      <!-- 上传图片 -->
+      <block wx:else>
+        <view class="addimg-img"  data-type="0" catchtap="uploadImg">
+          <image mode="aspectFit" src="{{DataURL}}/images/amy-kaobei.png" ></image>
+        </view>
+      </block>     
+    </view>
+    <view class="foitebut">
+      <view catchtap="hideAllPop">取消</view>
+      <view data-tag="0" catchtap="submitOperatePImgObj">保存</view>
+    </view>
+  </view>
+</view>
+
+<view class="productTypedetail" wx:if="{{isShowDelPop}}">
+  <view class="fonts">
+    <view class="fotitle2">提示</view>
+    <view class="foitem">
+      删除后不可恢复，请谨慎删除。
+    </view>
+    <view class="foitebut">
+      <view catchtap="hideAllPop">取消</view>
+      <view data-tag="-1" catchtap="submitOperatePImgObj">删除</view>
+    </view>
+  </view>
+</view>
+
+<!--预览图片-->
+<view class="Imageyulan" wx:if="{{isPreviewImg}}">
+  <view style="position: relative;">
+    <view class="bmsktitle">预览</view>
+    <view class="mlistdusk">
+      <image class="sss1" src="{{DataURL}}/images/mulist.png"></image>
+      <view class="topComponent">
+        <image class="sss2"
+          src="{{selPImgItem.path}}">
+        </image>
+      </view>
+    </view>
+    <image class="mlxc6" catchtap="hideAllPop" src="{{DataURL}}/images/cleardel.png"></image>
+  </view>
+</view>

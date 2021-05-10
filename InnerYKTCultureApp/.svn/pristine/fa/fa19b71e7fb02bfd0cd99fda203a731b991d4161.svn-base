@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "商城",
+  "usingComponents": {
+    "v-cheirapsisAlert": "/components/cheirapsisAlert/cheirapsisAlert",
+    "v-folat": "/components/floatinball/floatinball"
+  }
+}

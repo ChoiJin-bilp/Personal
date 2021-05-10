@@ -1,0 +1,158 @@
+<!--pages/mine/mine.wxml 我的-->
+<import src="../template/authorizationPop.wxml" />
+<!-- <button open-type='share'>kkk</button> -->
+<!-- 注册授权弹窗 -->
+<template is="authorizationPop" data='{{isShowAuthor:isShowAuthor,sysName:sysName,showguidance:showguidance,DataURL:DataURL,sysLogoUrl:sysLogoUrl}}' />
+<view class="container">
+  <!--改动后个人信息-->
+  <view class="{{userCVersionType==1?'topmine':'topmine1'}}">
+    <open-data type="userAvatarUrl" class="fleft comp-logo {{avatarUrl==''?'show':'hide'}}"></open-data>
+    <image class="{{userCVersionType==1?'hide':'show'}} vipicom" src='{{DataURL}}/images/VIP.png'></image>
+    <image class="fleft comp-logo {{avatarUrl!=''?'show':'hide'}}" src="{{avatarUrl}}"></image>
+    <view class='fleft comp-name'>
+      <open-data type="userNickName" class="{{UserName==''?'show':'hide'}}" ></open-data>
+      <view class="idname {{UserName==''?'hide':'show'}}" style='font-size:32rpx;font-weight: bold;margin-top:30rpx;'>
+        <text>{{UserName}}</text>
+        <block wx:if="{{isMember}}">
+          <view class="hotelvip">
+            <image src="{{SMDataURL}}/images/hotelvip.png"></image>
+            <view class="">1</view>
+          </view>
+        </block>
+      </view>
+      <text class="idname" style="color: #333;font-size: 26rpx;">(ID:{{UserID}})</text>
+    </view>
+    <!-- <view data-pagetype="0" data-package="" data-page="userLogin" catchtap="gotoPage" class="opened">
+    {{user_roleId<=0?'立即登录':'切换账户'}}
+    </view> -->
+  </view>
+  <view class="wallet">
+    <view class="serve">会员</view>
+    <view class="wallet-z">
+      <view class="wallet-v"  data-pagetype="0" data-package="packageVP" data-page="Mymember" catchtap="gotoCommonPage">
+        <view><text class="foye">钱包</text>{{remainingSum}}</view>
+      </view>
+      <view class="wallet-v"  data-pagetype="0" data-package="packageVP" data-page="Myintegral" catchtap="gotoCommonPage">
+        <view class="wallet-v2">
+          <view><text class="foye">累积积分</text>{{curHistoryUseIntegrals}}</view>
+          <view><text class="foye">可用积分</text>{{curUseIntegrals}}</view>
+          <view><text class="foye">新增积分</text>{{curDayAddUseIntegrals}}</view>
+        </view>
+      </view>
+    </view>
+    </view>
+  <!--改动后主页面-->
+    <view class="module">
+      <view class="serve">服务</view>
+      <view class="minelist width100">
+        <view class="Aminelist" catchtap="personal">
+          <view class="list-iocn">
+            <image class="iconimage" src='{{SMDataURL}}/images/amy-fw.png'></image>
+          </view>
+          <!--注册资料-->
+          <text class="minemame fleft">我的账号</text>
+        </view>
+        <!-- <view class="Aminelist" data-pagetype="0" data-package="small" data-page="coupon" catchtap="gotoPage">
+          <view class="list-iocn">
+            <image class="iconimage" src='{{SMDataURL}}/images/amy-yhj.png'></image>
+          </view>
+          <text class="minemame fleft">优惠劵</text>
+        </view> -->
+        <view class="Aminelist" style="position: relative;" data-pagetype="0" data-package="yk" data-page="Myprize" catchtap="gotoPage">
+          <view class="list-iocn">
+            <image class="iconimage" src='{{SMDataURL}}/images/amq-prize.png'></image>
+          </view>
+          <!--我的优惠券-->
+          <text class="minemame fleft">我的优惠券</text>
+          <block wx:if="{{cheirapsisCouponCnt>0 && !moprttype}}">
+            <view class="ondsef">
+              <view class="mendao">
+                <view class="find-div-body">您有 {{cheirapsisCouponCnt}} 张优惠券可以使用 </view>
+                <view class="mend" style="position: absolute;top: -8rpx;left: 44rpx;"></view>
+              </view>
+            </view>
+          </block>
+        </view>
+        <view class="Aminelist" data-pagetype="0" data-package="" data-page="infor" catchtap="gotoPage">
+          <view class="list-iocn">
+            <image class="iconimage" src='{{SMDataURL}}/images/amy-ddjl.png'></image>
+          </view>
+          <!--我的订单-->
+          <text class="minemame fleft">订单记录</text>
+        </view>
+        <!--我的拼团-->
+        <view class="Aminelist" data-pagetype="0" data-package="yk" data-page="myspelling" catchtap="gotoPage">
+          <view class="list-iocn">
+            <image class="iconimage" src='{{SMDataURL}}/images/proke-pintuan.png'></image>
+          </view>
+          <!--我的订单-->
+          <text class="minemame fleft">我的拼团</text>
+        </view>
+        <!--我的茶颜茶语-->
+        <view class="Aminelist" data-pagetype="0" data-package="vp" data-page="Yantea" catchtap="gotoPage">
+          <view class="list-iocn">
+            <image class="iconimage" src='{{SMDataURL}}/images/Teayan.png'></image>
+          </view>
+          <!--我的订单-->
+          <text class="minemame fleft">我的茶颜茶语</text>
+        </view>
+        <view class=" Aminelist" data-pagetype="0" data-package="other" data-page="about" catchtap="gotoPage">
+          <view class="list-iocn">
+            <image class="iconimage" src='{{DataURL}}/images/about.png'></image>
+          </view>
+          <text class="minemame fleft">关于</text>
+         </view>
+      </view>
+    </view>
+
+    <view class="module {{adminCnt>0?'show':'hide'}}">
+      <view class="serve">管理</view>
+      <view class="minelist width100">
+        <block wx:for="{{adminFunList}}" wx:for-item="item" wx:for-index="index" wx:key="index">
+          <block wx:if="{{item.isShow && item.type==0 && item.page!=''}}">
+            <view class="Aminelist" data-pagetype="{{item.pagetype}}" data-isaudit="{{item.isaudit}}" data-package="{{item.package}}" data-page="{{item.page}}" data-param="{{item.param}}" catchtap="gotoPage">
+              <view class="list-iocn">
+                <image class="iconimage" src='{{SMDataURL}}{{item.imgSrc}}'></image>
+              </view>
+              <text class="minemame fleft">{{item.name}}</text>
+            </view>
+          </block>
+        </block>
+      </view>
+    </view>
+    <view class="module" wx:if="{{otherCnt>0}}">
+      <view class="serve">其它</view>
+      <view class="minelist width100">
+        <block wx:for="{{adminFunList}}" wx:for-item="item" wx:for-index="index" wx:key="index">
+          <block wx:if="{{item.isShow && item.type==1 && item.page!=''}}">
+            <view class="Aminelist" data-pagetype="{{item.pagetype}}" data-isaudit="{{item.isaudit}}" data-package="{{item.package}}" data-page="{{item.page}}" data-param="{{item.param}}" catchtap="gotoPage">
+              <view class="list-iocn">
+                <image class="iconimage" src='{{SMDataURL}}{{item.imgSrc}}'></image>
+              </view>
+              <text class="minemame fleft">{{item.name}}</text>
+            </view>
+          </block>
+        </block>
+      </view>
+    </view>
+</view>
+<!--悬浮球-->
+<v-folat id="myComponent"/>
+
+
+<!-- <view class="companytext">深圳市天天上网络科技有限公司提供技术支持</view> -->
+<!-- 二维码弹窗 -->
+<view class="userule" wx:if="{{isShowQRCode}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="recordbox1 borderpop">
+    <view class='record'>
+      <text class="name-card">{{qrShowTitle}}</text>
+      <view class='qr-box'>
+        <image mode='aspectFit' class='qr-card' src='{{qrShowImgSrc}}'></image>
+      </view>
+    </view>
+    <view class="delete-box">
+      <image class='del-record' bindtap="hideModalQRcode" src='{{SMDataURL}}/images/clearpop.png'></image>
+    </view>
+  </view>
+</view>

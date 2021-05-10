@@ -1,0 +1,140 @@
+/* pages/groupnotice/groupnotice.wxss */
+page{
+  padding-bottom: 120rpx;
+}
+.groupnotice{
+  margin: 0 auto;
+}
+.noticename{
+  width: 100%;
+  height:72rpx;
+  line-height: 68rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  padding: 0 2%;
+  border-radius:16rpx;
+  border: solid 2rpx #e5e5e5;
+  box-sizing: border-box;
+  margin-top: 20rpx;
+}
+text.noticename{
+  display: inline-block;
+  border: none;
+  text-align: center;
+
+}
+text.noticetext{
+  display: inline-block;
+  border: none;
+  height: auto;
+  margin-top: 0rpx;
+  text-align: justify;
+}
+.noticetext{
+  width: 100%;
+  height: 480rpx;
+  line-height:40rpx;
+  font-size: 30rpx;
+  color: #333;
+  padding: 10rpx 2%;
+  border-radius:16rpx;
+  border: solid 2rpx #e5e5e5;
+  box-sizing: border-box;
+  margin-top: 30rpx;
+}
+.tipsimgmuch{
+  height: 50rpx;
+  line-height: 60rpx;
+  clear: both;
+  font-size: 28rpx;
+  color: #999;
+  margin-top: 20rpx;
+}
+.otherimg{
+  display: flex;
+ flex-wrap:wrap;
+ justify-content:flex-start;
+}
+.firstimg{
+  width: 220rpx;
+  height:165rpx;
+  border-radius: 16rpx;
+  background: #e9e9e9;
+  position: relative;
+  float: left;
+  margin-top:20rpx;
+  margin-right:12rpx; 
+}
+
+.firstimg{
+  width: 222rpx;
+  height: 165rpx;
+  border-radius: 16rpx;
+  background: #e9e9e9;
+  position: relative;
+  float: left;
+  margin-top:20rpx;
+  margin-right:12rpx; 
+}
+.scrollimg{
+  width: 100%;
+  height: 165rpx;
+  border-radius: 16rpx;
+}
+.zh-introduce{
+  width: 96%;
+  clear: both;
+  padding: 16rpx 2%;
+  border: solid 2rpx #e5e5e5;
+  border-radius: 16rpx;
+  line-height: 40rpx;
+  font-size: 28rpx;
+  color: #333;
+  height: 240rpx;
+  word-break: break-all;
+  overflow-y:scroll; 
+  margin-bottom: 12rpx;
+}
+.delimg{
+  width: 36rpx;
+  height: 36rpx;
+  position: absolute;
+  right: -18rpx;
+  top: -18rpx;
+  padding: 10rpx;
+  z-index: 99;
+}
+.addimg1{
+  width: 60rpx;
+  height: 60rpx;
+  position: absolute;
+  left: 50%;top: 50%;
+  margin: -30rpx -30rpx;
+}
+.guidancepop-btn{
+  position: fixed;left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100rpx;
+  background: #fff;
+  text-align: center;
+  margin-top: 20rpx;
+}
+.guidancepop-btn button{
+  display: inline-block;
+  padding: 0 60rpx; 
+  height: 60rpx;
+  margin-top: 20rpx;
+  line-height: 56rpx;
+  border-radius: 60rpx;
+  background: #fff;
+  box-sizing: border-box;
+  margin-left: 40px;
+  font-size: 28rpx;
+  border: solid 2rpx #0066eb;
+  color: #0066eb
+}
+.guidancepop-btn button:first-child{
+  margin-left: 0;
+}

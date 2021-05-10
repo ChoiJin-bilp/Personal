@@ -1,0 +1,157 @@
+/* packageOther/pages/Collarcenter/Collarcenter.wxss */
+.collarceter{
+  width: 100%;
+  padding: 30rpx 20rpx 0 20rpx;
+  box-sizing: border-box;
+}
+/*优惠劵*/
+.collar-coupon{
+  width: 100%;
+}
+.collarA{
+  position: relative;
+  width: 100%;
+  /* box-shadow:0px 4rpx 6rpx rgba(221, 221, 226, 0.6); */
+  border-radius: 16rpx;
+  overflow: hidden;
+  clear: both;
+  height: 300rpx;
+  margin-top:30rpx;
+  background: -webkit-linear-gradient(left, #ff8c27 , #ff8155); /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(right, #ff8c27, #ff8155); /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(right, #ff8c27, #ff8155); /* Firefox 3.6 - 15 */
+  background: linear-gradient(to right, #ff8c27 , #ff8155); /* 标准的语法（必须放在最后） */ 
+}
+.collarA:first-child{
+  margin-top: 0;
+}
+
+.leftradius{
+  position: absolute;
+  width: 38rpx;
+  height: 38rpx;
+  background: #fff;
+  left: -19rpx;
+  top: 142rpx;
+  z-index: 110;
+  border-radius: 50%;
+}
+.rightradius{
+  position: absolute;
+  width: 38rpx;
+  height: 38rpx;
+  background: #fff;
+  right: -19rpx;
+  top: 142rpx;
+  z-index: 110;
+  border-radius: 50%;
+}
+.collarA-top{
+  width: 94%;
+  padding: 0 3%;
+  height: 160rpx;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.collarA-bottom{
+  width: 94%;
+  padding: 0 3%;
+  height: 140rpx;
+  background: white;opacity: 0.85;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+/* .coupon-value,.coupon-term,.coupon-btn,.coupon-time,.coupon-time{
+  width: 94%;
+  margin: 0 auto;
+} */
+.coupon-value,.coupon-term{
+  float: left;
+  height: 100rpx;
+  margin-top: 30rpx;
+  color: #fff;
+}
+.coupon-value{
+  font-size: 40rpx; 
+  line-height: 100rpx;
+}
+.coupon-value text{
+  font-size: 86rpx;
+  font-family: 'DIN1'
+}
+.coupon-term {
+  max-width: 32%;
+  margin-left: 20rpx;
+  overflow: hidden;
+}
+.coupon-term text{
+  display: inline-block;
+  width: 100%;
+  line-height: 50rpx;
+  font-size: 30rpx;
+}
+.coupon-term text:first-child{
+  font-size: 38rpx;
+  font-weight: bold;
+}
+.coupon-btn{
+  position: absolute;
+  right: 3%;
+  top: 50rpx;
+  width: 182rpx;
+  height: 60rpx;
+  color: #ff4141;
+  background: white;opacity: 0.85;
+  border-radius:30rpx;
+  text-align: center;
+  line-height: 60rpx;
+  font-size: 32rpx; 
+}
+.coupon-time{
+  width: 100%;
+  padding-top: 12rpx;
+  font-size: 28rpx;
+  color: #666;
+}
+.coupon-usable{
+  width: 100%;
+  padding-top: 6rpx;
+  font-size: 28rpx;
+  color: #666;
+}
+.coupon-usable view:last-child{
+  width: 79%;
+  line-height: 32rpx;
+  word-break: break-all;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.coupon-usable view{
+  float: left
+}
+.Iget{
+  width: 100%;
+  height: 300rpx;
+  position: absolute;
+  left: 0;top: 0;
+  z-index: 150;
+  background: #fff;opacity: 0.5;
+}
+.coupon-btn1{
+  width: 182rpx;
+  height: 60rpx;
+  color: #333;
+  background: #fff;
+  border-radius:30rpx;
+  text-align: center;
+  line-height: 60rpx;
+  font-size: 32rpx;
+  position: absolute;
+  right: 3%;
+  top: 50rpx;
+}
+/*优惠劵*/

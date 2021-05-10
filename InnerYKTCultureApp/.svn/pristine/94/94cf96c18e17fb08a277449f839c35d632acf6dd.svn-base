@@ -1,0 +1,169 @@
+<!-- 商品列表：双列商品（无商品分类） -->
+<template name="storeProduct0">
+  <scroll-view class="width100 {{selShowType==0?'show':'hide'}}"
+    style="height:92%;position: relative;padding:130rpx 0 20rpx 0;" scroll-y="true" bindscrolltolower="bindDownLoad"
+    bindscrolltoupper="bindTopLoad" scroll-with-animation="true">
+    <view id="top"></view>
+    <view class='case-page'>
+      <view class='list-masonry'>
+        <block wx:for="{{dataArray}}" wx:for-item="articles" wx:for-index="dataArrayIndex" wx:key="key">
+          <block wx:for="{{articles}}" wx:for-item="item" wx:key="id" wx:for-index="index" data-index='index'
+            wx:if='{{(index%2)==0}}'>
+            <view class="store" data-id="{{item.pid}}" data-companyid="{{item.companyId}}" catchtap='viewProductDetail'>
+              <image class='shopimg product_img{{index}}' mode="widthFix" src="{{item.photos+'?'+randomNum }}"></image>
+              <!-- 满减 -->
+              <view class="width100 manjian">
+                <block wx:for="{{item.couponsList}}" wx:for-item="couponItem" wx:key="id" wx:for-index="couponIndex">
+                  <block wx:if="{{couponItem.mold == 0 && couponItem.discount>0}}">
+                    <text>满￥{{couponItem.full}}减{{couponItem.discount}}满减券</text>
+                  </block>
+                  <block wx:if="{{couponItem.mold == 1 && couponItem.discount>0}}">
+                    <text>￥{{couponItem.discount}}抵扣券</text>
+                  </block>
+                  <block wx:if="{{couponItem.discount==0}}">
+                    <text>{{couponItem.name}}</text>
+                  </block>
+                </block>
+                <!-- 预售判断 -->
+                <text class="yushou" style="{{item.presellstatus==0?'display:none':''}}">预售中...</text>
+              </view>
+
+              <view class="shopping-view">
+                <!-- 有优惠价 -->
+                <!-- <block
+                  wx:if="{{item.sourcePrice!=item.minstatusprice && item.sourcePrice>item.minstatusprice && item.minstatusprice>0.00}}">
+                  <view class="shoppaycost">
+                    <view class='sellingcost'>原价¥<text>{{item.sourcePrice}}</text></view>
+                  </view>
+                  <view class="shoppay">
+                    <view class='selling'>现价¥<text>{{item.minstatusprice}}</text></view>
+                  </view>
+                </block> -->
+
+                <block wx:if="{{item.isShowPrice2}}">
+                  <view class="price2">原价<text>¥ {{item.sourcePrice}}</text></view>
+                  <view class="price1">{{item.discountType==0?'特惠':'套装'}}价<text>¥ {{item.discountPrice}}</text></view>
+                </block>
+                <block wx:elif="{{item.isShowPrice1}}">
+                  <view class="price2">原价<text>¥ {{item.sourcePrice}}</text></view>
+                  <view class="price1">劵后价<text>¥ {{item.couponPrice}}</text></view>
+                </block>
+
+                <!-- 无优惠价 -->
+                <block wx:else>
+                  <view class="shoppay">
+                    <view class='selling'>¥<text>{{item.sourcePrice}}</text></view>
+                  </view>
+                </block>
+
+                <!-- 2020-05-09 之前的价格显示方式 -->
+                <!-- <view class="shoppaycost {{item.isShowPrice2?'show':'hide'}}">
+                  <view class='sellingcost'>原价¥<text>{{item.sourcePrice}}</text></view>
+                </view>
+                <view class="shoppay {{!item.isShowPrice2?'show':'hide'}}">
+                  <view class='selling'>¥<text>{{item.sourcePrice}}</text></view>
+                </view>
+                <view class="shoppay {{item.isShowPrice2?'show':'hide'}}">
+                  <view class='selling'>{{item.discountType==0?'特惠':'套装'}}价¥<text>{{item.discountPrice}}</text></view>
+                </view> -->
+                <!-- <view class="shoppay {{item.isShowPrice1?'show':'hide'}}">
+                  <view class='selling1'>劵后价¥<text>{{item.couponPrice}}</text></view>
+                </view> -->
+                <image hidden="{{item.isHideGroup}}" src="{{DataURL}}/images/pin-icon.png"></image>
+              </view>
+              <!-- 赠送 -->
+              <view hidden="{{!item.isHaveGift}}" class="width100 zengsong {{item.isHaveGift?'show':'hide'}}">
+                <text><text style="color:#ff1f1f;">赠品{{item.isHaveGift}}</text>{{item.giftName}}</text>
+              </view>
+
+              <view class='shopname'>{{item.productName}}</view>
+              <view class='sotrename'>
+                <text style="{{item.shopType!=''?'':'display:none'}}">{{item.shopType}}</text>{{item.shopName}}
+              </view>
+            </view>
+          </block>
+        </block>
+      </view>
+      <view class='list-masonry'>
+        <block wx:for="{{dataArray}}" wx:for-item="articles" wx:for-index="dataArrayIndex" wx:key="key">
+          <block wx:for="{{articles}}" wx:for-item="item" wx:key="id" wx:for-index="index" data-index='index'
+            wx:if='{{(index%2)==1}}'>
+            <view class="store" data-id="{{item.pid}}" data-companyid="{{item.companyId}}" catchtap='viewProductDetail'>
+              <image class='shopimg product_img{{index}}' mode="widthFix" src="{{item.photos+'?'+randomNum }}"></image>
+              <!-- 满减 -->
+              <view class="width100 manjian">
+                <block wx:for="{{item.couponsList}}" wx:for-item="couponItem" wx:key="id" wx:for-index="couponIndex">
+                  <block wx:if="{{couponItem.mold == 0 && couponItem.discount>0}}">
+                    <text>满￥{{couponItem.full}}减{{couponItem.discount}}满减券</text>
+                  </block>
+                  <block wx:if="{{couponItem.mold == 1 && couponItem.discount>0}}">
+                    <text>￥{{couponItem.discount}}抵扣券</text>
+                  </block>
+                  <block wx:if="{{couponItem.discount==0}}">
+                    <text>{{couponItem.name}}</text>
+                  </block>
+                </block>
+                <!-- 预售判断 -->
+                <text class="yushou" style="{{item.presellstatus==0?'display:none':''}}">预售中...</text>
+              </view>
+
+              <view class="shopping-view">
+                <!-- 有优惠价 -->
+                <!-- <block
+                  wx:if="{{item.sourcePrice!=item.minstatusprice && item.sourcePrice>item.minstatusprice && item.minstatusprice>0.00}}">
+                  <view class="shoppaycost">
+                    <view class='sellingcost'>原价¥<text>{{item.sourcePrice}}</text></view>
+                  </view>
+                  <view class="shoppay">
+                    <view class='selling'>现价¥<text>{{item.minstatusprice}}</text></view>
+                  </view>
+                </block> -->
+
+                <block wx:if="{{item.isShowPrice2}}">
+                  <view class="price2">原价<text>¥ {{item.sourcePrice}}</text></view>
+                  <view class="price1">{{item.discountType==0?'特惠':'套装'}}价<text>¥ {{item.discountPrice}}</text></view>
+                </block>
+                <block wx:elif="{{item.isShowPrice1}}">
+                  <view class="price2">原价<text>¥ {{item.sourcePrice}}</text></view>
+                  <view class="price1">劵后价<text>¥ {{item.couponPrice}}</text></view>
+                </block>
+
+                <!-- 无优惠价 -->
+                <block wx:else>
+                  <view class="shoppay">
+                    <view class='selling'>¥<text>{{item.sourcePrice}}</text></view>
+                  </view>
+                </block>
+
+                <!-- 2020-05-09 之前的价格显示方式 -->
+                <!-- <view class="shoppaycost {{item.isShowPrice2?'show':'hide'}}">
+                  <view class='sellingcost'>原价¥<text>{{item.sourcePrice}}</text></view>
+                </view>
+                <view class="shoppay {{!item.isShowPrice2?'show':'hide'}}">
+                  <view class='selling'>¥<text>{{item.sourcePrice}}</text></view>
+                </view>
+                <view class="shoppay {{item.isShowPrice2?'show':'hide'}}">
+                  <view class='selling'>{{item.discountType==0?'特惠':'套装'}}价¥<text>{{item.discountPrice}}</text></view>
+                </view> -->
+                <!-- <view class="shoppay {{item.isShowPrice1?'show':'hide'}}">
+                  <view class='selling1'>劵后价¥<text>{{item.couponPrice}}</text></view>
+                </view> -->
+                <image hidden="{{item.isHideGroup}}" src="{{DataURL}}/images/pin-icon.png"></image>
+              </view>
+              <!-- 赠送 -->
+              <view hidden="{{!item.isHaveGift}}" class="width100 zengsong {{item.isHaveGift?'show':'hide'}}">
+                <text><text style="color:#ff1f1f;">赠品</text>{{item.giftName}}</text>
+              </view>
+
+              <view class='shopname'>{{item.productName}}</view>
+              <view class='sotrename'>
+                <text style="{{item.shopType!=''?'':'display:none'}}">{{item.shopType}}</text>{{item.shopName}}
+              </view>
+            </view>
+          </block>
+        </block>
+      </view>
+    </view>
+    <view id="bottom"></view>
+  </scroll-view>
+</template>

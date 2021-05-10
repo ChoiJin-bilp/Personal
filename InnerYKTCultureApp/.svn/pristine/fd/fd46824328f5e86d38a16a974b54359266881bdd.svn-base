@@ -1,0 +1,385 @@
+<!--pages/mycard/mycard.wxml-->
+<view class="container">
+ <view wx:if="{{remarkStatus}}"  class='more-input'>
+      <view class="fleft more-input-type">标注</view>
+      <input class="fleft more-input-infor" value='{{userData.remark}}' disabled="{{compStatus}}"  bindinput='getInput'  data-value='remark' maxlength='10'  placeholder='标注名片适用范围'/>
+    </view>
+  <view class="card-image">
+    <view class="card-img">
+      <image class='card-bg-img' src='{{userData.cardTemp.picture}}'></image>
+      <!-- 添加名片头像 -->
+      <view class='cardphoto'>
+        <!-- 头像图片 -->
+        <image wx:if="{{userData.headerImg && !compStatus}}" class='myphoto' mode='aspectFit' src='{{userData.headerImg}}' catchtap="uploadImage"   data-type="3" data-src='{{userData.headerImg}}'></image>
+        <image wx:if="{{userData.headerImg && compStatus}}" class='myphoto' mode='aspectFit' src='{{userData.headerImg}}' catchtap="viewImg"   data-type="3" data-src='{{userData.headerImg}}'></image>
+           <image wx:if='{{!userData.headerImg  && compStatus}}' class='myphoto' mode='aspectFit' src='{{DataURL}}/images/head.jpg' data-src='{{DataURL}}/images/head.jpg' catchtap="viewImg"></image>
+        <!-- 上传图片 -->
+        <image wx:if="{{!userData.headerImg && !compStatus}}"  class='addphoto' src='{{DataURL}}/images/addimg-zh.png' data-type="3" catchtap="uploadImage"></image>
+        <!-- 删除图片 -->
+        <image  wx:if="{{userData.headerImg && !compStatus}}"  class='del-img' catchtap="hideModalHeaderImg" src='{{DataURL}}/images/image-del.png'></image>
+      </view>
+      <view class='infor-name'>
+        <view class="card-name">{{userData.contact}}</view>
+        <view class='card-job'>{{userData.job}}</view>
+        <view class="card-store">{{userData.company}}</view>
+      </view>
+      <view class='infor-other'>
+        <view class="card-phone">
+          <text class="fleft iconfont icon-shoujihaoma"></text>
+           <!-- <text class='fleft card-other-nav'>{{userData.mobile}}</text> -->
+           <input class='fleft card-other-nav' password='{{userData.showMobile}}' disabled='true' value='{{userData.mobile}}'></input>
+        </view>
+        <view class="card-email">
+          <text class=" fleft iconfont icon-youxiang "></text>
+          <input class='fleft card-other-nav' value='{{userData.email}}' disabled='true'  password='{{userData.showEmail}}' />
+          <!-- <text class='fleft card-other-nav'>{{userData.email}}</text> -->
+        </view>
+        <view class="card-site">
+          <text class=" fleft iconfont icon-dizhi "></text>
+          <text class='fleft card-other-nav' >{{userData.addr}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+<scroll-view wx:if="{{!compStatus}}" scroll-x="true" class="scroll-header">
+    <view class='image-scroll' wx:for="{{userCardTemList}}" wx:key="{{index}}" wx:for-item="item" wx:for-index="index" data-index="{{index}}"      catchtap='selectTemplate'>
+      <image class='BG-image' mode='scaleToFill' src="{{item.picture}}" ></image>   
+      <view class='opacity'></view>
+      <image wx:if="{{item.id == userData.cardTemp.id}}" class='pitch' src='{{DataURL}}/images/pitch.png'></image>
+    </view>
+    </scroll-view>
+  <view class='width100 comp-btn'>
+    <button class='check-comp' catchtap='companyDetails'><image src='{{DataURL}}/images/card-company.png'></image><text>公司资料</text></button>
+    <button class="check-comp" catchtap='requestQueryCardMsg'><view class="{{userData.messageStatus == 1? 'weidu' :''}}"></view><image src='{{DataURL}}/images/card-information.png'></image><text>留言板</text></button>
+  </view>
+  <view class='moredetails'>
+    <view class='title-more'>详细资料</view>
+    <view class='more-input'>
+      <view class="fleft more-input-type">姓名</view>
+      <input class="fleft more-input-infor" value='{{userData.contact}}' disabled="{{compStatus}}" bindinput='getInput'  data-value='contact' maxlength='10'/>
+    </view>
+    <view class='more-input'>
+      <view class="fleft more-input-type">职务</view>
+      <input class="fleft more-input-infor" value='{{userData.job}}' disabled="{{compStatus}}" bindinput='getInput'  data-value='job' maxlength='16'/>
+    </view>
+    <view class='more-input'>
+      <view class="fleft more-input-type">公司</view>
+      <input class="fleft more-input-infor" value='{{userData.company}}' disabled="{{compStatus}}" bindinput='getInput' data-value='company'  maxlength='51'/>
+    </view>
+     <view class='more-input2 relative' selectable="true" scroll-y="true" >
+      <view class="fleft more-input-type">地址</view>
+      <input wx:if='{{!compStatus}}' class="fleft more-input-infor2" style="width:72%;" disabled="{{compStatus}}" value='{{userData.addr}}' bindinput='getInput' data-value='addr'  maxlength='30'/>
+      <text wx:if='{{compStatus}}' class="fleft more-input-infor2" style="width:72%;"   selectable='true'>{{userData.addr}}</text>
+      <image class="Navigation {{compStatus?'show':'hide'}}" src="{{DataURL}}/images/region.png" data-addr="{{userData.addr}}" catchtap="navigateTo"></image>
+    </view>
+    <view class='more-input'>
+      <view class="fleft more-input-type">手机</view>
+      <input class="fleft more-input-infor" style=' width: 70%;' name="password" password='{{userData.showMobile}}' value='{{userData.mobile}}' data-value='mobile' maxlength='11' disabled="{{compStatus}}" bindinput='getInput' />
+      <image wx:if="{{!compStatus}}" class='showImg' catchtap='showPassword' data-value="mobile" src="{{userData.showMobile ? DataURL+'/images/hide-num.png' : DataURL+'/images/show-num.png' }}"></image>
+    </view>
+       <view class='more-input'>
+       <view class="fleft more-input-type">电话</view>
+      <input class="fleft more-input-infor" style=' width: 70%;' name="password" password='{{userData.showTel}}' value='{{userData.tel}}' data-value='tel' bindinput='getInput' disabled="{{compStatus}}" type="number"  maxlength="12"/>
+      <image wx:if="{{!compStatus}}" class='showImg' catchtap='showPassword' data-value="tel"   src="{{userData.showTel ? DataURL+'/images/hide-num.png' : DataURL+'/images/show-num.png' }}"></image>
+    </view>
+    <view class='more-input'>
+      <view class="fleft more-input-type">邮箱</view>
+      <input class="fleft more-input-infor" style=' width: 70%;' name="password" maxlength="20" password='{{userData.showEmail}}' value='{{userData.email}}'  data-value='email' bindinput='getInput' disabled="{{compStatus}}" />
+      <image wx:if="{{!compStatus}}" class='showImg' catchtap='showPassword'  data-value="email"  src="{{userData.showEmail ? DataURL+'/images/hide-num.png' : DataURL+'/images/show-num.png' }}"></image>
+    </view>
+
+    <view class='more-input'>
+      <view class="fleft more-input-type">微信</view>
+      <input class="fleft more-input-infor" disabled="{{compStatus}}" value='{{userData.wxnumber}}' bindinput='getInput' data-value='wxnumber' maxlength="30"/>
+    </view>
+    <view class='more-input'>
+      <view class="fleft more-input-type">毕业院校</view>
+      <input class="fleft more-input-infor" disabled="{{compStatus}}" value='{{userData.school}}' maxlength="20" bindinput='getInput' data-value='school'/>
+    </view>
+    <view class='more-input'>
+      <view class="fleft more-input-type">家乡</view>
+      <input class="fleft more-input-infor" disabled="{{compStatus}}" value='{{userData.hometown}}' maxlength="20" bindinput='getInput' data-value='hometown'/>
+    </view>
+    <view class='more-input relative' bindtap="showisShowSel">
+      <view class="fleft more-input-type">所在行业</view>
+      <text wx:if='{{!compStatus}}' class='hangye' >请选择您所属行业</text>
+      <view class='attention' wx:if="{{userData.personalTrade}}">
+        <checkbox-group name="checkbox" class="check" >
+          <label disabled='true' wx:for="{{userData.personalTrade}}"  wx:for-index="index" data-index="{{index}}" class='{{is_checked}}'>
+              {{item}}
+          </label>
+        </checkbox-group>
+      </view> 
+      <image wx:if='{{!compStatus}}' class="xiala" src='{{DataURL}}/images/xiala.png'></image>
+        <!-- 
+      <view class='attention' wx:if="{{!compStatus}}">
+        <checkbox-group name="checkbox" class="check" >
+          <label disabled='{{compStatus}}' bindtap='clicks2' wx:for="{{industrySort}}" wx:key="{{industrySort}}" wx:for-index="index" data-index="{{index}}" class='{{item.checked?"is_checked":""}}'>
+            <checkbox  value="{{item.name}}" data-val="{{item.name}}" hidden='false' checked='{{item.checked}}' /> {{item.name}}
+          </label>
+        </checkbox-group>
+      </view>  -->
+    </view>
+  
+   <view class='more-input'>
+      <view class="fleft more-input-type">主要产品</view>
+      <input class="fleft more-input-infor" disabled="{{compStatus}}" value='{{userData.productInfo}}' bindinput='getInput' data-value='productInfo' maxlength="20"/>
+    </view>
+    <view class='more-input'>
+      <view class="fleft more-input-type">提供服务</view>
+      <input class="fleft more-input-infor" disabled="{{compStatus}}" value='{{userData.personalClass}}' bindinput='getInput' data-value='personalClass' maxlength="20"/>
+    </view>
+ 
+    <view class='more-input'>
+      <view class="fleft more-input-type">简介</view>
+      <view class="section">
+        <text  wx:if="{{compStatus}}" class="fleft more-text-infor"  disabled="{{compStatus}}"  bindinput='getInput' data-value='personIntro' >{{userData.personIntro}}</text>
+        <textarea  wx:if="{{!compStatus && !isShowSelselection && !qrcardimages && !textarea}}" auto-height='true'  class="fleft" disabled="{{compStatus}}" value='{{userData.personIntro}}' bindinput='getInput' data-value='personIntro' maxlength="700"/>
+      </view>
+
+    </view>
+  </view>
+  <view class='otherdetails' style='margin-bottom: 20rpx;'>
+    <view class='other-input'>
+      <view class="other-input-type">微信二维码</view>
+      <view class="other-input-image">
+        <view class='image-qrcard' wx:if="{{userData.wxCodeImg}}">
+          <image class='photo-qrcard' mode='scaleToFill' src='{{userData.wxCodeImg}}' data-src='{{userData.wxCodeImg}}' catchtap="viewImg">{{item}}</image>
+          <image wx:if="{{!compStatus}}" class='del-img' data-index="{{index}}" catchtap="hideWXQRcode" src='{{DataURL}}/images/image-del.png'></image>
+        </view>
+        <image wx:if="{{!userData.wxCodeImg && !compStatus}}" class='add-image fleft' src='{{DataURL}}/images/icon_2x.png' data-type="1"  catchtap="uploadImage"></image>
+        <image wx:if="{{!userData.wxCodeImg && compStatus}}" class='qrcardimage fleft' src='{{DataURL}}/images/idcardimages.png'></image>
+        <view wx:if="{{!userData.wxCodeImg}}" class='idcardtext'>
+          <text>1.将您的微信二维码截图存入手机。</text>
+          <text>2.在编辑状态下添加您的微信二维码截图。</text>
+        </view>
+      </view>
+      <view style=" clear: both;"></view>
+    </view>
+  </view>
+  <view class='otherdetails' style='margin-bottom: 20rpx;'>
+    <view class='other-input'>
+      <view class="other-input-type">名片相册</view>
+      <view class="other-input-image">
+        <view class='image-box' wx:if="{{userData.userFile}}" wx:for="{{userData.userFile}}" wx:key="index" wx:for-item="item" wx:for-index="index" data-index="{{index}}" >
+          <image class='photo' mode='aspectFill' src='{{item}}' data-src='{{item}}' catchtap="viewImg">{{item}}</image>
+          <image wx:if="{{!compStatus}}" class='del-img' data-index="{{index}}" catchtap="showModaltip" src='{{DataURL}}/images/image-del.png'></image>
+        </view>
+        <image wx:if="{{userData.userFile.length < 6 && !compStatus}}" class='add-image' src='{{DataURL}}/images/icon_2x.png' data-type="0"  catchtap="uploadImage"></image>
+      </view>
+      <view style=" clear: both;"></view>
+    </view>
+  </view>
+   
+
+</view>
+
+<view class="width100 pop-foot">
+  <button catchtap="hideModalDele" disabled='{{disabled}}'>删除</button>
+  <button class="{{compStatus?'btn-enable':'btn-disable'}}" data-value="0" catchtap="editModalcomp" disabled='{{!compStatus}}'>编辑</button>
+  <button wx:if="{{!compStatus}}" data-value="1"  disabled='{{compStatus}}' catchtap="saveCardInfo">保存</button>
+   <button wx:if="{{compStatus}}"  catchtap="sendNameCardShare" disabled='{{disabled}}'>发送</button>
+  <button catchtap="showtextarea">生成图片</button>
+</view> 
+
+<view class="userule" wx:if="{{showModalsave}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="save-image borderpop">
+    <view class="boxhongbao">
+      <text class='save-title'>主标题文字</text>
+      <view  class="pop-save">
+        <input wx:if="{{showSendImg}}" class="save-text" placeholder='{{userData.contact}}的名片' placeholder-style="font-size:0.8rem;color:#999" value='{{shareTitle}}'  bindinput="changeWXSSAlert" cursor-spacing="10" maxlength='30'></input>
+        <input wx:if="{{!showSendImg}}" class="save-text" placeholder="{{selectedArticles.name ?selectedArticles.name : userData.contact + '的名片' }}" value='{{shareTitle}}' placeholder-style="font-size:0.8rem;color:#999"  bindinput="changeWXSSAlert" cursor-spacing="10"></input>
+      </view>
+      <view class='save-title'>
+        <radio-group class="radio-group" bindchange="radioChange">
+          <label class="radio" >
+            <radio  checked="{{showSendImg}}" />
+            发送图片
+          </label>
+          <label class="radio" >
+            <radio  checked="{{!showSendImg}}" />
+            发送文章
+          </label>
+        </radio-group>
+      </view>
+      <!-- 发送图片 -->
+      <view class="pop-saveimg" wx:if="{{showSendImg}}">
+        <!-- <image mode='aspectFit' class="mr-image fleft" src='{{tempFilePaths}}' data-src='{{tempFilePaths}}' catchtap="viewImg"></image>
+        <view class="change-image fleft" data-type="2" catchtap="replaceImage">更换图片></view> -->
+        <image mode='aspectFit' class="mr-image fleft" src='{{shareWXImg}}' data-src='{{shareWXImg}}' catchtap="viewImg"></image>
+        <view class="change-image fleft" data-type="2" catchtap="uploadImage">更换图片></view>
+      </view>
+      <!-- 发送文章 -->
+      <scroll-view scroll-y class="pop-text" wx:if="{{!showSendImg}}">
+        <view wx:if="{{!showMyArticleList}}" class='no-text'>您还没有准备好文章，请到“传输助手—我的文章”里创建文章</view>
+        <block wx:if="{{showMyArticleList}}" wx:for="{{myArticleList}}" wx:for-index="index" wx:key="id">
+          <view class="chose-maytext" data-index="{{index}}" catchtap="choseText" style="{{item.check ?' border:2rpx solid #0066eb; ':'border:2rpx solid #e5e5e5;'}}">
+            {{item.name}}
+          </view>
+        </block>
+      </scroll-view>
+      <view class="reply">
+          <checkbox-group bindchange="checkboxChange">
+          <checkbox color='#0066eb' />希望对方回个名片
+          </checkbox-group>
+          <view class="othername" data-cid='clientother' data-cid='qpother' data-item='{{showOtherItems}}' bindtap="onChangeShowItemDetailState">
+            <!-- <text>发送红包{{showOtherItems?'-':'+'}}</text> -->
+            <text>发红包</text>
+          </view>
+        </view>
+      
+      <view wx:if="{{showOtherItems}}" class="otherbox">
+        <!-- <text class='save-title1'>发送红包</text> -->
+        <view class='put-redback' style='margin-top: 20rpx;'>
+          <input type='digit' value='{{redEnvelPrice}}'  placeholder='请输入红包金额' bindblur='getRedEnvelPriceEnd' bindinput='getRedEnvelPrice'  placeholder-style='color: #999;font-size: 0.8rem;' />元
+        </view>
+        <view class='put-redback'>
+          <input type='number' value='{{redEnvelNum}}'  placeholder='请输入红包个数'  bindinput='getRedEnvelNum'  placeholder-style='color: #999;font-size: 0.8rem;' />个
+        </view>
+         <view wx:if='{{showRechargeTips}}' catchtap="payment" class='Please-topup'>您的零钱还差{{rechargeMoney}}元，<text>请充值</text></view>
+      <view wx:if="{{redEnvelNum > 0 &&( redEnvelPrice == 0 || redEnvelPrice == '' ) }}" class='Please-topup'>请输入红包金额</view>
+      <view wx:if="{{redEnvelPrice > 0 &&( redEnvelNum == 0 || redEnvelNum == '' ) }}" class='Please-topup'>请输入红包数量</view>
+      <view wx:if="{{priceLimitationTips && redEnvelPrice > 0 && redEnvelNum > 0 }}" class='Please-topup'>每人收到红包最少0.01元</view>
+        <radio-group class="radio-group" bindchange="radioChange2">
+          <label class="radio">
+            <radio  checked="{{showReceiveType}}" />
+            随机领取
+          </label>
+          <label class="radio">
+            <radio  checked="{{!showReceiveType}}" />
+            平均领取
+          </label>
+        </radio-group>
+        <view wx:if='{{!sharedisabled && redEnvelNum > 0 && redEnvelPrice > 0}}'  class="redbacktips">请点击“确定”分享给好友，如确定后未发红包，红包金额将在24小时内退回到“我的零钱”里并可提现。</view>
+      </view> 
+    </view>
+    <view class='width100 btn-operation' style='position: absolute;left: 0;bottom: 0; background: #fff; height:100rpx;'>
+      <button catchtap='cancelWXSend'>取消</button>
+      <button disabled='{{sharedisabled}}' open-type='share'>确定</button>
+      <!-- <button wx:if="{{redEnvelPrice == '' || redEnvelPrice == 0}}" disabled='{{sharedisabled}}' open-type='share'>确定</button>
+      <button wx:if='{{ redEnvelPrice > 0}}' catchtap='confirmSend'>确定</button> -->
+    </view>
+  </view>
+</view>
+<!-- 查看留言 -->
+<view class="userule" wx:if="{{showcheckmsg}}" catchtouchmove="ture">
+  <view class="bgopcity" catchtap="hidecheckmsg2"></view>
+  <view class="check-msg borderpop">
+    <view class="dialogbox">
+      <view class='width94 record'>
+        <scroll-view scroll-y class='record-nav' style="height:89%;" scroll-top='{{heig}}'>
+        <view  wx:for="{{msgDetaList}}" wx:for-item="item" wx:for-index="index" wx:key="id" >
+          <view class='msg-chat fright' wx:if="{{item.sendUserId == userId}}">
+            <view class='me-msg t-a-r oneself'>
+            <image class='fright' src="{{myHead == '' ? DataURL+'/images/mine.png' : myHead}}" />{{item.createTime}}<text>我</text></view>
+            <view class='nav-msg'>{{item.message}}</view>
+          </view>
+
+          <view class='msg-chat fleft' wx:elif="{{item.sendUserId != userId}}">
+            <view class='me-msg t-a-l'>
+            <image src="{{hisHead == '' ? DataURL+'/images/mine.png' : hisHead}}" /><text>{{item.sendLoginName}}</text>{{item.createTime}}</view>
+            <view class='nav-msg'>{{item.message}}</view>
+          </view>
+          </view>
+         </scroll-view>
+         <!-- <button class="btn-msg clear" catchtap="hidecheckmsg">清空记录</button> -->
+      </view>
+      <view class='absolute-btn'>
+        <textarea class='msg-textarea' value="{{message}}" fixed='true'  bindblur="changeShowText" bindinput="changeGetMsg"  placeholder="需要给对方留言吗？请在此输入" />
+        <!-- <text wx:if="{{!showText}}" class='msg-textarea' value="{{message}}" catchtap="changeGetTextarea"></text> -->
+      </view>
+      <button class="btn-msg save " style="float:left" catchtap="hidecheckmsg" data-index="index">关闭</button>
+      <button class="btn-msg save"  catchtap="confirmmessage" data-index="index">发送</button>
+    </view>
+    <view class="delete-box">
+      <!-- <image class='del-record' catchtap="hidecheckmsg" src='{{DataURL}}/images/clearpop.png'></image> -->
+    </view>
+  </view>
+</view>
+<!-- 多人 -->
+<view class="userule" wx:if="{{showmessage}}" catchtouchmove="ture">
+  <view class="bgopcity" catchtap="hidemessage"></view>
+  <view class="check-msg-more borderpop">
+    <view class="dialogbox-more ">
+      <view class="fleft title">留言板</view>
+      <view class='record-msg width100'>
+        <view class='from-msg' wx:if="{{msgList}}" wx:for="{{msgList}}" wx:for-index="index" wx:key="id">
+          <image class='fleft' src="{{item.headerImg == '' ? DataURL +'/images/mine.png' : item.headerImg}}"></image>
+          <!-- 未读 -->
+          <text class="{{item.status == 0 ? 'dian' :''}}"></text>
+          <view class='who-msg' catchtap="getMsgList"  data-index="{{index}}">来自{{item.sendLoginName}}的留言</view>  
+          <text class='clear-msg' catchtap="removeMessage" data-index="{{index}}">删除</text>
+        </view>
+     
+      </view>
+    </view>
+    <view class="delete-box">
+      <image class='del-record' catchtap="hidemessage" src='{{DataURL}}/images/clearpop.png'></image>
+    </view>
+  </view>
+</view>
+<view class="userule" wx:if="{{showredbackokpop}}" catchtouchmove="ture">
+  <view class="bgopcity"></view>
+  <view class="redbackokpop">
+    <!-- <view class='redokbox'>充值成功！</view> -->
+    <text class='redoktips'>请点击“确定”分享给好友，如取消，红包金额将在24小时内退回到“我的零钱”里并可提现。
+</text>
+    <view class='width100 btn-operation' style='height:100rpx; margin-top:40rpx;'>
+      <button catchtap='hideredbackokpop'>取消</button>
+      <button  open-type='share'>确定</button>
+    </view>
+  </view>
+</view>
+
+<!-- 选择行业 -->
+<view class="userule" wx:if="{{isShowSelselection}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="choosecard1" style='padding-top:20rpx;'>
+    <scroll-view class="pop-mycarlist" scroll-y >
+       
+      <view class='attention' wx:if="{{!compStatus}}">
+        <checkbox-group name="checkbox" class="check" >
+          <label  bindtap='clicks2' wx:for="{{industrySort}}" wx:key="{{industrySort}}" wx:for-index="index" data-index="{{index}}" class='{{item.checked?"is_checked":""}}'>
+            <checkbox  value="{{item.name}}" data-val="{{item.name}}" hidden='false' checked='{{item.checked}}' /> {{item.name}}
+          </label>
+        </checkbox-group>
+      </view> 
+    </scroll-view>
+    <view class='pop-btncard'  wx:if="{{!compStatus}}">
+      <!-- <button bindtap="hideisShowSel">取消</button> -->
+      <button bindtap="hideisShowSel">确定</button>
+    </view>
+ </view>
+</view>
+<!-- 生成图片 -->
+<view class="userule"  wx:if="{{qrcardimages}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="qrimages">
+    <view class="imagesbox">
+      <view class="imgtop">
+        <image class='logo-image' src="{{cardImagUrl}}"></image>
+      </view>
+    </view>
+    <view class='width100 btn-operation' style='height:100rpx;'>
+      <button catchtap='hideqrcardimages'>取消</button>
+      <button catchtap="showCardImages">确定</button>
+    </view>
+  </view>
+</view>
+<!-- 输入广告语 -->
+<view class="userule" wx:if="{{textarea}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="qrimages">
+    <view class="imagesbox">
+      <view class="textareatips">图片可附带文字</view>
+      <textarea placeholder="限30字已内" maxlength="30" bindinput='getAd' ></textarea>
+      <!-- <text class="textareatext"></text> -->
+    </view>
+    <view class='width100 btn-operation' style='height:100rpx;'>
+      
+      <button catchtap='showqrcardimages' data-type="0">略过</button>
+      <button catchtap='showqrcardimages' data-type="1">确定</button>
+    </view>
+  </view>
+</view>

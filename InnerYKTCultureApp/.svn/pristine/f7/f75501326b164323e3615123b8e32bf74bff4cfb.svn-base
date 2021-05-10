@@ -1,0 +1,90 @@
+<!--pages/reservehotel/reservehotel.wxml-->
+<import src="../../pages/template/chainHotelList2.wxml"/>
+<view class="sdf">
+<scroll-view class="width100" style = "height:100%;" scroll-y="true" bindscrolltolower="bindDownLoad" bindscrolltoupper="bindTopLoad" scroll-with-animation = "true">
+<view id = "top"></view>
+<view class="width94 function">
+  <view class="fleft" data-stype='2' data-pagename="mypoints" bindtap='gotoSubPage'>
+    <image src="{{DataURL}}/images/hotelmine4.png"></image>
+    <text>积分</text>
+  </view>
+  <view class="fleft" data-stype='3' data-pagename="Collarcenter" bindtap='gotoSubPage' >
+    <image src="{{DataURL}}/images/hotelmine2.png"></image>
+    <text>领劵中心</text>
+  </view>
+  <view class="fleft" data-stype='2' data-pagename="coupon" bindtap='gotoSubPage'>
+    <image src="{{DataURL}}/images/hotelmine1.png"></image>
+    <text>优惠劵</text>
+  </view>
+  <view class="fleft" data-stype='0' data-pagename="infor" bindtap='gotoSubPage'>
+    <image src="{{DataURL}}/images/hotelmine3.png"></image>
+    <text>我的订单</text>
+  </view>
+  <view class="clearfix"></view>
+</view>
+<view class="changeview" >
+  <!-- 如果为酒店售房模式则显示入住时段 -->
+  <block wx:if="{{roomSellType==0}}">
+    <view class="width100 selection">
+      <view class="fleft" data-tag="0" catchtap="chooseDateTime">
+        <view class="viewname">入住</view>
+        <view class="viewdate">{{dtShortCheckInStart}}</view>
+      </view>
+      <view class="fleft" data-tag="0" catchtap="chooseDateTime">
+        <view class="viewname">离店</view>
+        <view class="viewdate">{{dtShortCheckInEnd}}</view>
+      </view>
+      <view class="fright">
+        共<text>{{checkInDays}}</text>晚
+      </view>
+    </view>
+  </block>
+  
+  <view class="width100 filtermenu">
+    <picker class="relative" data-tag="0" bindchange="bindConPickerChange" value="{{scIndex}}" range="{{conDataSortList}}" range-key="name">
+      <view class="picker">
+        {{conDataSortList[scIndex].name}}
+        <image class="xiala" data-index='{{index}}' src='{{DataURL}}/images/xiala.png'></image>
+      </view>
+    </picker>
+    <!-- <picker class="relative" data-tag="1" bindchange="bindConPickerChange" value="{{dcIndex}}" range="{{conDataDistanceList}}" range-key="name">
+      <view class="picker">
+        {{conDataDistanceList[dcIndex].name}}
+        <image class="xiala" data-index='{{index}}' src='{{DataURL}}/images/xiala.png' catchtap=''></image>
+      </view>
+    </picker> -->
+    
+    <view class="cityview relative" catchtap="showSelAreaPop">
+      {{selCity}}{{selCounty}}
+      <image class="xiala" data-index='{{index}}' src='{{DataURL}}/images/xiala.png'></image>
+    </view>
+    <button class="fright" catchtap="gotoMapHotelReservation">地图订房</button>
+  </view>
+  <view class="width100 {{tabIndex==0?'show':'hide'}}" style="height:50%">
+    <template is = "chainHotelList2" data='{{dataArray:dataArray,articles:articles,DataURL:DataURL}}'/>
+  </view>
+  <view class="width100 {{tabIndex==1?'show':'hide'}}">
+    <map class='map' id='mpCompany' longitude="{{selAreaLocation.longitude}}" latitude="{{selAreaLocation.latitude}}" scale="{{mapScale}}" markers="{{hotelMarkers}}" bindmarkertap="viewMapDetail" style="width:100%;height:100vh"></map>
+  </view>
+</view>
+<view id = "bottom"></view>
+</scroll-view>
+
+<!-- 地图订房 -->
+<view class="userule" wx:if="{{isShowMapHotelInfoPop}}" catchtouchmove="true">
+  <view class="bgopcity" catchtap="hideShowMapHotelInfoPop"></view>
+  <view class="hotelinformation" data-id="{{selMarkerItem.id}}" catchtap="viewDetail">
+    <block wx:if="{{selMarkerItem.photoList.length>0}}">
+      <image mode="scaleToFill" class='fleft' src='{{selMarkerItem.photoList[0]}}' data-src='{{selMarkerItem.photoList[0]}}'></image>
+    </block>
+    <view class="fright">
+      <view class="name">{{selMarkerItem.companyName}}</view>
+      <view class="place">距您直线{{selMarkerItem.lcdistince}}{{selMarkerItem.lcdunite}}</view>
+      <view class="place">{{selMarkerItem.address}}</view>
+      <view class="price"><text>￥{{selMarkerItem.currentPrice}}</text>起</view>
+    </view>
+  </view>
+</view>
+</view>
+<!--悬浮球-->
+<v-folat id="myComponent"/>

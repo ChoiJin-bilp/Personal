@@ -1,0 +1,49 @@
+<!--pages/files/files.wxml-->
+<import src="../../../pages/template/vfileFolderItem.wxml"/>
+<import src="../../../pages/template/QPPrudtRemarkImgItem.wxml"/>
+<view class='width100' class="{{isPFShowList?'alertblock0':'alertblock'}}">
+  <text class='alertText'>{{folderAlert}}</text>
+</view>
+<view class="width100 sollpage" style="{{isPFShowList?'':'padding-top:0rpx'}}">
+  <view style = "height:100%;overflow-y:scroll;">
+    <block wx:for="{{folderList}}" wx:for-item="fitem" wx:key="{{fitem.folderId}}" wx:for-index="findex">
+      <template is = "vfFolderItem" data='{{fitem:fitem,findex:findex,DataURL:DataURL,selFolderIndex:selFolderIndex,selFolderName:selFolderName,isPFReadOnly:isPFReadOnly,isPFShowList:isPFShowList,dataArray:dataArray,selFolderType:selFolderType,isManageRole:isManageRole}}'/> <!--将item和index都传到模版里去，不然模版中获取不到index-->
+    </block>
+  </view>
+ 
+</view>
+<!-- 删除文件夹 -->
+<view class="userule" wx:if="{{showDelFolder}}" catchtouchmove="ture">
+  <view class="bgopcity"></view>
+  <view class="message-pop tac borderpop">
+    <!-- 零产品显示 -->
+    <text class='tips-text'>{{delFolderAlertMsg}}</text>
+    <!-- 有产品显示 -->
+    <view class='pop-btn'>
+      <button class="btn-qx" bindtap="hideDelFolder">取消</button>
+      <button class="btn-qd" bindtap="delFolderfunction">确定</button>
+    </view>
+  </view>
+</view>
+<!-- 图片上传 -->
+<view class="userule" wx:if="{{showaddimage}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="save-image borderpop">
+    <text class='save-title'>图片名称</text>
+    <view  class="pop-save">
+      <input placeholder='请输入图片名称' placeholder-style="font-size:0.8rem;color:#999" data-cid='currbname' bindinput="changeSPFileDataInfo" value='{{curRBFName}}' cursor-spacing="10"></input>
+    </view>
+    <text class='save-title'>图片上传</text>
+    <view class="pop-save">
+      <image mode='aspectFit' class="mr-image" src='{{curRBImgUrl}}' data-src='{{curRBImgUrl}}' data-type="0" catchtap="{{isUploadSingle?'viewImg':'uploadImg'}}"></image>
+      <view class="change-image {{isUploadSingle?'show':'hide'}}" data-type="0" catchtap="uploadImg">更换图片></view>
+    </view>
+    <view class='width100 btn-operation'>
+      <button catchtap='cancelAddLocalImg'>取消</button>
+      <button catchtap='sureAddLocalImg'>确定</button>
+    </view>
+  </view>
+</view>
+
+
+

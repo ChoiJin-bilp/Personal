@@ -1,0 +1,201 @@
+<!--index.wxml-->
+<import src="../../../wxParse/wxParse.wxml" />
+<!-- 普通酒店需显示部分 -->
+<block wx:if="{{companyId<=0}}">
+  <view class='comp-name{{logoBGColorIndex}} tac'>
+    <image mode='aspectFit' style="width:{{indexLogoWidth}}rpx;" src='{{companyData.cLogoUrl}}'></image>{{companyData.cName}}
+  </view>
+  <view class="top-title">
+    <view class='title-box1 fleft tac borders' data-tag='0' bindtap="viewCompanyInfo">酒店简介</view>
+    <view class='title-box1 fleft tac' data-tag='1' catchtap="viewCompanyInfo">联系我们</view>
+  </view>
+
+  <view class="Information">
+    <text class="text1">{{companyData.openTime}}</text>
+    <text class="text1">{{companyData.numRoom}}间客房</text>
+    <text class="text1">{{companyData.numFloor}}层 </text>
+  </view>
+  <view class="Information">
+    <view class="view1">
+      酒店电话: <text>{{companyData.cPhone}}</text>
+      <image src="{{DataURL}}/images/hotelphone.png" catchtap="callTelephone"></image>
+    </view>
+  </view>
+</block>
+
+<view class="Information">
+  <view class="view2">
+    <block wx:for="{{catalogs}}">
+      <text data-select="{{item.select}}" class="{{item.select == catalogSelect ? 'active':''}} chose-menu" bindtap="chooseCatalog">{{item.catalogName}}</text>
+    </block>
+    <!-- <text class="fright">全部</text> -->
+  </view>
+  <view class="changeimg">
+    <!-- 酒店图片 -->
+    <block wx:if="{{catalogSelect==1 && companyData.photos.length>0}}">
+      <swiper indicator-dots="true" autoplay="true" interval="5000" duration="1000">  
+        <block wx:for="{{companyData.photos}}" wx:for-item="item" wx:for-index="index" wx:key="item">
+          <swiper-item>
+            <image mode='widthFix' class="img_toplist{{index}} slide-image" src="{{item.isShow? item.src+'?'+randomNum : ''}}" data-src='{{item.src}}' catchtap="viewImg" bindLoad="imageLoad" data-index="0" />
+          </swiper-item>
+        </block>
+      </swiper>
+    </block>
+    <!-- 内部图片 -->
+    <block wx:if="{{catalogSelect==2 && companyData.innerPhotos.length>0}}">
+      <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">  
+        <block wx:for="{{companyData.innerPhotos}}" wx:for-item="item" wx:for-index="index" wx:key="item">
+          <swiper-item>
+            <image mode='widthFix' class="img_toplist{{index}} slide-image" src="{{item.isShow? item.src+'?'+randomNum : ''}}" data-src='{{item.src}}' catchtap="viewImg" bindLoad="imageLoad" data-index="0" />
+          </swiper-item>
+        </block>
+      </swiper>
+    </block>
+    <!-- 外部图片 -->
+    <block wx:if="{{catalogSelect==3 && companyData.exteriorPhotos.length>0}}">
+      <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">  
+        <block wx:for="{{companyData.exteriorPhotos}}" wx:for-item="item" wx:for-index="index" wx:key="item">
+          <swiper-item>
+            <image mode='widthFix' class="img_toplist{{index}} slide-image" src="{{item.isShow? item.src+'?'+randomNum : ''}}" data-src='{{item.src}}' catchtap="viewImg" bindLoad="imageLoad" data-index="0" />
+          </swiper-item>
+        </block>
+      </swiper>
+    </block>
+    <!-- 周边图片 -->
+    <block wx:if="{{catalogSelect==4 && companyData.aroundPhotos.length>0}}">
+      <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">  
+        <block wx:for="{{companyData.aroundPhotos}}" wx:for-item="item" wx:for-index="index" wx:key="item">
+          <swiper-item>
+            <image mode='widthFix' class="img_toplist{{index}} slide-image" src="{{item.isShow? item.src+'?'+randomNum : ''}}" data-src='{{item.src}}' catchtap="viewImg" bindLoad="imageLoad" data-index="0" />
+          </swiper-item>
+        </block>
+      </swiper>
+    </block>
+    
+  </view>
+</view>
+<view class="Information">
+  <view class="view3">酒店介绍</view>
+  <view class="width100 describeview">
+    <template is="wxParse" data="{{wxParseData:introduction.nodes}}"/>
+  </view>
+</view>
+<!-- 如果为酒店售房模式则显示入住时段 -->
+<block wx:if="{{roomSellType==0}}">
+  <view class="Information">
+    <view class="view3">订房必读</view>
+    <view class="view4">
+      <!-- <text class="text3">{{companyData.mustRead}}</text> -->
+    </view>
+    <view class="view4">
+      <view><image src="{{DataURL}}/images/hoteltips1.png"></image>入住与离开</view>
+      <text class="text3">{{companyData.inAndoutTime}}</text>
+    </view>
+    <view class="view4">
+      <view><image src="{{DataURL}}/images/hoteltips2.png"></image>儿童及加床</view>
+      <text class="text3">{{companyData.childrenAndExtraBed}}</text>
+    </view>
+    <view class="view4">
+      <view><image src="{{DataURL}}/images/hoteltips2.png"></image>宠物</view>
+      <text class="text3">{{companyData.pet}}</text>
+    </view>
+    <view class="view4">
+      <view><image src="{{DataURL}}/images/hoteltips2.png"></image>早餐</view>
+      <text class="text3">{{companyData.breakfast}}</text>
+    </view>
+  </view>
+</block>
+<view class="Information">
+  <view class="view3">设施服务</view>
+  <view class="view5">
+    <view class="imagebox {{companyData.freeWifi==''?'hide':''}}">
+      <image src="{{DataURL}}/images/services1.png"></image>
+      <text>免费WIFI</text>
+    </view>
+    <view class="imagebox {{companyData.parking==''?'hide':''}}">
+      <image src="{{DataURL}}/images/services2.png"></image>
+      <text>停车场</text>
+    </view>
+    <view class="imagebox {{companyData.baggage==''?'hide':''}}">
+      <image src="{{DataURL}}/images/services3.png"></image>
+      <text>行李寄存</text>
+    </view>
+    <view class="imagebox {{companyData.morningCall==''?'hide':''}}">
+      <image src="{{DataURL}}/images/services4.png"></image>
+      <text>叫醒服务</text>
+    </view>
+    <view class="imagebox {{companyData.deliveryService==''?'hide':''}}">
+      <image src="{{DataURL}}/images/services5.png"></image>
+      <text>送餐服务</text>
+    </view>
+    <view class="imagebox {{companyData.centralAir==''?'hide':''}}">
+      <image src="{{DataURL}}/images/services6.png"></image>
+      <text>中央空调</text>
+    </view>
+    <view class="imagebox {{companyData.others==''?'hide':''}}">
+      <image src="{{DataURL}}/images/services7.png"></image>
+      <text>其他服务</text>
+    </view>
+    <view class="imagebox">
+      <!-- <image src="services1"></image>
+      <text>其他服务</text> -->
+    </view>
+  </view>
+<view class="Information" style="width:100%;">
+<view class="view3">联系我们</view>
+</view>
+<view class='Contact'>
+  <view class="Contact-way">电话：{{companyData.cPhone}}</view>
+  <view class="Contact-way">邮箱：{{companyData.cEmail}}</view>
+  <view class="Contact-way">网址：{{companyData.cWebSite}}</view>
+  <view class="Contact-way">地址：{{companyData.cAddr}}</view>
+  <view class="Contact-way nav-name" style='margin-top: 10rpx;'>位置</view>
+</view>
+<view class='clear wid-100'></view>
+<view class="wid-100 portion" style='margin-top: 10rpx;'>
+  <map class='map' id='mpCompany' longitude="{{companyData.mapLocation.longitude}}" latitude="{{companyData.mapLocation.latitude}}" scale="14" markers="{{companyData.mapLocation.markers}}" style="width:100%;">
+  </map>  
+  <view class='noticetext' data-addr="{{companyData.cAddr}}" catchtap='navigateToHere'>我要导航</view>
+</view>
+<view class="traffic">
+   <view class="Contact-way nav-name" style='margin-top: 10rpx;'>交通</view>
+   <view class="line">
+    <image src="{{DataURL}}/images/traffic.png" class="fleft"></image>
+    <view class="fright">
+      <block wx:for="{{companyData.trafficTitle.airportTitle}}" wx:for-item="item" wx:key="key" wx:for-index="index">
+        <view class="trafficway">
+          <view>{{item}}</view>
+          <text>{{companyData.trafficValue.airportValue[index]}}</text>
+        </view>
+      </block>
+    </view>
+    <view class="clearfix"></view>
+   </view>
+   <view class="line">
+    <image src="{{DataURL}}/images/traffic2.png" class="fleft"></image>
+    <view class="fright">
+      <block wx:for="{{companyData.trafficTitle.trainTitle}}" wx:for-item="item" wx:key="key" wx:for-index="index">
+        <view class="trafficway">
+          <view>{{item}}</view>
+          <text>{{companyData.trafficValue.trainValue[index]}}</text>
+        </view>
+      </block>
+    </view>
+    <view class="clearfix"></view>
+   </view>
+   <view class="line">
+    <image src="{{DataURL}}/images/traffic1.png" class="fleft"></image>
+    <view class="fright">
+      <block wx:for="{{companyData.trafficTitle.metroTitle}}" wx:for-item="item" wx:key="key" wx:for-index="index">
+        <view class="trafficway">
+          <view>{{item}}</view>
+          <text>{{companyData.trafficValue.metroValue[index]}}</text>
+        </view>
+      </block>
+    </view>
+    <view class="clearfix"></view>
+   </view>
+</view>
+
+
+</view>

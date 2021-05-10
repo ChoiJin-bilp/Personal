@@ -1,0 +1,129 @@
+/* pages/scanCode/scanCode.wxss */
+.pull{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 80rpx;
+  box-sizing: border-box;
+  font-size: 30rpx;
+}
+.fstImg{
+  width: 70%;
+  height: 50rpx;
+}
+.Scanlogin-o{
+  width: 100%;
+  margin-top: 80rpx;
+  margin-bottom: 80rpx;
+  text-align: center;
+}
+.secImg{
+  width: 79%;
+  height: 578rpx;
+}
+.attempt{
+  font-size: 30rpx;
+  text-align: center;
+  width: 100%;
+}
+.gistrants{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 50rpx;
+  box-sizing: border-box;
+}
+.gistrants input{
+  height: 54rpx;
+  padding-left:20rpx; 
+  border: #999999 solid 2rpx;
+  width: 70%;
+}
+.gistrants view{
+  display: flex;
+  align-items: center;
+  height: 54rpx;
+  border: #0066FF solid 2rpx;
+  padding: 10rpx;
+  padding-left: 30rpx; 
+  padding-right: 30rpx;
+  border-radius: 10rpx;
+  color: #0066FF;
+  box-sizing: border-box;
+}
+.lijibut{
+  color: #0066FF;
+  
+}
+
+@keyframes sploosh {
+  0% {
+    box-shadow: 0 0 0 0px rgba(15, 141, 233, 0.7);
+    background: rgba(15, 141, 233, 0.7);
+  }
+  100% {
+    box-shadow: 0 0px 140rpx 140rpx rgba(15, 141, 233, 0);
+    background: rgba(15, 141, 233, 0);
+  }
+}
+.dot {
+  animation: sploosh 2s cubic-bezier(1, 1, 1, 1);
+}
+.dot2 {
+  animation: sploosh 2s cubic-bezier(1, 1, 1, 1);
+}
+.dot3 {
+  animation: sploosh 1.5s cubic-bezier(1, 1, 1, 1);
+}
+.dot,.dot2,.dot3{
+  height: 358rpx;
+  width: 356rpx;
+  font-size: 20px;
+  color: #fff;
+  line-height: 100px;
+  text-align: center;
+  border-radius: 100%;
+  position: absolute;
+  top: 108rpx;
+  left: 192rpx;
+  z-index: -4;
+  background: rgba(15, 141, 233, 0.7);
+  animation-iteration-count:infinite;
+}
+/*悬浮球*/
+movable-area{
+  pointer-events:none;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+} 
+movable-view{
+  pointer-events:auto;
+  position: absolute;
+  z-index: 1400;
+  height: 130rpx;
+  width: 130rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #305985;
+  border-radius:50%; 
+  opacity: 0.6;
+  border: #ccc solid 10rpx;
+}
+movable-view view{
+font-size: 38rpx;
+border-radius: 50%;
+text-align: center;
+color: #fff;
+width: 100rpx;
+height: 100rpx;
+}

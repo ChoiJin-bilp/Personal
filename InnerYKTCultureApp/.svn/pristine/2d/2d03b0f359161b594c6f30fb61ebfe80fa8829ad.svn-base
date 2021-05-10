@@ -1,0 +1,50 @@
+<!--packageOther/pages/fenxiao/fenxiao.wxml-->
+<!-- 点击查看更多  hidetext 更换为 showtext -->
+<block wx:if="{{isShowRefundAlert==0}}">
+  <view>
+    <view class="fenxiao">
+      <view class="show-rich {{showView?'hidetext':'showtext'}}">
+        <rich-text nodes="{{mainDescribeInfo.agreement}}"></rich-text>
+      </view>
+    </view>
+    <!-- 如果协议只显示部分，则显示“查看更多”按钮 -->
+    <block wx:if="{{showView}}">
+      <view class="checkmore" bindtap="checkmore">查看更多</view>
+    </block>
+    
+    <view class="agreement">
+      <block wx:if="{{resellerDeposit>0}}">
+        <view class="pleasechoose1">
+          你目前在{{sysName}}商城累计消费金额:<text class="fright"><text>{{consumptionAmount}}</text>元</text>
+        </view>
+      </block>
+      <view class="pleasechoose2">
+        申请条件:需缴押金{{resellerDeposit}}元，押金{{revokeReturnDepositDays}}天后可退，在报价优商城累计消费满{{resellerConsumptionMin}}元则免押金
+      </view>
+
+      <view class="pleasechoose">
+          <checkbox class="boxcheck" catchtap="clickCheckbox"></checkbox>我已仔细阅读分享返佣协议并同意
+      </view>
+      <button catchtap='submitApplyDistributor'>申请分享返佣</button>
+    </view>
+  </view>
+</block>
+<block wx:else>
+  <view class="backmoney">
+      <view>等待押金退回中...</view>
+      <text>由于{{refundAmount}}元押金在申请分享返佣成功{{revokeReturnDepositDays}}天后才可退回到微信“零钱”里，押金退回日期是：{{refundDateTime}}，请耐心等待。”</text>
+      <button catchtap="gotoApplyDistributor">重新申请分享返佣</button>
+  </view>
+</block>
+
+<!-- 充值弹窗 -->
+<view class="userule" wx:if="{{isShowPayPop}}">
+  <view class="bgopcity"></view>
+  <view class="tipsbox">
+    <view class='topuptips'>您目前在{{sysName}}商城累计消费金额低于{{resellerConsumptionMin}}元，需要支付<text>{{resellerDeposit}}</text>元押金后才能成为分享返佣，押金{{revokeReturnDepositDays}}天后可退回。</view>
+    <view class="width100 pop-foot">
+      <button class="btn-pop" bindtap="hideShowPayPop">取消</button>
+      <button class="btn-pop" bindtap='payDeposit' >支付押金</button>
+    </view>
+  </view>
+</view>

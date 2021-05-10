@@ -1,0 +1,43 @@
+<!--pages/tuxedo/tuxedo.wxml-->
+<view class="tuxedo-z">
+  <view class="xedoz"><image src="{{proDataInfo.photo+'?'+randomNum}}"></image></view>
+  <view class="xedoo">
+    <view class="edho">{{proDataInfo.productName}}</view>
+    <view class="edht">
+      <view>拼团价<text>￥{{proDataInfo.spellGroupPrice}}</text></view>
+      <view>￥{{proDataInfo.price}}</view>
+    </view>
+    <view class="edhs">
+      <view>{{proDataInfo.totalNum}}人团</view>
+      <view>第：{{gwPeriods>0?gwPeriods:proDataInfo.periods}} 期</view>
+    </view>
+  </view>
+</view>
+<view class="magsitem">
+  <block wx:for="{{orderItemList}}" wx:for-item="item" wx:for-index="index" wx:key="id">
+    <view class="mags-z">
+      <view class="magstime">
+      <image mode="aspectFill" src="{{item.headerImg}}"></image>
+        <view style="margin-left:10rpx;">
+          <view class="teplonenum">{{item.mobile}}</view>
+          <view class="temdnum">参团编号：{{item.sn}}</view>
+        </view>
+      </view>
+      <view class="magsnow">
+        <block wx:if="{{isFull}}">
+          <block wx:if="{{item.win==1}}">
+            <view style="background: #23d467">已拼中</view>
+          </block>
+          <block wx:else>
+            <view>未拼中</view>
+          </block>
+        </block>
+        <block wx:else>
+          <view style="background: #FF3333;">拼团中</view>
+        </block>
+        <view>{{item.create_dateStr}}</view>
+      </view>
+    </view>
+  </block>
+ 
+</view>

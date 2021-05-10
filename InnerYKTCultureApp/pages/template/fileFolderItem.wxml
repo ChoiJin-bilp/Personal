@@ -1,0 +1,11 @@
+<template name = "folderItem">
+  <view class="A-floder">
+    <view class="choose hide{{isView?'':'show'}}">
+      <icon wx:if="{{item.selected}}" data-type="success_circle" type="success_circle" size="20" bindtap="bindCheckbox" data-dataArrayIndex='{{dataArrayIndex}}' data-item='{{item}}' data-index="{{index}}" color="#0066eb"/>
+      <icon wx:else data-type="circle" type="circle" size="20" bindtap="bindCheckbox" data-dataArrayIndex='{{dataArrayIndex}}' data-item='{{item}}' data-index="{{index}}"/>
+    </view>
+    <text class='fleft data-folder' data-id='{{item.id}}' data-item='{{item}}' catchtap="{{isView?'viewQPDetail':'showModalsave'}}">{{item.creatTime}}</text>
+    <text class='fleft name-folder' data-id='{{item.id}}' data-item='{{item}}' catchtap="{{isView?'viewQPDetail':'showModalsave'}}">{{item.FolderName}}</text>
+    <image class="fright hide{{isView?'show':''}}" src='{{DataURL}}/images/right.png'></image>
+  </view>
+</template>

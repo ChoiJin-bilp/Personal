@@ -1,0 +1,182 @@
+/* packageYK/pages/generated/generated.wxss */
+page{
+  background: #F6F6F6;
+}
+.specifications{
+  width: 100%;
+  padding: 30rpx;
+  box-sizing: border-box;
+  border-radius: 6rpx;
+}
+.selectClassify{
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 20rpx 40rpx;
+background: #EDEDED;
+border-radius: 10rpx 10rpx 0  0; 
+font-size: 30rpx;
+color: #666;
+}
+.classdelbut{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10rpx;
+  color: #FF3333;
+  font-size: 28rpx;
+  padding: 0rpx 10rpx;
+  border:2rpx solid #FF3333;
+}
+.ClassifyName{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.classifySecondly{
+display: flex;
+justify-content: space-between;
+align-items: center;
+border: #ccc solid 2rpx;
+padding: 0 20rpx;
+margin-left: 30rpx;
+position: relative;
+background: #fff;
+border-radius:10rpx; 
+}
+.classifySecondly image{
+  width: 26rpx;
+  height: 18rpx;
+}
+.classifySecondly input{
+width: 230rpx;
+padding: 4rpx 0;
+}
+.bfuoeco{
+  margin-left: -10rpx;
+}
+.bfuoeco input{
+  width: 150rpx;
+}
+.selectMay{
+  display: flex;
+  margin-bottom: 20rpx;
+}
+/*下拉样式*/
+.option_box {
+  position: absolute;
+  top: 42rpx;
+  width: 100%;
+  /* border: 1px solid #efefef; */
+  box-sizing: border-box;
+  overflow-y: auto;
+  border-top: 0;
+  background: #fff;
+  transition: height 0.3s;
+  z-index: 100;
+  left: 0rpx;
+  max-height: 188rpx;
+}
+
+.option {
+  display: block;
+  line-height: 40rpx;
+  font-size: 28rpx;
+  border-bottom: 1px solid #efefef;
+  padding: 10rpx;
+  color: rgb(102, 102, 102);
+  text-align: center;
+}
+.suset{
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20rpx;
+}
+.posign{
+  position: absolute;
+  left: -10rpx;
+  width: 60rpx;
+  height: 30rpx;
+  font-size: 20rpx;
+  background: #169BD5;
+  color: #fff;
+  border-radius: 10rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.delcompile{
+  display: flex;
+  justify-content: space-between;
+width: 48%;
+align-items: center;
+
+}
+.delcompile input{
+border: #ccc solid 2rpx;
+width: 100rpx;
+padding: 0 14rpx;
+box-sizing: border-box;
+margin-left: 18rpx;
+margin-right: 10rpx;
+color: #FF3333;
+display: flex;
+align-items: center;
+}
+.delcompile image{
+width: 40rpx;
+height: 40rpx;
+}
+.delcompile view{
+  display: flex;
+}
+.drinkOadd{
+  width: 48rpx;
+  height: 48rpx;
+margin: 20rpx 0;
+margin-left: 50%;
+transform: translateX(-50%);
+}
+.apartOf{
+  border-radius:10rpx; 
+  margin-top:30rpx; 
+position: relative;
+background: #fff;
+}
+.submitBut{
+  width: 280rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60rpx;
+  border-radius: 10rpx;
+  background: #169BD5;
+  color: #fff;
+  margin: 0 auto; 
+  margin-top: 30rpx;
+}
+.addBut{
+  width: 280rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60rpx;
+  border-radius: 10rpx;
+  background: #333;
+  color: #fff;
+  margin: 0 auto; 
+  margin-top: 30rpx;
+}
+.susetbuju{
+  width: 100%;
+  padding: 10rpx 40rpx;
+  box-sizing: border-box;
+  font-size: 30rpx;
+  color: #333;
+}
+input{
+  font-size: 30rpx;
+  color: #333;
+}

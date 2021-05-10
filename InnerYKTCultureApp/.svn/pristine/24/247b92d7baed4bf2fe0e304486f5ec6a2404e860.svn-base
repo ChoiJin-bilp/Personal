@@ -1,0 +1,233 @@
+<!--packageYK/pages/deviceAdmin/deviceAdmin.wxml-->
+<!-- <view class='width100'><button catchtap="kkk">kkk</button></view> -->
+<view class="service">
+	<input class="weui-input" placeholder="输入设备型号、编码和投放人" data-cid='keyword' bindinput="changeValueMainData" value="{{searchKeyword}}" style="padding-right:60rpx;" cursor-spacing="10" />
+	<image class="weui-icon" catchtap="searchMainDataInfo" src="{{DataURL}}/images/search.png"></image>
+  <image data-tag="0" catchtap="scanQRCodeEvent" class="weui-iconxy" src="{{SMDataURL}}/images/scan.jpg" />
+	<image catchtap="addDeviceInfoEvent" class="weui-iconx" src="{{DataURL}}/images/upimg.png" />
+</view>
+<!-- 平台用户可看所有设备 -->
+<block wx:if="{{isAdminRole}}">
+  <view class="service" style="padding-top: 20rpx;">
+    <radio-group class="radio">
+      <radio catchtap="setViewAdminUserId" data-tag="{{0}}" checked="{{searchAdminUserId==0}}" />查看所有设备
+      <radio catchtap="setViewAdminUserId" data-tag="{{1}}" checked="{{searchAdminUserId==1}}" />我的设备
+    </radio-group>
+  </view>
+</block>
+
+<view class="facility-t">
+  <view class="facility-t-v">
+    <block wx:for="{{dClassDataList}}" wx:for-item="item" wx:for-index="index" wx:key="id">
+      <view data-item="{{item}}" catchtap="{{isSetupDeviceClass?(item.id>0?'editDClassInfo':''):'searchDClass'}}">
+        <text class="{{curDClassIndex == index?'discolor':''}}" >{{item.title}}</text>
+        <image wx:if="{{isSetupDeviceClass && item.title != '所有分类'}}" class="posty" src="{{SMDataURL}}/images/amy-xg.png">
+        </image>
+      </view> 
+    </block>
+  </view>
+  <view class="dance"></view>  
+    <block wx:if="{{!isSetupDeviceClass}}">
+      <image catchtap="onChangeSetupDClass" src="{{SMDataURL}}/images/amy-sb.png">
+      </image>
+    </block>
+    <block wx:else>
+      <view class="svsit">
+        <image src="{{SMDataURL}}/images/amy-tj.png" catchtap="newDClassInfo">
+        </image>
+        <text catchtap="onChangeSetupDClass">完成</text>
+      </view>
+    </block>
+  </view>
+  <view style="padding:40rpx; box-sizing:border-box;">
+    <!--头部的全部、离线、在线状态-->
+    <view class="top-litter">
+      <view class="top-litter-v">
+        <image src="{{DataURL}}/images/quanbu.png"></image>
+        <text class="top-litter-v-t">全部</text>
+        <text class="vit">{{deviceCount}}</text>
+      </view>
+      <view class="top-litter-v">
+        <image src="{{DataURL}}/images/red.png"></image>
+        <text class="top-litter-v-t">离线</text>
+        <text class="vit">{{deviceCount-onlineCount}}</text>
+      </view>
+      <view class="top-litter-v">
+        <image src="{{DataURL}}/images/green.png"></image>
+        <text class="top-litter-v-t">在线</text>
+        <text class="vit">{{onlineCount}}</text>
+      </view>
+    </view>
+	<!-- 主题内容循环 -->
+	
+</view>
+
+<!-- 信息列表 -->
+<scroll-view class="width100 scrollview" style = "height:{{Differenheight-400}}rpx;" bindscrolltoupper="bindTopLoad" scroll-y="true" bindscrolltolower="bindDownLoad"  upper-threshold="10" lower-threshold="10" scroll-with-animation = "true">
+  <view id = "top"></view>
+  <view class="list">
+    <block wx:for="{{dataArray}}" wx:for-item="articles" wx:for-index="dataArrayIndex" wx:key="key" >
+      <block wx:for="{{articles}}" wx:for-item="item" wx:key="id" wx:for-index="index" data-index='index'>
+        <view class="context">
+          <view class="context-for" style="{{index==0?'margin-top:0;':''}}">
+            <view class="context-for-f" style="{{lastMRecordId==item.id?'font-weight:bolder;':''}}">
+              <view class="context-a">
+                <view class="context-b">设备型号：</view>
+                <text> {{item.model}} </text>
+              </view>
+              <view>
+                <image src="{{DataURL}}/images/QR.png" style="margin-right:20rpx;" data-item="{{item}}" catchtap="createWXQRCodeImg"></image>
+                <image wx:if="{{item.online==0}}" src="{{DataURL}}/images/red.png"></image>
+                <image wx:else src="{{DataURL}}/images/green.png"></image>
+              </view>
+            </view>
+            <view class="context-for-f">
+              <view class="context-a">
+                <view class="context-b">设备ID：</view>
+                <text> {{item.id}} </text>
+              </view>
+            </view>
+            <view class="context-for-f">
+                <view class="context-a">
+                  <view class="context-b">投放人：</view>
+                  <text style="margin-left:30rpx;">{{item.contact}}</text>
+              </view>
+            </view>
+            <view class="context-for-f">
+              <view class="context-a">
+                <view class="context-b">设备编号：</view>
+                <text>{{item.number}}</text>
+              </view>
+            </view>
+            <view class="context-for-f">
+              <view style="width:26%">设备地址：</view>
+              <view class="view">{{item.deviceAddress}}</view>
+            </view>
+            
+            <view class="toufw" style="position: relative;">
+              <view class="context-b">设备状态：</view>
+              <radio-group class="radio">
+                <radio catchtap="onBindDevice" data-item="{{item}}" checked="{{item.status==0}}" />运营模式
+                <radio catchtap="onUnBindDevice" data-item="{{item}}" checked="{{item.status==1}}" />内测模式
+              </radio-group>
+            </view>
+            <view class="context-for-f"  style="position: relative;">
+              <button class="anniu" data-item="{{item}}" catchtap="editDetailEvent">修改</button>
+              <!-- <block wx:if="{{searchAdminUserId==1}}"> -->
+                <button class="anniu" data-item="{{item}}" catchtap="moveDeviceAddressEvent">移除</button>
+              <!-- </block> -->
+              <button class="anniu" data-dvaddr="{{item.deviceAddress}}" data-min="3" catchtap="gotoTestPage">测试</button>
+              <button class="anniu" data-item="{{item}}" catchtap="gotoCostSetupPage">费用设置</button>
+            </view>
+          </view>
+        </view>
+      </block>
+    </block>
+  </view>
+  <view id = "bottom"></view>
+</scroll-view>
+
+<!--解绑弹窗-->
+<view class="tanChuan" wx:if="{{jiebtype}}">
+	<view class="tanChuan-v">
+		<view class="tanChuan-v-o">温馨提示</view>
+		<view class="tanChuan-v-t">您确定要解绑该设备吗？解绑后它将无法使用在线支付/启动等功能</view>
+		<view class="tanChuan-v-s">
+			<view catchtap="okUnbind">确认</view>
+			<view catchtap="ondeljiebtype">取消</view>
+		</view>
+	</view>
+</view>
+
+
+<!-- 设备详情弹窗 -->
+<view wx:if="{{isShowDeviceDetailPop}}" class="device">
+<!-- <view wx:if="{{true}}" class="device"> -->
+	<view class="device-i">
+		<view class="device-i-c">{{mainDataInfo.id<=0?'新增':'修改'}}设备</view>
+    <!--新增扫码绑定内容-->
+    <view class="deviceCode-o">
+      <view class="de-o">
+        <view>小程序码</view>
+        <input placeholder="扫小程序码获取设备编号" value="{{mainDataInfo.number+'【'+mainDataInfo.id+'】'}}" data-tag="2" catchtap="scanQRCodeEvent"></input>
+        <image src="{{DataURL}}/images/zmy-sm.png" data-tag="2" catchtap="scanQRCodeEvent"></image>
+      </view>
+      <view class="de-t">
+        <view>设备地址</view>
+        <input placeholder="扫地址码获取设备地址" value="{{mainDataInfo.deviceAddress}}" data-tag="3" catchtap="scanQRCodeEvent"></input>
+        <image src="{{DataURL}}/images/zmy-sm.png" data-tag="3" catchtap="scanQRCodeEvent"></image>    
+      </view>
+    </view>
+    <view></view>
+		<view class="device-i-c">
+			<view class="title">设备编号</view>
+			<input minlength="0" maxlength="{{number_max}}" data-cid='number' bindinput='changeValueMainData' value='{{mainDataInfo.number}}' cursor-spacing="10"></input>
+		</view>
+		<view class="device-i-c">
+			<view class="title">设备型号</view>
+			<input minlength="0" maxlength="{{model_max}}" data-cid='model' bindinput='changeValueMainData' value='{{mainDataInfo.model}}' cursor-spacing="10"></input>
+		</view>
+		<view class="device-i-c">
+			<view class="title">投放公司</view>
+      <!-- 自己绑定的设备可选公司 -->
+      <block wx:if="{{mainDataInfo.adminUserId==curAccountRecordId}}">
+        <input style="text-align: center;" bindtap="showSelectCompanyList" disabled="{{true}}" value="{{selDeviceCompanyName}}"></input>
+        <image bindtap="showSelectCompanyList" class="xiala" src='{{DataURL}}/images/xiala.png'></image>
+        <view class="xiala-v" wx:if="{{isShowSelectCompanyList}}">
+          <block wx:for="{{agentUserCompanyList}}">
+            <view data-item="{{item}}" catchtap="selCompanyListItem">{{item.companyName}}</view>
+          </block>
+        </view>
+      </block>
+      <block wx:else>
+        <input style="text-align: center;" disabled="{{true}}" value="{{mainDataInfo.companyId>0?'绑定公司ID：'+mainDataInfo.companyId:''}}"></input>
+      </block>
+			
+		</view>
+    <view class="device-i-c">
+			<view class="title">设备分类</view>
+			<input style="text-align: center;" bindtap="showSelectClassList" disabled="{{true}}" placeholder="选择设备分类" value="{{selDeviceClass}}"></input>
+			<image bindtap="showSelectClassList" class="xiala" src='{{DataURL}}/images/xiala.png'></image>
+			<view class="xiala-v" wx:if="{{isShowSelectClassList}}">
+        <block wx:for="{{dClassDataList}}">
+          <view data-item="{{item}}" catchtap="selDClassListItem">{{item.title}}</view>
+        </block>
+			</view>
+		</view>
+		<!-- 如果启用GPRS通讯 -->
+    <block wx:if="{{communicationType==1}}">
+      <view class="device-i-c">
+        <view class="title">设备地址</view>
+        <input minlength="0" maxlength="{{deviceAddress_max}}" data-cid='deviceAddress' bindinput='changeValueMainData' value='{{mainDataInfo.deviceAddress}}' cursor-spacing="10"></input>
+      </view>
+    </block>
+    <view class="device-i-c">
+			<view class="title">投放位置</view>
+			<input minlength="0" maxlength="{{address_max}}" data-cid='address' bindinput='changeValueMainData' value='{{mainDataInfo.address}}' cursor-spacing="10"></input>
+		</view>
+
+		<view class=" device-i-c commitsb">
+			<view catchtap="hideDeviceDetailPop">取消</view>
+			<view catchtap="submitDeviceDetailInfo">确定</view>
+			<!-- <view catchtap="submitDeviceDetailInfo">提交</view> -->
+		</view>
+	</view>
+</view>
+
+<!-- 设备分类编辑弹窗 -->
+<block wx:if="{{isShowDClassEditPop}}" >
+<view class="tanChuan1"></view>
+<view class="tanChuan-v1">
+    <view  class="tanChuan-v-o1" >{{titleDClassEditPop}}</view>
+    <view  class="tanChuan-v-t1">
+      <input minlength="0" maxlength="{{deviceClass_max}}" data-cid='deviceClass' bindinput='changeValueMainData' value='{{dClassData.title}}' cursor-spacing="10"></input>
+    </view>
+    <view  class="tanChuan-v-s1">
+      <view catchtap="hideDClassEditPop">取消</view>
+      <block wx:if="{{dClassData.id>0}}">
+        <view catchtap="delDClassInfo">删除</view>
+      </block>
+      <view catchtap="submitDClassInfo">提交</view>
+    </view>
+  </view>
+</block>

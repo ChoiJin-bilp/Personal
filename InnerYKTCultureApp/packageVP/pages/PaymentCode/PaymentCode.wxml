@@ -1,0 +1,28 @@
+<!--packageVP/pages/PaymentCode/PaymentCode.wxml-->
+<view class="erweima">
+  <view class="ggao">
+    <image src="{{SMDataURL}}/images/chayu-laba.png"></image>
+    <view>请向收营员提供条形码付款</view>
+  </view>
+  <view style="text-align:center;">
+    <image class="mtximg" src="/images/QQ图片20210226114013.png"></image>
+  </view>
+  <view class="codenum">366656456465456464654 8888</view>
+  <view class="erweicode">
+    <image src="/images/QQ图片20210226114116.png"></image>
+  </view>
+  <view class="hint">付款码每一分钟刷新 (点击刷新)，请勿泄露</view>
+  <view class="bhfui">
+    <view class="bhfuiew"></view>
+    <view class="cuyName">
+      <view>名称</view>
+      <view>乔布斯</view>
+    </view>
+    <view class="cuyName" style="border:none;">
+      <view>账户余额</view> 
+      <view>￥299.33</view>
+    </view>
+  </view>
+</view>
+
+<view class="mlpbut">充值 (送积分)</view>

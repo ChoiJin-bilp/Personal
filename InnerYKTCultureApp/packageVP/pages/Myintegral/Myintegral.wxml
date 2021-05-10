@@ -1,0 +1,59 @@
+<!--packageVP/pages/Myintegral/Myintegral.wxml-->
+<!-- <view class="inter">
+  <view>当前积分</view>
+  <view>{{curAllIntegrals}}</view>
+</view>
+<view class="details">
+  <view class="titlelist">
+    <view class="{{true?'choice':''}}">全部</view>
+    <view>收入</view>
+    <view>支出</view>
+  </view>
+  <view class="mklj">
+    <view class="Foritem" wx:for="{{4}}" wx:key="index">
+      <view>
+        <view class="context">提现</view>
+        <view class="Timeon">2019-05-16 08:43:11</view>
+      </view>
+      <view class="hotuo {{index==1?'mhcolor':''}}">- 100.00</view>
+    </view>
+  </view>
+</view> -->
+
+<scroll-view class="mklj" scroll-y="true" style = "height:100%;position: relative;padding-top:0rpx;" bindscrolltolower="bindDownLoad" bindscrolltoupper="bindTopLoad" scroll-with-animation = "true">
+  <view id = "top"></view>
+
+<view class="inter">
+  <view>我的积分</view>
+  <view>{{curAllIntegrals}}</view>
+  <view class="pleasechoose">
+      <text bindtap="showModalserve" >查看积分规则></text>
+    </view>
+</view>
+<view class="details">
+  <view class="titlelist">
+    <view class="{{showType==-1?'choice':''}}" data-type="-1" catchtap="selectShowType">全部</view>
+    <view class="{{showType==0?'choice':''}}" data-type="0" catchtap="selectShowType">增加</view>
+    <view class="{{showType==1?'choice':''}}" data-type="1" catchtap="selectShowType">扣减</view>
+  </view>
+  <view class="mklj">
+
+    <block wx:for="{{dataArray}}" wx:for-item="articles" wx:for-index="dataArrayIndex">
+      <block wx:for="{{articles}}" wx:for-item="item" wx:key="{{item.id}}" wx:for-index="index">
+        <view class="Foritem" wx:key="index">
+          <view data-item="{{item}}" catchtap="{{item.type==0?'viewIntegerDetail':''}}">
+            <view class="context">{{item.typeValue}}</view>
+            <view class="Timeon">{{item.createDate}}</view>
+          </view>
+          <view class="hotuo {{item.tag<0?'mhcolor':''}}">{{item.tag<0?"-":"+"}} {{item.integral}}</view>
+        </view>
+      </block>
+    </block>
+    
+  </view>
+</view>
+  <view id = "bottom"></view>
+</scroll-view>
+<view wx:if="{{showModalserve}}" class="dragon">
+  <mylist-c  id="towerId" bindmyevent="onMyEvent"></mylist-c>
+</view>

@@ -1,0 +1,157 @@
+// packageVP/pages/verification/verification.js
+const app = getApp()
+var MD5JS = require('../../../utils/md5.js');
+var Utils = require('../../../utils/util.js');
+var SMURL = app.getUrlAndKey.smurl,
+  URL = app.getUrlAndKey.url,
+  KEY = app.getUrlAndKey.key,
+  DataURL = app.getUrlAndKey.mdataUrl,
+  SMDataURL = app.getUrlAndKey.dataUrl;
+var appUserInfo = app.globalData.muserInfo;
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    SMDataURL: SMDataURL,
+    startDate: '2020-08-01',
+    endDate: "2020-09-01",
+    status: [{
+      statu: 0,
+      name: "云客茶语"
+    },
+    {
+      statu: 1,
+      name: "歇脚吧"
+    }, {
+      statu: 2,
+      name: "未接单"
+    }
+  ],
+  selectStatusIndex: 0,
+  putrList:[
+    {name:'充值单号',kgyu:'DFKJDS2020001'},
+    {name:'核销地址',kgyu:'深圳市福田区某某路东方科技大厦'},
+    {name:'用户ID',kgyu:'545455454'},
+    {name:'核销人',kgyu:'张三'},
+    {name:'核销人ID',kgyu:'4554878'},
+    {name:'核销时间',kgyu:'2020.08.18 14:52'},
+  ]
+  },
+  //显示隐藏下拉框
+  onChangedivtype(e) {
+    var that = this
+    var tag = parseInt(e.currentTarget.dataset.tag)
+    switch (tag) {
+      case 0:
+        that.setData({
+          isShowStatus: !that.data.isShowStatus
+        })
+        break;
+      case 1:
+        that.setData({
+          isShowHotel: !that.data.isShowHotel
+        })
+        break;
+      case 2:
+        that.setData({
+          isShowUser: !that.data.isShowUser
+        })
+        break;
+    }
+  },
+  selectStatus(e) {
+    var that = this
+    var index = e.currentTarget.dataset.index
+    var selectStatusIndex = that.data.selectStatusIndex
+    if (selectStatusIndex == index) {
+      that.setData({
+        isShowStatus: false,
+      })
+      return
+    }
+    that.setData({
+      selectStatusIndex: index,
+      isShowStatus: !that.data.isShowStatus,
+    })
+  },
+    //事件：跳转页面
+    gotoPage: function (e) {
+      //pagetype：0普通页面，1tabbar页面
+      //package：包名简写
+      //pagename：页面名称
+      let that = this,
+        pagetype = 0,
+        isCheckAuditStat = 0,
+        packageName = e.currentTarget.dataset.package,
+        pagename = e.currentTarget.dataset.page,
+        param = e.currentTarget.dataset.param,
+        url = "";
+      try {
+        pagetype = parseInt(e.currentTarget.dataset.pagetype);
+        pagetype = isNaN(pagetype) ? 0 : pagetype;
+      } catch (e) {}
+      try {
+        isCheckAuditStat = parseInt(e.currentTarget.dataset.isaudit);
+        isCheckAuditStat = isNaN(isCheckAuditStat) ? 0 : isCheckAuditStat;
+      } catch (e) {}
+  
+      app.gotoPage(that, "../../", isCheckAuditStat, pagetype, packageName, pagename, that.data.agentAuditState,param);
+    },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

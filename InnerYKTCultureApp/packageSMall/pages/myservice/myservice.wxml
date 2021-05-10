@@ -1,0 +1,46 @@
+<!--packageSMall/pages/myservice/myservice.wxml-->
+
+<view class='width94'>
+  <view class="main">
+    <view class="cart-box" wx:for="{{orderList}}" wx:key="key" wx:for-item="order" wx:for-index="index">
+      <view class="storenumber">订单编号:{{order.orderId}}</view>
+      <view class="cart-list-one" wx:for="{{order.detail}}" wx:key="id" wx:for-item="item" wx:for-index="itemindex">
+        <view class="ashopname" catchtap="">
+          <!-- <image src="{{item.companyLogo}}"></image> -->
+          <!-- <image class="fright" src="{{DataURL}}/images/unfold.png"></image> -->
+          <text>{{item.companyName}}</text>
+          <view>{{item.LevelName}}</view>
+          <!-- <image class="fright" src="{{DataURL}}/images/unfold.png"></image> -->
+        </view>
+        <view class="astoredetails">
+          <image class="cart-thumb-one" mode="scaleToFill" src="{{item.detailPhotos}}" data-index="{{index}}" data-itemindex="{{itemindex}}" catchtap=""></image>
+          <view class='cart-infor-one'>
+            <text class="cart-pro-name">{{item.productName}}</text>
+            <view class='cart-norms'>{{item.attributeOne +' '+ item.attributeTwo}}</view>
+            <view class='cart-moeny-one'>
+              <view class='cart-pro-price-one'>
+                <text wx:if="{{order.linkNo == 1}}">{{item.price}} 积分</text>
+                <text wx:else>￥{{item.price}}</text>
+              </view>
+              <view class="cart-count-box-one">
+                <text>x{{item.number}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class='width100 orderdetails'>
+        <view class="total fleft">
+          <text>合计：</text>￥{{order.amount}}</view>
+        <view wx:if="{{order.servicestatus==0}}" class="fright">申请中...</view>
+        <view wx:else class="fright">已完成</view>
+      </view>
+      <view class='width100 orderdetails'>
+        <text>{{order.create_date}}</text>
+        <view class="order-btn">
+          <button catchtap="servicedetail" data-index="{{index}}">查看详情</button>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

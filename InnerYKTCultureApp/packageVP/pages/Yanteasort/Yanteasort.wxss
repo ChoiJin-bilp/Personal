@@ -1,0 +1,204 @@
+/* packageVP/pages/Yanteasort/Yanteasort.wxss */
+page{
+  background:#F6F6F6;
+}
+/*----------------------------------------------轮播模块-----------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------------------------------*/
+.swiper {
+  min-height: 600rpx;
+}
+swiper-item{
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+.swiperimage {
+  width: 100%;
+  height: 537rpx;
+  opacity: 1;
+  background: #ffffff;
+  border-radius: 20rpx;
+  box-shadow: 0rpx 2rpx 7rpx 0rpx rgba(203,203,203,0.50);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 20rpx;
+}
+.slide-image {
+  width: 144rpx;
+  height: 140rpx;
+}
+.business-item-tw{
+  border-bottom: #ccc 2rpx solid;
+  margin: 6rpx 0;
+}
+.titleTop{
+  font-size: 30rpx;
+text-align: left;
+color: #333333;
+}
+.otutit{
+  font-size: 34rpx;
+  color: #333333;
+}
+.odown{
+  font-size: 28rpx;
+color: #666666;
+margin-top: 10rpx;
+}
+.odown text{
+  color: #FF3333;
+  font-size: 34rpx;
+}
+.portq{
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+.titem{
+  font-size: 28rpx;
+text-align: left;
+color: #666666;
+margin-top: 10rpx;
+}
+/*---------------------------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------排名css--------------------------------------------------------------------*/
+.forImcs {
+  width: 92%;
+  margin: auto;
+  background: #ffffff;
+  border-radius: 10rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+
+.forImcs-Title {
+  display: flex;
+  color: #999999;
+  font-size: 26rpx;
+  padding: 10rpx;
+  box-sizing: border-box;
+  border-bottom: solid #e5e5e5 2rpx;
+  justify-content: space-between;
+}
+.mopert {
+  display: flex;
+}
+
+.mopert view:nth-of-type(1) {
+  margin-left: 14rpx;
+}
+
+.mopert view:nth-of-type(2) {
+  text-align: center;
+  margin-left: 48rpx;
+}
+
+.forImcs-Title .nkfdh {
+  margin-left: 140rpx;
+  display: flex;
+  align-items: center;
+}
+
+.forImcs-Title image {
+  margin-left: 10rpx;
+  width: 28rpx;
+  height: 18rpx;
+}
+
+.Pingsc {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30rpx;
+}
+
+.Pingsc-left {
+  display: flex;
+  align-items: center;
+}
+
+.minci {
+  width: 100rpx;
+  display: flex;
+  justify-content: center;
+}
+
+.lfimgo {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+}
+
+.mince {
+  width: 120rpx;
+  display: flex;
+  justify-content: center;
+}
+
+.lfimgz {
+  width: 44rpx;
+  height: 48rpx;
+}
+
+.mone {
+  width: 230rpx;
+  font-size: 28rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #333333;
+}
+
+.Pingsc-right {
+  font-size: 34rpx;
+  font-family: DIN, DIN-Regular;
+  color: #ff3333;
+}
+
+.morelist {
+  width: 100%;
+  height: 74rpx;
+  background: #fafafa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26rpx;
+  font-family: PingFang SC, PingFang SC-Regular;
+  color: #999999;
+}
+
+.morelist image {
+  margin-left: 10rpx;
+  width: 28rpx;
+  height: 18rpx;
+}
+
+.rementitle {
+  width: 92%;
+  margin: 0 auto;
+  margin-top: 20rpx;
+  margin-bottom: 14rpx;
+font-size: 36rpx;
+font-family: PingFang SC, PingFang SC-Medium;
+font-weight: bold;
+color: #333333;
+}
+.yoew{
+  font-size: 36rpx;
+text-align: center;
+font-weight: bold;
+color: #333333;
+margin-bottom: 20rpx;
+}
+.bure{
+  position: absolute;
+  right: 0;
+  top: 0;
+width: 163rpx;
+height: 53rpx;
+background: #d0b561;
+border-radius: 0 10rpx 0 10rpx;
+font-size: 34rpx;
+text-align: center;
+color: #ffffff;
+}

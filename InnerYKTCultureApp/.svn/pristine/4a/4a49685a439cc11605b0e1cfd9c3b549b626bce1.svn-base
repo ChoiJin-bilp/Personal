@@ -1,0 +1,24 @@
+<!--pages/comactivity/comactivity.wxml-->
+<v-folat id="myComponent"/>
+<view class="lmk">
+  <!-- <image class="lmk-img" src="{{DataURL}}/images/tivity-bck.png"></image> -->
+  <view class="lmkimages">
+    <block wx:if="{{isAwardActiveValid}}">
+      <!-- 幸运大抽奖 -->
+      <view class="lopr-op" data-pagetype="0" data-package="" data-page="luckdraw" catchtap="gotoCommonPage">
+        <image class="lmk-img" src="{{DataURL}}/images/tivity-mkh.png"></image>
+      </view>
+    </block>
+    <block wx:for="{{memberRechargePackageList}}" wx:for-item="item" wx:key="{{item.id}}" wx:for-index="index">
+      <view class="lopr-op" data-otherparams="{{'rid='+item.id}}" data-pagetype="0" data-package="packageVP" data-page="Mymember" catchtap="gotoCommonPage">
+        <image class="lmk-img" src="{{item.image}}"></image>
+      </view>
+    </block>
+
+    <block wx:for="{{recommendProductList}}" wx:for-item="item" wx:key="{{item.id}}" wx:for-index="index">
+      <view class="lopr-op" data-item="{{item}}" catchtap="gotoCommonReceiveCouponPage">
+        {{item.id}}\{{item.productName}}
+      </view>
+    </block>
+  </view>
+</view>

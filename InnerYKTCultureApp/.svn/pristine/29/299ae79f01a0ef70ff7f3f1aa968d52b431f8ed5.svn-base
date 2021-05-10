@@ -1,0 +1,54 @@
+<!--pages/hotelorderdetail/hotelorderdetail.wxml-->
+<view class='expressRecord'>
+  <view class="cart-list-one" >
+    <view class="title">订单编号:</view>
+    <view class="ashopname" data-item="{{item}}" catchtap="orderPage" data-index="{{index}}" data-itemindex="{{itemindex}}">
+      <image class="storelogo" mode="aspectFit" src="../../images/qq.png"></image>
+      <text  class="storename">爱美家大酒店</text>
+      <image class="fright" src="../../images/region.png"></image>
+    </view>
+    <view class="astoredetails">
+      <image class="cart-thumb-one" mode="scaleToFill" src="../../images/card-icon.png"></image>
+      <view class='cart-infor-one'>
+        <text class="cart-pro-name">豪华双人房</text>
+        <view class='cart-norms'>308</view>
+        <view class='cart-moeny-one'>
+          <view class='cart-pro-price-one'>
+            <text>￥333.00</text>
+          </view>
+          <view class="cart-count-box-one">
+            <text>x{{item.number}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <view class="title">
+    <view class="co">
+      <text class="fleft">优惠情况：</text>
+      <view class="fright">满500元减300元</view>
+    </view>
+    <view class="co">
+      <text class="fleft">实际支付：</text>
+      <view class="fright" style="color: #ff1f1f;font-size:34rpx;">￥3200</view>
+    </view>
+    <view class="co">
+      <text class="fleft">下单时间:</text>
+      <view class="fright">2020-05-28 18:30:00</view>
+    </view>
+    <view class="co">
+      <text class="fleft">入住时间:</text>
+      <view class="fright">2020-05-28 18:30:00</view>
+    </view>
+    <view class="co">
+      <text class="fleft">退房时间:</text>
+      <view class="fright">2020-05-28 18:30:00</view>
+    </view>
+  </view>
+
+  <view class="qx-order">
+    <button catchtap="contactShopSeller">取消订单</button>
+  </view>
+
+</view>

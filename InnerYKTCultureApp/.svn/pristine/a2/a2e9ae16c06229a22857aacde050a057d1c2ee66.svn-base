@@ -1,0 +1,105 @@
+// packageVP/pages/mkghetrstwo/mkghetrstwo.js
+const app = getApp()
+var MD5JS = require('../../../utils/md5.js');
+var Utils = require('../../../utils/util.js');
+var SMURL = app.getUrlAndKey.smurl,
+  URL = app.getUrlAndKey.url,
+  KEY = app.getUrlAndKey.key,
+  DataURL = app.getUrlAndKey.mdataUrl,
+  SMDataURL = app.getUrlAndKey.dataUrl;
+var appUserInfo = app.globalData.muserInfo;
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    SMDataURL: SMDataURL,
+    putrList:[
+      {name:'充值单号:',kgyu:'13564686431231546846'},
+      {name:'会员手机号：',kgyu:'136 5231 6548'},
+      {name:'充值用户ID：',kgyu:'316548'},
+      {name:'实付金额：',kgyu:'￥6548'},
+      {name:'到账金额:',kgyu:'￥6548'},
+      {name:'会员积分:',kgyu:'6548'},
+    ]
+  },
+  //事件：跳转页面
+  gotoPage: function (e) {
+    //pagetype：0普通页面，1tabbar页面
+    //package：包名简写
+    //pagename：页面名称
+    let that = this,
+      pagetype = 0,
+      isCheckAuditStat = 0,
+      packageName = e.currentTarget.dataset.package,
+      pagename = e.currentTarget.dataset.page,
+      param = e.currentTarget.dataset.param,
+      url = "";
+    try {
+      pagetype = parseInt(e.currentTarget.dataset.pagetype);
+      pagetype = isNaN(pagetype) ? 0 : pagetype;
+    } catch (e) {}
+    try {
+      isCheckAuditStat = parseInt(e.currentTarget.dataset.isaudit);
+      isCheckAuditStat = isNaN(isCheckAuditStat) ? 0 : isCheckAuditStat;
+    } catch (e) {}
+
+    app.gotoPage(that, "../../", isCheckAuditStat, pagetype, packageName, pagename, that.data.agentAuditState,param);
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

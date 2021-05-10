@@ -1,0 +1,165 @@
+/* packageOther/pages/fxorder/fxorder.wxss */
+page{
+  background: #f6f6f6;
+  height:100%;
+}
+.main{
+  width: 94%;
+  height:100%;
+  overflow-y: scroll;
+  position: absolute;
+  top: 80rpx;left:3%;
+}
+.FX-rank{
+  width: 100%;
+  height: 80rpx;
+  background: #fff;
+  position: fixed;
+  left: 0;top: 0;
+  z-index: 10;
+}
+.FX-rank .ranktype{
+  float: right;
+  margin-right: 3%;
+  /* padding: 0 30rpx; */
+  height: 68rpx;
+  line-height: 68rpx;
+}
+.FX-rank .ranktype image{
+  width: 28rpx;
+  height: 24rpx;
+  vertical-align: middle;
+  margin-left: 12rpx;
+  margin-top: -4rpx;
+}
+.FX-rank .ranktype text{
+  display: inline-block;
+}
+.FX-rank .ranktype picker{
+  display: inline-block;
+  /* vertical-align: middle; */
+  margin-top: 6rpx;
+  width:180rpx;
+  padding: 0 10rpx;
+  height: 68rpx;
+  line-height: 68rpx;
+  margin-left: 12rpx;
+  border-radius: 10rpx;
+  border: solid 1rpx #e5e5e5;
+  position: relative;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+.FX-rank .ranktype picker .xiala{
+  position: absolute;
+  right: 10rpx;
+  top: 28rpx;
+  width: 28rpx;
+  height: 16rpx;
+}
+.chose-txt{
+  width: 96%;
+  margin: 20rpx auto;
+  overflow: hidden;
+  clear: both;
+  background: #fff;
+  border-radius:10rpx; 
+  padding:20rpx 16rpx;
+  box-sizing: border-box;
+}
+.fx-people{
+  display: block;
+  width: 100%;
+  height: 48rpx;
+  font-size: 30rpx;
+  color: #333;
+  line-height: 48rpx;
+  padding: 10rpx 0;
+}
+.fx-time{
+  display: block;
+  width: 100%;
+  height: 48rpx;
+  font-size: 28rpx;
+  color: #999;
+  line-height: 48rpx;
+  padding: 10rpx 0;
+  font-family:'DIN1';
+}
+.fx-people text{
+  font-size: 28rpx;
+  color: #666;
+  font-family:'DIN1';
+  margin-left: 30rpx;
+}
+.fx-brokerage{
+  display: block;
+  width: 100%;
+  height: 48rpx;
+  font-size: 28rpx;
+  color: #ff1f1f;
+  line-height: 48rpx;
+  padding: 10rpx 0;
+}
+.fx-dian{
+  width: 16rpx;
+  height: 16rpx;
+  background: #ccc;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right:20rpx;
+  margin-top: 10rpx;
+}
+.fx-brokerage text{
+  font-size: 30rpx;
+  font-family:'DIN';
+  line-height: 48rpx;
+}
+.fx-name{
+  width: 100%;
+  line-height: 36rpx;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  word-break: break-all;
+  font-size: 30rpx;
+  color: #333;
+  font-weight:bold;
+  vertical-align: middle;
+}
+
+/* 搜索栏 */
+.add-phone{
+  float: left;
+  width: 56%;
+  height: 68rpx;
+  background: #fff;
+  margin:6rpx 0 6rpx 3%;
+  border: solid 2rpx #e5e5e5;
+  position: relative;
+  border-radius: 10rpx;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.add-phone .search{
+  height: 68rpx;
+  width:80%;
+  padding: 0 1%;
+  line-height: 64rpx;
+  font-size: 28rpx;
+  padding-left:3%; 
+  position: absolute;
+  left: 0%;
+  top: 0;
+  z-index: 5;
+}
+.add-phone image{
+  position: absolute;
+  right: 0;
+  top: 0r;
+  width: 42rpx;
+  height:42rpx;
+  z-index: 10;
+  padding: 13rpx 16rpx;
+}

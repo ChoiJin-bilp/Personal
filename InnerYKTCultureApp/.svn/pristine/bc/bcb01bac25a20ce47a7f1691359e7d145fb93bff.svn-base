@@ -1,0 +1,225 @@
+/* packageVP/pages/Yantea/Yantea.wxss */
+page{
+  background: #F6F6F6;
+  height: 100%;
+}
+.lisewek{
+  width: 96%;
+  margin: 20rpx auto;
+  box-sizing: border-box;
+  min-height: 220rpx;
+  opacity: 1;
+  background: #ffffff;
+  border-radius: 20rpx;
+  box-shadow: 0rpx 2rpx 7rpx 0rpx rgba(203,203,203,0.50);
+  margin-bottom: 0rpx;
+}
+.lisewek{
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 30rpx;
+  padding-top: 0;
+}
+.lisewek-z{
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.ewekz-z image{
+  width: 144rpx;
+height: 141rpx;
+}
+.ewekz-o{
+  font-size: 34rpx;
+color: #333333;
+position: relative;
+}
+.ewekz-o image{
+  position: absolute;
+  left: 140rpx;
+  top: -4rpx;
+  width: 22rpx;
+  height: 22rpx;
+}
+.lisewek-o{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 30rpx;
+  box-sizing: border-box;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.eweko-o{
+  font-size: 30rpx;
+  color: #018766;
+  display: flex;
+  align-items: center;
+}
+.eweko-o image{
+  width: 50rpx;
+  height: 38rpx;
+  margin-right:10rpx;
+}
+.eweko-z{
+font-size: 24rpx;
+font-family: PingFang SC, PingFang SC-Regular;
+font-weight: 400;
+color: #666666;
+margin-bottom: 10rpx;
+}
+.eweko-z text{
+  font-size: 30rpx;
+  font-family: DIN;
+  color: #333;
+  }
+  .lpry{
+    display: flex;
+    flex-direction: column;
+  align-items: flex-end;
+  }
+  .eweko-t{
+    width: 128rpx;
+    height: 42rpx;
+    background: #018766;
+    border-radius: 4rpx;
+    font-size: 28rpx;
+text-align: center;
+color: #ffffff;
+line-height: 42rpx;
+margin-bottom: 10rpx;
+  }
+  /*时间选择css*/
+.timeSelect{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 20rpx;
+  box-sizing: box-border;
+  margin-top: 10rpx;
+  }
+  .datatoday-s-o{
+    display: flex;
+    font-size: 28rpx;
+    color: #999;
+    padding: 5rpx 10rpx;
+    box-sizing: border-box;
+    border: #E3E3E3 solid 1rpx;
+    width: 240rpx;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    height: 56rpx;
+  }
+  .picker{
+  float: right;
+  margin-top: 10rpx;
+  width: 26rpx;
+  height: 18rpx;
+  }
+  .smallRecord{
+    display: flex;
+    margin: 20rpx 0;
+  }
+  .smallRecord view:nth-of-type(2){
+    width: 38%;
+  display: flex;
+  justify-content: flex-end;
+  }
+  .smallRecord view:nth-of-type(3){
+    width: 46%;
+  display: flex;
+  justify-content: flex-end;
+  }
+  .pwert{
+    display: flex;
+    justify-content: space-between;
+    width: 96%;
+    margin: auto;
+    font-size: 28rpx;
+    color: #999999;
+  }
+  .pwetx{
+    color:#FF6666;
+  }
+  .business-item{
+  border-radius:10rpx;
+  background: #fff;
+  padding-bottom:10rpx; 
+  margin-top:40rpx; 
+  box-shadow: 10rpx 10rpx 10rpx rgba(204, 204, 204, 0.5);
+  width: 96%;
+  margin: 20rpx auto; 
+}
+.business-item .business-item-o{
+  display: flex;
+  padding: 10rpx 30rpx;
+  box-sizing: border-box;
+  font-size: 30rpx;
+}
+.business-item .business-item-z{
+  width: 100%;
+  background: #ededed;
+  border-radius: 10rpx 10rpx 0 0;  
+}
+.business-item-tw{
+  border-bottom: #ccc 2rpx solid;
+}
+
+.business-item-o view{
+  overflow: hidden;
+  word-wrap:  break-word;
+}
+.business-item-o text:nth-of-type(1){
+  font-size: 30rpx;
+  color: #999;
+  white-space:  nowrap;
+  text-overflow: ellipsis;
+  width: 34%;
+}
+.business-item-o text:nth-of-type(2){
+  overflow: hidden;
+  word-wrap: break-word;
+  width: 66%;
+}
+
+.business-item-z text:nth-of-type(1){
+  width: 23%;
+}
+.moptu{
+  display: flex;
+  align-items: center;
+}
+.moptu-o{
+  width: 70%;
+}
+/*循环样式*/
+.moptu-z{
+  width: 30%;
+}
+.Cup-z2{
+  float: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 8rpx;
+  margin-right: 8rpx;
+  padding: 10rpx 10rpx;
+}
+.Cup-z2::after{
+  clear: both;
+}
+.Cup-z2 image{
+  margin-top: 10rpx;
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
+}
+.Cup-text2{
+  font-size: 22rpx;
+color: #333333;
+line-height: 36rpx;
+text-align: center;
+}

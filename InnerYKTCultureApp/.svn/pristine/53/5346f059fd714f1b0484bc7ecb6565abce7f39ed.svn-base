@@ -1,0 +1,230 @@
+<!--packageYK/pages/GetAMassage/GetAMassage.wxml-->
+<!-- 1、免费按摩领劵 -->
+<block wx:if="{{modeType==0}}">
+  <view class='Lotterypop'>
+    <view class="titleview1">恭喜您获得
+      <text>{{1}}</text>张足底按摩劵</view>
+
+    <view class="mywinview">免费足底按摩
+      <text>{{minutesCnt}}</text>分钟
+    </view>
+    <view class="tipsview tip" style="margin-top: 20rpx;">如未使用，后续可以在“我的按摩劵”记录中开启使用</view>
+    <view class="nowaway" catchtap="useMyAward">开始按摩</view>
+  </view>
+
+  <view class="ticket">
+    <view class="ticket-v">
+      <view>领取规则</view>
+    </view>
+    <view class="ticket-o">
+      <block wx:if="{{freeCheirapsisMode==0}}">
+        <view>1.用户每天可免费按摩 1 次。</view>
+      </block>
+      <block wx:if="{{freeCheirapsisMode==1}}">
+        <view>1.每个用户可免费按摩 1 次。</view>
+      </block>
+      <block wx:if="{{freeCheirapsisMode==2}}">
+        <view>1.用户可不限次数免费按摩。</view>
+      </block>
+      <view>2.本次活动最终解释权归{{sysName}}所有。</view>
+    </view>
+  </view>
+</block>
+
+<!-- 2、分享按摩领劵 -->
+<block wx:if="{{modeType==1}}">
+  <view class="Top">
+    <view class="massgelist" wx:for="{{drawAwardRecordList}}" wx:key="id" style="{{index==0?'':'margin-top:20rpx;'}}">
+      <!-- 【2.1】组合按摩劵 -->
+      <block wx:if="{{item.lotteryProduct==5}}">
+        <image src="{{DataURL}}/images/amy-onuse3.png"></image>
+        <view class="mainmessage">
+          <view class="massageOne">
+            <view class="useTime">
+              <view class="TimeFont2">{{item.synCouponPrice}}</view>
+              <view class="Timeunit">
+                <view>元</view>
+                <view class="outfont">特惠</view>
+              </view>
+            </view>
+            <view class="TimeAM2">{{item.synCouponName}}</view>
+            <view class="moptdata">领劵日期：{{item.receiveDate}}</view>
+            <view class="moptdata"> <view  class="moptloe" >有效日期：{{item.endTime}}</view></view>
+          </view>
+          <view class="massageSecond">
+            <block wx:if="{{paramShareStat==0}}">
+              <view class="startAM2" data-id="{{item.id}}" data-companyid="{{item.companyId}}" catchtap="receiveCoupon">点击领取</view>
+            </block>
+            <block wx:if="{{paramShareStat==1}}">
+              <view class="startAM2" data-item="{{item}}">已领取</view>
+            </block>
+            <block wx:if="{{paramShareStat==2}}">
+              <view class="startAM2" data-item="{{item}}">已被领</view>
+            </block>
+            <block wx:if="{{paramShareStat==-1}}">
+              <view class="startAM2" data-item="{{item}}">已失效</view>
+            </block>
+            <block wx:if="{{paramShareStat==-2}}">
+              <view class="startAM2" data-item="{{item}}">已过期</view>
+            </block>
+          </view>
+        </view>
+      </block>
+      <!-- 【2.2】普通按摩劵 -->
+      <block wx:else>
+        <image src="{{DataURL}}/images/amy-onuse2.png"></image>
+        <view class="mainmessage">
+          <view class="massageOne">
+            <view class="useTime">
+              <view class="TimeFont">{{item.duration}}</view>
+              <view class="Timeunit">
+                <view>分钟</view>
+              </view>
+            </view>
+            <view class="TimeAM">{{item.productName}}</view>
+            <view style="font-size: 26rpx; color:#FFECDF;">有效日期：{{item.endTime}}</view>
+          </view>
+          <view class="massageSecond">
+            <block wx:if="{{paramShareStat==0}}">
+              <view class="startAM2" data-id="{{item.id}}" data-companyid="{{item.companyId}}" catchtap="receiveCoupon">点击领取</view>
+            </block>
+            <block wx:if="{{paramShareStat==1}}">
+              <view class="startAM2" data-item="{{item}}">已领取</view>
+            </block>
+            <block wx:if="{{paramShareStat==2}}">
+              <view class="startAM2" data-item="{{item}}">已被领</view>
+            </block>
+            <block wx:if="{{paramShareStat==-1}}">
+              <view class="startAM2" data-item="{{item}}">已失效</view>
+            </block>
+            <block wx:if="{{paramShareStat==-2}}">
+              <view class="startAM2" data-item="{{item}}">已过期</view>
+            </block>
+          </view>
+        </view>
+      </block>
+      
+      
+    </view>
+  </view>
+
+  <view class="ticket" >
+    <view class="ticket-v">
+      <view>领取规则</view>
+    </view>
+    <view class="ticket-o">
+      <view>1.领取后，需注册才可使用</view>
+      <view>2.获得的按摩券可在"我的按摩券"中查看</view>
+      <view>3.本次活动最终解释权归{{sysName}}所有</view>
+    </view>
+    <view class="ticket-v" style="margin-top:10rpx;">
+      <view>适用门店</view>
+    </view>
+    <view class="ticket-o">
+      <view>广东省深圳市南山区海岸城"{{sysName}}"</view>
+    </view>
+  </view>
+</block>
+
+<!-- 3、9块9领10张购买劵 -->
+<block wx:if="{{modeType==2}}">
+  <view class="Top2">
+    <image class="img" src="{{DataURL}}/images/ninebg.png"></image>
+    <view class="hegt-ne" style="height:{{Differenheight-555}}rpx;">
+      <view>活动规则</view>
+        <view class="ticket-o2">1.仅限注册用户使用 </view>
+        <view class="ticket-o2">2.获得的按摩劵可在“我的按摩劵中查看” </view>
+        <view class="ticket-o2">3.本次活动最终解释权归{{sysName}}所有 </view>
+      <view class="" style="margin-top:40rpx;">适用门店</view>
+        <view  class="ticket-o">广东省深圳市南山区海岸城“{{sysName}}”</view>
+        <view class="but" data-item="{{recordObjData}}" catchtap="payForCouponEvent">
+          <view>
+            <text class="nuttext">原价￥{{recordObjData.original_price}}</text>
+            <text>￥</text>
+            <text class="nutprice">{{recordObjData.price}}</text>
+          </view>
+          <text>立即购买 ></text>
+        </view>
+    </view>
+    <view style="height:{{Differenheight-595}}rpx;background: #F3C068;width:100%;"> </view>
+  </view> 
+</block>
+<!-- 4、推荐活动劵 -->
+<block wx:if="{{modeType==3}}">
+  <!-- 4.1 按摩劵 -->
+  <block wx:for="{{cheirapsisCouponList}}" wx:for-item="item" wx:key="{{item.id}}" wx:for-index="index">
+    <view class="Top">
+      <view class="massgelist" style="margin-top:20rpx;">
+        <image src="{{DataURL}}/images/amy-onuse3.png"></image>
+        <view class="mainmessage">
+          <view class="massageOne">
+            <block wx:if="{{item.lotteryProduct==5}}">
+              <view class="useTime">
+                <view class="TimeFont2">{{item.lprice}}</view>
+                <view class="Timeunit">
+                  <view>元</view>
+                  <view class="outfont">特惠</view>
+                </view>
+              </view>
+            </block>
+            <block wx:else>
+              <view class="useTime">
+                <view class="TimeFont2">{{item.duration}}</view>
+                <view class="Timeunit">
+                  <view>分钟</view>
+                  <!-- <view class="outfont">特惠</view> -->
+                </view>
+              </view>
+            </block>
+            
+            <view class="TimeAM2">{{item.productName}}</view>
+            <!-- <view class="moptdata">领劵日期：{{item.receiveDate}}</view> -->
+            <!-- <view class="moptdata"> <view  class="moptloe" >有效日期：{{item.endTime}}</view></view> -->
+          </view>
+          <view class="massageSecond">
+            <view class="startAM2" data-type="0" data-item="{{item}}" catchtap="receiveRecommendCoupon">点击领取</view>
+          </view>
+        </view>
+        
+      </view>
+    </view>
+  </block>
+  <!-- 4.2 普通优惠劵劵 -->
+  <block wx:for="{{commonCouponList}}" wx:for-item="item" wx:key="{{item.id}}" wx:for-index="index">
+    <view class="Top">
+      <view class="massgelist" style="margin-top:20rpx;">
+        <image src="{{DataURL}}/images/coupon.png"></image>
+        <view class="mainmessage">
+          <view class="massageOne">
+            <view class="TimeAM2 TimeAM3">{{item.name}}</view>
+            <!-- <view class="moptdata">领劵日期：{{item.receiveDate}}</view> -->
+            <block wx:if="{{item.mold==3 && item.vDtStartTimeStr!='' && item.vDtEndTimeStr!=''}}">
+              <view class="moptdata"> <view  class="moptloe" style="margin-top:30rpx;" >有效时段：{{item.vDtStartTimeStr+"~"+item.vDtEndTimeStr}}</view></view>
+            </block>
+          </view>
+          
+          <view class="massageSecond">
+            <view class="startAM2" data-type="1" data-item="{{item}}" catchtap="receiveRecommendCoupon">点击领取</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <view class="ticket" >
+    <view class="ticket-v">
+      <view>领取规则</view>
+    </view>
+    <view class="ticket-o">
+      <view>1.领取后，需注册才可使用</view>
+      <view>2.获得的按摩券可在"我的按摩券"中查看</view>
+      <view>3.本次活动最终解释权归{{sysName}}所有</view>
+    </view>
+    <view class="ticket-v" style="margin-top:10rpx;">
+      <view>适用门店</view>
+    </view>
+    <view class="ticket-o">
+      <view>广东省深圳市南山区海岸城"{{sysName}}"</view>
+    </view>
+  </view>
+</block>

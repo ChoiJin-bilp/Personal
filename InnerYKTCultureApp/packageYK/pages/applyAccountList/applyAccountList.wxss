@@ -1,0 +1,75 @@
+/* packageYK/pages/applyAccountList/applyAccountList.wxss */
+.show{
+  display: block;
+}
+.hide{
+  display: none;
+}
+page{
+  background-color: #f2f2f2;
+  font-size:32rpx; 
+  height: 100%;
+}
+.Share{
+  width: 100%;
+  margin: 0;
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+.Share-top{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  box-sizing: border-box;
+}
+.Share-top view{
+  width: 30%;
+  text-align: center;
+  line-height: 68rpx;
+  background: #fff;
+  border-radius: 10rpx;
+}
+.Share-c{
+  width: 28%;
+  color: #999999;
+  padding-right:40rpx ;
+  white-space: nowrap;
+}
+.Share-Item{
+  margin-top:20rpx; 
+  background: #fff;
+  padding: 30rpx;
+  box-sizing: border-box;
+}
+.Share-Item-v{
+  line-height: 50rpx;
+  border-bottom: solid #ccc 2rpx;
+  position: relative;
+  padding: 20rpx 0;
+  padding-left: 10rpx;
+  display: flex;
+}
+.all::after {
+  content: '*';
+  position: absolute;
+  font-size: 50rpx;
+  color: red;
+  top: 12rpx;
+  left: -20rpx;
+}
+.flex{
+  display: flex;
+  justify-content: space-between;
+  white-space: nowrap;
+}
+.flex .Share-c{
+  width: 20%;
+  color: #999999;
+  padding-right:40rpx ;
+  white-space: nowrap;
+}
+.pitch{
+  color:#0C74FE;
+  border: #0C74FE solid 2rpx;
+  box-shadow: 2rpx 2rpx 2rpx #0C74FE;
+}

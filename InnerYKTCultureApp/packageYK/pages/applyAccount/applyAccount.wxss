@@ -1,0 +1,247 @@
+/* packageYK/pages/applyAccount/applyAccount.wxss */
+.Opening{
+    color:#000;
+}
+.Opening-f{
+  display: flex;
+  padding: 10rpx;
+  padding-left:40rpx;  
+  height: 90rpx;
+  align-items: center;
+  border-bottom:1rpx #ccc solid;
+  font-size: 30rpx;
+}
+.Opening-f text{
+  width: 35%;
+  font-weight: bold;
+  font-size: 28rpx;
+}
+.Opening-f input{
+  width: 100%;
+}
+
+
+
+/*新增公司列表css*/
+.Opening-b{
+  position: relative;
+  display: flex;
+  padding-left:58rpx;
+  padding-right:40rpx;
+  box-sizing: border-box;
+  border-bottom:1rpx #ccc solid;
+  font-size: 32rpx;
+  line-height: 90rpx;
+  height: 90rpx;
+  transition: height 1s;
+}
+.Opening-b text{
+  width: 30%;
+}
+.Opening-b .Opening-b-v{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  overflow-y: auto;
+}
+.Opening-b .Opening-b-v view{
+  width: 100%;
+  text-align: center;
+  font-size: 30rpx;
+  white-space: nowrap;
+}
+.puyrt{
+  height: 360rpx;
+}
+.font-sized{
+  display: flex;
+  white-space: nowrap;
+  align-items: center;
+  font-size: 26rpx;
+}
+
+
+
+.radio{
+  display: flex;
+  width: 80%;
+  align-items: center;
+  margin: auto 0;
+  padding-bottom:10rpx; 
+}
+.radio label{
+  font-size:28rpx;
+  width: 30%;
+  margin-top: 20rpx;
+  white-space: nowrap;
+  justify-content: space-between;
+}
+
+.radio .wx-radio-input.wx-radio-input-checked::before {
+  border-radius: 50%; /* 圆角 */
+  width: 20rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+  height: 20rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+  line-height: 30rpx;
+  text-align: center;
+  font-size: 0rpx; /* 对勾大小 30rpx */
+  color: #fff; /* 对勾颜色 白色 */
+  background: #03a9f4;
+  transform: translate(-50%, -50%) scale(1);
+}
+.radio .wx-radio-input.wx-radio-input-checked {
+  border-color: #03a9f4;
+  background: #fff;
+  height: 40rpx;
+  width: 40rpx;
+}
+.radio .wx-radio-input {
+  height: 40rpx;
+  width: 40rpx;
+  margin-top: -4rpx;
+  border-radius: 50%;
+  border: 2rpx solid #999;
+  background: transparent;
+}
+.but-shape{
+  border: #60A1FF solid 2rpx;
+  border-radius: 40rpx;
+  text-align: center;
+  line-height: 60rpx;
+  color: #60A1FF;
+  width: 250rpx;
+  height: 60rpx;
+}
+.cd{
+  margin: 0;
+  transform: scale(0.6,0.6);
+}
+.but-an{
+  width: 100%;
+  height: 200rpx;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.partner{
+  font-size:30rpx;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10rpx; 
+  border-bottom:1rpx #ccc solid;
+  box-sizing: border-box;
+  padding-left: 40rpx;
+}
+.partner text{
+  width: 26%;
+  font-weight: bold;
+  font-size: 28rpx;
+}
+.printer{
+  font-size:30rpx;
+  padding: 40rpx;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+.printer-v{
+  margin-top: 20rpx;
+  display: flex;
+}
+.printer-v text{
+  width: 40%;
+}
+.printer-v view{
+  border: #ccc solid 1rpx; 
+  display: flex;
+  padding: 0 20rpx;
+  align-items: center;
+}
+.printer-v input{
+  width: 80rpx;
+}
+.printer-but{
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  transform: translateY(-50%);
+  padding: 10rpx 20rpx;
+  border:#999 solid 1rpx;
+  border-radius:40rpx; 
+}
+
+
+.contract{
+  font-size:30rpx;
+  padding: 40rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+.contract-v{
+display: flex;
+align-items: center;
+margin-top: 20rpx;
+}
+.contract-v text{
+  width: 50%
+}
+.contract-v input{
+  width: 100%;
+  border: #ccc solid 1rpx; 
+}
+.contract-o{
+  width: 100%;
+  text-align: center;
+  font-weight:bold;font-size:34rpx;
+}
+.addimg{
+  display: flex;
+  flex-wrap: wrap;
+}
+.addimg-img{
+  margin-top:20rpx; 
+  margin-left: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: solid #ccc 1rpx;
+  height: 170rpx;
+  width: 200rpx;
+}
+.addimg-img image{
+  width:50%;
+  height:50%;
+}
+.addimg-imgt{
+  position: relative;
+    border: solid #ccc 1rpx;
+  height: 170rpx;
+  width: 200rpx;
+    margin-top:20rpx; 
+  margin-left: 20rpx;
+}
+.addimg-imgt .skt{
+  width: 100%;
+  height: 100%;
+}
+.del{
+  position: absolute;
+  top: -10rpx;
+  right: -10rpx;
+  width: 35rpx;
+  height: 35rpx;
+}
+.press{
+  display: flex;
+  justify-content: space-between;
+}
+.press view{
+  width: 100%;
+  border: #ccc solid 2rpx;
+  text-align: center;
+}
+picker{
+  width: 100%;
+}

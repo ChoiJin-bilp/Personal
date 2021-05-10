@@ -1,0 +1,41 @@
+<!--packageYK/pages/beverageList/beverageList.wxml-->
+<scroll-view scroll-y="true" style = "height:100%;position: relative;padding-top:0rpx;" bindscrolltolower="bindDownLoad" bindscrolltoupper="bindTopLoad" scroll-with-animation = "true">
+  <view id = "top"></view>
+  <block wx:for="{{dataArray}}" wx:for-item="articles" wx:for-index="dataArrayIndex">
+    <block wx:for="{{articles}}" wx:for-item="item" wx:key="{{item.id}}" wx:for-index="index">
+      <view class="beverage-list" data-item="{{item}}" catchtap="goDetail">
+        <view class="beverage-top">
+          <view>
+            <image src="{{SMDataURL}}/images/amy-drinkwc.png"></image>
+            <text>{{item.create_date}}</text>
+          </view>
+          <view class="dtue">订单已完成</view>
+        </view>
+        <view class="item-list" style="color:#333;font-weight:bold;">{{item.companyName}}</view>
+        <block wx:if="{{item.detail.length>0}}">
+          <view class="item-list">
+            {{item.detail[0].productName}}
+            <block wx:if="{{item.detail[0].lblnames==null}}">
+              ({{item.detail[0].attributeOne}}{{item.detail[0].attributeTwo}})</block>
+            <text>×{{item.detail[0].number}}</text>
+          </view>
+        </block>
+        
+        <view class=" beverage-bottom">
+          <view>共计{{item.detail.length}}件商品</view>
+          <view>总计：<text style="color:#ff3333;">￥{{item.amount}}</text></view>
+        </view>
+        <image class="sheed" src="{{SMDataURL}}/images/amy-sheed.png"></image>
+      </view>
+      
+    </block>
+  </block>
+
+
+  
+  <view id = "bottom"></view>
+</scroll-view>
+
+<view wx:if="{{totalDataCount <=0}}">
+  <view class="cart-no-data">没有订单哦~</view>
+</view>

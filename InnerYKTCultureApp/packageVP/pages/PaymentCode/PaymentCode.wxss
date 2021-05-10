@@ -1,0 +1,94 @@
+/* packageVP/pages/PaymentCode/PaymentCode.wxss */
+page{
+  background-color: #F6F6F6;
+  padding: 16rpx 30rpx;
+  box-sizing: border-box;
+}
+.erweima{
+  height: 1053rpx;
+background: #ffffff;
+border-radius: 20rpx;
+padding-top: 24rpx;
+}
+.ggao{
+  height: 62rpx;
+opacity: 1;
+background: #efefef;
+position: relative;
+font-size: 28rpx;
+text-align: left;
+color: #666666;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.ggao image{
+  position: absolute;
+  width: 32rpx;
+height: 30rpx;
+left: 30rpx;
+bottom: 15rpx;
+}
+.mtximg{
+  margin-top: 40rpx;
+  width: 548rpx;
+height: 120rpx;
+}
+.codenum{
+  margin-top: 14rpx;
+  margin-bottom: 60rpx;
+  text-align: center;
+}
+.erweicode{
+  margin: auto;
+  width: 380rpx;
+height: 380rpx;
+opacity: 1;
+background: #ffffff;
+border: 1rpx solid #999999;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.erweicode image{
+  width: 335rpx;
+height: 335rpx;
+} 
+.hint{
+  margin-top: 40rpx;
+  margin-bottom: 30rpx;
+  font-size: 28rpx;
+text-align: center;
+color: #999999;
+line-height: 36rpx;
+}
+.bhfui{
+  width: 100%;
+ padding: 0 30rpx;
+ box-sizing: border-box;
+}
+.bhfuiew{
+  border-top: dotted 4rpx #e5e5e5;
+margin-bottom:40rpx;
+}
+.cuyName{
+margin-top:20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 30rpx;
+color: #999999;
+line-height: 36rpx;
+padding-bottom: 20rpx;
+border-bottom: 2rpx solid #e5e5e5;
+}
+.mlpbut{
+  height: 80rpx;
+background: #3f8aec;
+border-radius: 35rpx;
+font-size: 30rpx;
+color: #ffffff;
+text-align: center;
+line-height: 80rpx;
+margin-top: 30rpx;
+}

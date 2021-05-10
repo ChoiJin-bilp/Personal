@@ -1,0 +1,34 @@
+<template name = "chainHotelList2">
+    <view class="list">
+      <block wx:for="{{dataArray}}" wx:for-item="articles" wx:for-index="dataArrayIndex" wx:key="key">
+        <block wx:for="{{articles}}" wx:for-item="item" wx:key="id" wx:for-index="index" data-index='index'>
+          <view class="showhotle" data-id="{{item.id}}" catchtap="viewDetail">
+            <block wx:if="{{item.photoList.length>0}}">
+              <image mode="aspectFill" class='hotelimage' src='{{item.photoList[0]}}' data-src='{{item.photoList[0]}}'></image>
+            </block>
+            <block wx:else>
+              <image mode="aspectFill" class='hotelimage' src='{{defaultItemImgSrc}}'></image>
+            </block>
+            <view class="navview">
+              <view class="hotelprice">￥<text>{{item.currentPrice}}</text></view>
+              <text class="hotelprice">￥<text>{{item.originalPrice}}</text></text>
+            </view>
+            <view class="navview">
+              <view class="hotelname">{{item.companyName}}</view>
+            </view>
+            <view class="navview">
+              <block wx:if="{{item.lcdistince>0}}">
+                <view class="distance ">距您直线{{item.lcdistince}}{{item.lcdunite}}  </view>
+              </block>
+              <view class="distance">{{item.city}}{{item.area}}</view>
+            </view>
+            <view class="navview {{item.lableList.length>0?'show':'hide'}}">
+              <block wx:for="{{item.lableList}}" wx:for-item="labelItem" wx:key="labelItem" wx:for-index="lableIndex" data-index='lableIndex'>
+                <text class="serve">{{labelItem}}</text>
+              </block>
+            </view>
+          </view>
+        </block>
+      </block>
+    </view>
+</template>

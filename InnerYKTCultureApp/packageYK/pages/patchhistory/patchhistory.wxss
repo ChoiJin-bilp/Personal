@@ -1,0 +1,30 @@
+/* pages/patchhistory/patchhistory.wxss */
+page{
+  background: #F6F6F6;
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+.Top{
+  padding: 20rpx 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2rpx solid #ccc;
+}
+.Tpo-z{
+font-size: 36rpx;
+font-family: PingFang SC, PingFang SC-Medium;
+color: #333333;
+  display: flex;
+  align-items: center;
+  
+}
+.Tpo-z image{
+    width: 48rpx;
+    height: 50rpx;
+    margin-right: 20rpx
+}
+.tmag{
+  width: 40rpx;
+height: 40rpx;
+}

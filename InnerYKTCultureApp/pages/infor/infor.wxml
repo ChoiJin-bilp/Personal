@@ -1,0 +1,24 @@
+<!--packageSMall/pages/infor/infor.wxml--> 
+<view class='module width100'>
+  <view class='fleft modeview' data-stype='1' data-pagename="myhotelorders" catchtap='gotoSubPage' hidden="true">
+    <image src='{{DataURL}}/images/infor-icon1.png'></image>
+    <text>订房订单</text>
+  </view>
+  <view class='fleft modeview' data-stype='2' data-pagename="myorders" bindtap='gotoSubPage'>
+    <image src='{{DataURL}}/images/infor-icon2.png'></image>
+    <text>购物订单</text>
+  </view>
+  <view class='fleft modeview' data-stype='3' data-pagename="deviceSrvOrder" catchtap='gotoSubPage'>
+    <image src='{{DataURL}}/images/amy-kneadList.png'></image>
+    <text>按摩订单</text>
+  </view>
+  <view class='fleft modeview' data-stype='3' data-pagename="beverageList" catchtap='gotoSubPage'>
+    <image src='{{DataURL}}/images/amy-beverage.png'></image>
+    <text>饮品订单</text>
+  </view>
+</view>
+<block wx:if="{{isFromSApp}}">
+  <view class="tiaozhuang" catchtap="returnMicroSiteApp">
+    <image class="upimage fright" src='{{DataURL}}/images/tiaozhuang.png'></image>返回微官网
+  </view>
+</block>

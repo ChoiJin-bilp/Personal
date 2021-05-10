@@ -1,0 +1,181 @@
+/* pages/login/login.wxss */
+page{
+  width: 100%;
+}
+.login{
+  width: 92%;
+  height: 80rpx;
+  margin: 0 auto;
+  clear: both;
+  margin-top: 40rpx;
+}
+.logo-image{
+  display: inline-block;
+  width: 400rpx;
+  height: 205rpx;
+  margin: 40rpx auto 20rpx;
+}
+.login text.fleft{
+  width: 16%;
+  height: 72rpx;
+  line-height: 70rpx;
+  margin-right: 2%;
+  color: #999;
+  font-size: 0.8rem;
+  text-align:justify;
+}
+.login text.fleft::after{
+  width: 100%;
+  display: inline-block;
+  content: '';
+}
+.all-put{
+  width: 72%;
+  padding: 0 3%;
+  height: 72rpx;
+  line-height: 70rpx;
+  color: #333;
+  font-size: 0.8rem;
+  border: solid 2rpx #e5e5e5;
+  border-radius: 16rpx;
+}
+.a-put{
+  width: 36%;
+  padding: 0 3%;
+  height: 72rpx;
+  line-height: 70rpx;
+  color: #333;
+  font-size: 0.8rem;
+  border: solid 2rpx #e5e5e5;
+  border-radius: 16rpx;
+}
+
+.card{
+  width: 30%;
+  height: 74rpx;
+  line-height: 70rpx;
+  color: #333;
+  font-size: 0.8rem;
+  border: solid 2rpx #e5e5e5;
+  border-radius: 16rpx;
+  margin-right:4%; 
+}
+
+.serve{
+  width: 92%;
+  padding: 0 4%;
+  height: 48rpx;
+  line-height: 48rpx;
+  z-index: 9999;
+  font-size: 0.8rem;
+  vertical-align: middle;
+  color: #666;
+  margin-top: 40rpx;
+  text-align: left;
+}
+.serve checkbox{
+  transform:scale(.8);
+}
+.register{
+  width: 40%;
+  height: 72rpx;
+  line-height: 70rpx;
+  font-size: 0.9rem;
+  color: white;
+  background: #0066eb;
+  border-radius: 16rpx;
+  margin-top: 30rpx;
+}
+/*服务协议弹窗*/
+.serveprotocol{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 99999;
+}
+.bgopcity{
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0.3;
+  position: absolute;
+  left: 0; top: 0;
+  z-index: 1050;
+}
+.servetext{
+  width: 90%;
+  height: 84%;
+  position: absolute;
+  left: 5%;
+  top:4%;
+  background: #f5f5f5;
+  z-index: 9999;
+  border-radius:8px;
+  color: #999;
+}
+.clearserver{
+   position: absolute;
+  right: 50%;
+  bottom: 1%;
+  width:200rpx;
+  height: 56rpx;
+  margin:0 -100rpx 0 0;
+  background: #0066eb;
+  line-height: 56rpx;
+  color: #fff;
+  font-size: 0.7rem;
+}
+.topname{
+  width: 100%;
+  height: 60rpx;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+  padding: 4px 0;
+}
+.namebox{
+  width: 100%;
+  font-size: 0.75rem;
+  text-align: justify;
+}
+.namebox:first-child{margin-bottom: 10rpx;}
+.YQrule{
+  position: absolute;
+  left: 3%;
+  top:2%;
+  width: 94%;
+  height:90%;
+  margin: 0 auto;
+  border-radius:8px; 
+  text-align: center;
+  overflow-y: scroll;
+}
+.tittext{
+  width: 100%;
+  clear: both;
+}
+.tittext text.SJ{
+  text-indent: 1em;
+}
+.yqtext{
+  width: 96%;
+  margin: 0 auto;
+  text-align: left;
+  overflow: hide;
+}
+.tittext view{
+  width:100%;
+  margin: 4px auto;
+  font-size: 0.75rem;
+  color: #666;
+}
+.tittext text{
+  display: block;
+  width: 100%;
+  margin: 4px auto;
+  font-size: 0.68rem;
+  color: #999;
+  text-align: justify;
+}

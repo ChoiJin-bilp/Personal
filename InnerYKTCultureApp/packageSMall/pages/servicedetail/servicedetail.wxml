@@ -1,0 +1,103 @@
+<!--packageSMall/pages/servicedetail/servicedetail.wxml-->
+<view class='width94'>
+  <view class="main">
+    <view class="cart-box">
+      <view class="storenumber">订单编号:{{order.orderId}}</view>
+      <view class="cart-list-one" wx:for="{{order.detail}}" wx:key="id" wx:for-item="item" wx:for-index="itemindex">
+        <view class="ashopname" catchtap="">
+          <image src="{{item.companyLogo}}"></image>
+          <!-- <image class="fright" src="{{DataURL}}/images/unfold.png"></image> -->
+          <text>{{item.companyName}}</text>
+          <view>{{item.LevelName}}</view>
+          <!-- <image class="fright" src="{{DataURL}}/images/unfold.png"></image> -->
+        </view>
+        <view class="astoredetails">
+          <image class="cart-thumb-one" mode="scaleToFill" src="{{item.detailPhotos}}" data-index="{{index}}" data-itemindex="{{itemindex}}" catchtap=""></image>
+          <view class='cart-infor-one'>
+            <text class="cart-pro-name">{{item.productName}}</text>
+            <view class='cart-norms'>{{item.attributeOne +' '+ item.attributeTwo}}</view>
+            <view class='cart-moeny-one'>
+              <view class='cart-pro-price-one'>
+                <text wx:if="{{order.linkNo == 1}}">{{item.price}} 积分</text>
+                <text wx:else>￥{{item.price}}</text>
+              </view>
+              <view class="cart-count-box-one">
+                <text>x{{item.number}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class='width100 orderdetails'>
+        <view class="total fleft">
+          <text>合计：</text>￥{{order.amount}}</view>
+      </view>
+      <view class="reason" wx:for="{{service.data}}" wx:key="key">
+        <view class="section">
+          <view class="section__title">售后类型：</view>
+          <view class="section__reason cor-3">{{array[item.mold]}}</view>
+        </view>
+        <view class="section">
+          <view class="section__title">售后状态：</view>
+          <view wx:if="{{item.status==0}}" class="section__reason cor-p">申请中</view>
+          <view wx:elif="{{item.status==1}}" class="section__reason cor-p">已同意</view>
+          <view wx:elif="{{item.status==2}}" class="section__reason cor-p">已拒绝</view>
+          <view wx:else class="section__reason cor-p">已拒绝</view>
+        </view>
+        <view class="section">
+          <view class="section__title">申请时间：</view>
+          <view class="section__reason cor-3">{{item.create_date}}</view>
+        </view>
+        <view class="section">
+          <view class="section__title">问题描述</view>
+          <view class="section__reason1 cor-3">{{item.description}}</view>
+        </view>
+        <view class="section">
+          <view class="section__title" style="width:100%">附件图片：</view>
+          <view class='width100 otherimg' wx:for="{{item.photoArray}}" wx:key="key" wx:for-item="itemPhoto">
+            <image mode='aspectFill' class='firstimg' src='{{itemPhoto}}'></image>
+          </view>
+        </view>
+        <view class="section">
+          <view class="section__title">商家回复：</view>
+          <view wx:if="{{item.sellerRemarks!=null}}" class="section__reason1 cor-p">{{item.sellerRemarks}}</view>
+        </view>
+        <!-- <view class="section">
+          <view class="section__title">审核状态：</view>
+          <view class="section__reason1 cor-p"></view>
+        </view>
+        <view class="section">
+          <view class="section__title">拒绝原因：</view>
+          <view class="section__reason1 cor-p"></view>
+        </view> -->
+      </view>
+      <view wx:if="{{service.data[service.data.length-1].status==3}}" class="submit">
+        <button catchtap="reapplyService">重新申请</button>
+      </view>
+      <view class="submit">
+        <button hidden="{{!admin}}" catchtap="showchangeinfor">拒 绝</button>
+        <button hidden="{{!admin}}" data-type="1" catchtap="sureService">同意并退款</button>
+        <!-- <button catchtap="">继续退款</button>
+        <button catchtap="">删除</button> -->
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 拒绝退款弹出窗 -->
+<view class="userule" wx:if="{{changeinfor}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="recordbox">
+    <text class='tilte'>拒绝原因</text>
+    <view class="reason">
+      <!-- 点击输入框显示 textarea -->
+      <textarea wx:if="{{!showRemarkTeLabel}}" placeholder="请输入拒绝原因（100字以内）" maxlength="100" bindinput="inputReason" value='{{sellerRemarks}}'></textarea>
+      <!-- 输入框焦点失去显示 text -->
+      <text wx:if="{{showRemarkTeLabel}}"></text>
+    </view>
+    <view class='guidancepop-btn'>
+      <button catchtap="hidechangeinfor">取消</button>
+      <button data-type="2" catchtap='sureService'>确定</button>
+    </view>
+  </view>
+</view>

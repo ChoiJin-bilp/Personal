@@ -1,0 +1,275 @@
+/* pages/Gammon/Gammon.wxss */
+.Gammon{
+  padding: 20rpx;
+  box-sizing: border-box;
+  padding-bottom: 40rpx;
+}
+input{
+  border-radius:10rpx; 
+}
+.Gammon-input{
+  display: flex;
+  font-size: 30rpx;
+  margin-top: 20rpx;
+  align-items: center;
+}
+.Gammon-i-i{
+  width: 75%;
+  padding: 5rpx 20rpx;
+  border: #ccc solid 1rpx;
+}
+.Gammon-input text{
+    width: 20%;
+    color: #999;
+}
+.addimg{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  box-sizing: border-box;
+}
+.addimg-img{
+  margin-top:20rpx; 
+  margin-left: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: solid #ccc 1rpx;
+  height: 170rpx;
+  width: 200rpx;
+}
+.addimg-img image{
+  width:50%;
+  height:50%;
+}
+.addimg-imgt{
+  position: relative;
+    border: solid #ccc 1rpx;
+  height: 170rpx;
+  width: 200rpx;
+    margin-top:20rpx; 
+  margin-left: 30rpx;
+}
+.addimg-imgt .skt{
+  width: 100%;
+  height: 100%;
+}
+.del{
+  position: absolute;
+  top: -10rpx;
+  right: -10rpx;
+  width: 35rpx;
+  height: 35rpx;
+}
+.room{
+  font-size: 30rpx;
+  color: #999;
+  margin: 30rpx 0;
+}
+.room-o{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+
+}
+.introduc{
+  display: flex;
+  width: 45%;
+  align-items: center;
+  margin-top: 20rpx;
+}
+.introduc input{
+  font-size: 28rpx;
+  color: #000;
+  border: #Ccc solid 1rpx;
+  padding: 10rpx;
+  width: 100%;
+  margin-left: 20rpx;
+}
+.introduc image{
+  width: 60rpx;
+  height: 45rpx;
+}
+.Gammon-state{
+  display: flex;
+  font-size: 30rpx;
+  margin-top: 20rpx;
+}
+.Gammon-state-o{
+  width: 20%;
+  color: #999;
+}
+.choice{
+  margin: 0 30rpx;
+  display: flex;
+  height:46rpx; 
+  justify-content: center;
+  align-items: center;
+}
+.diot{
+  margin: 0 10rpx;
+  width: 30rpx;
+  height: 30rpx;
+  border: #ccc solid 1rpx;
+  position: relative;
+  border-radius:50%; 
+}
+.all{
+  border: #0065EB solid 1rpx;
+}
+.all::after{
+  content: "";
+  position: absolute;
+  background: #0065EB;
+  top: 50%;
+  left: 50%;
+  width: 15rpx;
+  height: 15rpx;
+  border-radius:50%; 
+  transform: translateX(-50%) translateY(-50%);
+}
+.font-sized{
+  margin-top: 20rpx;
+  display: flex;
+  white-space: nowrap;
+  align-items: center;
+  font-size: 32rpx;
+}
+.cd{
+  margin: 0;
+  transform: scale(0.6,0.6);
+}
+.but-an{
+  width: 100%;
+  height: 120rpx;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.but-shape{
+  border: #60A1FF solid 2rpx;
+  border-radius: 40rpx;
+  text-align: center;
+  line-height: 60rpx;
+  color: #60A1FF;
+  width: 250rpx;
+  height: 60rpx;
+}
+.fix{
+  bottom: 0;
+  background: white;
+  width: 100%;
+  z-index: 100;
+  border-top:#ccc solid 1rpx; 
+}
+.fix-o{
+  display: flex;
+  justify-content: center;
+  flex-direction: column; 
+  align-items: center;
+}
+.fix-x{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+/* 未选中的 背景样式 */
+checkbox .wx-checkbox-input{
+   border-radius: 50%;/* 圆角 */
+   width: 44rpx; /* 背景的宽 */
+   height: 44rpx; /* 背景的高 */
+}
+/* 选中后的 背景样式 （红色背景 无边框 可根据UI需求自己修改） */
+checkbox .wx-checkbox-input.wx-checkbox-input-checked{
+   border: solid 2rpx #09bb07;
+   background: #09bb07;
+}
+/* 选中后的 对勾样式 （白色对勾 可根据UI需求自己修改） */
+checkbox .wx-checkbox-input.wx-checkbox-input-checked::before{
+   border-radius: 50%;/* 圆角 */
+   width: 60rpx;/* 选中后对勾大小，不要超过背景的尺寸 */
+   height: 60rpx;/* 选中后对勾大小，不要超过背景的尺寸 */
+   line-height: 60rpx;
+   text-align: center;
+   font-size:28rpx; /* 对勾大小 30rpx */
+   color:#fff; /* 对勾颜色 白色 */
+   background: transparent;
+   transform:translate(-50%, -50%) scale(1);
+   -webkit-transform:translate(-50%, -50%) scale(1);
+}
+.but-shape:hover{
+  background: #ccc;
+}
+.upload{
+  width: 100%;
+  padding-bottom: 10rpx;
+  clear: both;
+}
+.scrollimg{
+  width: 100%;
+  height: 160rpx;
+  border-radius: 16rpx;
+}
+.delimg{
+  width: 36rpx;
+  height: 36rpx;
+  position: absolute;
+  right: -18rpx;
+  top: -18rpx;
+  padding: 10rpx;
+  z-index: 99;
+}
+/* 图片上传 */
+.firstimg{
+  width: 210rpx;
+  height: 160rpx;
+  border-radius: 16rpx;
+  background: #e9e9e9;
+  position: relative;
+  float: left;
+  margin-bottom: 20rpx;
+  margin-right: 20rpx;
+}
+.addimg1{
+  width: 60rpx;
+  height: 60rpx;
+  position: absolute;
+  left: 50%;top: 50%;
+  margin: -30rpx -30rpx;
+}
+.section{
+  width: 75%;
+  height: 60rpx;
+  overflow: hidden;
+}
+.picker{
+  width:100%;
+  height: 60rpx;
+  line-height: 60rpx;
+  float: right;
+  border: solid 1px #e5e5e5;
+  font-size: 26rpx;
+  padding:0 40rpx 0 10rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+  box-sizing: border-box;
+  border-radius: 16rpx;
+}
+.xiala{
+  width: 28rpx;
+  height: 16rpx;
+  position: absolute;
+  right:10rpx;
+  top: 22rpx;
+}
+.dragon{
+  position: fixed;
+  z-index: 555;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}

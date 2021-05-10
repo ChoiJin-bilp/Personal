@@ -1,0 +1,112 @@
+<!--pages/chainhoteldetail/chainhoteldetail.wxml-->
+<!-- 返回上一页 -->
+<image class="looktg" src="{{DataURL}}/images/looktg.png" catchtap="gotoBackPage"></image>
+<view class="width100 banner {{companyData.photos.length>0?'show':'hide'}}">
+  <swiper indicator-dots="{{indicatorDot}}" autoplay="{{autoplays}}" interval="{{intervals}}" duration="{{durations}}">
+    <block wx:for="{{companyData.photos}}">
+      <swiper-item>
+        <image mode="widthfix" class="img_toplist{{index}} slide-image" src="{{item.isShow? item.src+'?'+randomNum : ''}}" data-src='{{item.src}}' catchtap="viewImg"/>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+
+<view class="navview">
+  <view class="hotelname">{{companyData.cName}}</view>
+</view>
+<view class="Information">
+  <text class="text1">{{companyData.openTime}}</text>
+  <text class="text1">{{companyData.numRoom}}间客房</text>
+  <text class="text1">{{companyData.numFloor}}层 </text>
+</view>
+<view class="navview">
+  <view class="hoteladd"><image src="{{DataURL}}/images/roomlocation.png"></image>{{companyData.cAddr}}</view>
+</view>
+<view class="navview">
+  <view class="distance">距您直线{{companyData.lcdistince}}{{companyData.lcdunite}}  </view>
+  <view class="distance">{{companyData.city}}{{companyData.area}}</view>
+</view>
+<view class="lineview">
+  <view class="fleft" catchtap="gotoHotelDetail">
+    <image src="{{DataURL}}/images/hoteicon4.png"></image>
+    酒店详情
+  </view>
+  <view class="fleft" catchtap="callTelephone">
+    <image src="{{DataURL}}/images/hoteicon3.png"></image>
+    酒店电话
+  </view>
+  <view class="fleft" catchtap='navigateToHere'>
+    <image src="{{DataURL}}/images/hoteicon5.png"></image>
+    地图导航
+  </view>
+  <!-- <view class="fleft">
+    <image src="{{DataURL}}/images/hoteicon6.png"></image>
+    打车
+  </view> -->
+</view>
+<!-- 如果为酒店售房模式则显示入住时段 -->
+<block wx:if="{{roomSellType==0}}">
+  <view class="width100 selection">
+    <view class="fleft" data-tag="0" catchtap="chooseDateTime">
+      <view class="viewname">入住</view>
+      <view class="viewdate">{{dtShortCheckInStart}}</view>
+    </view>
+    <view class="fleft" data-tag="0" catchtap="chooseDateTime">
+      <view class="viewname">离店</view>
+      <view class="viewdate">{{dtShortCheckInEnd}}</view>
+    </view>
+    <view class="fright">
+      共<text>{{checkInDays}}</text>晚
+    </view>
+  </view>
+</block>
+
+<scroll-view class="width100" style = "height:92%;position: relative;padding-top:10rpx;" scroll-y="true" bindscrolltolower="bindDownLoad" bindscrolltoupper="bindTopLoad" scroll-with-animation = "true">
+  <view id = "top"></view>
+    <view class="list">
+      <view class='list-half'>
+        <block wx:for="{{dataArray}}" wx:for-item="articles" wx:for-index="dataArrayIndex" wx:key="key">
+          <block wx:for="{{articles}}" wx:for-item="item" wx:key="id" wx:for-index="index" data-index='index' wx:if='{{(index%2)==0}}'>
+            <view class='card' data-id="{{item.pid}}" catchtap="viewProductDetail">
+              <image mode="aspectFill" src="{{item.photos+'?'+randomNum }}"></image>
+              <!-- 价格罗列 -->
+              <view class="shoppaycost {{item.isShowPrice2?'show':'hide'}}">
+                <view class='sellingcost'>原价 ¥<text>{{item.sourcePrice}}</text></view>
+              </view>
+              <view class="shoppay {{item.isShowPrice2?'show':'hide'}}">
+                <view class='selling'>{{item.discountType==0?'特惠':'套装'}}价 ¥<text>{{item.discountPrice}}</text></view>
+              </view>
+              <view class="shoppay {{!item.isShowPrice2?'show':'hide'}}">
+                <view class='selling'>¥<text>{{item.sourcePrice}}</text></view>
+              </view>
+              <!-- <view class="breakfast">包含早餐</view> -->
+              <view class="productName">{{item.productName}}</view>
+            </view>
+          </block>
+        </block>
+      </view>
+
+      <view class='list-half'>
+        <block wx:for="{{dataArray}}" wx:for-item="articles" wx:for-index="dataArrayIndex" wx:key="key">
+          <block wx:for="{{articles}}" wx:for-item="item" wx:key="id" wx:for-index="index" data-index='index' wx:if='{{(index%2)==1}}'>
+            <view class='card' data-id="{{item.pid}}" catchtap="viewProductDetail">
+              <image mode="scaleToFill" src="{{item.photos+'?'+randomNum }}"></image>
+              <!-- 价格罗列 -->
+              <view class="shoppaycost {{item.isShowPrice2?'show':'hide'}}">
+                <view class='sellingcost'>原价 ¥<text>{{item.sourcePrice}}</text></view>
+              </view>
+              <view class="shoppay {{item.isShowPrice2?'show':'hide'}}">
+                <view class='selling'>{{item.discountType==0?'特惠':'套装'}}价 ¥<text>{{item.discountPrice}}</text></view>
+              </view>
+              <view class="shoppay {{!item.isShowPrice2?'show':'hide'}}">
+                <view class='selling'>¥<text>{{item.sourcePrice}}</text></view>
+              </view>
+              <!-- <view class="breakfast">包含早餐</view> -->
+              <view class="productName">{{item.productName}}</view>
+            </view>
+          </block>
+        </block>
+      </view>
+    </view>
+  <view id = "bottom"></view>
+</scroll-view>

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "房源发布",
+  "usingComponents": {
+    "mylist-c": "/components/protocol/protocol"
+  }
+}

@@ -1,0 +1,60 @@
+/* pages/operation/operation.wxss */
+page{
+  background: #E7E7E7;
+  font-weight: bold; 
+}
+.speed{
+  border-radius:10rpx;
+  height: 230rpx; 
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+.body-view{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  box-sizing: border-box;
+  color: #3399FF;
+  font-weight: bold;
+}
+slider{
+  width: 70%;
+  box-sizing: border-box;
+}
+.edou{
+  width: 18%;
+  font-weight: bold;
+}
+.speed-bottom{
+  display: flex;
+  justify-content: space-between;
+}
+.bt-o{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 25%;
+}
+.bt-o image{
+  width:31rpx;height:30rpx;
+  scale: 1.2;
+}
+.bt-t{
+  display: flex;
+  justify-content: space-between;
+  width: 40%;
+}
+.bt-t view{
+  width: 120rpx;
+  border:#999 solid 2rpx;
+  border-radius: 10rpx;
+  color: #333;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  background: #fff;
+}
+.title{
+  width: 80rpx;
+}

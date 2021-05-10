@@ -1,0 +1,379 @@
+<!--pages/alittle/alittle.wxml-->
+<view style='width:0px;height:0px;overflow:hidden;'>
+  <canvas type="2d" canvas-id="imgCompressCanvas" style="width: {{icImgWidth}}px; height: {{icImgHeight}}px;"></canvas>
+</view>
+<v-folat id="myComponent" />
+<view class="width100">
+  <v-cheirapsisAlert id="chsAlert" pageName="luckdraw" />
+</view>
+<view class="opyunkeTop">
+  <!--轮播图-->
+  <swiper class="swiper plotyuqe" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}"
+    duration="{{duration}}">
+    <swiper-item>
+      <view class="swiperimage">
+        <image mode="aspectFill" src="{{SMDataURL}}/images/xiejiaoba_banner_1.png?{{randomNum}}" class="slide-image" />
+      </view>
+    </swiper-item>
+  </swiper>
+  <!--Top标题-->
+  <view class="titlederss">
+    <view class="tracetitle2">
+      <view class="mlerty">海岸城店
+        <view style="height:50rpx;margin-top:-26rpx;margin-left:80rpx;">
+        <view class="iconxy">
+          <image class="weui-iconxy " src="{{SMDataURL}}/images/greenscan.jpg" data-pagetype="0" data-package="" data-page="scanCode" catchtap="gotoCommonPage"></image>
+        </view>
+      </view>
+      </view>
+      <view style="display:flex;  align-items: center;">
+
+        <view class="pat-t">
+          <!-- 0点餐 1外卖 -->
+          <view style="left:0;" data-num="0" class="sbye {{pagetype==0? 'colortype':''}}" catchtap="isHottype">堂食</view>
+          <view style="right:0;" data-num="1" class="sbye {{pagetype==1? 'colortype':''}}" catchtap="isHottype">外卖
+          </view>
+          <!-- <view class="pat-s-g {{pagetype==0? 'cost':''}}"></view> -->
+        </view>
+        
+        <!-- 扫码按摩器后显示 -->
+        <block wx:if="{{agentDeviceId>0 || !isFilterCheirapsis}}">
+          <view class="messmeny" data-pagetype="0" data-package="packageVP" data-page="MywantMassage" catchtap="gotoCommonPage">我要按摩</view>
+        </block>
+      </view>
+    </view>
+    <!-- <view class="notice">
+    <text>公告：</text>买饮品送按摩券,详情请见订购须知。</view> -->
+  </view>
+</view>
+
+<view class="mainContent">
+  <scroll-view scroll-y class="sortlist" catchtouchmove="{{false}}">
+    <block wx:for="{{selProcuctTypeList}}" wx:key="key">
+      <block wx:if="{{synCouponId>0}}">
+        <block wx:if="{{item.id==0}}">
+          <view class="{{index == selProductTypeIndex ? 'listpitch':''}}" bindtap="selectCatalog"
+            data-index="{{index}}">
+            {{item.name}}</view>
+        </block>
+      </block>
+      <block wx:else>
+        <view class="{{index == selProductTypeIndex ? 'listpitch':''}}" bindtap="selectCatalog" data-index="{{index}}">
+          {{item.name}}</view>
+      </block>
+    </block>
+  </scroll-view>
+  <view class="drinkitem" style="{{reptype?'padding-bottom: 300rpx;':''}}">
+    <!-- <view class="tracetitle">{{selProcuctTypeList[selProductTypeIndex].name}}</view> -->
+    <!-- 非拼团商品列表 -->
+    <block wx:if="{{gwNum==0}}">
+      <view class="tea" wx:for="{{dataArray}}" wx:key="key" wx:for-item="item" wx:for-index="index"
+        catchtap="{{item.mold==9 || synCouponId>0?'onchangedetailType':'viewProductDetail'}}" data-index="{{index}}">
+        <view class="tea-image">
+          <image class="milktea" mode="aspectFill" src="{{item.photo}}"></image>
+          <view class="tally" hidden="true">热卖</view>
+        </view>
+        <view class="tea-item">
+          <view class="teaname">{{item.productName}}</view>
+          <view class="teaintroduce">{{item.remark}}</view>
+          <view class="teaprice">￥{{item.showprice}}</view>
+          <view class="count" hidden="{{item.mold!=9}}">
+            <block wx:if="{{item.num >0}}">
+              <view class="adelnum" catchtap="changeCut" data-index="{{index}}"></view>
+              <view class="ufo">{{item.num}}</view>
+            </block>
+            <block wx:else>
+              <view></view>
+            </block>
+            <view class="addnum" catchtap="addProcuctnum" data-index="{{index}}"></view>
+          </view>
+          <view class="count" wx:if="{{item.mold != 9&&item.groupmold==8}}">
+            <image class="iconpin" src="{{SMDataURL}}/images/iconpin.png"></image>
+          </view>
+        </view>
+      </view>
+      <view class="tea" style="min-height:{{(5-dataArray.length)*150}}rpx"  wx:if="{{dataArray.length<5}}"></view>
+    </block>
+    <!-- 拼团商品列表 -->
+    <block wx:else>
+      <view class="tea" wx:for="{{dataArray}}" wx:key="key" wx:for-item="item" wx:for-index="index"
+        catchtap="viewGWProductDetail" data-index="{{index}}">
+        <view class="tea-image">
+          <image mode="aspectFill" class="milktea" mode="aspectFill" src="{{item.photo}}"></image>
+        </view>
+        <view class="tea-item">
+          <view class="teaname">{{item.name}}</view>
+          <view class="teaintroduce">{{item.remark}}</view>
+          <view class="teaprice">￥{{item.spellGroupPrice}}</view>
+        </view>
+      </view>
+    </block>
+
+  </view>
+</view>
+<view class="tomcar" hidden="{{shoppingCartCnt==0}}"
+  style="{{hiddenType||ImageyulanType?'z-index:19':''}} {{reptype?'bottom: 11%;':''}}">
+  <view class="caricon">
+    <view class="cariconab">
+      <!-- 购物车图标 -->
+      <block wx:if="{{shoppingCartCnt>0}}">
+        <view class="cariconre selectback" catchtap="onChagejudgment">
+          <image src="{{SMDataURL}}/images/shopping0.png"></image>
+          <view class="thingnum">{{shoppingCartCnt}}</view>
+        </view>
+      </block>
+      <block wx:else>
+        <view class="cariconre ">
+          <image src="{{SMDataURL}}/images/shopping.png"></image>
+        </view>
+      </block>
+    </view>
+  </view>
+  <view class="close">
+    <view class="close-price">总计
+      <text>￥{{shoppingCartAmount}}</text>
+      <view wx:if="{{pagetype==1}}" hidden="true" style="font-size: 24rpx;">单笔满60元,免费配送</view>
+    </view>
+    <block wx:if="{{shoppingCartCnt>0}}">
+      <view class="close-botton" catchtap="gotoPage">去结算</view>
+    </block>
+    <block wx:elif='{{shoppingCartCnt==0}}'>
+      <view class="close-botton">去结算</view>
+    </block>
+    <block wx:else>
+      <view class="close-botton">休息中</view>
+    </block>
+  </view>
+</view>
+<!--弹窗阴影-->
+<block wx:if="{{(shoppingCartCnt>0&&judgment)||detailType||chilType}}">
+  <view class="windowBackgroud" catchtouchmove="{{false}}" catchtap="emptyType"></view>
+</block>
+
+
+<!---购物车列表弹窗-->
+<view hidden="{{shoppingCartCnt==0}}" class="windowitem {{judgment?'':'windowout'}}" style="{{reptype?'padding-bottom: 160rpx;':''}}">
+  <view class="milktop" id="milktop">
+    <view>已选商品</view>
+    <view class="milktop-Second" catchtap="clearShopCar">
+      <image src="{{SMDataURL}}/images/amy-alittledrinkdel.png"></image>清空
+    </view>
+  </view>
+  <scroll-view scroll-y="true" class="sroll" id="sroll" catchtouchmove="{{false}}">
+    <view class="itemdetil" wx:for="{{shopCarList}}" wx:key="key">
+      <view class="detilcont">
+        <view>{{item.productName}}</view>
+        <view>已选：{{item.showLabels}}</view>
+      </view>
+      <view class="detilprice">
+        <text>￥</text>{{item.amount}}
+      </view>
+      <view class="totalNum">
+        <!-- 如果为组合劵选择商品购买（仅允许购买一种商品，一个数量）则不允许增减操作 -->
+        <block wx:if="{{synCouponId>0}}">
+          <view class="ufo">{{item.num}}</view>
+        </block>
+        <block wx:else>
+          <view class="adelnum" data-tag="1" data-index="{{index}}" catchtap="changeDrinkNum"></view>
+          <view class="ufo">{{item.num}}</view>
+          <view class="addnum" data-tag="0" data-index="{{index}}" catchtap="changeDrinkNum"></view>
+        </block>
+
+      </view>
+    </view>
+  </scroll-view>
+</view>
+
+<!--饮品介绍弹窗-->
+<view class="commoditydetail {{detailType?'commoditydetailout':''}} ">
+  <scroll-view catchtouchmove="{{false}}" scroll-y="true" style="max-height:1040rpx;position:relative;">
+    <swiper class="swiper" indicator-dots="{{true}}" autoplay="{{autoplay}}" interval="{{interval}}"
+      duration="{{duration}}">
+      <swiper-item wx:for="{{dataArray[selectProductIndex].dPhotos}}" wx:key="key">
+        <view class="swiperimage">
+          <image src="{{item}}" class="slide-image" />
+        </view>
+      </swiper-item>
+    </swiper>
+    <view class="commod">
+      <view class="commodityName">{{dataArray[selectProductIndex].productName}}</view>
+      <view class="hendusk">
+        <view class="henduskprice">￥
+          <text>{{dataArray[selectProductIndex].showprice}}</text>
+        </view>
+        <view class="countt" style="bottom:0;">
+          <block wx:if="{{dataArray[selectProductIndex].num >0}}">
+            <view class="adelnum" catchtap="changeCut" data-index="{{selectProductIndex}}"></view>
+            <view class="ufo">{{dataArray[selectProductIndex].num}}</view>
+          </block>
+          <block wx:else>
+            <view></view>
+          </block>
+          <view class="addnum" catchtap="addProcuctnum" data-index="{{selectProductIndex}}"></view>
+        </view>
+      </view>
+      <text class="taste">{{dataArray[selectProductIndex].remark}}</text>
+    </view>
+    <view class="podelete">
+      <view class="delete" catchtap="onchangedetailType"></view>
+    </view>
+  </scroll-view>
+</view>
+
+<!--选择杯型/冰度/糖度/配料弹窗-->
+<view class="burdening {{chilType?'burdeningout':''}} {{reptype&&chilType?'burdeningout2':''}}" style="{{hiddenType||ImageyulanType?'z-index:19':''}}">
+  <view style="position: relative;">
+    <view class="ningOne">
+      <image src="{{dataArray[selectProductIndex].photo}}">
+      </image>
+      <view class="Onejieshao">
+        <view>{{dataArray[selectProductIndex].productName}}</view>
+        <view>{{dataArray[selectProductIndex].showSelectLabels}}</view>
+        <view>￥
+          <text>{{dataArray[selectProductIndex].sumprice}}</text>
+        </view>
+      </view>
+    </view>
+    <scroll-view scroll-y="true" class="secondSelect" catchtouchmove="{{false}}">
+      <block wx:for="{{dataArray[selectProductIndex].detail}}" wx:for-item="item" wx:for-index="index" wx:key="key">
+        <!-- 判断是否是打印图案的商品 -->
+        <block wx:if="{{dataArray[selectProductIndex].photoType==2 && index==1}}">
+          <view class="typeTitle">图案定制</view>
+          <view class="selectCup">
+            <view class="Cup-list" style="{{PotoType?'height: auto;':''}}">
+              <view class="Cup-z" wx:for="{{printImgList}}" wx:key='key' wx:for-item="imageitem"
+                wx:for-index="imageindex" catchtap="selectCustomizeImg" data-index="{{imageindex}}">
+                <view class="{{selectCustomizeImgIndex==imageindex?'Cup-text selectSucces':'Cup-text'}}">
+                  {{imageitem.name}}</view>
+                <image data-tag="0" data-index="{{imageindex}}" catchtap="chType" src="{{imageitem.path}}"></image>
+              </view>
+            </view>
+            <view class="bster" catchtap="btmest">
+              {{PotoType?'收起':'更多图案'}}
+            </view>
+            <!--自定义图案-->
+            <block wx:if="{{true}}">
+              <view class="{{selectCustomizeImgIndex<0?'seucces2 selectSucces':'seucces2 '}}"
+              catchtap="selectCustomizeImg" data-index="-1">自定义图案
+              <text>￥{{customizeImgPrice}}</text>
+              <text class="buskl">（会员可免费打印）</text>
+            </view>
+            <view class="bnkol">
+              <view class="bnkol-z">
+                <view class="potueimg" data-tag="1" data-index="-1" catchtap="{{selectCustomizeImgIndex<0 ?'chType':''}}">
+                  <block wx:if="{{selectCustomizeImgIndex>=0}}">
+                    <image src="{{SMDataURL}}/images/mulist.png"></image>
+                    <view class="topComponent2"></view>
+                  </block>
+                  <block wx:else>
+                    <image src="{{selCustomizedImgUrl}}"></image>
+                  </block>
+                </view>
+                <view class='bttbshy' data-type="0" catchtap="uploadImg">选择上传</view>
+              </view>
+            </view>
+            </block>
+            <!-- <view style="width:100%;font-size:24rpx;color:#333;">免费打印次数：1</view> -->
+          </view>
+        </block>
+        <view class="typeTitle" style="{{index==1?'margin-top:10rpx;':''}}">{{item.attributeOne}}</view>
+        <view class="selectCup">
+          <block wx:for="{{item.labels}}" wx:for-item="labelitem" wx:for-index="labelindex" wx:key="id">
+            <view class="seucces {{labelitem.checked? 'selectSucces':''}}"
+              catchtap="{{labelitem.available>0?'selectProductLabels':''}}" data-index="{{index}}"
+              data-labelindex="{{labelindex}}">{{labelitem.lblname}}
+              <text wx:if="{{labelitem.lblsingle==0}}">￥{{labelitem.lblprice}}</text>
+              <!-- 无货 -->
+              <view wx:if="{{labelitem.available==0}}" class="pomilk"></view>
+            </view>
+          </block>
+        </view>
+      </block>
+
+    </scroll-view>
+    <view class="butTure" catchtap="selectOK">选好了</view>
+    <view class="poete">
+      <view class="ete" catchtap="changechilType"></view>
+    </view>
+  </view>
+</view>
+
+<!--编辑图片弹窗-->
+<view class="editAimage" wx:if="{{false}}">
+  <view style="position: relative;">
+    <view class="mlitt" style="margin-top:40rpx">
+      <view style="text-indent: 0rem;">注：</view>
+      <view>图片上传大小控制在30mm*50mm最佳。</view>
+      <view>上传图片后可以拖动图片位置区域进行简单调整.</view>
+      <view>最多可以输入20个字符</view>
+    </view>
+    <view class="editAimagetitle">
+      编辑
+    </view>
+    <view class="mlitt" style="width: 440rpx;">
+      <image class="miu" src="{{SMDataURL}}/images/mulist.png"></image>
+      <view>
+        <movable-area class="movearea" id="area">
+          <view style="position: relative;">
+            <image catchtap="Touptch" wx:if="{{imagedddType}}" class="noemse" src="{{SMDataURL}}/images/amy-kaobei.png">
+            </image>
+            <movable-view wx:if="{{!imagedddType}}" id="areaimage" style="{{buuunum==2? 'z-index: 15;':''}}"
+              bind:touchstart="changeball" bind:touchend="changeba" data-tag="0" class="movearea-image" direction="all"
+              x="{{imagerollX}}" y="{{imagerollY}}">
+              <image mode="scaleToFill" src="{{imagePath}}" style="transform: translateX(-8px);"></image>
+            </movable-view>
+            <movable-view bind:touchstart="changeball" style="{{buuunum==1? 'z-index: 15;':''}}" id="areainput"
+              class="movearea-input" direction="all" bind:touchend="changeba" data-tag="1" x="{{inputrollX}}"
+              y="{{inputrollY}}">
+              <textarea value="{{money}}" style="text-indent: 0rem;" maxlength="{{20}}"
+                placeholder="这里最多可以显示二十个字符，不信你数数。" bindinput="changeinpoy"> </textarea>
+            </movable-view>
+          </view>
+        </movable-area>
+      </view>
+    </view>
+    <view class="renbt" catchtap="formSubmit">
+      确定
+    </view>
+  </view>
+</view>
+<!--生成图片cavas-->
+<view class="canvas-box">
+  <canvas id="canvas" style="width:408px;height: 231px; " canvas-id="mycanvas" />
+</view>
+<!--预览图片-->
+<view class="Imageyulan" wx:if="{{ImageyulanType}}">
+  <view style="position: relative;">
+    <view class="bmsktitle">预览</view>
+    <view class="mlistdusk">
+      <image class="sss1" src="{{SMDataURL}}/images/mulist.png"></image>
+      <view class="topComponent">
+        <image class="sss2" src="{{selectCustomizeImgIndex>=0?printImgList[selectCustomizeImgIndex].path:selCustomizedImgUrl}}">
+        </image>
+      </view>
+    </view>
+    <image class="mlxc6" data-tag="1" catchtap="chType" src="{{SMDataURL}}/images/cleardel.png"></image>
+  </view>
+</view>
+
+<!--编辑图片弹窗     新-->
+<view class="Imageyulan" wx:if="{{hiddenType}}" style="transform: translate(-50%,46%);">
+  <view style="position: relative;">
+    <view class="bmsktitle">预览</view>
+    <view class="mlistdusk">
+      <image class="sss1" src="{{SMDataURL}}/images/mulist.png"></image>
+      <view class="topComponent">
+        <view class="topComponent-z" style="position: relative;">
+          <image catchtap="Touptch" wx:if="{{imagedddType}}" class="noemse" src="{{SMDataURL}}/images/amy-kaobei.png">
+          </image>
+          <image catchtap="Touptch" wx:if="{{!imagedddType}}" class="noemse2" src="{{imagePath}}">
+          </image>
+        </view>
+      </view>
+    </view>              
+    <image class="mlxc6" data-tag="1" catchtap="chType2" src="{{SMDataURL}}/images/cleardel.png"></image>
+    <view class="renbt">
+      确定
+    </view>
+  </view>
+</view>

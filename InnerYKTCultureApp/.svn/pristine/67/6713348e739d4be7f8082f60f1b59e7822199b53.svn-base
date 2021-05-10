@@ -1,0 +1,207 @@
+<!--pages/articleinfo/articleinfo.wxml-->
+<import src="../../../pages/template/authorizationPop.wxml"/>
+<!-- 注册授权弹窗 -->
+<template is = "authorizationPop" data='{{isShowAuthor:isShowAuthor,sysName:sysName,sysLogoUrl:sysLogoUrl}}'/>
+
+<input disabled='{{disabled}}' class="title-article" minlength="0" maxlength="{{max_filename}}" placeholder='{{contents}}' placeholder-style='color:#999;' data-cid='currbname' bindinput="changeSPFileDataInfo" value='{{curRBFName}}' cursor-spacing="10"/>
+<block wx:for="{{rbImgArray}}" wx:for-item="item" wx:for-index="index">
+  <view class="fsave-btn {{disabled?'hide':'show'}}">
+    <button class='savecard' data-index='{{index}}' bindtap='editArticleContent'>编辑段落</button>
+  </view>
+  <view class="pop-box0" >
+    <view class='BZ-box'>
+      <text style='width:100%;text-align:left;display:inline-block' space="nbsp">{{item.content}}</text>
+    </view>
+  </view>
+  <view class="articleimage {{item.isUploadSingle?'show':'hide'}}">
+    <image mode="widthFix" src="{{item.imgSrc}}" data-src='{{item.imgSrc}}' catchtap="viewImg"></image>
+  </view>
+</block>
+
+<view wx:if="{{scene!=1 && scene!=2}}" class='save-btn'>
+  <button class="savecard" style="width:32%;{{disabled?'display:none':'display: inline-block'}}" bindtap='showAddArticle'>增加段落</button>
+  <button class='savecard' bindtap="{{disabled?'editArticleInfo':'submitArticleInfo'}}">{{disabled?'编辑':'保存'}}</button>
+  <button class='savecard' bindtap='returnBack'>返回</button>
+</view>
+<view wx:if="{{scene==2}}" class='save-btn'>
+  <button  class='savecard' bindtap='showsave'>发送</button>
+</view>
+
+<!-- 段落编辑 -->
+<view class="userule" wx:if="{{showaddarticle}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="textrule0 borderpop">
+    <view class="pop-box0" >
+      <view class='BZ-box'>
+        <textarea maxlength='-1' placeholder="请输入文章内容" data-cid='currbcontent' bindinput="changeSPFileDataInfo"  value='{{tmpContentData.content}}' cursor-spacing="10"></textarea>
+      </view>
+      
+    </view>
+    <view class="default">
+      <text>图片上传</text>
+      <view class="pop-save">
+        <view class="upload-image upload-image1">
+          <image mode='aspectFit' class="photo" src='{{tmpContentData.imgSrc}}' data-src='{{tmpContentData.imgSrc}}' data-type="0" catchtap="{{tmpContentData.isUploadSingle?'viewImg':'uploadImg'}}"></image>
+          <image class="delete1 {{disabled?'hide':(tmpContentData.isUploadSingle?'show':'hide')}}" src='{{DataURL}}/images/image-del.png' data-index='{{index}}' catchtap='delrbImgList'></image>
+        </view>
+        
+        <view class="change-image {{tmpContentData.isUploadSingle?'show':'hide'}}" data-type="0" catchtap="uploadImg">更换图片></view>
+      </view>
+
+    </view>
+
+    <view class="width100 pop-foot-bz" style='clear:both'>
+      <button class="btn-enable {{disabled?'hide':'show'}}" bindtap="cancelAddArticle">取消</button>
+      <button class="btn-enable {{disabled?'hide':'show'}}" data-index='{{selPBIndex}}' bindtap="sureAddArticle">确定</button>
+    </view>
+  </view>
+</view>
+
+<view class='cardredback' >
+  <view  class='Findredback' wx:if="{{showReceiveRedEnvel}}">
+    <image src="{{DataURL}}/images/getredback.png" catchtap='clickReceivingTips'></image>
+    <view wx:if='{{!redEnvelReceiveStat}}' class='clickinfor' catchtap='clickReceivingTips'>点击领取</view>
+    <view wx:if='{{redEnvelReceiveStat}}' class='clickinfor' catchtap='clickReceivingTips'>您已领过红包</view>
+  </view>
+  <view class='card-my' wx:if="{{scene==1 || scene==2}}">
+    <view class="card-img" catchtap='checkCardDetil'>
+      <image class='card-bg-img' src="{{userData.picture}}" ></image>
+      <view class='infor-name'>
+        <view class="card-name">{{userData.contact}}</view>
+        <view class="card-job">{{userData.job}}</view>
+        <view class="card-store">{{userData.company}}</view>
+      </view>
+    </view>
+    <view class='clickinfor1' catchtap='checkCardDetil'>点击进入名片</view>
+  </view>
+</view>
+
+<view wx:if="{{scene==1}}"  class="save-btn">
+<button wx:if="{{scene==1}}" class="savecard" catchtap='JumpPage'>进入主页</button>
+</view>
+
+<view class="userule" wx:if="{{showRedEnvelPop}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class='redbackok'>
+    <!-- 已领取状态 -->
+    <view class='hb-succeed'  wx:if="{{successfulRedEnvel}}">
+      <image class='bgimageshongbao' src='{{DataURL}}/images/redback-BG.png'></image>
+      <view class='redbackmuchs'>
+        <text class='moneynub'>￥</text>
+        <text class='iconmoney'>{{cardRedInfo.getMoney}}</text>
+      </view>
+      <view class='redbacktipss'>您已成功领取现金红包</view>
+      <view class='redbackgets'>可在“我的零钱”提现</view>
+    </view>
+
+    <!-- 其他状态 -->
+    <view class='hb-number' wx:if="{{!successfulRedEnvel}}">
+      <image class='bgimagesredback' src='{{DataURL}}/images/hb-top.png'></image>
+     <block wx:if='{{redInfoCode == 0}}'>
+      <view  class='redbackmuch'>发现一个红包！</view>
+      <image class='redbackbtn' src='{{DataURL}}/images/hb-btn.png' bindtap='requestReceiveRedEnvel'></image>
+    </block>
+      <view wx:if='{{redInfoCode == 1}}' class='redbackmuch'>红包已被领完！</view>
+      <view wx:if='{{redInfoCode == 3}}' class='redbackmuch'>红包已过期，不可领取！</view>
+    </view>
+    
+    <view wx:if="{{!receivingRecords}}" class='openrecord' bindtap='showReceivingRecords'>查看红包领取记录 ></view>
+    <view wx:if="{{receivingRecords}}">
+    <view class='closerecord' >
+      <text class='fleft'>领取记录(<text>{{cardRedInfo.expendNumber}}/{{cardRedInfo.totalNumber}}个</text> {{cardRedInfo.expendMoney}}/{{cardRedInfo.totalMoney}}元)</text>
+      <text class='fright' bindtap='clickReceivingRecords'>收起</text>
+    </view>
+    <scroll-view scroll-y class="pop-record" style="{{recordnum > 5 ? 'height:500rpx' : ''}}">
+      <view wx:if="{{cardRedInfo.data.length == 0}}" class='unclaimed'>无</view>
+      <block wx:if="{{cardRedInfo.data.length > 0}}" wx:for="{{cardRedInfo.data}}" wx:for-index="index" wx:key="id">
+        <view class="userinfor">
+           <image wx:if='{{item.headerImg}}' class='fleft userimage' src='{{item.headerImg}}'></image>
+          <image wx:if='{{!item.headerImg}}' class='fleft userimage' src='{{DataURL}}/images/head.jpg'></image>
+          <view class='usename fleft'>
+            <view wx:if='{{item.contact}}' class='username'>{{item.contact}}</view>
+             <text wx:if='{{!item.contact}}' class='username'>未注册用户</text>
+            <view class='usertime'>{{item.createTime}}</view>
+          </view>
+          <view class='usermeony fright'>{{item.getMoney}}</view>
+        </view>
+      </block>
+    </scroll-view>
+    </view>
+    <view style='width: 100%;height:20rpx;'></view> 
+    <view class='del-images'>
+      <image class='delrecord' src='{{DataURL}}/images/del-pop.png' bindtap='closeReceiveRedEnvel'></image>
+    </view>
+  </view>
+</view>
+
+<view class="userule" wx:if="{{showModalsave}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="save-image borderpop">
+    <view class="boxhongbao">
+      <text class='save-title'>主标题文字</text>
+      <view  class="pop-save">
+        <input wx:if="{{showSendImg}}" class="save-text" placeholder='{{userData.contact}}的名片' placeholder-style="font-size:0.8rem;color:#999" value='{{shareTitle}}'  bindinput="changeWXSSAlert" cursor-spacing="10" maxlength='30'></input>
+        <input wx:if="{{!showSendImg}}" class="save-text" placeholder="{{selectedArticles.name ?selectedArticles.name : userData.contact + '的名片' }}" value='{{shareTitle}}' placeholder-style="font-size:0.8rem;color:#999"  bindinput="changeWXSSAlert" cursor-spacing="10"></input>
+      </view>
+      <view class='save-title'>
+        <radio-group class="radio-group" bindchange="radioChange">
+          <label class="radio" >
+            <radio  checked="{{showSendImg}}" />
+            发送图片
+          </label>
+          <label class="radio" >
+            <radio  checked="{{!showSendImg}}" />
+            发送文章
+          </label>
+        </radio-group>
+      </view>
+      <!-- 发送图片 -->
+      <view class="pop-saveimg" wx:if="{{showSendImg}}">
+        <image mode='aspectFit' class="mr-image1 fleft" src='{{shareWXImg}}' data-src='{{shareWXImg}}' catchtap="viewImg"></image>
+        <view class="change-image fleft" data-type="2" catchtap="uploadImage">更换图片></view>
+      </view>
+      <!-- 发送文章 -->
+      <scroll-view scroll-y class="pop-text" wx:if="{{!showSendImg}}">
+        <view wx:if="{{!showMyArticleList}}" class='no-text'>您还没有准备好文章，请到“传输助手—我的文章”里创建文章</view>
+        <block wx:if="{{showMyArticleList}}" wx:for="{{myArticleList}}" wx:for-index="index" wx:key="id">
+          <view class="chose-maytext" data-index="{{index}}" catchtap="choseText" style="{{item.check ?' border:2rpx solid #0066eb; ':'border:2rpx solid #e5e5e5;'}}">
+            {{item.name}}
+          </view>
+        </block>
+      </scroll-view>
+      <view class="reply">
+        <view class="othername" data-cid='clientother' data-cid='qpother' data-item='{{showOtherItems}}' bindtap="onChangeShowItemDetailState">
+          <text>发红包</text>
+        </view>
+      </view>
+      
+      <view wx:if="{{showOtherItems}}" class="otherbox">
+        <view class='put-redback' style='margin-top: 20rpx;'>
+          <input type='digit' value='{{redEnvelPrice}}'  placeholder='请输入红包金额' bindblur='getRedEnvelPriceEnd' bindinput='getRedEnvelPrice'  placeholder-style='color: #999;font-size: 0.8rem;' />元
+        </view>
+        <view class='put-redback'>
+          <input type='number' value='{{redEnvelNum}}'  placeholder='请输入红包个数'  bindinput='getRedEnvelNum'  placeholder-style='color: #999;font-size: 0.8rem;' />个
+        </view>
+         <view wx:if='{{showRechargeTips}}' catchtap="payment" class='Please-topup'>您的零钱还差{{rechargeMoney}}元，<text>请充值</text></view>
+      <view wx:if="{{redEnvelNum > 0 &&( redEnvelPrice == 0 || redEnvelPrice == '' ) }}" class='Please-topup'>请输入红包金额</view>
+      <view wx:if="{{redEnvelPrice > 0 &&( redEnvelNum == 0 || redEnvelNum == '' ) }}" class='Please-topup'>请输入红包数量</view>
+      <view wx:if="{{priceLimitationTips && redEnvelPrice > 0 && redEnvelNum > 0 }}" class='Please-topup'>每人收到红包最少0.01元</view>
+        <radio-group class="radio-group" bindchange="radioChange2">
+          <label class="radio">
+            <radio  checked="{{showReceiveType}}" />
+            随机领取
+          </label>
+          <label class="radio">
+            <radio  checked="{{!showReceiveType}}" />
+            平均领取
+          </label>
+        </radio-group>
+        <view wx:if='{{!sharedisabled && redEnvelNum > 0 && redEnvelPrice > 0}}'  class="redbacktips1">请点击“确定”分享给好友，如确定后未发红包，红包金额将在24小时内退回到“我的零钱”里并可提现。</view>
+      </view> 
+    </view>
+    <view class='width100 btn-operation' style='position: absolute;left: 0;bottom: 0; background: #fff; height:100rpx;'>
+      <button catchtap='hidesave'>取消</button>
+      <button disabled='{{sharedisabled}}' open-type='share'>确定</button>
+    </view>
+  </view>
+</view>

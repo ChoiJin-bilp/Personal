@@ -1,0 +1,119 @@
+/* pages/hotelintroduce/hotelintroduce.wxss */
+page{
+  width: 100%;
+  background: #f6f6f6;
+}
+
+swiper {
+  width: 100%;
+  height: 264rpx;
+  border-radius: 20rpx;
+  overflow: hidden;
+}
+.slide-image{
+  width: 100%;
+  height: 264rpx;
+}
+.banner{
+  margin: 0 auto;
+}
+
+
+.introduce{
+  width: 94%;
+  background: white;
+  border-radius: 12rpx;
+  margin: 20rpx 3%;
+}
+.introduceimg{
+  width: 96%;
+  margin-left: 2%;
+  margin-top: 20rpx;
+  border-radius: 12rpx;
+}
+
+.introducetext{
+  display: inline-block;
+  width: 100%;
+  padding: 20rpx 2%;
+  box-sizing: border-box;
+  font-size: 30rpx;
+  color: #333;
+  text-align: justify;
+  line-height: 48rpx;
+}
+.cellme{
+  width: 100%;
+  padding: 0 2%;
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 40rpx;
+}
+.cellme text{
+  display: inline-block;
+  font-size: 30rpx;
+  color: #333;
+  line-height: 48rpx;
+}
+.moredetails{
+  width: 100%;
+
+}
+.more-input{
+  width: 100%;
+  /* height: 76rpx; */
+  clear: both;
+  padding: 0 4%;
+  line-height: 76rpx;
+  border-top: solid 2rpx #f5f5f5;
+}
+.more-input2{
+  width: 92%;
+  clear: both;
+  padding: 0 4%;
+  line-height: 76rpx;
+  border-top: solid 2rpx #f5f5f5;
+}
+.more-input1{
+  width: 92%;
+  clear: both;
+  padding: 0 4%;
+  line-height: 76rpx;
+  border-top: solid 2rpx #f5f5f5;
+}
+.more-input:first-child{
+  border-top: none;
+}
+.more-input-type{
+  width: 15%;
+  text-align: left;
+  font-size:30rpx;
+  color: #2e2e2e;
+}
+.more-input-infor{
+  width: 85%;
+  text-align: left;
+  font-size:30rpx;
+  color: #2e2e2e;
+  white-space: nowrap;
+  overflow: hidden;
+  height: 76rpx;
+  line-height: 76rpx;
+}
+.more-input-type2{
+  width: 15%;
+  text-align: left;
+  font-size:30rpx;
+  color: #2e2e2e;
+}
+.more-input-infor2{
+  text-align: left;
+  font-size:30rpx;
+  color: #2e2e2e;
+  min-height: 40rpx;
+  padding: 19rpx 0;
+  line-height:38rpx;
+}
+.more-input-infor2 text{
+  display: inline-block;
+}

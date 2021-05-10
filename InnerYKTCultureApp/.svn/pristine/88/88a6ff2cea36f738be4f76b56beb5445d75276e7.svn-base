@@ -1,0 +1,33 @@
+<!--packageOther/pages/fxorder/fxorder.wxml-->
+
+<view class="FX-rank">
+  <!-- 搜索栏 -->
+  <view class="add-phone">
+    <input class="search" placeholder-style='color:#ccc; font-size:28rpx;' placeholder="请输入商品名称" value="{{smKey}}" data-cid='smkey' bindinput="changeValueData" cursor-spacing="10" />
+    <image src="{{DataURL}}/images/search.png" catchtap='queryDistribute'></image>
+  </view>
+  <view class="ranktype">
+    <text>时段</text>
+    <picker bindchange="bindPickerChange" value="{{index}}" range="{{time}}" range-key="name">
+      <view class="picker">选择{{time[index].name}}</view>
+      <image class="xiala" src="{{DataURL}}/images/xiala.png"></image>
+    </picker>
+  </view>
+</view>
+<scroll-view class="main" scroll-y="true" style="height:100%;position: relative;padding-top:0rpx;" bindscrolltolower="bindDownLoad" bindscrolltoupper="bindTopLoad" scroll-with-animation="true">
+  <block wx:for="{{array}}" wx:key="key">
+    <view class="chose-txt" data-id="{{index}}">
+      <view class='fx-name'>{{item.productName}}</view>
+      <view class='fx-brokerage'>
+        <view class="fx-dian"></view>佣金¥
+        <text>{{item.bonus}}</text>
+      </view>
+      <view class='fx-people'>
+        <view class="fx-dian"></view>{{item.ordercontact}}
+        <text>{{item.mobile}}</text>
+      </view>
+      <view class='fx-time'>
+        <view class="fx-dian"></view>{{item.create_date}}</view>
+    </view>
+  </block>
+</scroll-view>

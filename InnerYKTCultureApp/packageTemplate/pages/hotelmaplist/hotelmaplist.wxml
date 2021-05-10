@@ -1,0 +1,46 @@
+<!--packageTemplate/pages/hotelmaplist/hotelmaplist.wxml-->
+<view class="changeview" style="height:100%;" >
+  <view class="width100 filtermenu">
+    <!-- <picker class="relative" data-tag="0" bindchange="bindConPickerChange" value="{{scIndex}}" range="{{conDataSortList}}" range-key="name">
+      <view class="picker">
+        {{conDataSortList[scIndex].name}}
+        <image class="xiala" data-index='{{index}}' src='{{DataURL}}/images/xiala.png'></image>
+      </view>
+    </picker> -->
+    <!-- <picker class="relative" data-tag="1" bindchange="bindConPickerChange" value="{{dcIndex}}" range="{{conDataDistanceList}}" range-key="name">
+      <view class="picker">
+        {{conDataDistanceList[dcIndex].name}}
+        <image class="xiala" data-index='{{index}}' src='{{DataURL}}/images/xiala.png' catchtap=''></image>
+      </view>
+    </picker> -->
+    
+    <view class="cityview relative" catchtap="showSelAreaPop">
+      {{selCity}}{{selCounty}}
+      <image class="xiala" data-index='{{index}}' src='{{DataURL}}/images/xiala.png'></image>
+    </view>
+    <button class="fright" catchtap="gotoHotelListPage">酒店列表</button>
+  </view>
+
+  <view class="width100">
+    <map class='map' id='mpCompany' longitude="{{selAreaLocation.longitude}}" latitude="{{selAreaLocation.latitude}}" scale="{{mapScale}}" markers="{{hotelMarkers}}" bindmarkertap="viewMapDetail" style="width:100%;height:100vh"></map>
+  </view>
+</view>
+
+
+<!-- 地图订房 -->
+<view class="userule" wx:if="{{isShowMapHotelInfoPop}}" catchtouchmove="true">
+  <view class="bgopcity" catchtap="hideShowMapHotelInfoPop"></view>
+  <view class="hotelinformation" data-id="{{selMarkerItem.id}}" catchtap="viewDetail">
+    <block wx:if="{{selMarkerItem.photoList.length>0}}">
+      <image mode="scaleToFill" class='fleft' src='{{selMarkerItem.photoList[0]}}' data-src='{{selMarkerItem.photoList[0]}}'></image>
+    </block>
+    <view class="fright">
+      <view class="name">{{selMarkerItem.companyName}}</view>
+      <block wx:if="{{selMarkerItem.lcdistince>0}}">
+        <view class="place">距您直线{{selMarkerItem.lcdistince}}{{selMarkerItem.lcdunite}}</view>
+      </block>
+      <view class="place">{{selMarkerItem.address}}</view>
+      <view class="price"><text>￥{{selMarkerItem.currentPrice}}</text>起</view>
+    </view>
+  </view>
+</view>

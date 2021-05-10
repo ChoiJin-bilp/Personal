@@ -1,0 +1,75 @@
+<!--pages/chainhotel/chainhotel.wxml-->
+<import src="../../wxParse/wxParse.wxml" />
+<import src="../../pages/template/chainHotelList.wxml"/>
+<!-- <view class='comp-name{{logoBGColorIndex}} tac'>
+  <image mode='aspectFit' style="width:{{indexLogoWidth}}rpx;" src='{{companyData.cLogoUrl}}'></image>{{companyData.cName}}
+</view> -->
+<view class='comp-name tac'>
+  <view><image mode='aspectFit' src='{{companyData.cLogoUrl}}'></image></view>{{companyData.cName}}
+</view>
+<view class="width100">
+<button catchtap="gotoLuckDraw">进入抽奖界面</button>
+</view>
+<!-- 轮播图片 -->
+<view class="width94 banner {{imgUrlsCnt>0?'show':'hide'}}">
+  <swiper class="swiper" indicator-dots="{{indicatorDot}}" autoplay="{{autoplays}}" interval="{{intervals}}" duration="{{durations}}">
+    <block wx:for="{{imgUrls}}" wx:for-item="item" wx:for-index="index" wx:key="item">
+      <swiper-item>
+        <image mode='aspectFill' src="{{item.isShow? item.src+'?'+randomNum : ''}}" class="slide-image tbannerimg{{index}}" width="345" height="180" data-url='{{item.url}}' data-src='{{item.src}}' catchtap="viewImg"/>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+<view class="Information">
+  <view class="view1">
+    酒店集团客服电话: <text>{{companyData.cPhone}}</text>
+    <image src="{{DataURL}}/images/hoteicon3.png" catchtap="callTelephone"></image>
+  </view>
+</view>
+<view class="footmenu">
+  <view  class='box_list {{curTabIdx == index ? "tabBorer" : ""}}' wx:for="{{tabListInfo}}"  data-current="{{index}}" wx:key="this" bindtap="chooseTabPage">
+      <image class="box-image" hidden='{{curTabIdx===index}}' src="{{item.imgUrl}}"></image>
+      <image class="box-image" hidden='{{curTabIdx!==index}}' src="{{item.curUrl}}"></image>
+      <text class="box-text">{{item.title}}</text>
+  </view>
+  <view class="maproom" catchtap="gotoMapHotelReservation"><image src="{{DataURL}}/images/roomlocation.png"></image>地图订房</view>
+</view>
+<!-- 切换页面 -->
+<view class="changeview {{curTabIdx==0?'show':'hide'}}">
+  <view class="width100 describeview {{showView?'showtext':'hidetext'}}">
+    <template is="wxParse" data="{{wxParseData:cSummary.nodes}}"/>
+  </view>
+  <!-- 如果协议只显示部分，则显示“查看更多”按钮 -->
+  <view class="checkmore" bindtap="checkmore">{{showView?'收起':'查看全部'}}</view>
+  <!-- 轮播图片 -->
+  <view class="width100 banner1 {{middleADImgUrls.length>0?'show':'hide'}}" style="margin-top：20rpx;">
+    <swiper class="swiper1" indicator-dots="{{indicatorDot}}" autoplay="{{autoplays}}" interval="{{intervals}}" duration="{{durations}}">
+      <block wx:for="{{middleADImgUrls}}" wx:for-item="item" wx:for-index="index" wx:key="item">
+        <swiper-item>
+          <image mode='aspectFill' src="{{item.isShow? item.src+'?'+randomNum : ''}}" class="slide-image1 tbannerimg{{index}}" data-url='{{item.url}}' data-src='{{item.src}}' catchtap="viewImg"/>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+</view>
+
+<view class="changeview {{curTabIdx==1?'show':'hide'}}" >
+  <!-- 如果为酒店售房模式则显示入住时段 -->
+  <block wx:if="{{roomSellType==0}}">
+    <view class="width100 selection">
+      <view class="fleft" data-tag="0" catchtap="chooseDateTime">
+        <view class="viewname">入住</view>
+        <view class="viewdate">{{dtShortCheckInStart}}</view>
+      </view>
+      <view class="fleft" data-tag="0" catchtap="chooseDateTime">
+        <view class="viewname">离店</view>
+        <view class="viewdate">{{dtShortCheckInEnd}}</view>
+      </view>
+      <view class="fright">
+        共<text>{{checkInDays}}</text>晚
+      </view>
+    </view>
+  </block>
+  
+  <template is = "chainHotelList" data='{{dataArray:dataArray,articles:articles,DataURL:DataURL}}'/>
+</view>

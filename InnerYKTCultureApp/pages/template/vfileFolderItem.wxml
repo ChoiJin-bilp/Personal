@@ -1,0 +1,56 @@
+<template name = "vfFolderItem">
+<view class="box-item" style="{{selFolderIndex==findex && isPFShowList?'height:84%':''}}">
+  <view class="{{selFolderIndex==findex && isPFShowList?'all-item2':'all-item'}} {{selFolderIndex!=findex && isPFShowList?'hide':'show'}}">
+    <view class="selectall fleft">
+      <image class='fleft' src="{{DataURL}}/images/file.png"></image>
+    </view>
+    <view class="fright name-item" data-item='{{fitem}}' data-index="{{findex}}" catchtap="onChangeFolderDetailList">
+      <text class="fleft {{selFolderIndex==findex && !isPFReadOnly?'hide':'show'}}" style="color:#000;font-weight:bold;">{{fitem.folderName2}}</text>
+      <input class="fleft {{selFolderIndex==findex && !isPFReadOnly?'show':'hide'}}" value='{{selFolderName}}' bindinput='changeValuePFData' catchtap='eventNone' />
+      <!-- 保存 -->
+      <image class="fleft {{selFolderIndex==findex && !isPFReadOnly && isManageRole?'show':'hide'}}" src='{{DataURL}}/images/save.png' data-item='{{fitem}}' data-index="{{findex}}" catchtap="onChangeFolderSave" ></image>
+      <!-- 编辑 -->
+      <image class="fleft {{fitem.folderId<=0 || selFolderIndex==findex && !isPFReadOnly?'hide':(isManageRole?'show':'hide')}}" src='{{DataURL}}/images/edit.png' data-item='{{fitem}}' data-index="{{findex}}" catchtap="onChangeFolderEdit"></image>
+      <!-- 删除 -->
+      <image class="fleft {{fitem.folderId<=0 || selFolderIndex==findex && !isPFReadOnly?'hide':(isManageRole?'show':'hide')}}" src='{{DataURL}}/images/clear.png' data-item='{{fitem}}' data-index="{{findex}}" catchtap="onChangeFolderDel" ></image>
+      <!-- 新增本地图片 -->
+      <image class="{{fitem.folderId<0?'addimage1':'addimage'}} {{isManageRole?'show':'hide'}}" src="{{DataURL}}/images/{{fitem.folderId<0?'edit2.png':'addimage.png'}}" data-item='{{fitem}}' data-index="{{findex}}" catchtap='addLocalFile'></image>
+      <image class="fright {{selFolderIndex==findex && isPFShowList?'hide':'show'}}" src='{{DataURL}}/images/show-list.png'></image>
+      <image class="fright {{selFolderIndex==findex && isPFShowList?'show':'hide'}}" src='{{DataURL}}/images/hide-list.png'></image>
+       <text class='fright cp-num'><text>{{fitem.listCnt}}</text></text>
+    </view>
+  </view>
+  <view class="more-row {{selFolderIndex==findex && isPFShowList?'show':'hide'}}" style='height:100%;margin-top:50rpx;'>
+    <scroll-view class='folderdlist' scroll-y="true" bindscrolltolower="bindDownLoad" bindscrolltoupper="bindTopLoad" scroll-with-animation = "true">
+      <view id = "top"></view>
+        <block wx:for="{{dataArray}}" wx:for-item="articles" wx:for-index="dataArrayIndex">
+          <block wx:for="{{articles}}" wx:for-item="item" wx:key="{{item.id}}" wx:for-index="index">
+            <view class="width94 offer-box">
+              <!-- <view class="choose1 {{fitem.folderId==-1?'hide':'show'}}">
+                <icon wx:if="{{item.selected}}" data-type="success_circle" type="success_circle" size="20" bindtap="bindFileCheckbox" data-dataArrayIndex='{{dataArrayIndex}}' data-item='{{item}}' data-index="{{index}}" color="#0066eb"/>
+                <icon wx:else data-type="circle" type="circle" size="20" bindtap="bindFileCheckbox" data-dataarrayindex='{{dataArrayIndex}}' data-item='{{item}}' data-index="{{index}}"/>
+              </view> -->
+              <view class='fleft num-list'>{{item.sortNo}}</view>
+              <view class="fleft content0" data-id="{{item.id}}" data-item='{{item}}' data-src='{{item.fileUrl}}' catchtap="{{item.fileType=='1'?'viewImg':(item.fileType=='2'?'viewVFArticle':'viewAccessory')}}">
+                <text class='text-hide'>{{item.fileName}}</text>
+              </view>
+              
+              <!-- 普通文件的删除 -->
+              <view class="fright delfile {{isManageRole && fitem.folderId>=0?'show':'hide'}}">
+                <image src='{{DataURL}}/images/clear.png' data-item='{{item}}' catchtap="onVFileDel" ></image>
+              </view>
+              <!-- 我的文章删除和编辑 -->
+              <view class="fright delfile0 {{isManageRole && fitem.folderId==-1?'show':'hide'}}">
+                <image src='{{DataURL}}/images/edit.png' data-id="{{item.id}}" data-item='{{item}}' catchtap="viewVFArticle" ></image>
+                <image src='{{DataURL}}/images/clear.png' style='margin-left:20rpx;' data-item='{{item}}' catchtap="onVFileDel" ></image>
+              </view>
+            </view>
+          </block>
+        </block>
+
+      <view id = "bottom"></view>
+    </scroll-view>
+    <view class='clearfix'></view>
+  </view>
+</view>
+</template>

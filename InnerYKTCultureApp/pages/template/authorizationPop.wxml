@@ -1,0 +1,15 @@
+<template name = "authorizationPop">
+<view class="userule" wx:if="{{isShowAuthor && !showguidance}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="authorization tac" style="width:92%">
+   <view class='title-top'>微信授权</view>
+    <view class="poptextnav"><image src="{{sysLogoUrl}}"></image>{{sysName}}申请获取以下权限:</view>
+    <view class="popviewnav"><text></text>获得你的公开信息(昵称、头像等)</view>
+    <view class="width100 pop-foot-sq">
+      <button bindtap="cancelRegAuthorization">拒绝</button>
+      <button open-type='getUserInfo' bindgetuserinfo='getAuthorizeUserInfo'>允许</button>
+    </view>
+  </view>
+  <view class="clearfix"></view>
+</view>
+</template>

@@ -1,0 +1,255 @@
+/* pages/perfect/perfect.wxss */
+page{
+  padding-bottom:100rpx; 
+}
+.show{
+  display: block;
+}
+.hide{
+  display: none;
+}
+.perfect-list{
+  width: 94%;
+  margin: 0 auto;
+  clear: both;
+  margin-top: 10rpx;
+  line-height: 52rpx;
+  padding-bottom: 10rpx;
+}
+.perfect-list text{
+  width: 20%;
+  margin-right: 3%;
+  font-size: 0.8rem;
+  color: #666;
+  font-weight:500;
+  height: 54rpx;
+  text-align: justify;
+}
+.perfect-list text::after{
+  width: 100%;
+  display: inline-block;
+  content: '';
+}
+.perfect-list input{
+  width: 77%;
+  color: #333;
+  font-size: 0.8rem;
+  border-bottom: solid 2rpx #f5f5f5;
+}
+.introduction{
+  width:96%;
+  color: #333;
+  line-height: 40rpx;
+  min-height: 60rpx;
+  padding: 10rpx 2%;
+  font-size: 0.8rem;
+  border: solid 2rpx #e5e5e5;
+  border-radius: 16rpx;
+  overflow: hidden;
+} 
+.save{
+  position: fixed;
+  width: 100%;
+  height: 100rpx;
+  left: 0;
+  bottom: 0;
+  background: #fff;
+  text-align: center;
+}
+.btn-foot{
+  display: inline-block;
+  border: solid 2rpx #0066e9;
+  box-sizing: border-box;
+  padding:0 60rpx; 
+  margin-left: 8%;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  color: #0066e9;
+  margin-top: 20rpx;
+  border-radius:80rpx;
+  font-size: 0.75rem; 
+}
+.btn-foot:first-child{
+  margin-left: 0;
+}
+.btn-enable{
+  color: #0066eb;
+  border: solid 2rpx #0066eb;
+}
+.btn-disable{
+  color: #999;
+  border: solid 2rpx #999;
+}
+.bgwhite{
+  background: #fff;
+  color: #666;
+  border: solid 2rpx #999;
+  box-sizing: border-box;
+}
+.bgblue{
+  background: #0066eb;
+  color: #fff;
+  border: solid 2rpx #0066eb;
+  box-sizing: border-box;
+}
+
+
+.required{
+  display: block;
+  width: 40rpx;
+  height: 40rpx;
+  margin-left: 0rpx;
+  float: left;
+  color: red!important;
+}
+.title-name{
+width: 96%;
+height: 80rpx;
+line-height: 80rpx;
+padding: 0 2%;
+font-size: 0.9rem;font-weight: bold; 
+border-bottom: solid 2rpx #f5f5f5;
+}
+
+.up-image{
+  float: left;
+  width: 160rpx;
+  height: 120rpx;
+  border: solid 2rpx #f5f5f5;
+  border-radius: 8rpx;
+  margin-top: 10rpx;
+}
+/* .up-image image{
+  width: 100%;
+  height: 100%;
+} */
+
+.row{
+    flex: 1;
+    display: flex;
+    width: 76%;
+    height:100%;
+    margin: 0 5%;
+    overflow: hidden;  
+}
+.row .text{
+    flex: 1;
+    width: 96%;
+    height: 240rpx;
+    font-size: 0.8rem;
+    line-height: 22px;
+    color: #333;
+    border: solid 2rpx #f5f5f5;
+    border-radius: 16rpx;
+    padding: 12rpx 2%;
+}
+/*checkbox 选项框大小  */
+.checkbox-box{
+  width: 92%;
+  padding:0 4%; 
+  font-size: 0.8rem;
+  line-height: 40rpx;
+  color: #666;
+  margin-top: 20rpx;
+  margin-bottom: 40rpx;
+}
+checkbox .wx-checkbox-input {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+.add-image{
+  margin-top: 20rpx;
+}
+.image-box{
+  float: left;
+  width: 160rpx;
+  height: 120rpx;
+  border-radius: 8rpx;
+  position: relative;
+}
+/* .image-box-company{
+  float: left;
+  width: 70%;
+  background: red;
+} */
+.photo,.add-image{
+  float: left;
+  display: block;
+  position: absolute;
+  width: 160rpx;
+  height: 120rpx;
+  left: 0;
+  top: -20rpx;
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+.del-img{
+  width: 36rpx;
+  height: 36rpx;
+  position: absolute;
+  right: -18rpx;
+  top: -18rpx;
+}
+.btn-foot1{
+  height: 60rpx;
+  line-height: 56rpx;
+  font-size: 0.75rem;
+  box-sizing: border-box;
+  border-radius: 60rpx;
+  background: #fff;
+  text-align: center;
+  width: 28%;
+  margin-left:0 auto;
+}
+
+.image-box-comp{
+  display: block;
+  float: left;
+  width: 200rpx;
+  height: 140rpx;
+  border-radius: 8rpx;
+  position: relative;
+  margin-right: 30rpx;
+  margin-bottom: 20rpx;
+}
+.add-image-comp{
+  float: left;
+  width: 160rpx;
+  height: 120rpx;
+  margin-top: 20rpx;
+}
+.photo{
+  position: absolute;
+  width: 200rpx;
+  height: 140rpx;
+  left: 0;
+  top: 0;
+  /* border: solid 2rpx #f5f5f5; */
+  border-radius: 8rpx;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.del-img{
+  width: 36rpx;
+  height: 36rpx;
+  position: absolute;
+  right: -18rpx;
+  top: -18rpx;
+}
+.other-input-image{
+  clear: both;
+  width: 100%;
+  margin: 0 auto;
+}
+.comp-image{
+  width: 100%;
+}
+.section{
+  float: right;
+  width: 77%;
+  color: #333;
+  font-size: 0.8rem;
+  border-bottom: solid 2rpx #f5f5f5;
+}

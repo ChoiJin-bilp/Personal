@@ -1,0 +1,117 @@
+/* packageYK/pages/deviceBindQRCode/deviceBindQRCode.wxss */
+page{
+  background: #f2f2f2;
+  height: 100%;
+}
+.deviceCode{
+  padding: 20rpx;
+  box-sizing: border-box;
+  font-size: 30rpx;
+}
+.deviceCode-o{
+  background: #ffff;
+  padding: 30rpx 20rpx;
+  border-radius: 10rpx;
+  box-sizing: border-box;
+}
+.de-o{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.de-o image{
+  width: 60rpx;
+  height: 54rpx;
+  /* scale: 0.9; */
+}
+.de-o input{
+  width: 57%;
+  height: 60rpx;
+  border: #ccc solid 2rpx;
+  padding: 0 20rpx;
+  border-radius:5rpx; 
+  font-size: 28rpx;
+}
+.de-t{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30rpx;
+}
+.de-t image{
+  width: 60rpx;
+  height: 54rpx;
+  /* scale: 0.9; */
+}
+.de-t input{
+  width: 57%;
+  height: 60rpx;
+  border: #ccc solid 2rpx;
+  padding: 0 20rpx;
+  border-radius:5rpx; 
+  font-size: 28rpx;
+}
+.de-s{
+  width: 228rpx;
+  line-height: 58rpx;
+  color: #2F81FF;
+  border: #2F81FF solid 2rpx;
+  text-align: center;
+  border-radius: 50rpx;
+  margin: 0 auto;
+  margin-top: 40rpx;
+}
+.deviceCode-t{
+  background: #fff;
+  padding: 20rpx;
+  padding-top:30rpx; 
+  box-sizing: border-box;
+  border-radius: 10rpx;
+  margin-top: 30rpx;
+}
+.Code-t{
+  display: flex;
+  justify-content: space-between;
+}
+.Code-t-o{
+  display: flex;
+  justify-content: space-between;
+}
+.Code-t-o text{
+  white-space: nowrap;
+}
+.Code-t-o text:nth-of-type(1){
+  color:#999;
+}
+.Code-t-o text:nth-of-type(2){
+  color: #333;
+  margin-left:30rpx; 
+}
+.de-w{
+  width: 130rpx;
+  height: 42rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50rpx;
+  border: #2F81FF solid 2rpx;
+  color: #2F81FF;
+}
+.deviceCode-t .Code-t:nth-of-type(2){
+  margin-top: 20rpx;
+}
+.succse{
+  color: #4DBB11;
+}
+.tit{
+  margin-top: 30rpx;
+  color: #666666;
+  margin-bottom: 10rpx;
+}
+.del{
+  color: #FF3333;
+}
+.delcs{
+  border: #999 solid 2rpx;
+  color: #999;
+}

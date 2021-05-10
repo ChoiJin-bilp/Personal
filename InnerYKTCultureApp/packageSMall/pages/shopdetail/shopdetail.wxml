@@ -1,0 +1,110 @@
+<!--pages/shopdetail/shopdetail.wxml-->
+<view class="yesshop {{isHideTop?'hide':'show'}}">
+  <view class="store-name" wx:if="{{!isMaster}}">
+    <image mode="aspectFit" src="{{companyDataInfo.companyLogo}}"></image>
+    <text>{{companyDataInfo.companyName}}</text>
+    <view>{{companyDataInfo.levelName}}</view>
+  </view>
+  <view class="store-name" wx:if="{{isMaster}}">
+    <image src="{{companyDataInfo.companyLogo!='' ? companyDataInfo.companyLogo:DataURL +'/images/ML-logo.png'}}"></image>
+    <text>{{companyDataInfo.companyName ? companyDataInfo.companyName : '店铺名称'}}</text>
+  </view>
+  <block wx:if="{{companyDataInfo.photoList.length>0}}">
+    <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">  
+    <block wx:for="{{companyDataInfo.photoList}}" wx:key="key" wx:for-index="index">  
+      <swiper-item>  
+      <image mode="aspectFit" src="{{item.isShow? item.src+'?'+randomNum : ''}}" class="slide-image tbannerimg{{index}}"  data-index="0" data-src='{{item.src}}' catchtap="viewImg"/>
+      </swiper-item>  
+    </block>  
+    </swiper>
+  </block>
+  <block wx:else>
+    <view class="swiper">  
+     <image mode="aspectFit" src="{{DataURL +'/images/ML-banner.png'}}" class="slide-image"  data-index="0"/>
+    </view>
+  </block>
+  
+  <view class='searchbar'>
+    <view class="search fleft">
+      <input class='fleft' autofocus="autofocus" bindinput="getInput" placeholder='请输入商品名称' placeholder-style='color: #999;font-size: 28rpx;'></input>
+      <image class='fright' src='{{DataURL}}/images/search1.png' data-tag='0' bindtap='submitSearchs'></image>
+    </view>
+    <view class="screen" catchtap="{{!isFilterDisabled?'showSearchPop':''}}">筛选<image src='{{DataURL}}/images/xiala.png'></image></view>
+  </view>
+</view>
+<view class="cart-box" style="height:100%">
+  <scroll-view class="width100" style = "height:92%;padding:10rpx 0 20rpx 0;" scroll-y="true" bindscrolltolower="bindDownLoad" bindscrolltoupper="bindTopLoad" scroll-with-animation = "true">
+    <view id = "top"></view>
+    <block wx:for="{{dataArray}}" wx:for-item="articles" wx:for-index="dataArrayIndex" wx:key="key">
+      <block wx:for="{{articles}}" wx:for-item="item" wx:key="id" wx:for-index="index" data-index='index'>
+      <view class="store" data-id="{{item.pid}}" catchtap='viewProductDetail' >
+        <image class='shopimg' mode="scaleToFill" src='{{item.photos}}'></image>
+        <view class='shopping'>
+          <view class='shopname'>{{item.productName}}</view>
+          <view class='shoppay'>
+            <!-- 有优惠价 -->
+            <block wx:if="{{item.sourcePrice!=item.minstatusprice && item.sourcePrice>item.minstatusprice && item.minstatusprice>0.00}}">
+              <view class='selling'>¥<text>{{item.minstatusprice}}</text></view>
+            </block>
+            <!-- 无优惠价 -->
+            <block wx:else>
+              <view class='selling'>¥<text>{{item.sourcePrice}}</text></view>
+            </block>
+            <view class='selling'>¥<text>{{item.minprice}}</text></view>
+          </view>
+        </view>
+      </view>
+      </block>
+    </block>
+    <view id = "bottom"></view>
+  </scroll-view>
+</view>
+<!-- 筛选弹窗 -->
+<view class="userule" wx:if="{{isShowSearchPop}}">
+  <view class="bgopcity" bindtap='closeShowSearchPop'></view>
+  <view class="recordbox">
+    <view class='record'>
+      <view class="product-detail wid-94 mar-0" style='padding:0 10rpx'>
+        <view class="wx-popup-text">
+          <text>商品类别</text>
+        </view>
+        <view class="wx-popup-btntype0">
+          <block wx:for="{{shopType}}" wx:for-item="item" wx:key="key" wx:for-index="index">
+            <text class="{{item.selected ?'chose-txt1':'chose-txt'}}" data-index='{{index}}' catchtap='selectShopType'>{{item.productTypeName}}</text>
+          </block>
+        </view>
+        <view class="wx-popup-text">
+          <text>价格区间</text>
+        </view>
+        <view class="wx-popup-input">
+          <input type='digit' placeholder='¥请输入最低价' value="{{spstart}}" data-cid='spstart' bindinput="changeValueMainData" cursor-spacing="10"  maxlength='6'></input>
+          <text>-</text>
+          <input type='digit'  placeholder='¥请输入最高价' value="{{spend}}" data-cid='spend' bindinput="changeValueMainData" cursor-spacing="10" maxlength='6'></input>
+        </view>
+
+        <view class="wx-popup-text">
+          <text>价格排序</text>
+        </view>
+        <view class="wx-popup-btntype">
+          <text data-value="0" bindtap="chosePriceSortColor" style="{{sOrder == 0?' border:2rpx solid #136fe6;color:#136fe6;':'border:2rpx solid #e5e5e5;color#666;'}}">默认</text>
+          <text data-value="asc" bindtap="chosePriceSortColor" style="{{sOrder == 'asc'?' border:2rpx solid #136fe6;color:#136fe6;':'border:2rpx solid #e5e5e5;color#666;'}}">从低到高</text>
+          <text data-value="desc" bindtap="chosePriceSortColor" style="{{sOrder == 'desc'?' border:2rpx solid #136fe6;color:#136fe6;':'border:2rpx solid #e5e5e5;color#666;'}}">从高到低</text>
+        </view>
+
+        <!-- <view class="wx-popup-title">{{title}}</view>
+        <view class="wx-popup-con">{{content}}</view> -->
+        <view class="wx-popup-btn">
+          <text class="btn-no" bindtap='closeSearchPop'>重置</text>
+          <text class="btn-ok" data-tag='1' bindtap='submitSearchPop'>确定</text>
+        </view>
+      </view>
+    </view>
+    <view class="delete-box">
+      <image class='del-record' bindtap="hideDataInfo" src='{{DataURL}}/images/clearpop.png'></image>
+    </view>
+  </view>
+</view>
+
+<view class="tips" wx:if="{{isMaster}}">
+  <text>请登录http://www.baojiayou.com补充店铺资料和管理商品信息，请在注册资料里设置密码登录或使用手机号码验证登录。</text>
+</view>

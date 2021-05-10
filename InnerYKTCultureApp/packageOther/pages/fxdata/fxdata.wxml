@@ -1,0 +1,31 @@
+<!--packageOther/pages/fxdata/fxdata.wxml-->
+
+<view class="FX-rank">
+  <view class="ranktype" style="{{isSelFCommission? 'color: #0066eb; ':'color:#666666;'}}" catchtap="bonusOrder">佣金排序
+    <image src="{{selCommissionConParam==-1?DataURL+'/images/sort.png':selCommissionConParam==0?DataURL+'/images/sort-up.png':DataURL+'/images/sort-down.png'}}"></image>
+  </view>
+  <view class="ranktype">
+    <text>时段</text>
+    <picker bindchange="bindPickerChange" value="{{index}}" range="{{time}}" range-key="name">
+      <view class="picker">选择{{time[index].name}}</view>
+      <image class="xiala" src="{{DataURL}}/images/xiala.png"></image>
+    </picker>
+  </view>
+</view>
+
+<scroll-view class="main" scroll-y="true" style="height:100%;position: relative;padding-top:0rpx;" bindscrolltolower="bindDownLoad" bindscrolltoupper="bindTopLoad" scroll-with-animation="true">
+  <view class="firstdata">
+    <view class='fleft width50 tal'>商品名称</view>
+    <view class='fleft width25 tac'>销售数量</view>
+    <view class='fleft width25 tac'>累计佣金</view>
+  </view>
+  <block wx:for="{{array}}" wx:key="key">
+    <view class="chose-txt" data-id="{{index}}">
+      <view class='fx-name fleft width50 tal'>{{item.productName}}</view>
+      <view class='fx-number fleft width25 tac'>{{item.num}}</view>
+      <view class='fx-brokerage fleft width25 tac'> ¥
+        <text>{{item.bonus}}</text>
+      </view>
+    </view>
+  </block>
+</scroll-view>

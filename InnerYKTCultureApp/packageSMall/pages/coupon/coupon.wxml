@@ -1,0 +1,180 @@
+<!--pages/mine/coupon/coupon.wxml-->
+<view class='topTabSwiper'>
+  <view class="tabbox">
+    <text class='tab  {{currentData == 0 ? "tabBorer" : ""}}' data-current="0" catchtap='checkCurrent'>可使用</text>
+  </view>
+  <view class="tabbox">
+    <text class='tab  {{currentData == 1 ? "tabBorer" : ""}}' data-current="1" catchtap='checkCurrent'>已使用</text>
+  </view>
+  <view class="tabbox">
+    <text class='tab  {{currentData == 2 ? "tabBorer" : ""}}' data-current="2" catchtap='checkCurrent'>已失效</text>
+  </view>
+  <view class="tabbox">
+    <text class='tab  {{currentData == 3 ? "tabBorer" : ""}}' data-current="3" catchtap='checkCurrent'>可提现</text>
+  </view>
+</view>
+<!--弹窗-->
+<block wx:if="{{detailType||productType}}">
+  <view class="windowBackgroud" catchtouchmove="{{false}}" catchtap="emptyType"></view>
+</block>
+<view class="bot-z" wx:if="{{currentData==3}}">
+  <view></view>
+  <view catchtap="onchangedetailType">提现规则<image src="{{DataURL}}/images/prodetail-js.png"></image>
+  </view>
+</view>
+<swiper current="{{currentData}}" class='swiper' style="height:100%;{{currentData==3?'top: 0rpx;':''}}" duration="300"
+  bindchange="swiperChange">
+  <swiper-item>
+    <view class="Acoupon white" wx:for="{{couponData}}" wx:for-item="item" wx:key="id" wx:for-index="index"
+      bindlongtap="deleteCoupons" data-index="{{index}}">
+      <image src='{{DataURL}}/images/coupon.png'></image>
+      <view class='shadow' wx:if="{{detailType}}"></view>
+      <view class="leftradius"></view>
+      <view class="rightradius"></view>
+      <view class="Acouponinfor">
+        <view class="facevalue">
+          <view class="facevalue-price fleft">
+            {{item.mold == 2?"":"￥"}}<text>{{item.mold == 2?'0元免单':item.discount}}</text>
+          </view>
+          <view class="facevalue-name fright" wx:if='{{item.mold == 0}}'>满减券</view>
+          <view class="facevalue-name fright" wx:if='{{item.mold == 1}}'>抵扣券</view>
+          <view class="facevalue-name fright" wx:if='{{item.mold == 2}}'>免单券</view>
+        </view>
+        <view class="condition">
+          <view class="facevalue-data fleft">有效期至 {{item.valid_date}}</view>
+          <view wx:if='{{item.mold == 0}}' class="facevalue-uses fright">满{{item.full}}可用</view>
+        </view>
+      </view>
+      <view class="Acouponuser">
+        <view class='fleft' class='fleft'
+          style="width: 60%;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">
+          {{item.productNames.length>0?item.productNames:item.typename}}</view>
+        <view class='fright' catchtap="goUseCoupon" data-index="{{index}}">立即用券</view>
+      </view>
+    </view>
+  </swiper-item>
+  <swiper-item>
+    <view class="Acoupon white" wx:for="{{couponData}}" wx:for-item="item" wx:key="id" wx:for-index="index">
+      <image src='{{DataURL}}/images/coupon.png'></image>
+      <view class='shadow1'></view>
+      <view class="leftradius"></view>
+      <view class="rightradius"></view>
+      <view class="Acouponinfor">
+        <view class="facevalue">
+          <view class="facevalue-price fleft">
+            {{item.mold == 2?"":"￥"}}<text>{{item.mold == 2?'0元免单':item.discount}}</text>
+          </view>
+          <view class="facevalue-name fright" wx:if='{{item.mold == 0}}'>满减券</view>
+          <view class="facevalue-name fright" wx:if='{{item.mold == 1}}'>抵扣券</view>
+          <view class="facevalue-name fright" wx:if='{{item.mold == 2}}'>免单券</view>
+        </view>
+        <view class="condition">
+          <view class="facevalue-data fleft">有效期至 {{item.valid_date}}</view>
+          <view class="facevalue-uses fright"
+            style="width: 35%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{item.content}}</view>
+        </view>
+      </view>
+      <view class="Acouponuser">
+        <view class='fleft'>{{item.typename}}</view>
+        <!-- <view class='fright'>立即用券</view> -->
+      </view>
+    </view>
+  </swiper-item>
+  <swiper-item>
+    <view class="Acoupon white" wx:for="{{couponData}}" wx:for-item="item" wx:key="id" wx:for-index="index"
+      bindlongtap="deleteCoupons" data-index="{{index}}">
+      <image src='{{DataURL}}/images/coupon.png'></image>
+      <view class='shadow1'></view>
+      <view class="leftradius"></view>
+      <view class="rightradius"></view>
+      <view class="Acouponinfor">
+        <view class="facevalue">
+          <view class="facevalue-price fleft">
+            {{item.mold == 2?"":"￥"}}<text>{{item.mold == 2?'0元免单':item.discount}}</text>
+          </view>
+          <view class="facevalue-name fright" wx:if='{{item.mold == 0}}'>满减券</view>
+          <view class="facevalue-name fright" wx:if='{{item.mold == 1}}'>抵扣券</view>
+          <view class="facevalue-name fright" wx:if='{{item.mold == 2}}'>免单券</view>
+        </view>
+        <view class="condition">
+          <view class="facevalue-data fleft">有效期至 {{item.valid_date}}</view>
+          <view class="facevalue-uses fright conponflex">{{item.content}}</view>
+        </view>
+      </view>
+      <view class="Acouponuser">
+        <view class='fleft'>{{item.typename}}</view>
+        <!-- <view class='fright'>立即用券</view> -->
+      </view>
+    </view>
+  </swiper-item>
+  <swiper-item>
+    <view class="Acoupon white" wx:for="{{couponData}}" wx:for-item="item" wx:key="id" wx:for-index="index"
+      bindlongtap="deleteCoupons" data-index="{{index}}">
+      <image src='{{DataURL}}/images/coupon.png'></image>
+      <view class='shadow' wx:if="{{detailType}}"></view>
+      <view class="leftradius"></view>
+      <view class="rightradius"></view>
+      <view class="Acouponinfor">
+        <view class="facevalue">
+          <view class="facevalue-price fleft">￥
+            <text>{{item.discount}}</text>
+          </view>
+          <!-- <view class="facevalue-name fright" wx:if='{{item.mold == 0}}'>满减券</view>
+          <view class="facevalue-name fright" wx:if='{{item.mold == 1}}'>抵扣券</view> -->
+          <view class="facevalue-name fright">现金券</view>
+        </view>
+        <view class="condition">
+          <view class="facevalue-data fleft">有效期至 {{item.valid_date}}</view>
+          <view wx:if='{{item.mold == 0}}' class="facevalue-uses fright">满{{item.full}}可用</view>
+        </view>
+      </view>
+      <view class="Acouponuser">
+        <view class='fleft' style="width: 60%;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">
+          {{item.productNames.length>0?item.productNames:item.typename}}</view>
+        <view class='fright' catchtap="nowWithdraw" data-index="{{index}}">立即提现</view>
+      </view>
+    </view>
+  </swiper-item>
+</swiper>
+
+
+<view class="userule" wx:if="{{showModaluserule}}">
+  <view class="bgopcity" bindtap="hideModaluse"></view>
+  <view class="textrule" bindtap="hideModaluse">
+    <view>优惠券使用规则</view>
+    <text>1.优惠券必须在有效期内使用，过期自动作废，不能延期使用；</text>
+    <text>2.优惠券只能在指定小区的智能柜使用；</text>
+    <text>3.优惠券只能抵扣商品金额，不设找零，不可兑换抵扣；</text>
+    <text>4.每笔订单只能使用一张；</text>
+    <text>5.每张优惠券都有规则限制，同时满足各项条件才可使用；</text>
+    <text>6.使用通过不正当手段获得的优惠券，如经发现并证实的，该优惠券将予以作废处理；</text>
+    <text>7.优惠券抵扣部分将不计入积分累积；</text>
+    <text>8.使用优惠券的订单，若取消订单，则返还订单所使用的优惠券。若用户已支付，发生退款退货，优惠券部分不予退还；</text>
+    <text>9.本优惠券规则由爱美家e栈制定，并在法律允许范围内保留所有解释权和修改权；</text>
+  </view>
+</view>
+<!--提现规则-->
+<view class="commoditydetail {{detailType?'commoditydetailout':''}}">
+  <view class="commod-z">
+    <view class="commd-title">提现规则</view>
+    <view class="commd-font">1.提现办理时间:每日9:00-18:00</view>
+    <view class="commd-font">2.提现到账时间:提现成功后一般将在1-3个工作日到账， 周末顺延。如逾期未到账，请查询出入账明细或在我的钱包查询余额是否有退回。</view>
+    <view class="commd-font">3.提现功能必须关联本人微信账气号。</view>
+    <view class="commd-font">4、如您对此活动或对本公司有任何意见或建议,欢迎致电:0755-8277-9639</view>
+    <view class="commd-font">5.所有解释权归云客茶语公司所有。</view>
+    <view class="bpoisk" catchtap="onchangedetailType"> 好的</view>
+  </view>
+</view>
+
+<view class="productTypedetail" wx:if="{{productType}}">
+  <view class="fonts">
+    <view class="fotitle">提示</view>
+    <view class="foitem">
+      是否将此消费券兑换成{{currentCoupon.discount}}元现金，兑换成功后，可在<text>"我的钱包"中提现到微信</text>，同时此券会变更为已使用，且不能撤回，是否继续兑换
+    </view>
+    <view class="foitebut">
+      <view catchtap="showout">取消</view>
+      <view catchtap="startWithdraw">兑换</view>
+    </view>
+  </view>
+</view>

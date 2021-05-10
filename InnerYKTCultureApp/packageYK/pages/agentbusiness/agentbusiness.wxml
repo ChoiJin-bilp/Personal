@@ -1,0 +1,204 @@
+<!--pages/business/business.wxml-->
+<view>
+  <view class="fixe">
+    <view class="business-tit">
+      <view catchtap="onChangesstype" style="width:70%;" class="business-tit-v">
+        <input wx:if="{{flag==0}}" placeholder="酒店名称 地址或设备编号,操作ID" bindinput="getInput" data-tag="0"></input>
+        <input wx:else placeholder="请输入用户ID" bindinput="getInput" data-tag="1"></input>
+        <image src="{{SMDataURL}}/images/search.png" catchtap="search">
+        </image>
+      </view>
+      <view catchtap="onChangedivtype" style="width:28%;" class="business-tit-v" data-tag="0">
+        <input style="text-overflow:clip;" disabled="true" value="{{constoList[constoIndex].name}}"></input>
+        <image src="{{SMDataURL}}/images/xiala.png" class="{{divtype? 'zhuandong':''}}">
+        </image>
+        <view class="xiala" wx:if="{{divtype}}">
+          <block wx:for="{{constoList}}" wx:key="key">
+            <view catchtap="onchangeCS" data-index="{{index}}">{{item.name}}</view>
+          </block>
+        </view>
+      </view>
+      <view catchtap="onChangedivtype" style="width:70%;margin-top:20rpx;" class="business-tit-v" data-tag="1">
+        <input style="text-overflow:clip;text-align: center;" disabled="true"
+          value="{{CompanydataList[selectHotelIndex].companyName}}"></input>
+        <image src="{{SMDataURL}}/images/xiala.png" style="top: 112rpx;right: 244rpx;"
+          class="{{isShowHotel? 'zhuandong':''}}">
+        </image>
+        <view class="xiala" style="top: 146rpx;left: 16rpx;width: 67%;" wx:if="{{isShowHotel}}">
+          <block wx:for="{{CompanydataList}}" wx:key="key">
+            <view catchtap="selectHotel" data-index="{{index}}">{{item.companyName}}</view>
+          </block>
+        </view>
+      </view>
+    </view>
+
+    <view class="datatoday">
+      <view>日期</view>
+      <view class="datatoday-s">
+        <view class="datatoday-s-o">
+          <picker mode="date" value="{{startDate}}" data-tag="0" end="{{endDate}}" bindchange="bindDateChange"
+            style="width:100%;">
+            <text>{{startDate}}</text>
+            <image class="picker" src="{{SMDataURL}}/images/amy-rq.png">
+            </image>
+          </picker>
+        </view>
+        <text>-</text>
+        <view class="datatoday-s-o">
+          <picker mode="date" value="{{endDate}}" start="{{startDate}}" data-tag="1" bindchange="bindDateChange"
+            style="width:100%;">
+            <text>{{endDate}}</text>
+            <image class="picker" src="{{SMDataURL}}/images/amy-rq.png">
+            </image>
+          </picker>
+        </view>
+      </view>
+      <!-- <image class="find" src="{{SMDataURL}}/images/search1.png">
+      </image> -->
+      <view catchtap="okDate">确定</view>
+    </view>
+  </view>
+  <view class="business-o" wx:if="{{dataArray.length>0}}">
+    <!-- <view class="business-o" wx:if="{{true}}"> -->
+    <!--金额显示-->
+    <view class="title" wx:if="{{flag==0&&all!=''}}">
+      <view class="title-V">
+        <image src="{{SMDataURL}}/images/statistics-bg.png"></image>
+        <view>
+          <text>总共享收入金额</text>
+          <text style="margin-left:20rpx;">￥{{all}}</text>
+        </view>
+        <view class="amount">
+          <view class="amount-o" wx:for="{{moneyData}}" wx:key="key">
+            <view class="{{item.role_typeId==user_roleId?'myself':''}}"
+              style="width:auto;{{item.role_typeId==user_roleId?'background: transparent;':''}}">
+              ￥{{item.amount}}</view>
+            <view class="{{item.role_typeId==user_roleId?'myself':''}}" style="width:auto;">{{item.rolename}}分成金额(元)
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="sky">
+      <text>共<text>{{cnt}}</text>条记录</text>
+    </view>
+    <!--经营数据内容的循环-->
+    <view wx:if="{{flag==0}}" class="business-item" wx:for="{{dataArray}}" wx:key="key"
+      style="{{index==0? 'margin-top:10rpx;':''}}">
+      <view class="business-item-o">
+        <text>订单编号：</text>
+        <text>{{item.partner_trade_no}}</text>
+      </view>
+      <view class="business-item-o">
+        <text>订单状态：</text>
+        <text wx:if="{{constoIndex==0}}">{{item.ostatus==0?"未支付":item.ostatus==1?"已支付":item.ostatus==2?"退款申请中":item.ostatus==3?
+          "拒绝退款":item.ostatus==4?"退款成功":"退款失败"}}</text>
+        <text wx:else>{{item.ostatus==0?"未支付":item.ostatus==1?"待发货":item.ostatus==2?"已完成":item.ostatus==3?
+          "已取消":item.ostatus==4?"退货":item.ostatus==5?"团购中":item.ostatus==6?"待收货":item.ostatus==7?"团购失败":item.ostatus==8?"退货申请":
+          item.ostatus==9?"退货中":item.ostatus==10?"退货申请不通过":item.ostatus==11?"退款失败":"预售中"}}</text>
+      </view>
+      <view class="business-item-o">
+        <text>酒店名称：</text>
+        <text>{{item.companyName}}<text>(ID:{{item.companyId}})</text></text>
+      </view>
+      <view class="business-item-o">
+        <text>酒店地址：</text>
+        <text>{{item.companySite}}</text>
+      </view>
+      <view class="business-item-o" wx:if="{{constoIndex==0}}">
+        <text>设备编号：</text>
+        <view>
+          <view>{{item.deviceNo}}</view>
+          <view class="texttop" wx:if="{{item.dremark!=''}}">
+            ({{item.dremark}})</view>
+        </view>
+      </view>
+      <view class="business-item-o" wx:if="{{constoIndex!=0}}">
+        <text>{{constoIndex==1?'房型：':'产品名称：'}}</text>
+        <text>{{item.productName}}</text>
+      </view>
+      <view class="business-item-o" wx:if="{{constoIndex==1}}">
+        <text>订房日期：</text>
+        <text>{{item.sTime}}-{{item.eTime}}</text>
+      </view>
+      <view class="business-item-o" wx:if="{{constoIndex==0}}">
+        <text>设备分类：</text>
+        <text>{{item.model}}</text>
+      </view>
+      <view class="business-item-o">
+        <text>操作人ID：</text>
+        <text>{{item.operation_userId}}</text>
+      </view>
+      <view class="business-item-o" wx:if="{{constoIndex==0}}">
+        <text>使用时长：</text>
+        <text>{{item.duration}}分钟{{item.title==""?" ":"("+item.title+"元)"}}</text>
+      </view>
+      <view class="business-item-o">
+        <text>{{constoIndex==0?'启动时间：':constoIndex==1?'订房时间：':'购物时间：'}}</text>
+        <text>{{item.crateTime}}</text>
+      </view>
+      <view class="business-item-tw"></view>
+      <view class="business-item-t" wx:for="{{item.detail}}" wx:key="key" wx:for-item="detail"
+        wx:for-itemIndex="itemIndex">
+        <view>{{detail.rolename}}分成金额
+          <text wx:if="{{user_roleId==2}}" style="color:#333;">({{detail.remark}}%)</text>
+        </view>
+        <view>￥{{detail.money}}</view>
+      </view>
+    </view>
+    <!-- 按摩订单数据 -->
+    <view wx:if="{{flag==1}}" class="business-item" wx:for="{{dataArray}}" wx:key="key"
+      style="{{index==0? 'margin-top:10rpx;':''}}">
+      <view class="business-item-o">
+        <text>订单编号：</text>
+        <text>{{item.id}}</text>
+      </view>
+      <view class="business-item-o">
+        <text>订单状态：</text>
+        <text>{{item.payStatus==0?"未支付":item.payStatus==1?"已支付":item.payStatus==2?"退款申请中":item.payStatus==3?
+          "拒绝退款":item.payStatus==4?"退款成功":"退款失败"}}</text>
+      </view>
+      <view class="business-item-o">
+        <text>酒店名称：</text>
+        <text>{{item.companyName}}<text>(ID:{{item.companyId}})</text></text>
+      </view>
+      <view class="business-item-o">
+        <text>酒店地址：</text>
+        <text>{{item.companySite}}</text>
+      </view>
+      <view class="business-item-o">
+        <text>设备编号：</text>
+        <view>
+          <view>{{item.deviceNo}}</view>
+          <view class="texttop" wx:if="{{item.remark!=''}}">
+            ({{item.remark}})</view>
+        </view>
+      </view>
+      <view class="business-item-o">
+        <text>用 户 ID ：</text>
+        <text>{{item.userId}}</text>
+      </view>
+      <view class="business-item-o">
+        <text>设备分类：</text>
+        <text>{{item.model}}</text>
+      </view>
+      <view class="business-item-o">
+        <text>使用时长：</text>
+        <text>{{item.duration}}分钟</text>
+      </view>
+      <view class="business-item-o">
+        <text>启动时间：</text>
+        <text>{{item.useTime}}</text>
+      </view>
+      <view class="business-item-tw"></view>
+      <view class="business-item-t">
+        <view>消费金额
+          <text style="color:#333;">{{item.price}}元</text>
+        </view>
+        <view>
+          {{item.lotteryProduct==0?'抽奖按摩券':item.lotteryProduct==1?'':item.lotteryProduct==2?item.distr==1?'电子按摩券':'纸质按摩券':'其他'}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

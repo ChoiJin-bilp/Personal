@@ -1,0 +1,12 @@
+<!--pages/comphoto/comphoto.wxml-->
+<!-- <block wx:for="{{companyData.businessList}}" wx:for-item="item" wx:for-index="index">
+  <view class='fleft business-photo'>
+    <image class='Dynamic-img' src='{{item.busImgUrl}}'></image>
+  </view>
+</block> -->
+
+<block wx:for="{{photosList}}" wx:for-item="item" wx:key="{{item}}" wx:for-index="index">
+  <view class='cardimage'>
+    <image mode='aspectFit' src='{{item}}' data-src='{{item}}' catchtap='viewImg'></image>
+  </view>
+</block>

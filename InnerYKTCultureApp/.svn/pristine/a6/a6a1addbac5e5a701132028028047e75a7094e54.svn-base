@@ -1,0 +1,18 @@
+<!--pages/walletdetail/walletdetail.wxml-->
+<scroll-view scroll-y="true" style = "height:100%;position: relative;padding-top:0rpx;" bindscrolltolower="bindDownLoad" bindscrolltoupper="bindTopLoad" scroll-with-animation = "true">
+  <view id = "top"></view>
+    <view class='balance'>零钱余额<text>{{remainingSum}}</text>元</view>
+    <block wx:for="{{dataArray}}" wx:for-item="articles" wx:for-index="dataArrayIndex">
+      <block wx:for="{{articles}}" wx:for-item="item" wx:key="{{item.id}}" wx:for-index="index">
+        <view class='walletlist'>
+          <view class='fleft explain'>
+            <view class='walletlist-name'>{{item.typeValue}}</view>
+            <view class="walletlist-content">{{item.partner_trade_no}}</view>
+            <view class='walletlist-time'>{{item.createDate}}</view>
+          </view>
+          <view class="fright sum {{item.tag<0?'':'addsum'}}"><text>{{item.tag<0?"-":"+"}}</text>{{item.money}}</view>
+        </view>
+      </block>
+    </block>
+  <view id = "bottom"></view>
+</scroll-view>

@@ -1,0 +1,28 @@
+<!--pages/release/release.wxml-->
+<view class="release">
+  <view wx:if="{{user_roleId==2||user_roleId==4}}" class="Aminelist" data-pagetype="0" data-package=""
+    data-page="source" catchtap="gotoSource">
+    <view class="list-iocn">
+      <image class="iconimage" src='{{SMDataURL}}/images/amy-shangpin.png'></image>
+    </view>
+    <text class="minemame fleft">酒店商品</text>
+  </view>
+  <view class="Aminelist" data-pagetype="2" data-package="" data-page="source" catchtap="gotoSource">
+    <view class="list-iocn">
+      <image class="iconimage" src='{{SMDataURL}}/images/amy-drinkshoping.png'></image>
+    </view>
+    <text class="minemame fleft">饮品商品</text>
+  </view>
+  <view class="Aminelist" data-pagetype="1" data-package="" data-page="source" catchtap="gotoSource" hidden="true">
+    <view class="list-iocn">
+      <image class="iconimage" src='{{SMDataURL}}/images/amy-fangyuan.png'></image>
+    </view>
+    <text class="minemame fleft">酒店房源</text>
+  </view>
+  <view class="Aminelist" data-pagetype="3" catchtap="gotoSource" hidden="true">
+    <view class="list-iocn">
+      <image class="iconimage" src='{{SMDataURL}}/images/amy-drinkshoping.png'></image>
+    </view>
+    <text class="minemame fleft">饮品新界面</text>
+  </view>
+</view>

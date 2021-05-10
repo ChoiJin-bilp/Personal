@@ -1,0 +1,327 @@
+/* packageVP/pages/Payformassage/Payformassage.wxss */
+page{
+  padding: 0rpx 40rpx;
+  box-sizing: border-box;
+}
+.title{
+  font-size: 32rpx;
+color: #333333;
+line-height: 60rpx;
+}
+.oneimg{
+  width: 100%;
+height: 106rpx;
+margin-bottom: 40rpx;
+}
+.twoimg{
+  width: 100%;
+height: 584rpx;
+}
+.bnkt{
+width: 100%;
+height: 70rpx;
+opacity: 1;
+background: #3f8aec;
+border-radius: 35rpx;
+display: flex;
+justify-content: center;
+align-items: center;
+color: #ffffff;
+}
+.thidimg{
+width: 100%;
+  height: 418rpx;
+margin-bottom: 20rpx;
+}
+.fourimg{
+  width: 260rpx;
+height: 260rpx;
+margin: auto;
+}
+.fristimg{
+  width: 570rpx;
+height: 200rpx;
+margin-bottom: 40rpx;
+}
+.siximg{
+width: 100%;
+  height: 134rpx;
+margin-bottom: 40rpx;
+}
+.sevenimg{
+width: 100%;
+  height: 120rpx;
+margin-bottom: 40rpx;
+
+}
+.eightimg{
+  width: 370rpx;
+  height: 178rpx;
+margin-bottom: 40rpx;
+
+}
+.nintimg{
+  width: 100%;
+  height: 438rpx;
+}
+/*按摩劵*/
+.mortgagePrice {
+  height: 150rpx;
+  background: #fff1de;
+  border-radius: 10rpx;
+  box-shadow: 0rpx 6rpx 2rpx 2rpx #fbc786;
+  border-right: 2rpx rgb(10, 10, 10, 0.3) solid;
+  display: flex;
+  justify-content: center;
+  width: 150rpx;
+  margin-right: 10rpx;
+}
+.zh-img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+.useTime {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20rpx;
+  color: #f33;
+  font-size: 46rpx;
+  box-sizing: border-box;
+  width: 100%;
+  padding-left: 30rpx;
+  }
+  
+  .zh-o{
+    position: relative;
+    width: 100%; 
+    height: 220rpx;
+    margin-bottom: 30rpx;
+  }
+  .lmkimages .zh-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+  .zh-s{
+    position: absolute;
+    right: 0rpx;
+    top: 0; 
+    z-index: 3;
+    padding: 8rpx 20rpx;
+    border-radius:10rpx;
+    font-size: 20rpx;
+    background: rgb(235, 8, 8); 
+    color: #fff;
+  }
+  .zh-t{
+    width: 30%;
+    text-align: center;
+    font-size: 32rpx;
+    font-weight: bold;
+    padding-left: 6%;
+  box-sizing: border-box;
+  }
+  .zh-f{
+  width: 68%;
+  border: 2rpx solid rgb(235, 8, 8);
+  display: flex;
+  border-radius: 10rpx;
+  margin-top: 10rpx;
+  }
+  .zh-x{
+    position: absolute;
+    z-index: 4;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0 5% 0% 0%;
+    box-sizing: border-box;
+
+  }
+  .h-t-o{
+    font-size: 38rpx;
+  }
+  .h-f-t{
+    width: 50%;
+    font-size: 24rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: rgb(224, 6, 6);
+  }
+  
+  .f-o-t{
+    font-size: 42rpx;
+    font-weight: bold;
+  }
+  .h-f-o{
+    width: 50%;
+    background: #FE3428;
+    border-radius: 10rpx 0rpx 0rpx 10rpx; 
+    color: #FDE3C0;
+    padding: 0rpx 22rpx 0rpx 10rpx;
+    display: flex;
+    align-items: baseline;
+    padding-bottom: 4rpx;
+    justify-content: center;
+  }
+  .f-o-s{
+    text-decoration: line-through;
+    color: #FBAD9D;
+    font-size: 24rpx;
+  }
+  .h-t-t{
+    font-family: 'KaiTi';
+    color: rgb(224, 6, 6);
+  }
+
+  .mortgagePrice {
+    height: 150rpx;
+    background: #fff1de;
+    border-radius: 10rpx;
+    box-shadow: 0rpx 6rpx 2rpx 2rpx #fbc786;
+    border-right: 2rpx rgb(10, 10, 10, 0.3) solid;
+    display: flex;
+    justify-content: center;
+    width: 150rpx;
+    margin-right: 10rpx;
+  }
+  /*操作步骤*/
+  .lirop{
+    width: 80%;
+height: 20rpx;
+opacity: 1;
+background: #efefef;
+border: 2rpx solid #cccccc;
+border-radius: 12rpx;
+position: relative;
+margin: 0 auto;
+  }
+  .stepfont{
+    text-align: right;
+    color: #fff;
+    line-height: 60rpx;
+    position: relative;
+    padding-right: 10%;
+    box-sizing: border-box;
+  }
+  .turep{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20rpx;
+background: #999999;
+border-radius: 12rpx;
+  }
+  .polwrteq{
+    position: relative;
+    width: 100%;
+    height: 1172rpx;
+    margin-bottom: 14rpx;
+  }
+  .polwrteqimg{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+  .korimg{
+    top: 50%;
+    left: 68%;
+    position: absolute;
+    width: 125rpx;
+height: 103rpx;
+  }
+  .lporptext{
+    top: 60%;
+    left: 19%;
+    position: absolute;
+    font-size: 30rpx;
+text-align: center;
+color: #fcfcfc;
+line-height: 47rpx;
+  }
+  .potuo{
+    width: 234rpx;
+    height: 78rpx;
+    position: relative;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 29rpx;
+color: #ffffff;
+  }
+  .potuoimg{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    top: 0rpx;
+    left: 0rpx;
+  }
+  .potimgsite{
+    position: absolute;
+    top: -20rpx;
+    right: -10rpx;
+    width: 30rpx;
+height: 28rpx;
+  }
+  .korimg2{
+    top: 72%;
+    left: 62%;
+  }
+  .korimg3{
+    top: 78%;
+    left: 63%;
+  }
+  .korimg4{
+    top: 70%;
+    left: 52%;
+  }
+  .korimg5{
+    top: 67%;
+    left: 29%;
+  }
+  .korimg6{
+    top: 38%;
+    left: 37%;
+  }
+  .textfon{
+    position: absolute;
+    top: 71%;
+    left: 26%;
+    font-size: 29rpx;
+    color: #ffffff;
+  }
+  .textfon3{
+    top: 77%;
+    left: 25%;
+  }
+  .textfon4{
+    top: 81%;
+    left: 27%;
+  }
+  .textfon5{
+    top: 62%;
+    left: 40%;
+  }
+  .textfon6{
+    top: 33%;
+    left: 29%;
+  }
+  .poryu{
+    position: absolute;
+    top: 6%;
+    left: 0;
+    width: 100%;
+  }

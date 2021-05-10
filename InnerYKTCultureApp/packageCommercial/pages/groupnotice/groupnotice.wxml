@@ -1,0 +1,28 @@
+<!--pages/groupnotice/groupnotice.wxml-->
+<!-- 新建或编辑状态显示 -->
+<view  class='width94 groupnotice'>
+  <input disabled='{{disabled}}' type='text' class='noticename' maxlength='20' placeholder='请输入标题，20字以内' placeholder-class='placeholder' bindinput='changeInputNotif' data-type='1' value='{{cardgroupMsgData.title}}'></input>
+  <textarea disabled='{{disabled}}' class='' class='noticetext' maxlength='500'  placeholder='请输入内容，500字以内' placeholder-class='placeholder' bindinput='changeInputNotif' data-type='2' value='{{cardgroupMsgData.message}}'></textarea>
+  <view wx:if="{{(identity == 1 || identity == 2) && !disabled}}" class='width100 tipsimgmuch'>图片（最多6张）</view>
+  <view class='width100 otherimg'>
+    <view class='firstimg' wx:if="{{cardgroupMsgData.img}}" wx:for="{{cardgroupMsgData.img}}" wx:key="{{index}}"  wx:for-index="index">
+      <image mode='aspectFill' class='scrollimg' src='{{item}}' data-src='{{item}}' catchtap="viewImg"></image>
+      <image class="delimg {{disabled?'hide':'show'}}" src='{{DataURL}}/images/image-del.png' data-index='{{index}}' catchtap='delrbImgList'></image>
+    </view>
+    <view class="firstimg" wx:if="{{cardgroupMsgData.img.length < 6 && !disabled}}">
+      <image class='addimg1' src='{{DataURL}}/images/addimg-zh.png' data-type="1" catchtap="selectImage"></image>
+    </view>
+  </view>
+</view>
+<view  class='guidancepop-btn'>
+<block wx:if="{{scene == 2}}">
+  <button bindtap="">取消</button>
+  <button bindtap='updateShareQunNews'>发布</button>
+</block>
+<block wx:elif="{{identity == 1 || identity == 2}}">
+  <button bindtap="delNotify">删除</button>
+  <button wx:if='{{disabled}}' bindtap='editNotify'>编辑</button>
+  <button wx:if='{{!disabled}}' bindtap='confirmNotify'>保存</button>
+  </block>
+</view>  
+

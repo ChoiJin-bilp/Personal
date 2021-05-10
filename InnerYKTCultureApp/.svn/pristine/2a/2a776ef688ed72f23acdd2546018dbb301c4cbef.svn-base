@@ -1,0 +1,17 @@
+<template name = "QRCardPop">
+<!-- 二维码 -->
+<view class="userule" wx:if="{{showModalqrcard}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="recordbox1 borderpop">
+    <view class='record'>
+      <text class="name-card">{{selCardQRName}}的名片</text>
+      <view class='qr-box'>
+          <image class='qr-card' src='{{selCardQRImgSrc}}'></image>
+      </view>
+    </view>
+    <view class="delete-box">
+      <image class='del-record' bindtap="hideModalQRcard" src='{{DataURL}}/images/clearpop.png'></image>
+    </view>
+  </view>
+</view>
+</template>

@@ -1,0 +1,175 @@
+<view class="container">
+    <view  class='more-input'>
+      <view class="fleft more-input-type">标注</view>
+      <input class="fleft more-input-infor" bindinput='getUserMark'  maxlength='10'  placeholder='标注名片适用范围'/>
+    </view>
+  <view class="card-image">
+    <view class="card-img">
+      <image class='card-bg-img' src='{{selectTemp.picture}}'></image>
+      <view class='infor-name'>
+        <view class="card-name">{{userName}}</view>
+        <view class='card-job'>{{userJob}}</view>
+        <view class="card-store">{{corporName}}</view>
+      </view>
+      <view class='infor-other'>
+        <view class="card-phone">
+          <text class="fleft iconfont icon-shoujihaoma"></text>
+          <view class='fleft card-other-nav'>{{userPhone}} </view>
+        </view>
+        <view class="card-email">
+          <text class=" fleft iconfont icon-youxiang "></text>
+          <view class='fleft card-other-nav'>{{userEmail}}</view>
+        </view>
+        <view class="card-site">
+          <text class=" fleft iconfont icon-dizhi "></text>
+          <text class='fleft card-other-nav' style='font-size: 0.6rem;'>{{addr}}</text>
+        </view>
+      </view>
+      <!-- 添加名片头像 -->
+      <view class='cardphoto '>
+        <!-- 头像图片 -->
+        <image wx:if="{{headerImg}}" class='myphoto' src='{{headerImg}}'></image>
+        <!-- 上传图片 -->
+        <image wx:if="{{!headerImg}}"  class='addphoto' src='{{DataURL}}/images/addimg-zh.png' data-type="2" catchtap="uploadImage"></image>
+        <!-- 删除图片 -->
+        <image  wx:if="{{headerImg}}"  class='del-img' catchtap="hideModalHeaderImg" src='{{DataURL}}/images/image-del.png'></image>
+      </view>
+    </view>
+  </view>
+<scroll-view scroll-x="true" class="scroll-header">
+    <view class='image-scroll' wx:for="{{cardTemp}}" wx:key="{{index}}" wx:for-item="item" wx:for-index="index" data-index="{{index}}"      catchtap='selectTemplate'>
+      <image class='BG-image' mode='scaleToFill' src="{{item.picture}}" ></image>   
+      <view class='opacity'></view>
+      <image wx:if="{{item.id == selectTemp.id}}" class='pitch' src='{{DataURL}}/images/pitch.png'></image>
+    </view>
+    </scroll-view>
+  <view class='moredetails'>
+    <view class='title-more'>详细资料</view>
+    <view class='more-input'>
+      <view class="fleft more-input-type">姓名</view>
+      <input class="fleft more-input-infor" placeholder='请输入您的姓名' placeholder-class='placeholder' bindinput='getUserName' maxlength="10" confirm-type='next' id='0' bindconfirm='nextBlur'  confirm-hold='true'/>
+    </view>
+    <view class='more-input'>
+      <view class="fleft more-input-type">职务</view>
+      <input class="fleft more-input-infor" placeholder='请输入您的职位' placeholder-class='placeholder' bindinput='getUserJob'  maxlength="16" confirm-type='next' id='1' bindconfirm='nextBlur' focus='{{blurId == 1 ? true : false }}' confirm-hold='true'/>
+    </view>
+    <view class='more-input'>
+      <view class="fleft more-input-type">公司</view>
+      <input class="fleft more-input-infor" placeholder='请输入您的公司名称' placeholder-class='placeholder' bindinput='getCorporName' value='{{corporName}}'  maxlength="30" />
+    </view>
+       <view class='more-input'>
+      <view class="fleft more-input-type">地址</view>
+      <input class="fleft more-input-infor" placeholder='请输入您的公司地址' placeholder-class='placeholder' bindinput='getCorporAddr' value='{{addr}}'  maxlength="30" confirm-type='next' id='6' bindconfirm='nextBlur' focus='{{blurId == 6 ? true : false }}' confirm-hold='true'/>
+    </view>
+    <view class='more-input'>
+      <view class="fleft more-input-type">手机</view>
+      <input class="fleft more-input-infor" placeholder='请输入您的手机号码' placeholder-class='placeholder'   type="number" maxlength='11' bindinput='getUserPhone' confirm-type='next' id='2' bindconfirm='nextBlur' focus='{{blurId == 2 ? true : false }}' confirm-hold='true'/>
+    </view>
+        <view class='more-input'>
+      <view class="fleft more-input-type">电话</view>
+      <input class="fleft more-input-infor" placeholder='请输入您的电话号码' placeholder-class='placeholder' bindinput='getCorporTel'   maxlength="12" confirm-type='next' id='3' bindconfirm='nextBlur' focus='{{blurId == 3 ? true : false }}' confirm-hold='true'/>
+    </view>
+    <view class='more-input'>
+      <view class="fleft more-input-type">邮箱</view>
+      <input class="fleft more-input-infor" placeholder='请输入您的邮箱' placeholder-class='placeholder' bindinput='getUserEmail' maxlength="20" confirm-type='next' id='4' bindconfirm='nextBlur' focus='{{blurId == 4 ? true : false }}' confirm-hold='true'/>
+    </view>
+
+    <view class='more-input'>
+      <view class="fleft more-input-type">微信</view>
+      <input class="fleft more-input-infor" placeholder='请输入您的微信账号'  placeholder-class='placeholder' bindinput='getUserWechat'  maxlength="30" confirm-type='next' id='5' bindconfirm='nextBlur' focus='{{blurId == 5 ? true : false }}' confirm-hold='true'/>
+    </view>
+    <view class='more-input'>
+      <view class="fleft more-input-type">毕业院校</view>
+      <input class="fleft more-input-infor" placeholder='请输入您的毕业院校'  placeholder-class='placeholder' value='{{school}}' maxlength="20" bindinput='getInput' data-value='school'/>
+    </view>
+    <view class='more-input'>
+      <view class="fleft more-input-type">家乡</view>
+      <input class="fleft more-input-infor" placeholder='请输入您的家乡'  placeholder-class='placeholder' value='{{hometown}}' maxlength="20" bindinput='getInput' data-value='hometown'/>
+    </view>
+    <view class='more-input relative' bindtap="showisShowSel">
+      <view class="fleft more-input-type">所在行业</view>
+      <text class='hangye' >请选择您所属行业</text>
+        <view class='attention' wx:if="{{personalTrade}}">
+        <checkbox-group name="checkbox" class="check" >
+          <label disabled='true' wx:for="{{personalTrade}}"  wx:for-index="index" data-index="{{index}}" class='is_checked'>
+              {{item}}
+          </label>
+        </checkbox-group>
+      </view> 
+      <image class="xiala" src='{{DataURL}}/images/xiala.png'></image>
+    </view>
+    <view class='more-input'>
+      <view class="fleft more-input-type">主要产品</view>
+      <input class="fleft more-input-infor" placeholder='最多20个字' placeholder-class='placeholder' bindinput='getInput' data-value='productInfo' maxlength="20" />
+    </view>
+    <view class='more-input'>
+      <view class="fleft more-input-type">提供服务</view>
+      <input class="fleft more-input-infor" placeholder='最多20个字'  placeholder-class='placeholder' bindinput='getInput' data-value='personalClass' maxlength="20" />
+    </view>
+    
+     <view class='more-input' style='height:200rpx;'>
+      <view class="more-input-type">简介</view>
+       <view class="section">
+        <textarea  wx:if="{{!compStatus  && !isShowSelselection}}"  placeholder='请输入您的个人简介' placeholder-class='placeholder'   class="fleft more-input-infor" disabled="{{compStatus}}" value='{{userData.personIntro}}' bindinput='getPersonIntro' data-value='personIntro' confirm-type='next' id='7' bindconfirm='nextBlur' focus='{{blurId == 7 ? true : false }}' confirm-hold='true' maxlength="700"/>
+      </view>
+    </view>
+  </view>
+   <view class='otherdetails' style='margin-bottom: 20rpx;'>
+    <view class='other-input'>
+      <view class="other-input-type">微信二维码</view>
+      <view class="other-input-image">
+        <view class='image-qrcard' wx:if="{{wxCodeImg}}">
+          <image class='photo-qrcard' mode='scaleToFill' src='{{wxCodeImg}}' data-src='{{wxCodeImg}}' catchtap="viewImg">{{item}}</image>
+          <image  class='del-img' data-index="{{index}}" catchtap="hideWXQRcode" src='{{DataURL}}/images/image-del.png'></image>
+        </view>
+        <image wx:if="{{!wxCodeImg}}" class='add-image' src='{{DataURL}}/images/icon_2x.png' data-type="1"  catchtap="uploadImage"></image>
+        <!-- <image class='qrcardimg fleft' src='../../images/idcardimages.png'></image> -->
+        <view wx:if="{{!wxCodeImg}}" class='idcardtext'>
+          <text>1.将您的微信二维码截图存入手机。</text>
+          <text>2.在编辑状态下添加您的微信二维码截图。</text>
+        </view>
+      </view>
+      <view style=" clear: both;"></view>
+    </view>
+  </view>
+ <view class='otherdetails'>
+        <view class='other-input'>
+      <view class="other-input-type">名片相册</view>
+      <view class="other-input-image">
+        <view   class='image-box' wx:if="{{userFile}}" wx:for="{{userFile}}" wx:key="{{index}}" wx:for-item="item" wx:for-index="index" data-index="{{index}}" >
+          <image class='photo' mode='aspectFill' src='{{item}}' data-src='{{item}}' catchtap="viewImg">{{item}}</image>
+          <image class='del-img' data-index="{{index}}" catchtap="showModaltip" src='{{DataURL}}/images/image-del.png'></image>
+        </view>
+        <image wx:if="{{userFileNum < 6}}" class='add-image' src='{{DataURL}}/images/icon_2x.png'  data-type="0" catchtap="uploadImage"></image>
+      </view>
+      <view style=" clear: both;"></view>
+    </view>
+  </view>
+    <!-- <view class='width100 comp-btn'>
+    <button class='check-comp' bindtap='companyDetails'><image src='{{DataURL}}/images/card-company.png'></image><text>公司资料</text></button>
+  </view> -->
+</view>
+
+<view class="width100 pop-foot">
+  <text class="submit" disabled='{{disabled}}'  catchtap="saveCardInfo">保 存</text>
+</view>
+
+<!-- 选择行业 -->
+<view class="userule" wx:if="{{isShowSelselection}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="choosecard1" style='padding-top:20rpx;'>
+    <scroll-view class="pop-mycarlist" scroll-y >
+      <view class='attention'>
+        <checkbox-group name="checkbox" class="check" >
+          <label  bindtap='clicks2' wx:for="{{industrySort}}" wx:key="{{industrySort}}" wx:for-index="index" data-index="{{index}}" class='{{item.checked?"is_checked":""}}'>
+            <checkbox  value="{{item.name}}" data-val="{{item.name}}" hidden='false' checked='{{item.checked}}' /> {{item.name}}
+          </label>
+        </checkbox-group>
+      </view> 
+    </scroll-view>
+    <view class='pop-btncard'>
+      <!-- <button bindtap="hideisShowSel">取消</button> -->
+      <button bindtap="hideisShowSel">确定</button>
+    </view>
+ </view>
+</view>

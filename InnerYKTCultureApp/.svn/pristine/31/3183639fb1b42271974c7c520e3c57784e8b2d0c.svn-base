@@ -1,0 +1,414 @@
+<!--pages/cheirapsisWork/cheirapsisWork.wxml-->
+<block wx:if="{{deviceId>0}}">
+  <view class="pattern">
+    <!--顶部设备编号-->
+    <view class="patternTop">
+      <view class="debut">
+        <view class="patternTop-t" catchtap="exchangeDeviceEvent">
+          <view>切换设备</view>
+        </view>
+        <view class="patternTop-t" catchtap="stopAllDeviceEvent">
+          <view>停止设备</view>
+        </view>
+      </view>
+
+
+      <view class="signal">
+        <text>信号</text>
+        <view class="signal-o">
+          <view class="{{signalPower >= 0?'signalenable':'signalunable'}}"></view>
+          <view class="{{signalPower >= 20?'signalenable':'signalunable'}}"></view>
+          <view class="{{signalPower >= 40?'signalenable':'signalunable'}}"></view>
+          <view class="{{signalPower >= 60?'signalenable':'signalunable'}}"></view>
+          <view class="{{signalPower >= 80?'signalenable':'signalunable'}}"></view>
+        </view>
+      </view>
+    </view>
+
+    <!--中间阶段-->
+    <view class="patternTh">
+      <view class="patternTh-o" style="margin-left:20rpx;font-weight:bold;">
+        为了避免异味或传染,请务必戴上脚套使用！
+      </view>
+      <view class="patternTh-t">
+        <image style="width:500rpx;height:500rpx;" src="{{DataURL}}/images/yuan.png"></image>
+        <block wx:if="{{workStat==0 || workStat==3}}"></block>
+        <block wx:else>
+          <view class="dot"></view>
+          <view class="dot2"></view>
+        </block>
+        <!--点击开始-->
+        <view class="patternTh-t-p" catchtap="{{workStat==1 && isStartQuickly==0?'stopCheirapsisEvent':(isForbidOnUsed && isUseStat?'':'startCheirapsisEvent')}}">
+          <view class="{{workStat==1?'colorimmt':'colorlist'}}" style="width:100%;text-align: center;/*color:rgba(225,127,39,1)*/ font-weight:bold;">{{workStat==1?'点击暂停':(isSCmdOperating?'正在启动':'点击开始')}}</view>
+          <!-- <view class="{{twinklet?'colorimmt':'colorlist'}}" style="width:100%;text-align: center;/*color:rgba(225,127,39,1)*/ font-weight:bold;">{{workStat==1?'点击暂停':'点击开始'}}</view> -->
+          <image src="{{workStat==1?DataURL+'/images/zanting.png':DataURL+'/images/kaishi.png'}}"></image>
+          <block wx:if="{{isShowRemainTime}}">
+            <view class="reme">剩余
+              <text class="remaintime">{{remainTimeMinutes}}</text>分钟</view>
+            <view class="Timeout">
+          
+          
+              <!-- <text>{{remainTimeHours}}:</text> -->
+              <!-- <text>{{remainTimeMinutes}}</text> -->
+              <!-- <text>{{remainTimeSeconds}}</text> -->
+            </view>
+          </block>
+        </view>
+      </view>
+
+      <!-- 按摩器启动后才允许模式/档位操作 -->
+      <block wx:if="{{workStat==1}}">
+        <!-- <block wx:if="true"> -->
+        <!-- 款式一 -->
+        <block wx:if="{{deviceModelId==0}}">
+          <view class="pat">
+            <view class="pat-s">
+              <view class="sbye {{curFunction==1? 'colortype':''}}" catchtap="onChangeFunctionEvent" data-tag="0" data-num="1">正转</view>
+              <view class="sbye {{curFunction==2? 'colortype':''}}" catchtap="onChangeFunctionEvent" data-tag="0" data-num="2">反转</view>
+              <view class="sbye {{curFunction==3? 'colortype':''}}" catchtap="onChangeFunctionEvent" data-tag="0" data-num="3">捂脚</view>
+              <view class="pat-s-p {{'costf'+curFunction}}"></view>
+            </view>
+            <view class="pat-t">
+              <view class="sbye {{isHot==1? 'colortype':''}}" catchtap="onChangeFunctionEvent" data-tag="2" data-num="1">加热</view>
+              <view class="sbye {{isHot==0? 'colortype':''}}" catchtap="onChangeFunctionEvent" data-tag="2" data-num="0">不加热</view>
+              <view class="pat-s-g {{isHot==1?'cost':''}}"></view>
+            </view>
+          </view>
+        </block>
+        <!-- 款式二 -->
+        <block wx:if="{{deviceModelId==2}}">
+          <!-- <block wx:if="{{true}}"> -->
+          <view class="pat">
+            <view class="pat-c">
+              <view class="sbye templewidth {{curFunction==1? 'colortype':''}}" catchtap="onChangeFunctionEvent" data-tag="0" data-num="1">模式一</view>
+              <view class="sbye templewidth {{curFunction==2? 'colortype':''}}" catchtap="onChangeFunctionEvent" data-tag="0" data-num="2">模式二</view>
+              <view class="sbye templewidth {{curFunction==3? 'colortype':''}}" catchtap="onChangeFunctionEvent" data-tag="0" data-num="3">模式三</view>
+              <view class="sbye templewidth {{curFunction==4? 'colortype':''}}" catchtap="onChangeFunctionEvent" data-tag="0" data-num="4">挤压</view>
+              <view class="sbye templewidth {{curFunction==5? 'colortype':''}}" catchtap="onChangeFunctionEvent" data-tag="0" data-num="5">轻柔</view>
+              <view class="pat-c-p {{'street'+curFunction}}"></view>
+            </view>
+          </view>
+          <view class="pat">
+            <view class="pat-t">
+              <view class="sbye {{setHotDegreeObj.isSetHotDegree==1? 'colortype':''}}" catchtap="onChangeFunctionEvent" data-tag="2" data-num="1">加热</view>
+              <view class="sbye {{setHotDegreeObj.isSetHotDegree==0? 'colortype':''}}" catchtap="onChangeFunctionEvent" data-tag="2" data-num="0">不加热</view>
+              <view class="pat-s-g {{setHotDegreeObj.isSetHotDegree==1?'cost':''}}"></view>
+            </view>
+            <view class="body-view">
+              <slider class="pouio" block-color="{{setHotDegreeObj.isSetHotDegree==0? '#BFBFBF':'#59A4F5'}}" block-size="25" selected-color="transparent" color="transparent" step='20' bindchange="sliderchange" bindchanging="sliderchange" disabled="{{setHotDegreeObj.isSetHotDegree==0}}"
+                data-num="6" left-icon="cancel" right-icon="success_no_circle" min="60" max="100" value="{{thermal}}">
+              </slider>
+              <view class="pouit">
+                <view class="mobile" style="width:{{sitysix+2}}%;{{setHotDegreeObj.isSetHotDegree==0?'background:#BFBFBF;':''}}"></view>
+              </view>
+              <!-- <view data-num="20" catchtap="{{setHotDegreeObj.isSetHotDegree!=0?'slbindchange':''}}" class="title {{sitysix==0 && setHotDegreeObj.isSetHotDegree!=0? 'hue':''}}" style="left:7%;">20%</view>
+              <view data-num="40" catchtap="{{setHotDegreeObj.isSetHotDegree!=0?'slbindchange':''}}" class="title {{sitysix==25 && setHotDegreeObj.isSetHotDegree!=0? 'hue':''}}" style="left:30%;">40%</view> -->
+              <view data-num="60" catchtap="{{setHotDegreeObj.isSetHotDegree!=0?'slbindchange':''}}" class="title {{sitysix==0 && setHotDegreeObj.isSetHotDegree!=0? 'hue':''}}" style="left:20%;">60%</view>
+              <view data-num="80" catchtap="{{setHotDegreeObj.isSetHotDegree!=0?'slbindchange':''}}" class="title {{sitysix==50 && setHotDegreeObj.isSetHotDegree!=0? 'hue':''}}" style="left:53%;">80%</view>
+              <view data-num="100" catchtap="{{setHotDegreeObj.isSetHotDegree!=0?'slbindchange':''}}" class="title {{sitysix==100 && setHotDegreeObj.isSetHotDegree!=0? 'hue':''}}" style="left:86%;">100%</view>
+            </view>
+          </view>
+          <view class="tuduce">注：体验越久温度越高，请根据个人需要调节温度。</view>
+        </block>
+      </block>
+    </view>
+    <!-- 按摩器启动后才允许模式/档位操作 -->
+    <block wx:if="{{workStat==1}}">
+      <!--强度减压-->
+      <view class="patternBottom">
+        <text style="color:#999;">强度</text>
+        <view class="fank">
+          <text>弱</text>
+          <view catchtap="onChangeFunctionEvent" data-tag="1" data-num="1">
+            <view style="{{curPower >= 1?'background: #0C8CE8;':''}}"></view>
+            <view wx:if="{{false && curPower == 1}}" class="kailong" style="width:0;position:absolute;"></view>
+          </view>
+          <view catchtap="onChangeFunctionEvent" data-tag="1" data-num="2">
+            <view style="{{curPower >= 2?'background: #0C8CE8;':''}}"></view>
+            <view wx:if="{{false && curPower == 2}}" class="kailong" style="width:0;position:absolute;"></view>
+          </view>
+          <view catchtap="onChangeFunctionEvent" data-tag="1" data-num="3">
+            <view style="{{curPower >= 3?'background: #0C8CE8;':''}}"></view>
+            <view wx:if="{{false && curPower == 3}}" class="kailong" style="width:0;position:absolute;"></view>
+          </view>
+          <view catchtap="onChangeFunctionEvent" data-tag="1" data-num="4">
+            <view style="{{curPower >= 4?'background: #0C8CE8;':''}}"></view>
+            <view wx:if="{{false && curPower == 4}}" class="kailong" style="width:0;position:absolute;"></view>
+          </view>
+          <view catchtap="onChangeFunctionEvent" data-tag="1" data-num="5">
+            <view style="{{curPower >= 5?'background: #0C8CE8;':''}}"></view>
+            <view wx:if="{{false && curPower == 5}}" class="kailong" style="width:0;position:absolute;"></view>
+          </view>
+          <!-- 款式二才有强度六 -->
+          <block wx:if="{{deviceModelId==2}}">
+            <view catchtap="onChangeFunctionEvent" data-tag="1" data-num="6">
+              <view style="{{curPower >= 6?'background: #0C8CE8;':''}}"></view>
+              <view wx:if="{{false && curPower == 6}}" class="kailong" style="width:0;position:absolute;"></view>
+            </view>
+          </block>
+          <text>强</text>
+        </view>
+      </view>
+    </block>
+    <!--按摩器介绍-->
+    <block wx:if="{{workStat==1}}">
+      <!-- <block wx:if="{{true}}"> -->
+      <view class="introduce">
+        <view data-pagetype="0" data-package="" data-page="massageIntroduced" catchtap="gotoPage">
+          <image src="{{DataURL}}/images/amq-wenjian.png" class="osize"></image>
+          <text>按摩器介绍</text>
+        </view>
+        <view catchtap="onchangeExplain">
+          <image src="{{DataURL}}/images/amq-yiwen.png" class="osize"></image>
+          <text>使用说明</text>
+        </view>
+        <view catchtap="onchangeroof">
+          <image src="{{DataURL}}/images/amq-gantan.png" class="osize"></image>
+          <text>注意事项</text>
+        </view>
+      </view>
+    </block>
+
+    <!--时间选择-->
+    <block wx:if="{{payCheirapsisProductList.length>0 && deviceStatus==1}}">
+      <view class="patternFour">
+        <view style="color: #999999;">时间选择</view>
+        <block wx:for="{{payCheirapsisProductList}}" wx:for-item="item" wx:key="id" wx:for-index="index" data-index='index'>
+          <view data-index="{{index}}" data-item="{{item}}" catchtap="onSelectCheirapsisSrvItemEvent" class="Choose" style="{{curSelIndex == index?'background: #27B36A;color: #fff;':''}}">
+            <view>{{item.productName!=""?item.productName:(index==0?'体验尝试':(index==1?'休闲放松':(index==2?'疲劳恢复':'深度解压')))}}</view>
+            <view>{{item.price>0.00?item.price+"元/"+item.duration+"分钟":item.duration+"分钟"}}</view>
+          </view>
+        </block>
+      </view>
+    </block>
+  </view>
+</block>
+<!--结束后弹出窗口-->
+<block wx:if="{{isShowFinishAlertPop}}">
+  <view class="tanChuan">
+  </view>
+  <view class="tanChuan-v">
+    <view class="tanChuan-v-o" style="margin-top:20rpx">温馨提示</view>
+    <block wx:if="{{cashDrawAward>0.00}}">
+      <view class="tanChuan-v-t" style="font-size:28rpx;">您本次获得的
+        <text style="font-size:36rpx;">{{cashDrawAward}}</text>元现金红包金额已转入我的钱包可去“我的”-“钱包”进行提现。</view>
+    </block>
+    <block wx:if="{{isPayfor==0}}">
+      <!-- <view class="tanChuan-v-t" style="margin-top:20rpx;">本次体验到此结束，感谢您对{{sysName}}产品的大力支持。</view> -->
+      <view class="tanChuan-v-t" style="margin-top:20rpx;">请选择使用按摩劵或者购买按摩劵继续按摩。</view>
+    </block>
+    <block wx:else>
+      <view class="tanChuan-v-t" style="margin-top:20rpx;">本次体验到此结束，为感谢您对{{sysName}}产品的大力支持，我们为您准备了继续按摩享特惠的活动。</view>
+    </block>
+    <!-- 按摩劵列表 -->
+    <block wx:if="{{drawAwardRecordList.length >0}}">
+      <view style="width：200rpx;position:relative;height:80rpx;">
+        <view class="mortgagePrice" style="margin-top:0;">
+          <view class="useTime" style="width:340rpx;" catchtap="sureCheirapsisAlert">使用按摩劵</view>
+        </view>
+      </view>
+    </block>
+        <!-- 价格列表 -->
+        <view class="mabustud" >
+    <block wx:if="{{payCheirapsisProductList.length > 0}}" wx:for="{{payCheirapsisProductList}}" wx:for-item="item" wx:key="id" wx:for-index="index" data-index='index'>
+      <view data-tag="1" data-index="{{index}}" data-item="{{item}}" catchtap="onSelectCheirapsisSrvItemEvent"class="mortgagePrice">
+        <view class="mortgageOne">
+          <view class="useTime">{{item.duration}}分钟按摩劵</view>
+        </view>
+        <view class="mortgageSecond">
+          <block wx:if="{{isPayfor==0}}">
+            <view class="SecondView">
+              <view class="ruling">￥{{item.price}}</view>
+              <block wx:if="{{item.actprice>item.price}}">
+                <view class="beforeprice">￥{{item.actprice}}</view>
+              </block>
+            </view>
+          </block>
+          <block wx:if="{{isPayfor==1}}">
+            <view class="SecondView">
+              <view class="ruling">￥{{item.halfprice}}</view>
+              <block wx:if="{{item.price>item.halfprice}}">
+                <view class="beforeprice">￥{{item.price}}</view>
+              </block>
+            </view>
+          </block>
+        </view>
+        <!-- <block wx:if="{{drawAwardRecordList.length >0}}">
+        <view class="mortgagePrice" style="top:110rpx;margin-top:0;margin-bottom:50rpx;padding: 0;">
+          <view class="useTime" style="width:340rpx;" catchtap="sureCheirapsisAlert">使用按摩劵</view>
+      </view>
+      </block> -->
+      </view>
+    </block>
+    </view>
+    <view class="tanChuan-v-s">
+      <!-- <view style="background: #ccc;color:#fff;" catchtap="hideFinishAlertPop">取消</view> -->
+      <view style="background: #ccc;color:#fff;margin-top:50rpx;" catchtap="hideFinishAlertPop">退出</view>
+      <!-- <view class="bulge" style="background: #2DB643;color:#fff;" catchtap="submitConitueService">继续按摩</view> -->
+    </view>
+  </view>
+</block>
+
+<!-- 充值提示弹窗 -->
+<view class="userule" wx:if="{{isShowReChargePop}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="tipsbox tac">
+    <text class='topuptips'>您还可以享受30秒足疗按摩，是否充值继续?</text>
+    <view class="width100 pop-foot">
+      <button class="btn-pop" bindtap="hideReChargePop">取消</button>
+      <button class="btn-pop" bindtap='sureReChargeContinue'>继续按摩</button>
+    </view>
+  </view>
+</view>
+
+<!-- 充值弹窗 -->
+<view class="userule" wx:if="{{ReChargePop}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="tipsbox tac">
+    <view class="timeview">{{rechargeAlert}}</view>
+    <!-- <view class="priceview">￥{{rechargeSum}}</view> -->
+    <view class="width100 pop-foot">
+      <button class="btn-pop" bindtap="hideReChargePop">取消</button>
+      <button class="btn-pop" data-amount="{{rechargeSum}}" bindtap='submitPayInfo'>微信支付</button>
+    </view>
+  </view>
+</view>
+<!-- <block>
+  <view class="width100">
+  {{htmlLog}}
+  </view>
+</block> -->
+<view wx:if="{{false}}" class="dingwei">
+  <view class="yuan">
+    <view class="an">点击“</view>
+    <view class="an">
+      <view class="an-o"></view>
+      <view class="an-s"></view>
+      <view class="an-o"></view>
+    </view>”添加到我的小程序，微信首页下拉即可快速访问。
+    <view class="triangle"></view>
+    <image class="fiximg" src="{{DataURL}}/images/amq-deldel.jpg"></image>
+  </view>
+</view>
+
+
+
+<!--使用说明-->
+<block wx:if="{{explaintype}}">
+  <view catchtouchmove="true">
+    <view class="tanChuan" catchtap="onchangeExplain">
+      <view class="close">
+        <view style="width:100%;height:100%;position: relative;" catchtap="onchangeExplain">
+          <view class="close-o"></view>
+          <view class="close-t"></view>
+        </view>
+      </view>
+    </view>
+    <view style="background:#FACD91;" class="tanChuan-av">
+      <scroll-view class="tanChuan-cv" scroll-y="true">
+        <view class="struction">
+          <view class="titl" style="font-size:30rpx;">
+            使用说明
+          </view>
+          <view>
+            <view class="content">1、详细阅读“{{sysName}}”使用注意事项、了解产品的使用要求。</view>
+            <view class="content roof">2、检查产品的电源、电路有无破损，确保使用安全。</view>
+            <view class="content roof">3、准备按摩前请务必佩戴脚套，讲究卫生。</view>
+            <view class="content roof">4、首页每天都赠送一次免费抽奖机会，多种免费按摩时长等你来拿，千万不要错过。</view>
+            <view class="content roof">5、购买按摩时间、或使用按摩劵，点击“开始”按钮后，按摩器开始运行。注：当按摩器开始运作倒计时的时候，如您在倒计时过程中点击暂停，设备会停止，但是倒计时依旧会继续，直到体验分钟数结束为止。</view>
+            <view class="content roof">6、当按摩器启动时，默认为“正转”模式，除此之外，您还可以根据需要来切换“反转”和“捂脚”模式。</view>
+            <view class="content roof">7、按摩器共有五档，启动时强度默认为三挡，您可根据按摩的力度大小进行调节。（1挡为最弱，5挡为最强）</view>
+            <view class="content roof">8、按摩器启动时，默认为“加热”模式，您可根据需要来调节成“不加热”。</view>
+            <view class="content roof">9、保持舒适的体态，开始足部按摩。</view>
+            <view class="content roof">10、按摩结束后，请将按摩器放置到安全的位置，以免造成绊倒，和方便二次使用。</view>
+          </view>
+          <view class="content roof">按摩可以放松我们的身体，双脚作为我们平时行走站立的关键部位，每天都承担着大量的工作，久而久之十分疲累，所以我们也应在每天对双脚进行按摩放松，这样有益我们的健康，长此以往，还能增加我们的寿命。</view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</block>
+
+<!--注意事项-->
+<block wx:if="{{roof}}">
+  <view height="1500rpx" width="100%" catchtouchmove="true">
+    <view class="tanChuan" catchtap="onchangeroof">
+      <view class="close">
+        <view style="width:100%;height:100%;position: relative;" catchtap="onchangeroof">
+          <view class="close-o"></view>
+          <view class="close-t"></view>
+        </view>
+      </view>
+    </view>
+    <view style="background:#FACD91;" class="tanChuan-av">
+      <scroll-view class="tanChuan-cv" scroll-y="true">
+        <!--新板块内容-->
+        <view class="struction">
+          <view class="titl" style="font-size:30rpx;">
+            重要安全事项说明
+          </view>
+          <view>
+            <view class="content">●为确保安全及正确使用产品，使用前请务必详细参阅操作手册。</view>
+            <view class="content roof">●请务必依照本操作手册内的产品用途使用本产品。</view>
+            <view class="content roof">●使用完毕后或清洁产品前，请将电源插头从插座中拔除。</view>
+            <view class="content roof">●请务必谨慎使用温热功能，避免灼伤。</view>
+            <view class="content roof">●请勿用于感觉迟钝和过于敏感的皮肤，血液循环不良的部位，切勿让儿童或者身心功能障碍者自行使用温热功能，操作不当可能存在危险。</view>
+            <view class="content roof">●为避免因过热而导致走火、触电、或造成伤害，请勿将产品在枕头或毯子下操作。</view>
+            <view class="content roof">●请勿覆盖使用，以免造成马达温度过高而导致故障或损坏。</view>
+            <view class="content roof">●若儿童，身心功能障碍与伤残者使用该产品，需要有旁人指导且能负责其安全。</view>
+            <view class="content roof">●如在按摩进行中感到不适，请立即停止按摩。</view>
+            <view class="content roof">●如果电源线破损时，请立即停止使用，关闭电源开关，将电源线拔离插座，必须到制造商、代理商处修理或更换，以避免危险。</view>
+            <view class="content roof"> ●为确保安全及正确使用产品，使用前请务必详细参阅操作手册。</view>
+            <view class="content roof">●请勿使用非制造商所推荐的零部件。</view>
+            <view class="content roof">●若想切断电源，请将所有的操作控制关闭后，将电源插头由插座中拔除。</view>
+            <view class="content roof">●本产品不能作为自我诊断或治疗之用，如需要诊断或治疗，应由专业医疗人员处理。</view>
+            <view class="content roof">●器具表面发热，对热不敏感的人，使用时必须注意。</view>
+          </view>
+          <view class="titl" style="font-size:30rpx;">
+            使用环境
+          </view>
+          <view>
+            <view class="content">●请勿在潮湿或过多灰尘的环境下使用产品，以免产品发生故障。</view>
+            <view class="content roof">●请勿在室温高于40℃的环境下使用本产品。</view>
+            <view class="content roof">●请勿将产品放置户外。</view>
+            <view class="content roof">●请勿将产品置放于电热器旁、炉具附近或者阳光直射处。</view>
+          </view>
+          <view class="titl" style="font-size:30rpx;">
+            不适应本产品的人士
+          </view>
+          <view>
+            <view style="color: #666;line-height: 48rpx;font-size:30rpx;">如果您有以下情形，使用前请先咨询医生。</view>
+            <view class="content">●正在接受医生治疗者或身体感觉不适者。</view>
+            <view class="content roof">●高血压、心脏病、脑动脉硬化、脑血栓患者。</view>
+            <view class="content roof">●患有恶性肿瘤者。</view>
+            <view class="content roof">●患有骨骼疏松症。</view>
+            <view class="content roof">●孕妇及月经期妇女。</view>
+            <view class="content roof">●正在使用心脏起搏器或者植入医疗器者。</view>
+            <view class="content roof">●患有急性疾病者。</view>
+            <view class="content roof">●未成年人。</view>
+          </view>
+        </view>
+        <view class="titl" style="font-size:30rpx;">
+          开关注意事项
+        </view>
+        <view>
+          <view class="content">●请勿用湿手操作控制开关。</view>
+          <view class="content roof">●请勿让控制开关接触水等液体。</view>
+        </view>
+        <view class="titl" style="font-size:30rpx;">
+          注意！
+        </view>
+        <view>
+          <view class="content">●请勿在产品操作时入睡。</view>
+          <view class="content roof">●请勿在酒醉或身体不适时使用本产品。</view>
+          <view class="content roof">●请勿直接将按摩头贴近手部、手肘关节、膝盖、胸部或腹部。</view>
+          <view class="content roof">●连续使用本产品时间请勿超过三十分钟。</view>
+          <view class="content roof">●若产品的布套已经破损，请勿使用。</view>
+          <view class="content roof">●请勿在进食前后一小时使用，以免造成反效果。</view>
+          <view class="content roof">●在偏低室温中使用产品时，切勿骤然使用温热功能，建议将温度逐渐调至正常范围后再使用。</view>
+          <view class="content roof">●若是将产品由低温储存处移至温暖环境使用时，可能会因为机件内水汽聚集而影响产品的正常运作，甚至造成机件故障。建议移动后，先将产品在正常室温放置一小时后再开机使用。</view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</block>

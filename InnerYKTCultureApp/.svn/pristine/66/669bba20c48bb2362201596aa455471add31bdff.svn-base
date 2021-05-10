@@ -1,0 +1,52 @@
+<!--pages/operation/operation.wxml-->
+<view class="speed" wx:if="{{true}}">
+  <view>强度设置</view>
+  <view class="body-view">
+    <view class="edou">强度一</view>
+    <slider block-color="#59A4F5" block-size="16" bindchanging="sliderchange" data-num="1" selected-color="#73B5FB" color="#fff" 
+    value="20" step='5'bindchange="slbindchange" left-icon="cancel" right-icon="success_no_circle">
+    </slider>
+    <view class="title">{{sityfirt}}%</view>
+  </view>
+  <view class="body-view">
+    <view class="edou">强度二</view>
+    <slider block-color="#59A4F5" block-size="16" bindchanging="sliderchange"  data-num="2" selected-color="#73B5FB" color="#fff"
+    value="20"
+    step='5'bindchange="slbindchange" left-icon="cancel" right-icon="success_no_circle">
+    </slider>
+    <view class="title">{{sitysceond}}%</view>
+  </view>
+  <view class="body-view">
+    <view class="edou">强度三</view>
+    <slider block-color="#59A4F5" block-size="16" step='5'
+    bindchanging="sliderchange"   data-num="3" value="20"
+    selected-color="#73B5FB" color="#fff" bindchange="slbindchange" left-icon="cancel" right-icon="success_no_circle">
+    </slider>
+    <view class="title">{{sitythree}}%</view>
+  </view>
+  <view class="body-view">
+    <view class="edou">强度四</view>
+    <slider block-color="#59A4F5" block-size="16" step='5'
+    bindchanging="sliderchange" data-num="4" value="20"
+    selected-color="#73B5FB" color="#fff" bindchange="slbindchange" left-icon="cancel" right-icon="success_no_circle">
+    </slider>
+    <view class="title">{{sityfour}}%</view>
+  </view>
+  <view class="body-view">
+    <view class="edou">强度五</view>
+    <slider block-color="#59A4F5" block-size="16" value="100" disabled bindchanging="sliderchange"data-num="5" selected-color="#73B5FB" color="#fff" step='5' bindchange="slbindchange" left-icon="cancel" right-icon="success_no_circle">
+    </slider>
+    <view class="title">100%</view>
+  </view>
+  <view class="speed-bottom">
+    <!-- <view class="bt-o">
+      <text>当前强度</text>
+      <image src="../../images/amy-problem.png"></image>
+    </view> -->
+    <view></view>
+    <view class="bt-t">
+      <view>保存</view>
+      <view>确定</view>
+    </view>
+  </view>
+</view>

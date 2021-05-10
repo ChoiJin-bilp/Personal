@@ -1,0 +1,34 @@
+/* packageSMall/pages/exchannge/exchannge.wxss */
+.motise{
+  margin-top: 150rpx;
+  text-align: center;
+}
+.motise image{
+  width: 315rpx;
+height: 244rpx;
+}
+.title{
+  margin-top: 58rpx;
+font-size: 48rpx;
+text-align: center;
+color: #333333;
+line-height: 31rpx
+}
+.title{
+  margin-top: 58rpx;
+font-size: 48rpx;
+text-align: center;
+color: #333333;
+line-height: 31rpx
+}
+.fontsize{
+  letter-spacing: 2rpx;
+  font-size: 30rpx;
+text-align: center;
+color: #808080;
+line-height: 48rpx;
+}
+.fontsize text{
+  color: #428CEB;
+  text-decoration: underline;
+}

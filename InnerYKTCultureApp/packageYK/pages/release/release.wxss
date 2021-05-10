@@ -1,0 +1,28 @@
+/* pages/release/release.wxss */
+.release{
+  margin-top: 30rpx;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.Aminelist{
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+}
+.list-iocn{
+  width: 50rpx;
+  height: 60rpx;
+  float: left;
+  margin: 20rpx 20rpx 20rpx 0;
+  position: relative;
+}
+.iconimage{
+  width: 70rpx;
+  height: 70rpx;
+  position: absolute;
+  left: 0;
+  top: 0;
+}

@@ -1,0 +1,98 @@
+/* pages/newAddress/newAddress.wxss */
+page{
+background: #F0F1F2;
+  letter-spacing: 2rpx;
+}
+/*保存地址按钮样式*/
+.fairm {
+  width: 94%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #086;
+  color: #fff;
+  font-size: 34rpx;
+  height: 80rpx;
+  margin: 0 auto;
+  border-radius: 8rpx;
+  margin-top: 60rpx;
+}
+.fairm2{
+  width: 94%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  color: #086;
+  font-size: 34rpx;
+  height: 80rpx;
+  margin: 0 auto;
+  border-radius: 8rpx;
+  margin-top: 20rpx;
+  box-shadow: 0rpx 0rpx 2rpx 2rpx rgb(26, 24, 24,0.5);
+}
+/*主题内容样式*/
+.newitem{
+  padding: 20rpx;
+  box-sizing: border-box;
+  background: #fff;
+  margin-top: 20rpx;
+  padding-bottom: 0rpx;
+}
+.fistItem{
+  display: flex;
+  border-bottom: solid #F0F1F2 2rpx;
+  padding: 24rpx 0;
+}
+.titleName{
+  font-size: 30rpx;
+  font-weight: bold;
+  width: 22%;
+}
+.sss{
+  width: 78%;
+}
+.sss input{
+  font-size: 30rpx;
+  padding-bottom: 30rpx;
+  border-bottom: solid #F0F1F2 2rpx;
+  width: 100%;   
+}
+input{
+  font-size: 30rpx;
+}
+.clfe{
+  display: flex;
+  align-items: center;
+  margin-top: 20rpx;
+}
+.clfe view{
+  padding: 4rpx 20rpx;
+  border-radius: 8rpx;
+  border: #F0F1F2 solid 2rpx; 
+  font-size: 26rpx;
+  line-height: 32rpx;
+}
+.clfe view:nth-of-type(2){
+  margin-left: 20rpx;
+}
+.ccc{
+  width: 78%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ccc image{
+  width: 18rpx;
+  height: 30rpx;
+}
+.ccc input{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
+.bag{
+  background: #086;
+  color: #fff
+}

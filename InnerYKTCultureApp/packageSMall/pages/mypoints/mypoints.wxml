@@ -1,0 +1,57 @@
+<!--pages/mypoints/mypoints.wxml-->
+<view class='deposit'>
+  <view class="depositbox ">
+    <image class="bgimage" src='{{DataURL}}/images/bgstore.png'></image>
+    <view class="limit">
+      <text>{{myAllPoints}}</text>
+      <!-- <text catchtap="gotoExchange1">我的订单</text> -->
+      <view>我的积分</view>
+    </view>
+    <view class="qr-hint">
+      <image catchtap="showModalhint" src='{{DataURL}}/images/qrstore.png'></image>
+      <!-- <image catchtap="showModalQRcode" src='{{DataURL}}/images/hintstore.png'></image> -->
+    </view>
+    <button class="conversion" catchtap="gotoExchange">我要兑换</button>
+    
+  </view>
+</view>
+<view class="width94">
+  <block wx:for="{{myPointActivity}}" wx:for-item="item" wx:key="{{item.id}}" wx:for-index="index">
+    <view class="DHrecord">
+      <view class="DHstorename"><text>{{item.sortNo}}</text>.{{item.activityName}}</view>
+      <view class="now-progress">
+        <text>进度</text>
+        <progress percent="{{item.percentage}}" stroke-width="14" color="#549fff" />
+        <view>{{item.finishedCnt}}/{{item.allCnt}}</view>
+        <!-- <button class="{{item.isFinish?'show':'hide'}}">领奖</button> -->
+        <button data-item='{{item}}' catchtap='addSMRewardOrderInfo'>领奖</button>
+      </view>
+    </view>
+  </block>
+</view>
+<!-- 二维码弹窗 -->
+<view class="userule" wx:if="{{isShowQRCode}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="recordbox1">
+    <view class='record'>
+      <text class="name-card">{{qrShowTitle}}</text>
+      <view class='qr-box'>
+        <image mode='aspectFit' class='qr-card' src='{{qrShowImgSrc}}'></image>
+      </view>
+    </view>
+    <view class="delete-box">
+      <image class='del-record' catchtap="hideModalQRcode" src='{{DataURL}}/images/clearpop.png'></image>
+    </view>
+  </view>
+</view>
+
+<!-- 提示弹窗 -->
+<view class="userule" wx:if="{{isShowhint}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="recordbox">
+    <text>积分可通过购买商品成功后奖励获得</text>
+    <view class="delete-box">
+      <image class='del-record' catchtap="hideModalhint" src='{{DataURL}}/images/clearpop.png'></image>
+    </view>
+  </view>
+</view>

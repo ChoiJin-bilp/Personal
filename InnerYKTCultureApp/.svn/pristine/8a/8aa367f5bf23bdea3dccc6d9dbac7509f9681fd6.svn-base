@@ -1,0 +1,39 @@
+<!--packageYK/pages/deviceBindQRCode/deviceBindQRCode.wxml-->
+<scroll-view class="width100" style = "height:90%;position: relative;" scroll-y="true" bindscrolltolower="bindDownLoad" bindscrolltoupper="bindTopLoad" upper-threshold="10" lower-threshold="10" scroll-with-animation = "true">
+  <view id = "top"></view>
+<view class="deviceCode">
+  <view class="deviceCode-o">
+    <view class="de-o">
+      <view>小程序码</view>
+      <input placeholder="扫小程序码获取设备编号" value="{{curWXNumber}}" data-tag="0" catchtap="scanQRCodeEvent"></input>
+      <image src="{{DataURL}}/images/zmy-sm.png" data-tag="0" catchtap="scanQRCodeEvent"></image>
+    </view>
+    <view class="de-t">
+      <view>设备地址</view>
+      <input placeholder="扫地址码获取设备地址" value="{{curDeviceAddress}}" data-tag="1" catchtap="scanQRCodeEvent"></input>
+      <image src="{{DataURL}}/images/zmy-sm.png" data-tag="1" catchtap="scanQRCodeEvent"></image>    
+    </view>
+    <view class="de-s" catchtap="bindWXQRAndDeviceAddress">
+      绑定
+    </view>
+  </view>
+
+  <view class="tit">绑定记录</view>
+  <block wx:for="{{dataArray}}" wx:for-item="articles" wx:for-index="dataArrayIndex" wx:key="key">
+    <block wx:for="{{articles}}" wx:for-item="item" wx:key="id" wx:for-index="index" data-index='index'>
+      <view class="deviceCode-t">
+        <view class="Code-t">
+          <view class="Code-t-o"><text>设备编号</text><text>{{item.number}}</text></view>
+          <view class="succse">ID:{{item.id}}</view>
+        </view>    
+        <view class="Code-t">
+          <view class="Code-t-o"><text>设备地址</text><text>{{item.deviceAddress}}</text></view>
+          <view class="de-w" data-dvaddr="{{item.deviceAddress}}" data-min="1" catchtap="gotoTestPage">测试</view>
+        </view>
+      </view>
+    </block>
+  </block> 
+</view>
+  <view id = "bottom"></view>
+</scroll-view>
+

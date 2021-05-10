@@ -1,0 +1,327 @@
+<!--pages/commoditydetail/commoditydetail.wxml-->
+<view style='width:0px;height:0px;overflow:hidden;'>
+  <canvas type="2d" canvas-id="imgCompressCanvas" style="width: {{icImgWidth}}px; height: {{icImgHeight}}px;"></canvas>
+</view>
+
+<view class="Ihavedata">
+  <view class="submitdata">
+    <view class="infordata">
+      <text>商品名称</text>
+      <input class="fright" disabled='{{disabled}}' data-cid='productName' bindinput='changeValueMainData'
+        value="{{proDataInfo.productName}}" cursor-spacing="10" minlength="0" maxlength="{{max_name}}"></input>
+    </view>
+    <!-- <view class="infordata">
+      <text>商品副名称</text>
+      <input class="fright" disabled='{{disabled}}' data-cid='secondProductName' bindinput='changeValueMainData' value="{{proDataInfo.secondProductName}}" cursor-spacing="10" minlength="0" maxlength="{{max_name}}"></input>
+    </view> -->
+    <view class="infordata">
+      <text>商品编号</text>
+      <input class="fright" disabled='{{disabled}}' data-cid='paroductNo' bindinput='changeValueMainData'
+        value="{{proDataInfo.paroductNo}}" cursor-spacing="10" minlength="0" maxlength="{{max_no}}"></input>
+    </view>
+    <view class="infordata">
+      <text>商品排序</text>
+      <input class="fright" disabled='{{disabled}}' type="number" data-cid='sort' bindblur='changeValueMainData'
+        value="{{proDataInfo.sort}}" cursor-spacing="10"></input>
+    </view>
+    <view class="infordatauto">
+      <text fleft>商品图片</text>
+      <view class="fright">
+        <block wx:for="{{proDataInfo.photos}}" wx:for-item="item" wx:for-index="index" wx:key="key">
+          <view class='firstimg'>
+            <image mode='aspectFill' class='scrollimg img_toplist{{index}}'
+              src="{{item.isShow? item.src+'?'+randomNum : ''}}" data-src='{{item.src}}' catchtap="viewImg"></image>
+            <image class="delimg {{disabled?'hide':'show'}}" src='{{DataURL}}/images/image-del.png' data-tag="0"
+              data-index='{{index}}' catchtap='delrbImgList'></image>
+          </view>
+        </block>
+        <!-- 新增 -->
+        <view class="firstimg {{proDataInfo.photos.length>=maxPhoImgCnt?'hide':'show'}}">
+          <image class='addimg1' src='{{DataURL}}/images/addimg-zh.png' data-type="0"
+            catchtap="{{disabled?'':'uploadImg'}}"></image>
+        </view>
+      </view>
+    </view>
+    <view class="infordatauto">
+      <text class="fleft">详情介绍</text>
+      <view class="fright">
+        <block wx:for="{{proDataInfo.introductionImgs}}" wx:for-item="item" wx:for-index="index" wx:key="key">
+          <view class='firstimg'>
+            <image mode='aspectFill' class='scrollimg img_introduce{{index}}'
+              src="{{item.isShow? item.src+'?'+randomNum : ''}}" data-src='{{item.src}}' catchtap="viewImg"></image>
+            <image class="delimg {{disabled?'hide':'show'}}" src='{{DataURL}}/images/image-del.png' data-tag="1"
+              data-index='{{index}}' catchtap='delrbImgList'></image>
+          </view>
+        </block>
+        <!-- 新增 -->
+        <view class="firstimg {{proDataInfo.introductionImgs.length>=maxIntImgCnt?'hide':'show'}}">
+          <image class='addimg1' src='{{DataURL}}/images/addimg-zh.png' data-type="1"
+            catchtap="{{disabled?'':'uploadImg'}}"></image>
+        </view>
+      </view>
+    </view>
+    <view class="infordatauto">
+      <text class="fleft">商品描述</text>
+      <view class="fright">
+        <block wx:if="{{showPDRemark && !disabled}}">
+          <textarea focus='{{showPDRemark}}' fixed minlength="{{min}}" maxlength="{{max}}"
+            bindinput="changeValueMainData" data-cid='remark' value='{{proDataInfo.remark}}'
+            bindblur="outRemark"></textarea>
+        </block>
+        <block wx:else>
+          <text catchtap="{{!disabled?'enterRemark':''}}">{{proDataInfo.remark}}</text>
+        </block>
+      </view>
+      <view class="clearfix"></view>
+    </view>
+    <view class="infordata" hidden="true">
+      <text>商品类型</text>
+      <view class="section">
+        <picker disabled='{{disabled}}' bindchange="bindPickerProductTypeChange" value="{{selProductTypeIndex}}"
+          range="{{selProcuctTypeList}}" range-key="name">
+          <view class="picker relative">
+            {{selProcuctTypeList[selProductTypeIndex].name}}
+            <image class="xiala" data-index='{{selProductTypeIDParam}}' src='{{DataURL}}/images/xiala.png' catchtap=''>
+            </image>
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class="infordata">
+      <text>选择酒店</text>
+      <view class="section">
+        <picker disabled='{{disabled}}' bindchange="bindPickerCompanyChange" data-tag="0"
+          value="{{selCompanydataIndex}}" range="{{CompanydataList}}" range-key="companyName">
+          <view class="picker relative">
+            {{CompanydataList[selCompanydataIndex].companyName}}
+            <image class="xiala" src='{{DataURL}}/images/xiala.png' catchtap=''></image>
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class="infordata" hidden="{{2 == pagetype}}">
+      <text>门店标签</text>
+      <radio-group class="radio-group" data-cid='mold' catchtap="radioShopChange">
+        <label style="width:250rpx;" class="radio" wx:for="{{1}}" wx:key="key">
+          <radio disabled='{{disabled}}' checked="{{isShopProduct}}" /> 店内商品
+        </label>
+      </radio-group>
+    </view>
+    <view class="infordata">
+      <text>商品标签</text>
+      <!-- <radio-group class="radio-group" data-cid='mold' bindchange="radioChange" data-tag="0"> -->
+      <checkbox-group class="radio-group" data-cid='mold' bindchange="checkboxChange" data-tag="0">
+        <label class="radio" wx:for="{{suitableProductList}}" wx:key="key">
+          <checkbox disabled='{{disabled}}' value="{{item.value}}" checked="{{item.checked}}" /> {{item.name}}
+        </label>
+      <!-- </radio-group> -->
+      </checkbox-group>
+    </view>
+    <view class="infordata">
+      <text>上架状态</text>
+      <radio-group class="radio-group" data-cid='mold' bindchange="radioChange" data-tag="1">
+        <label class="radio" wx:for="{{saleStatusList}}" wx:key="key">
+          <radio disabled='{{disabled}}' value="{{item.value}}" checked="{{item.checked}}" />{{item.name}}
+        </label>
+      </radio-group>
+    </view>
+    <view class="infordata">
+      <text>商品分类</text>
+      <view class="section">
+        <picker disabled='{{disabled}}' bindchange="bindPickerCompanyChange" data-tag="1"
+          value="{{selProductTypeIndex}}" range="{{selProcuctTypeList}}" range-key="name">
+          <view class="picker relative" style="text-align: center;">
+            {{selProcuctTypeList[selProductTypeIndex].name}}
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class="infordatauto">
+      <view class="infordatauto-v">
+        <text fleft>商品规格</text>
+        <button wx:if="{{pagetype==0}}" bindtap="showSpecsPop">新增规格</button>
+        <button wx:else bindtap="onchangeCategory" data-tag="0">新增规格</button>
+      </view>
+      <view class="frights">
+        <view class="table">
+          <view wx:if="{{pagetype==0}}" class="thead">
+            <view class="thead-tr">规格</view>
+            <view class="thead-tr">库存</view>
+            <view class="thead-tr">价格</view>
+          </view>
+          <view wx:else class="thead">
+            <view class="thead-tr">分类</view>
+          </view>
+          <block wx:if="{{pagetype==2}}">
+            <view class="tboby" wx:for="{{models}}" wx:key="key">
+              <view class="tboby-tr">{{item.attributeOne}}</view>
+              <view class="tboby-bb" catchtap="drinkModelclear" data-index="{{index}}">删除</view>
+              <view class="tboby-bt" bindtap="onchangeCategory" data-tag="1" data-index="{{index}}">编辑</view>
+            </view>
+          </block>
+          <block wx:if="{{pagetype==0}}" wx:for="{{proDataInfo.productDetailList}}" wx:for-item="item"
+            wx:key="productDetailId" wx:for-index="index">
+            <view wx:if="{{!item.isDel}}" class="tboby">
+              <view class="tboby-tr">
+                {{item.isHaveTwo?item.attributeOne+' '+item.attributeTwo:item.attributeOne+item.attributeTwo}}</view>
+              <view class="tboby-tr">{{item.strStock}}</view>
+              <view class="tboby-tr">
+                <input disabled='{{disabled}}' type="digit" data-cid='DetailSourcePrice' data-index="{{index}}"
+                  bindblur='changeValueMainData' value="{{item.sourcePrice}}" cursor-spacing="10" />
+              </view>
+              <block wx:if="{{!disabled}}">
+                <image src='{{DataURL}}/images/clear.png' data-index="{{index}}" catchtap="delSpecsList"></image>
+              </block>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
+    <view class="clearfix"></view>
+  </view>
+</view>
+<view class="save-btn">
+  <view class="width94">
+    <view class="pleasechoose">
+      <checkbox class="boxcheck" checked="{{isAgreTreaty}}" catchtap="clickCheckbox"></checkbox>我阅读并同意
+      <text bindtap="showModalserve">《平台用户服务协议》</text>
+    </view>
+  </view>
+  <view class="width100">
+    <button data-tag="0" catchtap="submitProductInfo">保存</button>
+    <!-- <button data-tag="1" catchtap="submitProductInfo">上架</button> -->
+  </view>
+</view>
+
+<!-- 新增规格 -->
+<view class="userule" wx:if="{{isShowSpecsPop}}" catchtouchmove="ture">
+  <view class="bgopcity"></view>
+  <view class="tipsbox">
+    <view class='topuptips'>
+      <text>规格</text>
+      <input data-cid='editSpecsName' bindinput='changeValueMainData' value="{{editSpecsName}}" cursor-spacing="10"
+        minlength="0" maxlength="{{max_name}}"></input>
+    </view>
+    <view class='topuptips'>
+      <text>价格</text>
+      <input type="digit" data-cid='editSpecsSourcePrice' bindblur='changeValueMainData'
+        value="{{editSpecsSourcePrice<=0.00?'':editSpecsSourcePrice}}" cursor-spacing="10"></input>
+    </view>
+    <view class='topuptips'>
+      <text>库存</text>
+      <input type="digit" data-cid='editSpecsStock' bindblur='changeValueMainData'
+        value="{{editSpecsStock<=0.00?'':editSpecsStock}}" cursor-spacing="10"></input>
+    </view>
+    <view class='topuptips'>
+      <text>规格图片</text>
+    </view>
+    <view class="upload" style="margin:0 auto;width:92%;">
+      <block wx:for="{{editSpecsPhoto}}" wx:key="key" wx:for-item="item" wx:for-index="index">
+        <view class='firstimg'>
+          <image mode='aspectFill' class='scrollimg' src='{{item}}' data-src='{{item}}' catchtap="viewImg"></image>
+          <image class="delimg" src='{{DataURL}}/images/image-del.png' data-tag="10" data-index='{{index}}'
+            catchtap='delrbImgList'></image>
+        </view>
+      </block>
+      <!-- 新增 -->
+      <view class="firstimg {{editSpecsPhoto.length>=maxSpecsPhoImgCnt?'hide':'show'}}"
+        catchtap="{{disabled?'':'uploadImg'}}" data-type="10">
+        <image class='addimg1' src='{{DataURL}}/images/addimg-zh.png'></image>
+      </view>
+      <view class="clearfix"></view>
+    </view>
+
+    <view class="width100 pop-foot">
+      <button class="btn-pop" bindtap="hideSpecsPop">取消</button>
+      <button class="btn-pop" bindtap='submitSpecsPop'>确定</button>
+    </view>
+  </view>
+</view>
+
+<!-- 云客智能协议 -->
+<view wx:if="{{showModalserve}}" class="dragon">
+  <mylist-c bindmyevent="onMyEvent"></mylist-c>
+</view>
+<!--遮罩模板样式-->
+<block wx:if="{{category}}">
+  <view class="windowBackgroud" catchtouchmove="{{false}}" catchtap="emptyType"></view>
+</block>
+
+<!--饮品的商品规格-->
+<view class="specifications" wx:if="{{category}}">
+  <view>
+    <view class="selectClassify">
+      <view>选择分类</view>
+      <view class="classifySecondly" catchtap="onchangeCatetype">
+        <input disabled value="{{tempModel[0].attributeOne}}"></input>
+        <image src="{{DataURL}}/images/xiala.png"></image>
+        <view class='option_box' style="{{catetype? '':'height:0;'}}">
+          <view class='option' wx:for='{{modelList}}' wx:key="key" data-index='{{index}}' data-tag="0"
+            catchtap='optionTaps'>
+            <text>{{item.attributeOne}}</text> </view>
+        </view>
+      </view>
+    </view>
+    <view class="selectMay">
+      <view>选择方式</view>
+      <view class="weui-cells">
+        <radio-group bindchange="radioChoiseChange">
+          <label class="weui-cell weui-check__label" wx:for="{{timeChoices}}" wx:key="value"
+            style="{{index==1? 'margin-left:40rpx;':''}}">
+            <view class="weui-cell__hd">
+              <radio value="{{item.value}}" checked="{{item.checked}}" />
+            </view>
+            <view class="weui-cell__bd">{{item.name}}</view>
+          </label>
+        </radio-group>
+      </view>
+    </view>
+    <view class="infornew">
+      <text>分类排序</text>
+      <input class="fright" type="number" data-tag="1" bindblur='getInput' value="{{modelSort}}"></input>
+    </view>
+    <view>规格名称</view>
+    <view style="max-height:370rpx;min-height:260rpx;margin-top: 20rpx;overflow-y: auto;" scroll-y="true">
+      <view class="suSet" wx:for="{{tempModel[0].labels}}" wx:key='key' wx:for-item="item" wx:for-index="index">
+        <!--遮罩层-->
+        <view class="suset">
+        <!-- <view class="mbusd" wx:if="{{item.available==0}}"></view> -->
+          <view class="posign" catchtap="setAvailable" style="{{item.available==0?'background: #ccc;':''}}"
+            data-index="{{index}}">{{item.available==0?'无货':'有货'}}</view>
+          <view class="classifySecondly" style="margin-left: 80rpx;" catchtap="onchangeType" data-index="{{index}}">
+            <input disabled value="{{item.lblname}}"></input>
+            <image src="{{DataURL}}/images/xiala.png"></image>
+            <view class='option_box' style="{{item.type? '':'height:0;'}}">
+              <text class='option' wx:for='{{modelList[selectModelIndex].labels}}' wx:key="key" data-tag="1"
+                catchtap='optionTaps' wx:for-item="labelitem" wx:for-index="itemindex" data-index="{{index}}"
+                data-itemindex='{{itemindex}}'>{{labelitem.lblname}}</text>
+            </view>
+          </view>
+          <view class="delcompile">
+            <image catchtap="drinkclear" data-index="{{index}}" src="{{DataURL}}/images/clear.png"></image>
+          </view>
+        </view>
+        <view class="mldse">
+          <view class="viewd">正常价 ￥
+              <input value="{{item.lblprice}}" bindinput="getInput" data-tag="0" type="digit"
+                data-index="{{index}}"></input>
+            </view>
+            <view class="viewd">优惠价 ￥
+              <input value="{{item.discounts_price}}" bindinput="getInput" data-tag="2" type="digit"
+                data-index="{{index}}"></input>
+            </view>
+        </view>
+      </view>
+    
+    
+    
+    
+    
+    </view>
+    <image class="drinkOadd" catchtap="drinkadd" src="{{DataURL}}/images/amq-drinkOadd.png"></image>
+    <view class="hintbut">
+      <!-- <view catchtap="onchangeCategory" data-tag="2">取消</view> -->
+      <view class="hintbut-but" catchtap="okmodel">确认</view>
+    </view>
+  </view>
+</view>

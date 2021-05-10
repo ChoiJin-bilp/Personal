@@ -1,0 +1,9 @@
+<template name = "loginPop">
+  <view class="userule" wx:if="{{isShowLoginPop}}">
+    <view class="bgopcity"></view>
+    <view class="loginbox tac">
+      <input type='password' placeholder='请输入密码' placeholder-style=' color:#999;font-size:0.8rem;' data-cid='password' bindinput='changeValueMainData'  value='{{Password}}' />
+      <button catchtap='verifyPassword'>登 录</button>
+    </view>
+  </view>
+</template>

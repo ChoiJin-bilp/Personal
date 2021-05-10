@@ -1,0 +1,73 @@
+<!--packageSMall/pages/service/service.wxml-->
+<view class='width94'>
+  <view class="main">
+    <view class="cart-box">
+      <view class="storenumber">订单编号:{{order.orderId}}</view>
+      <view class="cart-list-one" wx:for="{{order.detail}}" wx:key="id">
+        <view class="ashopname">
+          <image src="{{item.companyLogo}}"></image>
+          <text>{{item.companyName}}</text>
+          <view>{{item.LevelName}}</view>
+          <!-- <image class="fright" src="{{DataURL}}/images/unfold.png"></image> -->
+        </view>
+        <view class="astoredetails">
+          <image class="cart-thumb-one" mode="scaleToFill" src="{{item.productPhotos}}" data-index="{{index}}" data-itemindex="{{itemindex}}"></image>
+          <view class='cart-infor-one'>
+            <text class="cart-pro-name">{{item.productName}}</text>
+            <view class='cart-norms'>{{item.attributeOne}} {{item.attributeTwo}}</view>
+            <view class='cart-moeny-one'>
+              <view class='cart-pro-price-one'>
+                <text wx:if="{{order.linkNo == 0}}">￥{{item.price}}</text>
+                <text wx:if="{{order.linkNo == 1}}">{{item.price}}积分</text>
+              </view>
+              <view class="cart-count-box-one">
+                <!-- <text class="cart-count-down" bindtap="minusCount" data-obj="{{obj}}" data-index="{{index}}">-</text> -->
+                <text>x{{item.number}}</text>
+                <!-- <text class="cart-count-add" bindtap="addCount" data-index="{{index}}">+</text> -->
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class='width100 orderdetails'>
+        <text>{{order.payTime}}</text>
+      </view>
+      <view class="reason">
+        <view class="section">
+          <view class="section__title">售后类型：</view>
+          <picker bindchange="bindPickerChange" value="{{moldType}}" range="{{array}}">
+            <view class="picker">{{array[moldType]}}
+              <image class="xiala" style='top:28rpx;' src='{{DataURL}}/images/xiala.png'></image>
+            </view>
+          </picker>
+        </view>
+        <view class="section">
+          <view class="section__title">问题描述：</view>
+          <!-- 点击输入框显示 textarea -->
+          <textarea wx:if="{{!showRemarkTeLabel}}" minlength="0" maxlength="{{remark_max}}" data-cid='remark' bindinput='changeValueMainData' value='{{remark}}' cursor-spacing="10" id='7' focus='true' />
+          <!-- 输入框焦点失去显示 text -->
+          <text wx:if="{{showRemarkTeLabel}}" class="text-box" data-cid='remark' catchtap='hideRemarkText' cursor-spacing="10">{{remark}}</text>
+        </view>
+        <view class="section">
+          <view class="section__title" style="width:100%">附件图片：（最多6张）</view>
+          <view class='width100 otherimg'>
+            <!-- 上传图片显示 -->
+            <block wx:for="{{rbImgArray}}" wx:for-item="item" wx:key="key" wx:for-index="index">
+              <view class='firstimg'>
+                <image mode='aspectFill' class='scrollimg' src='{{item}}' data-src='{{item}}' catchtap="viewImg"></image>
+                <image class="delimg {{disabled?'show':'hide'}}" src='{{DataURL}}/images/image-del.png' data-index='{{index}}' catchtap='delrbImgList'></image>
+              </view>
+            </block>
+            <!-- 新增 -->
+            <view class="firstimg {{rbImgCnt>=maxOtherImgCnt?'hide':'show'}}" data-type="1" catchtap="chooseImage">
+              <image class='addimg1' src='{{DataURL}}/images/addimg-zh.png'></image>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="submit">
+        <button catchtap="submitService">提交申请</button>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,25 @@
+<!--packageYK/pages/beverageList/beverageList.wxml-->
+<view class="beverage-list" wx:for="{{orderList}}" wx:key="key" catchtap="goDetail" data-item="{{item}}">
+  <view class="beverage-top">
+    <view>
+      <image src="{{SMDataURL}}/images/amy-drinkwc.png"></image>
+      <text>{{item.create_date}}</text>
+    </view>
+    <view class="dtue">订单已完成</view>
+  </view>
+  <view class="item-list" style="color:#333;font-weight:bold;">{{item.companyName}}</view>
+  <view class="item-list">
+    {{item.detail[0].productName}}
+    <block wx:if="{{item.detail[0].lblnames==null}}">
+      ({{item.detail[0].attributeOne}}{{item.detail[0].attributeTwo}})</block>
+    <text>×{{item.detail[0].number}}</text>
+  </view>
+  <view class=" beverage-bottom">
+    <view>共计{{item.detail.length}}件商品</view>
+    <view>总计：<text style="color:#ff3333;">￥{{item.amount}}</text></view>
+  </view>
+  <image class="sheed" src="{{SMDataURL}}/images/amy-sheed.png"></image>
+</view>
+<view wx:if="{{orderList.length ==0}}">
+  <view class="cart-no-data">没有订单哦~</view>
+</view>

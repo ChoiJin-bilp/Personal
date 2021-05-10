@@ -1,0 +1,34 @@
+<!--pages/hotelorder/hotelorder.wxml-->
+
+<view class='expressRecord'>
+  <view class="cart-list-one" >
+    <view class="title">订单编号:</view>
+    <view class="ashopname" data-item="{{item}}" catchtap="hotelintroduce" data-index="{{index}}" data-itemindex="{{itemindex}}">
+      <image class="storelogo" mode="aspectFit" src="../../images/qq.png"></image>
+      <text  class="storename">爱美家大酒店</text>
+      <image class="fright" src="../../images/region.png"></image>
+    </view>
+    <view class="astoredetails">
+      <image class="cart-thumb-one" mode="scaleToFill" src="../../images/card-icon.png"></image>
+      <view class='cart-infor-one'>
+        <text class="cart-pro-name">豪华双人房</text>
+        <view class='cart-norms'>308</view>
+        <view class='cart-moeny-one'>
+          <view class='cart-pro-price-one'>
+            <text>￥333.00</text>
+          </view>
+          <view class="cart-count-box-one">
+            <text>x{{item.number}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="heji">合计：￥
+      <text>333.00</text>
+    </view>
+    <view class='width100 orderdetails'>
+      <text>2020-05-28 13:00:00</text>
+      <button class="fright" catchtap="hotelorderdetail">查看详情</button>
+    </view>
+  </view>
+</view>

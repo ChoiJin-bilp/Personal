@@ -1,0 +1,56 @@
+<!--packageYK/pages/signin/signin.wxml-->
+<view class="Top">
+  <image src="{{SMDataURL}}/images/chayu-envelope.png"></image>
+  <view class="mlItem">
+    <!-- <view class="forstart" style="margin-top:0">
+      <view class="font-siae">第一天</view>
+      <image src="{{SMDataURL}}/images/zfcg.png"></image>
+      <view class="font-sibe">￥<text>3</text></view>
+    </view> -->
+    <view wx:for="{{signinList.dataList}}" wx:key="index" class="{{item.ishexist==1?'forstart':'forend'}}"
+      style="{{index<5?'margin-top:0;':''}}">
+      <view class="font-siae">第{{item.day}}天</view>
+      <image src="{{item.ishexist==1?SMDataURL+'/images/zfcg.png':signinList.img}}"></image>
+      <view class="font-sibe">￥<text>{{signinList.money}}</text></view>
+    </view>
+    <view style="clear:both;"></view>
+    <view class="kfcj">
+      限时活动:{{isStartSignin? countDown==0?'已结束':countDown+'后结束':signinList.totalTime+'天'}}
+    </view>
+    <view class="imag">
+      <image wx:if="{{!isSignin}}" catchtap="userSignin" src="{{SMDataURL}}/images/chayu-sign.png"></image>
+      <image wx:else src="{{SMDataURL}}/images/chuyu-asign.png"></image>
+    </view>
+    <view class="mlosp">
+      签到规则
+    </view>
+    <view class="article">1、用户每天拥有一次签到机会，每日签到机会将于晚上24:00重置。</view>
+    <view class="article">2、签到领取的红包可用于云客茶语商城内的购物使用，不可用于提现。</view>
+    <view class="article">3、从用户签到第一天开始计时，本轮签到必须在15日内完成，超时将失去本轮签到的资格，签到中途可间断。</view>
+    <view class="article">4、签到成功即可发放红包奖励到我的余额中，请留意账户余额。</view>
+    <view class="article">5、活动时间为:2021年2月24日至2021年3月24日。</view>
+    <view class="article">6、活动解释权在法律允许的范围内归云客茶语所有。</view>
+  </view>
+  <button open-type="share" class="put">
+    <image class="kop" src="{{SMDataURL}}/images/chuyu-soter.png"></image>
+  </button>
+</view>
+
+
+<block wx:if="{{productType}}">
+  <view class="windowBackgroud" catchtouchmove="{{false}}" catchtap="emptyType"></view>
+</block>
+<view class="productTypedetail" wx:if="{{productType}}">
+  <view class="fonts" style="background-image:url('{{SMDataURL}}/images/chuyu-susscesign.png');">
+    <view class="fotle"><text>{{signinList.money}}</text>元现金已到账</view>
+    <view class="fotler">明天也要记得来哦~</view>
+    <view class="fotbnt" catchtap="userMoney">我要使用现金红包</view>
+    <view style="text-align:center;  display: flex;align-items: center;justify-content: center;margin-top:20rpx">
+      <button open-type="share" class="mlput">这等好事，岂能独享<image src="{{SMDataURL}}/images/chayu-scor.png"></image>
+      </button>
+    </view>
+  </view>
+  <view class="mon">
+    <image src="{{SMDataURL}}/images/cleardel.png" catchtap="showout"></image>
+  </view>
+</view>

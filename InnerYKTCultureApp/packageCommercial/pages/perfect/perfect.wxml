@@ -1,0 +1,75 @@
+<!--pages/perfect/perfect.wxml 完善信息-->
+<view class="container" style='padding-top:30rpx;'>
+
+  <!-- <view class='perfect-list'>
+    <text class='fleft'>公司选择</text>
+    <view class="section">
+      <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+        <view class="picker">{{array[index]}}</view>
+      </picker>
+    </view>
+  </view> -->
+  <view class='perfect-list'>
+    <text class='fleft'>公司名称</text>
+    <input disabled='{{disabled}}' class="fleft" minlength="0" maxlength='20' data-value='company' bindinput='changeValueMainData' value='{{companyData.company}}' cursor-spacing="10"></input>
+  </view>
+  <view class='perfect-list'>
+    <text class='fleft'>公司地址</text>
+    <input disabled='{{disabled}}' class='fleft' minlength="0" maxlength="66" data-value='addr' bindinput='changeValueMainData' value='{{companyData.addr}}' cursor-spacing="10"></input>
+  </view>
+  <view class='perfect-list'>
+    <text class='fleft'>公司网址</text>
+    <input disabled='{{disabled}}' class='fleft' minlength="0" maxlength="66" data-value='companyWebSite' bindinput='changeValueMainData' value='{{companyData.companyWebSite}}' cursor-spacing="10"></input>
+  </view>
+  <view class='perfect-list'>
+    <text class='fleft'>负 责 人</text>
+    <input disabled='{{disabled}}' class='fleft' minlength="0" maxlength="6" data-value='legal' bindinput='changeValueMainData' value='{{companyData.legal}}' cursor-spacing="10"></input>
+  </view>
+  <view class='perfect-list'>
+    <text class='fleft'>电 话</text>
+    <input disabled='{{disabled}}' class='fleft' minlength="0" maxlength="12" data-value='companyTel' bindinput='changeValueMainData' value='{{companyData.companyTel}}' cursor-spacing="10"></input>
+  </view>
+  <view class='perfect-list'>
+    <text class='fleft'>邮 箱</text>
+    <input disabled='{{disabled}}' class='fleft' minlength="0" maxlength="25" data-value='companyEmail' bindinput='changeValueMainData' value='{{companyData.companyEmail}}' cursor-spacing="10"></input>
+  </view>
+  <view class='perfect-list'>
+    <text class='fleft'>Logo</text>
+    <view class="up-image">
+      <view class='image-box'>
+          <image class='add-image' wx:if="{{companyData.companyLogo}}"  mode='aspectFit' src='{{companyData.companyLogo}}' data-src='{{companyData.companyLogo}}' data-type="0" catchtap="{{disabled?'viewImg':'uploadImg'}}"></image>
+          <image wx:if="{{!companyData.companyLogo && !disabled}}" class='add-image' src='{{DataURL}}/images/icon_2x.png'  data-value="1" data-type="0" catchtap="uploadImg"></image>
+          <image wx:if="{{companyData.companyLogo && !disabled && scene != 3}}" class='del-img' data-index="{{index}}" catchtap="showModaltip" src='{{DataURL}}/images/image-del.png'></image>
+      </view>
+    </view>
+    
+  </view>
+  <view class='perfect-list' style='clear: both;'>
+    <text class='fleft'>公司简介</text>
+    <textarea disabled='{{disabled}}' class='fleft introduction' auto-height placeholder="{{disabled?'':'请输入公司简介'}}" placeholder-style="color:#666; font-size:0.7rem;" minlength="0" maxlength="500" data-value='intro' bindinput='changeValueMainData' value='{{companyData.intro}}' cursor-spacing="10"/>
+  </view>
+  <view class='perfect-list'>
+      <text class='fleft'>公司相册</text>
+      <view class="other-input-image">
+        <view class='comp-image'>
+          <view class='image-box-comp' wx:if="{{companyData.companyFile}}" wx:for="{{companyData.companyFile}}" wx:key="{{index}}" wx:for-item="item" wx:for-index="index" data-index="{{index}}" >
+            <image class='photo' mode='aspectFill' src='{{item}}' data-src='{{item}}' catchtap="viewImg">{{item}}</image>
+            <image wx:if="{{!disabled}}" class='del-img' data-index="{{index}}" catchtap="showModaltip2" src='{{DataURL}}/images/image-del.png'></image>
+          </view>
+          <image wx:if="{{companyData.companyFile.length < 6 && !disabled}}" class='add-image-comp' src='{{DataURL}}/images/icon_2x.png' data-type="1" catchtap="uploadImg"></image>
+        </view>
+       
+      </view>
+      <view class='clearfix'></view>
+  </view>
+  <view  wx:if="{{scene != 3}}"  class="checkbox-box">
+    <checkbox-group bindchange="checkboxChange">
+      <checkbox color='#0066eb'  checked="{{companyData.showCompanyInfo}}" disabled='{{disabled}}' catchtap="returnCard" />发送名片时附带公司资料
+    </checkbox-group>
+  </view>
+ </view>
+<view class="save">
+  <button wx:if="{{scene == 2}}" disabled='{{!disabled}}' class="btn-foot {{disabled?'btn-enable':'btn-disable'}}" catchtap="editDataInfo">编 辑</button>
+  <button  wx:if="{{scene == 2}}" disabled='{{disabled}}' class="btn-foot {{!disabled?'btn-enable':'btn-disable'}}" catchtap="submitDataInfo">保 存</button>
+  <button  wx:if="{{scene == 1}}" disabled='{{infoDisabled}}' class="btn-foot1 {{!infoDisabled?'btn-enable':'btn-disable'}}" catchtap="submitDataInfo">保 存</button>
+</view>

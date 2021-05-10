@@ -1,0 +1,56 @@
+<!--packageVP/pages/verification/verification.wxml-->
+<view class="Top">
+<view class="Top-z">
+    <view class="TopItem">
+      <input placeholder="请输入充值单号/会员手机号/核销人" value="{{key}}" bindinput="getInput"></input>
+      <image src="{{SMDataURL}}/images/search.png" catchtap="queryOrders"></image>
+    </view>
+  </view>
+  <view class="datatoday">
+    <view class="datatoday-s">
+      <view class="datatoday-s-o">
+        <picker mode="date" value="{{startDate}}" data-tag="0" end="{{endDate}}" bindchange="bindDateChange"
+          style="width:100%;">
+          <text>{{startDate}}</text>
+          <image class="picker" src="{{SMDataURL}}/images/amy-rq.png">
+          </image>
+        </picker>
+      </view>
+      <text>-</text>
+      <view class="datatoday-s-o">
+        <picker mode="date" value="{{endDate}}" start="{{startDate}}" data-tag="1" bindchange="bindDateChange"
+          style="width:100%;">
+          <text>{{endDate}}</text>
+          <image class="picker" src="{{SMDataURL}}/images/amy-rq.png">
+          </image>
+        </picker>
+      </view>
+    </view>
+    <view class="TopRight" catchtap="onChangedivtype" data-tag="0">
+      <view class="buft">{{status[selectStatusIndex].name}}</view>
+      <image src="{{SMDataURL}}/images/xiala.png">
+      </image>
+      <view class="xiala" wx:if="{{isShowStatus}}">
+        <block wx:for="{{status}}" wx:key="key">
+          <view catchtap="selectStatus" data-index="{{index}}">{{item.name}}</view>
+        </block>
+      </view>
+    </view>
+  </view>
+  <view class="histroy">
+    历史记录
+  </view>
+  <view class="itemFor">
+      <block wx:for="{{6}}" wx:key="index">
+        <view class="itemFor-item">
+          <view class="putro"  wx:for="{{putrList}}"  wx:key="listindex">
+            <view class="fpsye">{{item.name}}</view>
+            <view class="contexts">{{item.kgyu}}</view>
+            <view class="mlpbut" wx:if="{{item.name=='核销时间'}}"  data-pagetype="0" data-isaudit="0" data-package="" data-page="mkghetrstwo" data-param="" catchtap="gotoPage">
+              详情
+            </view>
+          </view>
+        </view>
+      </block>
+  </view>
+</view>

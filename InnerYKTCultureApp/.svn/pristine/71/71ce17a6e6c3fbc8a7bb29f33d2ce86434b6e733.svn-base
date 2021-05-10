@@ -1,0 +1,66 @@
+<!--packageVP/pages/Paysucces/Paysucces.wxml-->
+<view class="topimag">
+  <image src="{{SMDataURL}}/images/chayu-zhifusuccse.png"></image>
+</view>
+<view class="title">充值成功！</view>
+<!-- <view class="ordering">充值单号：564686431231546846</view> -->
+<view class="poliu">
+  <view class="item-text">
+    <view>会员手机号：</view>
+    <view>{{curMobile}}</view>
+  </view>
+
+  <view class="item-text">
+    <view>充值用户ID：</view>
+    <view>{{curUserId}}</view>
+  </view>
+  <view class="item-text">
+    <view>实付金额：</view>
+    <view>￥{{payPrice}}</view>
+  </view>
+  <view class="item-text">
+    <view>到账金额:</view>
+    <view>￥{{payPrice}}</view>
+  </view>
+  <view class="item-text">
+    <view>会员积分</view>
+    <view>{{curRInt}}</view>
+  </view>
+  <view class="jifen">当前{{allInt}}积分，距离升级下一级别会员还需{{upGradeInt}}<text data-pagetype="2" data-package="packageVP" data-page="Mymember" catchtap="gotoCommonPage">继续充值</text></view>
+  <!--获取优惠劵-->
+
+  <view class="boed">
+    <view class="boedon">
+      <view class="cko">您已获得：</view>
+      <!--左边内容-->
+      <view class="phgr">
+        <block wx:for="{{welfareList}}" wx:for-item="item" wx:key="{{item.id}}" wx:for-index="index">
+          <view>{{item.name}}{{item.frequency>0?'*'+item.frequency:''}}</view>
+        </block>
+      </view>
+    </view>
+    <view class="context">
+      <!--点样式-->
+      <view class="contextpo"  style="border: 2rpx solid #e5e5e5;">
+        <view class="contextpo-v"></view>
+      </view>
+      <view class="contextpz" style="'border: 2rpx solid #e5e5e5;">
+        <view class="contextpz-v"></view>
+      </view>
+      <!--右边内容-->
+      <view class="shuchu">
+        <view class="fded" data-pagetype="1" data-package="" data-page="alittle" catchtap="gotoCommonPage">去消费</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="mhfg">
+    <view><image src="/images/QQ图片20210226114116.png"></image></view>
+    <view class="messetop">
+  <view class="plit">
+    <image src="{{SMDataURL}}/images/chayu-laba.png"></image><text>请将兑换码告知店员予以兑换</text>
+  </view>
+</view>
+  </view>
+  <view class="mlpbut" data-pagetype="2" data-package="packageVP" data-page="Mymember" catchtap="gotoCommonPage">确定</view>
+</view>

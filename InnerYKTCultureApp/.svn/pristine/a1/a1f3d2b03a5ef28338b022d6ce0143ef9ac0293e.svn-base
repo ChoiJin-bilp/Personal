@@ -1,0 +1,15 @@
+<!--pages/scanCode/scanCode.wxml-->
+<!-- <button catchtap="kkk">goto store</button> -->
+<view class="width100" wx:if="{{isShowSCCompontent}}">
+  <v-scanCode id="myComponent" DataURL="{{DataURL}}" deviceNo='{{deviceNo}}' loginMode="{{loginMode}}" roleStatus="{{roleStatus}}" user_roleId="{{user_roleId}}" osTag="{{osTag}}" alertContent="{{alertContent}}"  bind:scanOnIndex='onScanOnIndex' bind:scanOnOther='onScanOnOther' bind:gotoPage='onGotoPage' />
+</view>
+
+<block wx:if="{{viewOTTag==1}}">
+  <movable-area>
+    <movable-view bind:touchstart="changeball" bind:touchend="changeba"  style="{{ball?'opacity:0.8':''}}" wx:if="{{true}}" x="{{scrollX}}" y="{{scrollY}}" direction="all">
+      <view data-pagetype="0"data-package="" data-page="scanCode" catchtap="returnCheirapsisPage">
+        返回按摩
+      </view>
+    </movable-view>
+  </movable-area>
+</block>

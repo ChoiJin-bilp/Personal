@@ -1,0 +1,124 @@
+<!--pages/mation/mation.wxml-->
+<view class="mation">
+  <view class="mation-o">
+    <view  class="facility-s-o">
+      <view class="onest">
+        <text >设备编号：</text>
+        <text>684894541f</text>
+        <input disabled="{{!mark}}" class="bord-o {{mark?'bord':''}}" value="(我是备注)"></input>
+      </view>
+      <view class="anniu" catchtap="onChangeMark">{{mark?'完成':'备注'}}</view>
+    </view>
+    <view  class="facility-s-o">
+      <view class="onest">
+        <text >设备分类：</text>
+        <text>一楼设备</text>
+      </view>
+      <picker bindchange="" value="{{0}}" range="{{array}}">
+        <view class="anniu">
+          设置
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <view class="mation-t">
+    <view class="mation-t-v">价格一</view>
+    <view class="mation-t-o">
+      <text>文案设置</text>
+      <input value="体验尝试"></input>
+    </view>
+    <view class="mation-t-s">
+      <view class="mation-t-s-v">
+        <input type="digit" ></input>
+        <view>元</view>
+        <input type="number" ></input>
+        <view>分钟</view>
+      </view>
+      <view class="anniu">确定</view>
+    </view>
+  </view>
+  <view class="mation-t">
+    <view class="mation-t-v">价格二</view>
+    <view class="mation-t-o">
+      <text>文案设置</text>
+      <input value="体验尝试"></input>
+    </view>
+    <view class="mation-t-s">
+      <view class="mation-t-s-v">
+        <input type="digit" ></input>
+        <view>元</view>
+        <input type="number" ></input>
+        <view>分钟</view>
+      </view>
+      <view class="anniu">确定</view>
+    </view>
+  </view>
+  <view class="mation-t">
+    <view class="mation-t-v">价格三</view>
+    <view class="mation-t-o">
+      <text>文案设置</text>
+      <input value="体验尝试"></input>
+    </view>
+    <view class="mation-t-s">
+      <view class="mation-t-s-v">
+        <input type="digit" ></input>
+        <view >元</view>
+        <input type="number"></input>
+        <view>分钟</view>
+      </view>
+      <view class="anniu">确定</view>
+    </view>
+  </view>
+  <view class="mation-t">
+    <view class="mation-t-v">价格四</view>
+    <view class="mation-t-o">
+      <text>文案设置</text>
+      <input value="体验尝试"></input>
+    </view>
+    <view class="mation-t-s">
+      <view class="mation-t-s-v">
+        <input type="digit" ></input>
+        <view>元</view>
+        <input type="number" ></input>
+        <view>分钟</view>
+      </view>
+      <view class="anniu">确定</view>
+    </view>
+  </view>
+  <view>
+    <view class="hoed">
+      <view>设备规格：</view>
+      <view>376*667</view>
+    </view>
+    <view class="hoed">
+      <view>投放人：</view>
+      <view>科鲁兹</view>
+    </view>
+    <view class="hoed">
+      <view>投放日期：</view>
+      <view>2020-08-24</view>
+    </view>
+    <view class="hoed">
+      <view>设备型号</view>
+      <view>********************</view>
+    </view>
+    <view class="hoed">
+      <view>设备地址：</view>
+      <view>广东省深圳市福田区</view>
+    </view>
+    <view class="hoed">
+      <view>备注：</view>
+      <view>
+        <textarea class="hoed-text"></textarea>
+      </view>
+    </view>
+    <view class="btn">
+      <view class="anniu-t">删除此设备</view>
+      <view class="btn-v">
+        <view class="anniu-q">取消</view>
+        <view class="anniu-q">确定</view>
+      </view>
+    </view>
+  </view>
+</view>

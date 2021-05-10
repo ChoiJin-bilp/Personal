@@ -1,0 +1,45 @@
+<!--components/scanCode/scanCode.wxml-->
+<view class="pull" catchtouchmove="true">
+  <view class="Scanlogin-o">
+    <!-- <image class="fstImg" src="{{DataURL}}/images/amy-hint.png"></image> -->
+    <view class="fstImg">
+      扫描按摩器二维码开始享受
+    </view>
+  </view>
+  <view class="Scanlogin-o" style="position: relative;margin:0;margin-top:-80rpx;" catchtap="scanQRCode">
+    <image class="secImg" src="{{DataURL}}/images/saoyisao.png"></image>
+      <view class="dot">
+        </view>
+        <view class="dot2">
+        </view>
+  </view>
+  
+
+  <view>
+    <block wx:if="{{false}}">
+      <view class="tabBar">
+        <block wx:for="{{tabBar}}" wx:for-item="item" wx:key="tabBar">
+          <view class="tabBar-item">
+            <navigator open-type="switchTab" url="{{item.pagePath}}">
+              <!-- <view><image class="icon" src='{{item.selectedIconPath}}'></image></view> -->
+              <view class="tabBartext"><view class="switchbut" style="{{index==1?'margin-left: 40rpx;':''}}">{{item.text}}</view></view>
+            </navigator>  
+          </view>
+        </block>
+      </view>
+    </block>
+    
+    <!-- 首页进入则显示（替换设备则不显示） -->
+    <block wx:if="{{false}}">
+      <view style="text-align:center;line-height: 50rpx;font-size:36rpx;margin-top:30rpx;">
+        <!-- 普通用户显示“立即开通”，管理员或代理商则显示“个人中心”入口 -->
+        <block wx:if="{{user_roleId==0}}">
+          <text style="border-bottom:#0066FF solid 2rpx; " class="lijibut" data-pagetype="0" data-package="" data-page="userLogin" catchtap="gotoPage">登录</text>
+        </block>
+        <block wx:else>
+          <text style="border-bottom:#0066FF solid 2rpx; " class="lijibut" data-pagetype="1" data-package="" data-page="mine" catchtap="gotoPage">个人中心</text>
+        </block>
+      </view>
+    </block>
+  </view>
+</view>

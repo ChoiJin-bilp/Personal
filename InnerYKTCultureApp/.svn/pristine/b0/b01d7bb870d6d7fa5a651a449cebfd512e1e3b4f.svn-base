@@ -1,0 +1,32 @@
+<!--components/payModeChosePop/payModeChosePop.wxml-->
+<!-- 底部背景 -->
+<block wx:if="{{isShowPop}}">
+<view class="windowBackgroud" catchtouchmove="{{false}}" catchtap="emptyType"></view>
+</block>
+<!-- 支付方式选择弹窗 -->
+<view class="paypopdetai {{isShowPop?'paypopdetaiout':''}}">
+  <view class="paywindow">
+    <image class="paywin" src="{{DataURL}}/images/cuoyinke.png" catchtap="hidePayforPop"></image>
+    <view class="payTitle">支付方式</view>
+    <view class="fenge"></view>
+    <view class="mhpof" data-ptype="5" catchtap="chosePayforType">
+      <view class="mhpof-z">
+        <image src="{{DataURL}}/images/chayu-lq.png"></image>
+        <view>我的钱包余额<text>（剩余￥{{remainingSum}}）</text></view>
+      </view>
+      <view class="mkright {{selPayType==5?'mkrightchioce':''}}">
+        <view></view>
+      </view>
+    </view>
+    <view class="mhpof" data-ptype="3" catchtap="chosePayforType">
+      <view class="mhpof-z">
+        <image src="{{DataURL}}/images/chayu-wx.png"></image>
+        <view>微信支付</view>
+      </view>
+      <view class="mkright {{selPayType==3?'mkrightchioce':''}}">
+        <view></view>
+      </view>
+    </view>
+    <view class="bubottom" catchtap="payforSubmit">立即支付<text>￥{{orderAmount}}</text></view>
+  </view>
+</view>

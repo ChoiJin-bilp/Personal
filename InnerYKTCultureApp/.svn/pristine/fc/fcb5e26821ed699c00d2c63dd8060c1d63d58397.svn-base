@@ -1,0 +1,164 @@
+<!--packageVP/pages/Mymember/Mymember.wxml-->
+<view class="membertop">
+  <!-- <view class="metbg" style="background-image:url('{{SMDataURL}}/images/chuyu-VIPbc.png');"> -->
+  <view class="metbg" wx:if="{{false}}">
+    <view class="mlist">
+      <!-- <image src="{{SMDataURL}}/images/chuyu-saoma.png"></image> -->
+      <image src="{{SMDataURL}}/images/chuyu-saoma2.png"></image>
+      <view>付款码</view>
+    </view>
+    <view class="mlist" data-pagetype="0" data-package="packageVP" data-page="remaining" catchtap="gotoCommonPage">
+      <!-- <image src="{{SMDataURL}}/images/chayu-jifen.png"></image> -->
+      <image src="{{SMDataURL}}/images/chayu-jifen2.png"></image>
+      <view>我的余额</view>
+      <view>{{remainingSum}}</view>
+    </view>
+    <view class="mlist" data-pagetype="0" data-package="packageVP" data-page="Myintegral" catchtap="gotoCommonPage">
+      <!-- <image src="{{SMDataURL}}/images/chayu-yue.png"></image> -->
+      <image src="{{SMDataURL}}/images/chayu-yue2.png"></image>
+      <view>我的积分</view>
+      <view>{{curUseIntegrals}}</view>
+    </view>
+  </view>
+  <!--级别显示-->
+  <view class="mdtbn">
+  <view class="faltice" data-pagetype="0" data-package="packageVP" data-page="rightsNterests" catchtap="gotoCommonPage">
+    <view>当前{{curMemIntegrals}}积分，距离升级下一级别会员还需{{curNextSortMemIntegrals}}</view>
+    <image src="{{SMDataURL}}/images/amy-demtdusk.png"></image>
+  </view>
+  <view class="spoer">
+    <view class="spf spgzz"></view>
+    <view class="spf spgoo"></view>
+    <view class="spf spgtt"></view>
+    <view class="spf spgst"></view>
+    <!--基础-->
+    <view class="speed" wx:if="{{curMemSort==1}}">
+      <view class="speedon" style="width: 0%;">
+      </view>
+      <view class="spg spgz" style="background: #dbb682;"></view>
+      <view class="spg spgo" style="background: #fff;"></view>
+      <view class="spg spgt" style="background: #fff;"></view>
+      <view class="spg spgs" style="background: #fff;"></view>
+    </view>
+    <!--白银-->
+    <view class="speed" wx:if="{{curMemSort==2}}">
+      <view class="speedon" style="width: 30%;">
+      </view>
+      <view class="spg spgz" style="background: #dbb682;"></view>
+      <view class="spg spgo" style="background: #a06d47;"></view>
+      <view class="spg spgt" style="background: #fff;"></view>
+      <view class="spg spgs" style="background: #fff;"></view>
+    </view>
+    <!--黄金-->
+    <view class="speed" wx:if="{{curMemSort==3}}">
+      <view class="speedon" style="width: 60%;">
+      </view>
+      <view class="spg spgz" style="background: #dbb682;"></view>
+      <view class="spg spgo" style="background: #BC9063;"></view>
+      <view class="spg spgt" style="background: #a06d47;"></view>
+      <view class="spg spgs" style="background: #fff;"></view>
+    </view>
+    <!--钻石-->
+    <view class="speed" wx:if="{{curMemSort==4}}">
+      <view class="speedon" style="width: 90%;">
+      </view>
+      <view class="spg spgz" style="background: #dbb682;"></view>
+      <view class="spg spgo" style="background: #C89E6F;"></view>
+      <view class="spg spgt" style="background: #B4865B;"></view>
+      <view class="spg spgs" style="background: #a06d47;"></view>
+    </view>
+  </view>
+  <view class="leve">
+    <view>基础</view>
+    <view>白银</view>
+    <view>黄金</view>
+    <view>钻石</view>
+  </view>
+  </view>
+</view>
+
+
+<view class="loopbegins">
+  <view class="btitle">充值</view>
+  <block wx:for="{{memberRechargePackageList}}" wx:for-item="item" wx:key="{{item.id}}" wx:for-index="index">
+    <block wx:if="{{loginType==2}}">
+      <block wx:if="{{item.id==rechargeRandId}}">
+        <view id="{{'rank'+index}}" class="boed boedope" data-index="{{index}}" catchtap="selectRechargePackage">
+          <view class="boedon">
+            <!--左边内容-->
+            <view style="color: #ff3333;">￥<text>{{item.price}}</text></view>
+            <!-- <view>原价￥460</view> -->
+          </view>
+          <view class="context">
+            <!--点样式-->
+            <view class="contextpo">
+              <view class="contextpo-v"></view>
+            </view>
+            <view class="contextpz">
+              <view class="contextpz-v"></view>
+            </view>
+            <!--右边内容-->
+            <!-- <view class="mtu">
+              推荐
+            </view> -->
+            <view class="shuchu">
+              <view class="cko">+{{item.price}}余额，+{{item.integral}}会员积分</view>
+              <view class="phgr" >
+                <view  style="color: #666666;">
+                  <rich-text nodes="{{item.content}}"></rich-text>
+                </view>
+                <!-- <view>可1元购299元电动牙刷*1</view>
+                <view>免费打印奶茶杯</view> -->
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>      
+    </block>
+    <block wx:else>
+      <view id="{{'rank'+index}}" class="boed {{index==selRCIndex?'boedope':''}}" data-index="{{index}}" catchtap="selectRechargePackage">
+        <view class="boedon">
+          <!--左边内容-->
+          <view style="{{index==selRCIndex?'color: #ff3333;':'color: #666666;'}}">￥<text>{{item.price}}</text></view>
+          <!-- <view>原价￥460</view> -->
+        </view>
+        <view class="context">
+          <!--点样式-->
+          <view class="contextpo"  style="{{index==selRCIndex?'':'border: 2rpx solid #e5e5e5;'}}">
+            <view class="contextpo-v"></view>
+          </view>
+          <view class="contextpz" style="{{index==selRCIndex?'':'border: 2rpx solid #e5e5e5;'}}">
+            <view class="contextpz-v"></view>
+          </view>
+          <!--右边内容-->
+          <!-- <view class="mtu">
+            推荐
+          </view> -->
+          <view class="shuchu">
+            <view class="cko">+{{item.price}}余额，+{{item.integral}}会员积分</view>
+            <view class="phgr" >
+              <view  style="{{index==selRCIndex?'color: #666666;':''}}">
+                <rich-text nodes="{{item.content}}"></rich-text>
+              </view>
+              <!-- <view>可1元购299元电动牙刷*1</view>
+              <view>免费打印奶茶杯</view> -->
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+    
+  </block>
+  <view class="spltu">
+    <view class="pleasechoose">
+      <checkbox class="boxcheck" checked="{{isAgreTreaty}}" catchtap="clickCheckbox"></checkbox>我阅读并同意
+      <text bindtap="showModalserve" >《云客茶语会员充值协议》</text>
+    </view>
+    <view class="mlpbut" catchtap="submitRechargeItem">立即充值{{selUpgradeMemLevelItem.price}}元</view>
+    <view class="textct">+{{selUpgradeMemLevelItem.integral}}积分{{selUpgradeMemLevelItem.upSort>curMemSort?'，升黄金会员'+selUpgradeMemLevelItem.upSortName:''}}</view>
+  </view>
+</view>
+
+<view wx:if="{{showModalserve}}" class="dragon">
+  <mylist-c  id="towerId" bindmyevent="onMyEvent"></mylist-c>
+</view>

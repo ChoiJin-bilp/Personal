@@ -1,0 +1,332 @@
+/* packageOther/pages/succeed/succeed.wxss */
+.succeed{
+  width: 100%;
+  text-align: center;
+}
+.succeed image{
+  display: inline-block;
+  width: 138rpx;
+  height:138rpx;
+  vertical-align: middle;
+  margin-top: 90rpx;
+}
+.succeed text{
+  display: inline-block;
+  width: 100%;
+  font-size: 36rpx;
+  color: #333;
+  margin-top: 30rpx;
+  font-weight: bold;
+}
+.tips-coupon{
+  width: 100%;
+  font-size: 30rpx;
+  color: #666;
+  margin-top: 120rpx;
+} 
+.getbut{
+  width: 100%;
+  height:120rpx;
+  text-align: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
+.getbut button{
+  display: inline-block;
+  padding: 0 60rpx;
+  height: 72rpx;
+  line-height: 68rpx;
+  border: solid 2rpx #0066eb;
+  color: #0066eb;
+  font-size: 32rpx;
+  border-radius: 36rpx;
+  box-sizing: border-box;
+  margin: 24rpx 0;
+}
+/*优惠劵*/
+.Acoupon{
+  position: relative;
+  width: 690rpx;
+  height: 242rpx;
+  margin: 0 auto;
+  margin-top: 30rpx;
+  box-shadow:0px 4rpx 6rpx rgba(221, 221, 226, 0.6);
+  border-radius: 12rpx;
+  overflow: hidden;
+}
+.shadow{
+  width: 690rpx;
+  height: 244rpx;
+  background: #000;
+  opacity: 0;
+  position: absolute;
+  left: 0;top: 0;
+  z-index: 105;
+}
+.shadow1{
+  width: 690rpx;
+  height: 244rpx;
+  background: #000;
+  opacity: 0.3;
+  position: absolute;
+  left: 0;top: 0;
+  z-index: 105;
+}
+.leftradius{
+   position: absolute;
+  width: 28rpx;
+  height: 28rpx;
+  background: #f6f6f6;
+  left: -14rpx;
+  top: 150rpx;
+  z-index: 110;
+  border-radius: 50%;
+}
+.rightradius{
+   position: absolute;
+  width: 28rpx;
+  height: 28rpx;
+  background: #f6f6f6;
+  right: -14rpx;
+  top: 150rpx;
+  z-index: 110;
+  border-radius: 50%;
+}
+.Acoupon image{
+  position: absolute;
+  left: 0; top: 0;
+  width: 690rpx;
+  height: 242rpx;
+  z-index: 99;
+}
+.Acouponinfor{
+  position: absolute;
+  left: 4%; top: 0;
+  width: 92%;
+  height: 160rpx;
+  z-index: 100;
+}
+.white{
+  color: white;
+}
+.facevalue{
+  width: 100%;
+  height: 100rpx;
+  line-height:100rpx;
+  font-size: 32rpx;
+}
+.facevalue-price text{
+  font-size: 46rpx;
+}
+.condition{
+  width: 100%;
+  height: 40rpx;
+  line-height: 40rpx;
+  font-size: 28rpx;
+}
+.facevalue-data{
+  clear: both;
+}
+.Acoupon .Acouponuser{
+  position: absolute;
+  left: 4%; bottom: 0;
+  width: 92%;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+  z-index: 100;
+}
+.Acoupon .Acouponuser .fright{
+  background: #fff;
+  height:52rpx;
+  color: #ff4141;
+  padding: 0 32rpx;
+  margin-top: 16rpx;
+  line-height: 52rpx;
+  border-radius: 52rpx;
+}
+.usable{
+  color: #fff;
+}
+.expired{
+  color: #ccc;
+}
+/*优惠劵*/
+
+/*  */
+.paycode{
+  width: 100%;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+.sjinformation{
+  width: 100%;
+  height: 80rpx;
+  border-bottom: solid 1px #e5e5e5;
+}
+.sjname{
+  width: 70%;
+  height: 80rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; 
+}
+.sjname image{
+  display: inline-block;
+  width: 40rpx;
+  height: 40rpx;
+  padding: 20rpx 12rpx 20rpx 0;
+  vertical-align: top;
+}
+.sjname text{
+  display: inline-block;
+  line-height: 80rpx;
+  font-size: 32rpx;
+  color: #333;
+}
+.sjdeatils{
+  width: 29%;
+  height: 80rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; 
+}
+.sjdeatils image{
+  display: inline-block;
+  width: 18rpx;
+  height: 32rpx;
+  padding: 24rpx 0 24rpx 12rpx; 
+  vertical-align: top;
+}
+.sjdeatils text{
+  display: inline-block;
+  line-height: 80rpx;
+  font-size: 30rpx;
+  color: #0066e9;
+}
+.codeimage{
+  width: 340rpx;
+  height: 340rpx;
+  padding: 10rpx;
+  margin: 80rpx auto;
+  border: solid 1px #ccc;
+}
+.codeimage image{
+  width:100%;
+  height: 340rpx;
+}
+.tipstext{
+  width: 100%;
+  padding: 0 4%;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 28rpx;
+  color: #999;
+}
+.Lotterypop{
+  width:92%;
+  margin: 0rpx auto;
+  margin-top: 70rpx; 
+  border-radius: 8px;
+  padding:26rpx;
+  max-height: 730rpx;
+  box-sizing: border-box;
+  background: -webkit-linear-gradient(top, #ed6a32, #db2528); /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(bottom, #ed6a32, #db2528); /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(bottom, #ed6a32, #db2528); /* Firefox 3.6 - 15 */
+  background: linear-gradient(to bottom, #ed6a32, #db2528); /* 标准的语法（必须放在最后） */
+  overflow-y: auto;
+}
+.Lotterypop .Lotteryscrollview{
+  width: 100%;
+  padding-bottom: 20rpx;
+  height: 600rpx;
+  max-height: 600rpx;
+  box-sizing:border-box;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+.titleview1{
+  width: 100%;
+  font-size: 30rpx;
+  color: #f9d7d0;
+  padding: 10rpx 0 10rpx 0;
+  text-align: center;
+}
+.mywinview{
+  width: 100%;
+  padding: 20rpx;
+  height: 120rpx;
+  line-height: 34rpx;
+  background: #fff1c2;
+  border-radius: 12rpx;
+  margin-top: 30rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: #8c5443;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+.mywinview text{
+  padding: 0 6rpx;
+  font-size: 48rpx;
+}
+.nowaway{
+  display: inline-block;
+  width: 60%;
+  padding: 0;
+  height: 78rpx;
+  font-size: 40rpx;
+  line-height: 80rpx;
+  border-radius: 30rpx;
+  text-align: center;
+  margin: 40rpx 20% 0 20%;
+  color: #dd2b29;
+  background: -webkit-linear-gradient(top, #fff5d1, #fbb25e); /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(bottom, #fff5d1, #fbb25e); /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(bottom, #fff5d1, #fbb25e); /* Firefox 3.6 - 15 */
+  background: linear-gradient(to bottom, #fff5d1, #fbb25e); /* 标准的语法（必须放在最后） */
+  /* font-weight: bold; */
+  animation: Flow 0.7s ease infinite alternate;
+}
+
+.tipsview{
+  clear: both;
+  width: 100%;
+  text-align: center;
+  margin:0;margin-top:80rpx;font-size:32rpx;color:#4D3721;
+}
+.tipsview{
+  bottom: 10rpx;
+}
+.tip{
+  margin: 0;
+  color: #fff;
+  font-size: 26rpx;
+}
+.titleview1 text{
+  padding: 0 6rpx;
+  font-size: 48rpx;
+  color: #fff;
+}
+.colorlist{
+  animation: Flow 0.7s ease infinite alternate;
+}
+@keyframes Flow {
+    from {
+        /* text-shadow: 0 0 10rpx #fff,
+                     0 0 20rpx #fff,
+                     0 0 30rpx #fff, */
+        transform: scale(1);
+    }
+    to {
+        /* text-shadow: 0 0 10rpx #E2DC64,
+                     0 0 20rpx #E2DC64,
+                     0 0 30rpx #E2DC64; */
+        transform: scale(1.1);
+
+    }
+}

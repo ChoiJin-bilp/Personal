@@ -1,0 +1,502 @@
+/* packageVP/pages/MywantMassage/MywantMassage.wxss */
+page{
+  padding: 30rpx;
+  box-sizing: border-box;
+  padding-bottom: 150rpx;
+}
+.introduce{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  color: #3A97EE;
+  font-size: 32rpx;
+  align-items: center;
+}
+.introduce view{
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.introduce view text{
+  margin-left: 6rpx;
+}
+.osize{
+  width:36rpx;height:36rpx;
+}
+.tanChuan{
+  z-index: 200;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0.7;
+  pointer-events: all;
+}
+.tanChuan-v{
+  padding: 40rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 92%;
+  background: #fff;
+  border-radius: 20rpx;
+  padding-bottom:58rpx;
+  padding-top:0rpx;
+  top:50%;
+  left:50%;
+  transform: translateX(-50%) translateY(-55%);
+  position: fixed;z-index: 250;
+}
+.tanChuan-v-t{
+  font-size: 36rpx;
+  width: 100%;
+  padding:0;
+  max-height: 800rpx;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+.close{
+  position: absolute;
+  bottom: 80rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 250rpx;
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background: #fff;
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30rpx auto;
+  font-size: 60rpx;
+}
+.close-o{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 60%;
+  border-bottom: rgb(134, 99, 99) solid 4rpx;
+  transform: translateX(-50%) translateY(-50%) rotate(45deg);
+}
+.close-t{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 60%;
+  border-bottom: rgb(134, 99, 99) solid 4rpx;
+  transform: translateX(-50%) translateY(-50%) rotate(135deg); 
+}
+.title{
+  width: 100%;
+  text-align: center;
+  font-size: 34rpx;
+  color: #333;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: bold;
+  margin-top: 40rpx;
+  margin-bottom: 30rpx;
+}
+.struction{
+  box-sizing: border-box;
+  width: 100%;
+}
+.content{
+  text-indent: 1rem;
+  color: #666;
+  line-height: 48rpx;
+  font-size: 30rpx;
+}
+.roof{
+  margin-top: 20rpx;
+}
+.tryto{
+  font-size: 32rpx;
+color: #333333;
+line-height: 60rpx;
+font-weight: bold;
+}
+.ourep{
+  margin-top: 20rpx;
+  padding: 40rpx 30rpx;
+  box-sizing: border-box;
+  background: linear-gradient(-30deg,#3a97ee 0%, #4a6fdc 100%);
+border-radius: 10rpx;
+display: flex;
+justify-content: space-between;
+align-items: center;
+min-height: 230rpx;
+}
+.ourepimg{
+  width: 12rpx;
+  height: 20rpx;
+  transform: scale(1.5);
+}
+.plirted{
+display: flex;
+align-items: center;
+}
+.plirtedimg{
+width: 140rpx;
+height: 140rpx;
+margin-right: 30rpx;
+}
+.plirted-z view{
+  font-size: 34rpx;
+color: #fefefe;
+line-height: 60rpx;
+}
+.plirted-z view:nth-of-type(2){
+  opacity: 0.7;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  margin-top:10rpx;
+}
+/*按摩劵样式*/
+
+.massageSecurities {
+  width: 100%;
+  box-sizing: border-box;
+  height: 700rpx;
+  overflow-y: auto;
+}
+.massageSecurities2{
+  width: 100%;
+  box-sizing: border-box;
+  height: 700rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color:#999;
+  font-size: 36rpx;
+}
+.massgelist {
+  position: relative;
+  height: 210rpx;
+}
+
+.massgelist image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.mainmessage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  display: flex;
+}
+
+.massageOne {
+  width: 67%;
+  padding: 14rpx 20rpx;
+  box-sizing: border-box;
+  color: #fff;
+  font-size: 34rpx;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.useTime {
+  display: flex;
+  align-items: flex-end;
+}
+
+.TimeFont {
+  font-size: 82rpx;
+  line-height: 82rpx;
+}
+
+.Timeunit {
+  margin-left: 10rpx;
+  display: flex;
+  align-items: flex-end;
+}
+
+.massageSecond {
+  width: 33%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.massageSecond .startAM {
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 62rpx;
+  width: 206rpx;
+  border: #fff solid 2rpx;
+  border-radius: 50rpx;
+  font-size: 40rpx;
+}
+
+.massageSecond .startAM1 {
+  background: #C8C8C8;
+  color: #999;
+  border: #FFF solid 2rpx;
+}
+
+.stare {
+  margin-top: 10rpx;
+  display: flex;
+  width: 90%;
+  color: #fff;
+  font-size: 30rpx;
+  align-items: center;
+  background: transparent;
+  padding-left: 20rpx;
+  box-sizing: border-box;
+}
+
+.stare image {
+  width: 38rpx;
+  height: 38rpx;
+  position: relative;
+  margin-right: 10rpx;
+}
+.stare2{
+  width: 130%;
+  text-align: center;
+}
+/*-----------------------------------------------------------------------------------*/
+/*优惠劵样式*/
+.swiper {
+  width: 100%;
+  height: 590rpx;
+}
+swiper-item {
+  overflow-y: scroll;
+}
+
+.userule{
+  position: fixed;
+  left: 0;top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+.bgopcity{
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0.4;
+  position: absolute;
+  left: 0; top: 0;
+  z-index: 1050;
+}
+.textrule{
+  width: 80%;height: 80%;
+  position: absolute;
+  left: 10%;
+  top: 10%;
+  background: #fff;
+  z-index: 9999;
+  border-radius:8px;
+  color: #999;
+  font-size: 28rpx; 
+  overflow-y: scroll;
+}
+.textrule text{
+  display: block;
+  width: 96%;
+  line-height: 20px;
+  margin: 4px auto;
+  text-align: justify;
+}
+.textrule view{
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  color: #333;
+  font-size: 32rpx;
+  text-align: center;
+  font-weight: 400;
+}
+/*优惠劵*/
+.Acoupon{
+  position: relative;
+  width: 690rpx;
+  height: 242rpx;
+  margin: 0 auto;
+  margin-top: 30rpx;
+  box-shadow:0px 4rpx 6rpx rgba(221, 221, 226, 0.6);
+  border-radius: 12rpx;
+  overflow: hidden;
+}
+.shadow{
+  width: 690rpx;
+  height: 244rpx;
+  background: #000;
+  opacity: 0;
+  position: absolute;
+  left: 0;top: 0;
+  z-index: 105;
+}
+.shadow1{
+  width: 690rpx;
+  height: 244rpx;
+  background: #000;
+  opacity: 0.3;
+  position: absolute;
+  left: 0;top: 0;
+  z-index: 105;
+}
+.leftradius{
+   position: absolute;
+  width: 28rpx;
+  height: 28rpx;
+  background: #f6f6f6;
+  left: -14rpx;
+  top: 150rpx;
+  z-index: 110;
+  border-radius: 50%;
+}
+.rightradius{
+   position: absolute;
+  width: 28rpx;
+  height: 28rpx;
+  background: #f6f6f6;
+  right: -14rpx;
+  top: 150rpx;
+  z-index: 110;
+  border-radius: 50%;
+}
+.Acoupon image{
+  position: absolute;
+  left: 0; top: 0;
+  width: 690rpx;
+  height: 242rpx;
+  z-index: 99;
+}
+.Acouponinfor{
+  position: absolute;
+  left: 4%; top: 0;
+  width: 92%;
+  height: 160rpx;
+  z-index: 100;
+}
+.white{
+  color: white;
+}
+.facevalue{
+  width: 100%;
+  height: 100rpx;
+  line-height:100rpx;
+  font-size: 32rpx;
+}
+.facevalue-price text{
+  font-size: 46rpx;
+}
+.condition{
+  width: 100%;
+  height: 40rpx;
+  line-height: 40rpx;
+  font-size: 28rpx;
+}
+.facevalue-data{
+  clear: both;
+}
+.Acoupon .Acouponuser{
+  position: absolute;
+  left: 4%; bottom: 0;
+  width: 92%;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+  z-index: 100;
+}
+.Acoupon .Acouponuser .fright{
+  background: #fff;
+  height:52rpx;
+  color: #ff4141;
+  padding: 0 32rpx;
+  margin-top: 16rpx;
+  line-height: 52rpx;
+  border-radius: 52rpx;
+}
+.usable{
+  color: #fff;
+}
+.expired{
+  color: #ccc;
+}
+.conponflex{
+  width: 180rpx;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+}
+/*-----------------------------------------------------------------------------------*/
+/*固定底部按钮*/
+.spltu{
+  position: fixed;
+  bottom: 0;
+  left: 3%;
+  width: 94%;
+  display: flex;
+  flex-direction: column;
+  background-color: #F6F6F6;
+  z-index: 666;
+}
+.mlpbut{
+  height: 80rpx;
+background: #3f8aec;
+border-radius: 50rpx;
+font-size: 30rpx;
+color: #ffffff;
+text-align: center;
+line-height: 80rpx;
+margin: 30rpx 0;
+}
+/*-----------------------------------------------------------------------------------*/
+.massageSecond .startAM2 {
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50rpx;
+  width: 206rpx;
+  border: #fff solid 2rpx;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+  background: transparent;
+}
+.massageSecond .startAM2:nth-of-type(1){
+  margin-bottom: 30rpx;
+}
+.TimeFont2 {
+  font-size: 60rpx;
+  line-height: 60rpx;
+  font-family: DIN;
+}
+.Timeunit .outfont{
+  font-size: 30rpx;
+  color: #ff3b3b;
+  margin-left: 10rpx;
+}
+.moptdata{
+  font-size: 24rpx;
+  color:#FFF;
+  display: flex;
+}
+.moptloe{
+  padding: 4rpx 10rpx;
+  background:rgb(255, 255, 255,0.6);
+  border-radius: 4rpx;
+  color:#FA612B;
+}
+.TimeAM2 {
+  font-size: 28rpx;
+  color: #ffffff;
+  }

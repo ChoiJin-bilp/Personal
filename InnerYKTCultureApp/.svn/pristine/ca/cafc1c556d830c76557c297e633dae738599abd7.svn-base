@@ -1,0 +1,6 @@
+<template name = "QPPrudtRemarkImgItem">
+  <view class="upload-image upload-image1">
+    <image mode='aspectFit' class="photo" src='{{item}}' data-src='{{item}}' catchtap="viewImg"></image>
+    <image class="delete1 {{disabled?'hide':'show'}}" src='{{DataURL}}/images/image-del.png' data-index='{{index}}' catchtap='delrbImgList'></image>
+  </view>
+</template>

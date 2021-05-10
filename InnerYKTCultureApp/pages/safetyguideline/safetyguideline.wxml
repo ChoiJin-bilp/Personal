@@ -1,0 +1,66 @@
+<!--components/protocol/protocol.wxml-->
+<view class="serveprotocol">
+	<view class="bgopcity" bindtap="hideModalserve"></view>
+	<view class="servetext">
+		<button catchtap="sureYKSmartNotice" class="clearserver">我 同 意</button>
+		<view class="YQrule">
+			<view class="yqtext">
+				<view class='topname'>云客智能使用安全指引</view>
+				<view class="tittext">
+					<view>a)重要安全事项说明</view>
+					<text>  ●为确保安全及正确使用产品，使用前请务必详细参阅操作手册</text>
+					<text>  ●请务必依照本操作手册内的产品用途使用本产品。</text>
+					<text>  ●使用完毕后或清洁产品前，请将电源插头从插座中拔除。</text>
+					<text>  ●请务必谨慎使用温热功能，避免灼伤。</text>
+					<text>  ●请勿用于感觉迟钝和过于敏感的皮肤，血液循环不良的部位切，勿让儿童或者身心功能障碍者自行使用温热功能，操作不当可能存在危险。</text>
+					<text>  ●为避免因过热而导致走火、触电、或造成伤害，请勿将产品在枕头或毯子下操作</text>
+					<text>  ●请勿覆盖使用，以免造成马达温度过高而导致故障或损坏</text>
+					<text>  ●若儿童，身心功能障碍与伤残者使用该产品，需要有旁人指导且能负责其安全。</text>
+					<text>  ●如在按摩进行中感到不适，请立即停止按摩。</text>
+					<text>  ●如果电源线破损时，请立即停止使用，关闭电源开关，将电源线拔离插座，必须到制造商、代理商处修理或更换，以避免危险</text>
+					<text>  ●请勿使用非制造商所推荐的零部件</text>
+					<text>  ●若想切断电源，请将所有的操作控制关闭后，将电源插头由插座中拔除。</text>
+					<text>  ●本产品不能作为自我诊断或治疗之用，如需要诊断或治疗，应由专业医疗人员处理。</text>
+					<text>  ●器具表面发热，对热不敏感的人，使用时必须注意。</text>
+				</view>
+				<view class="tittext">
+					<view>b)使用环境</view>
+					<text>  ●请勿在潮湿或过多灰尘的环境下使用产品，以免产品发生故障</text>
+					<text>  ●请勿在室温高于40℃的环境下使用本产品。</text>
+					<text>  ●请勿将产品放置户外。</text>
+					<text>  ●请勿将产品置放于电热器旁、炉具附近或者阳光直射处。</text>
+
+				</view>
+				<view class="tittext">
+					<view>c)不适应本产品的人士</view>
+					<text>如果您有以下情形，使用前请先咨询医生。</text>
+					<text>  ●正在接受医生治疗者或身体感觉不适者。</text>
+					<text>  ●高血压、心脏病、脑动脉硬化、脑血栓患者。</text>
+					<text>  ●患有恶性肿瘤者。</text>
+					<text>  ●孕妇及月经期妇女。</text>
+					<text>  ●患有骨骼疏松症。</text>
+					<text>  ●正在使用心脏起搏器或者植入医疗器者。</text>
+					<text>  ●患有急性疾病者。</text>
+					<text>  ●未成年人。</text>
+				</view>
+				<view class="tittext">
+					<view>d)开关注意事项 </view>
+					<text>  ●请勿用湿手操作控制开关。</text>
+					<text>  ●请勿让控制开关接触水等液体</text>
+
+				</view>
+				<view class="tittext">
+					<view style="font-weight: bold;font-size:34rpx;margin-top:30rpx;">注意</view>
+					<text>  ●请勿在产品操作时入睡。</text>
+					<text>  ●请勿在酒醉或身体不适时使用本产品。</text>
+					<text>  ●请勿直接将按摩头贴近手部、手肘关节、膝盖、胸部或腹部。</text>
+					<text>  ●连续使用本产品时间请勿超过三十分钟。</text>
+					<text>  ●若产品的布套已经破损，请勿使用。</text>
+					<text>  ●请勿在进食前后一小时使用，以免造成反效果。</text>
+					<text>  ●在偏低室温中使用产品时，切勿骤然使用温热功能，建议将温度逐渐调至正常范围后再使用。</text>
+					<text>  ●若是将产品由低温储存处移至温暖环境使用时，可能会因为机件内水汽聚集而影响产品的正常运作，甚至造成机件故障。建议移动后，先将产品在正常室温放置一小时后再开机使用。</text>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>

@@ -1,0 +1,20 @@
+<!--pages/groupinform/groupinform.wxml-->
+<scroll-view scroll-y="{{isScroll}}" style='height:{{windowHeight}}px'>
+  <view class='newinform'>
+    <image wx:if="{{identity == 1 || identity == 2}}" src='{{DataURL}}/images/newinform.png' data-type='2' catchtap='notifyDetails'></image>
+  </view>
+  <view wx:if="{{cardgroupMsgList.length == 0}}" class='no-text'>{{noMsgTips}}</view>
+  <block wx:if="{{cardgroupMsgList.length > 0}}" wx:key="item" wx:for="{{cardgroupMsgList}}" >
+    <view data-index='{{index}}' class="order-item" data-type='1'  catchtap='notifyDetails' bindtouchstart="drawStart" bindtouchmove="drawMove" bindtouchend="drawEnd" style="right:{{item.right}}rpx">
+        <view class="content">
+          <view class="carts-title">
+            <view>{{item.title}}</view>
+            <text>{{item.createTime}}</text>
+          </view>
+        </view>
+        <view class="remove" bindtap="delItem">删除 </view>
+    </view>
+  </block>
+</scroll-view>
+
+

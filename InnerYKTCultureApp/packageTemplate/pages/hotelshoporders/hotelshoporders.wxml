@@ -1,0 +1,269 @@
+<!--pages/shopcar/shopcar.wxml-->
+<view class="main">
+  <view wx:if="{{orders}}">
+    <!-- 等待支付尾款 -->
+    <view class="waitpay" hidden="{{orderDatas.status!=12}}">
+      <view class="waitpaymoney">
+        <image src="{{DataURL}}/images/waitpay.png"></image>等待支付尾款
+      </view>
+      <view class="waitpaydetail">
+        应付尾款
+        <view class="needpay">
+          <text>¥</text>{{orderDatas.sumSmallBalance}}</view>
+      </view>
+      <view class="waitpaydetail">
+        开始时间
+        <view class="endtime">{{orderDatas.finalPayMentStartDate}}</view>
+      </view>
+      <view class="waitpaydetail">
+        截止时间
+        <view class="endtime">{{orderDatas.finalPayMentEndDate}}</view>
+      </view>
+    </view>
+
+    <view class="cart-box">
+      <view class="cart-list" wx:for="{{orders}}" wx:for-index="index" wx:key="index" wx:for-item="orderItem">
+        <view class="storenumber">订单编号:{{orderItem.orderId}}</view>
+        <block wx:for="{{orderItem.detail}}" wx:key="key">
+          <view class="ashopname">
+            <!-- <image src="{{DataURL}}/images/zz.png"></image> -->
+            <image class="storelogo" mode="aspectFit" src="{{item.companyLogo}}"></image>
+            <text  class="storename">{{item.companyName}}</text>
+            <!-- <view  class="storeicon">{{item.LevelName}}</view> -->
+            <!-- <image class="fright" src="{{DataURL}}/images/unfold.png"></image> -->
+          </view>
+          <view class="width100" style="margin-bottom: 16rpx;min-height: 164rpx;">
+            <image class="cart-thumb" mode="scaleToFill" src="{{item.detailPhotos}}"></image>
+            <view class='cart-infor'>
+              <text class="cart-pro-name">{{item.productName}}</text>
+              <view class='cart-norms'>{{item.attributeOne +' '+ item.attributeTwo}}</view>
+              <view class='cart-moeny'>
+                <view class='cart-pro-price'>￥
+                  <!-- 使用了优惠卷就显示原价 -->
+                  <text wx:if="{{selectCoupons&&orderItem.orderId==selectCoupons.orderId}}">{{item.productprice}}</text>
+                  <text wx:else>{{item.price}}</text>
+                </view>
+                <view class="cart-count-box">
+                  <!-- <text class="cart-count-down" bindtap="minusCount" data-obj="{{obj}}" data-index="{{index}}">-</text> -->
+                  <view>
+                    <text>x</text>{{item.number}}</view>
+                  <!-- <text class="cart-count-add" bindtap="addCount" data-index="{{index}}">+</text> -->
+                </view>
+              </view>
+            </view>
+          </view>
+          <!-- 赠品 -->
+          <view class="allshopmame" wx:for="{{orderItem.detail}}" wx:key="id" wx:for-item="item" wx:for-index="detailindex">
+            <view hidden="{{item.gdetailId==null}}" class="complimentary" catchtap="showpopgigt" data-item="{{item}}">
+              <view class="fleft">赠品</view>
+              <image class="flfet" mode="aspectFit" src=""></image>
+              <text>{{item.gproductName}}</text>
+              <image class="fright" src="{{DataURL}}/images/unfold.png" data-shopid='{{proDataInfo.shopId}}'></image>
+            </view>
+          </view>
+          <!-- 预购流程 -->
+          <view wx:if="{{orderItem.linkNo==4}}" class="preorder">
+            <block wx:for="{{preorder}}" wx:key="key">
+              <view class=" {{orderItem.status==0?(item.number==1?'curpreorderflow':'preorderflow'):(item.number<=2?'curpreorderflow':'preorderflow')}}">
+                <view class="preorderflow-name">
+                  <text>{{item.number}}</text>
+                  <view>{{item.text}}</view>
+                </view>
+                <view class="preorderflow-icon">
+                  <image class="fristicon" src="{{DataURL}}/images/ys-flow.png"></image>
+                  <image class="lasticon" src="{{DataURL}}/images/ys-flow1.png"></image>
+                </view>
+              </view>
+            </block>
+          </view>
+        </block>
+        <view class="usenote" style="margin-bottom: 0;">客人姓名
+          <input class="fright" placeholder="请输入您的姓名" data-index="{{index}}" data-cid='linkman' bindinput="changeValueMainData" value="{{orderItem.linkman}}" cursor-spacing="10"></input>
+        </view>
+        <view class="usenote">客人电话
+          <input type="number" class="fright" placeholder="请输入您的联系方式" data-index="{{index}}" data-cid='mobile' bindinput="changeValueMainData" value="{{orderItem.mobile}}" cursor-spacing="10"></input>
+        </view>
+        <!-- 如果为酒店售房模式则显示入住时段 -->
+        <block wx:if="{{roomSellType==0}}">
+          <view class="usenote">入住时间
+            <view class="expressage">{{orderItem.sTime}}</view>
+          </view>
+          <view class="usenote">退房时间
+            <view class="expressage">
+              <text>{{orderItem.eTime}}</text>
+            </view>
+          </view>
+        </block>
+      </view>
+      <view class='use-YH' wx:if='{{couponsList.length> 0}}'>
+
+        <!-- <view wx:if='{{item.priceflag==3}}' class='use-privilege'>
+          <view class='tips-title fleft'>使用优惠券</view>
+          <view class='choose fright'>
+            <text class="note-item-text fright">特价商品暂不能使用优惠卷</text>
+          </view>
+        </view> -->
+
+        <view class='use-privilege' bindtap='showSelCouponsPop'>
+          <view class='tips-title fleft'>使用优惠券</view>
+
+          <view class='choose fright' wx:if='{{!selectCoupons}}'>
+            <text class="note-item-text fright">您有{{couponsList.length}}张优惠券可以使用</text>
+          </view>
+
+          <view class='choose fright' wx:if='{{selectCoupons}}'>
+            <text class='{{selectCoupons.content.length>17?"note-item-text17 fright":"note-item-text fright"}}'>{{selectCoupons.content}}</text>
+          </view>
+
+          <image class="dropdown fright" src='{{DataURL}}/images/dropdown.png'></image>
+        </view>
+      </view>
+      <view class="Acoupon" style="margin:0 auto 20px auto;z-index:99;" wx:if='{{selectCoupons}}'>
+        <image src='{{DataURL}}/images/coupon.png'></image>
+        <view class="shadow"></view>
+        <view class="Acouponinfor">
+          <view class="facevalue">
+            <view class="facevalue-price fleft">￥
+              <text>{{selectCoupons.discount}}</text>
+            </view>
+            <view class="facevalue-name fright" wx:if='{{selectCoupons.mold == 0}}'>满减劵</view>
+            <view class="facevalue-name fright" wx:if='{{selectCoupons.mold == 1}}'>抵扣券</view>
+          </view>
+          <view class="condition">
+            <view class="facevalue-data fleft">有效期至 {{selectCoupons.valid_date}}</view>
+            <view wx:if='{{selectCoupons.mold == 0}}' class="facevalue-uses fright">满{{selectCoupons.full}}可用</view>
+          </view>
+        </view>
+        <view class="Acouponuser">
+          <view class='fleft'>{{selectCoupons.typename}}</view>
+        </view>
+      </view>
+      <!-- 定金尾款金额 -->
+      <view hidden="{{orderDatas.linkNo != 4}}" class="usenote">定金
+        <view class="freight">￥
+          <text>{{orderDatas.sumDeposit}}</text>
+        </view>
+      </view>
+      <!-- 定金尾款金额 -->
+      <view hidden="{{orderDatas.linkNo != 4}}" class="usenote">尾款
+        <view class="freight">￥
+          <text>{{orderDatas.sumSmallBalance}}</text>
+        </view>
+      </view>
+
+      
+      
+      <view class="usenote">客人备注
+        <text wx:if="{{showRemarkTeLabel}}" catchtap='hideRemarkText' class="textnote">{{remark}}</text>
+        <!-- 点击输入框显示 textarea -->
+        <textarea wx:else minlength="0" class="textnote" bindinput='changeValueData' value='{{remark}}'></textarea>
+      </view>
+    </view>
+    <!-- 继续支付尾款 -->
+    <view wx:if="{{orderDatas.finalStartExpire==0&&orderDatas.status==12}}" class="cart-footer1">
+      <view class="poyallmoney">如超时未支付尾款，则订单自动取消，定金将不会退回</view>
+      <view class="poyallmoneybtn">
+        <button catchtap="updateOrders" data-status="3" data-item="{{orders}}">取消订单</button>
+        <button style="color:#666666">尾款未开始</button>
+      </view>
+    </view>
+    <view wx:else class="cart-footer">
+      <view wx:if="{{orderDatas.linkNo == 4}}" class="poyallmoney">{{orderDatas.status == 0?'支付定金后，如果取消订单定金将不会退回':'如超时未支付尾款，则订单自动取消，定金将不会退回'}}</view>
+      <view class='shoppay'>
+        <view class='total'>{{orderDatas.linkNo == 4?(orderDatas.status == 0?'定金:':'尾款:'):'合计：'}}
+          <text class='total-text'>￥<text>{{orderDatas.paymentPrice}}</text></text>
+        </view>
+        <view wx:if='{{selectCoupons.discount}}' class='privilege'>优惠：
+          <text>￥{{selectCoupons.discount}}</text>
+        </view>
+      </view>
+      <form bind:submit="analysisOrders" report-submit="true">
+        <button class='now-pay fright' formType="submit">立即支付</button>
+      </form>
+      <!-- <view class='now-pay fright' catchtap='analysisOrders'>立即支付</view> -->
+    </view>
+
+  </view>
+  <view wx:else>
+    <view class="cart-no-data"></view>
+  </view>
+</view>
+
+<!-- 可使用优惠券选择弹窗 -->
+<view class="userule" wx:if="{{isShowSelCouponsPop}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class='couponbox'>
+    <view class="tipsbox">
+      <scroll-view class="pop-array" scroll-y style="{{couponsList.length > 3 ? 'height:800rpx' : ''}}">
+        <view class='checkbox-con'>
+          <text class="coupontext">请选择优惠劵</text>
+          <!-- <radio-group bindchange="radioChange"> -->
+          <radio-group>
+            <label class="{{item.checked?'checkbox checked':'checkbox'}}" wx:for="{{couponsList}}" bindtap='radio' data-index="{{index}}" wx:key="name" bindtap="choseTxtColor">
+              <checkbox class="fleft" value="{{item.name}}" checked="{{item.checked}}" />
+              <view class="Acoupon fleft">
+                <image src='{{DataURL}}/images/coupon.png'></image>
+                <view class="shadow"></view>
+                <view class="Acouponinfor">
+                  <view class="facevalue">
+                    <view class="facevalue-price fleft">￥
+                      <text>{{item.discount}}</text>
+                    </view>
+                    <view class="facevalue-name fright" wx:if='{{item.mold == 0}}'>满减劵</view>
+                    <view class="facevalue-name fright" wx:if='{{item.mold == 1}}'>抵扣券</view>
+                  </view>
+                  <view class="condition">
+                    <view class="facevalue-data fleft">有效期至 {{item.valid_date}}</view>
+                    <!-- <view class="facevalue-uses fright">{{item.content}}</view> -->
+                    <view wx:if='{{item.mold == 0}}' class="facevalue-uses fright">满{{item.full}}可用</view>
+                  </view>
+                </view>
+                <view class="Acouponuser">
+                  <view class='fleft'>{{item.typename}}</view>
+                </view>
+              </view>
+            </label>
+          </radio-group>
+        </view>
+      </scroll-view>
+      <view class='pop-btn'>
+        <button class="btn-qx" bindtap="hideSelCouponsPop">取消</button>
+        <button class="btn-qd" bindtap="submitSelCoupons">确定</button>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 赠品弹窗 -->
+<view class="userule" wx:if="{{showpopgift}}" catchtouchmove="true">
+  <view class="bgopcity" style="position: fixed;"></view>
+  <view class="popgift" style="position: fixed;">
+    <scroll-view scroll-y="true" class="giftscroll" wx:for="{{giftDetail}}" wx:key="key">
+      <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+        <block wx:for="{{item.productphotos}}" wx:key="key" wx:for-item="itemindex">
+          <swiper-item>
+            <image mode="aspectFit" src="{{itemindex}}" class="gift-image" width="355" height="132" />
+          </swiper-item>
+        </block>
+      </swiper>
+      <view class="bgwhite giftname width92">
+        <view>¥ {{item.price}}</view>
+        <text>{{item.productName}}</text>
+      </view>
+      <view class="bgwhite giftrule width92">
+        <view>商品规格</view>
+        <text>{{item.attributeOne +' '+ item.attributeTwo}}</text>
+      </view>
+      <view class="bgwhite giftinfor width92">
+        <view>商品描述</view>
+        <text>{{item.productremark}}</text>
+        <block wx:for="{{item.detailPhotos}}" wx:for-index="index" wx:key="item" wx:for-item="itemindex">
+          <image class="fenxiaoimage" mode="widthFix" src="{{itemindex}}" data-src='{{itemindex}}' catchtap="viewImg"></image>
+        </block>
+      </view>
+    </scroll-view>
+    <view class="detimg">
+      <image bindtap="hidepopgigt" src='{{DataURL}}/images/clearpop.png'></image>
+    </view>
+  </view>
+</view>

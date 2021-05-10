@@ -1,0 +1,141 @@
+/* pages/comactivity/comactivity.wxss */
+page{
+  background-color: #FFF;
+  padding-bottom: 80px;
+  padding-top: 10px;
+}
+.lmk{
+  position: relative;
+}
+.lmk-img{
+  width: 100%;
+height: 600rpx; 
+}
+.lmkimages{
+  width: 94%;
+  box-sizing: border-box;
+  border-radius: 10rpx;
+  margin:0 auto ;
+}
+.lmkimages image:nth-of-type(1){
+  margin-top: 0rpx;
+}
+.lmkimages image{
+  height: 260rpx;
+  width: 100%;
+}
+.lmkimages .lopr-op:nth-of-type(1){
+  margin-top: 0;
+}
+.lopr-op{
+  margin-top: 10rpx;
+}
+/*按摩劵*/
+.useTime {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #f33;
+  font-size: 46rpx;
+  width: 100rpx;
+  }
+  
+  .zh-o{
+    position: relative;
+    width: 100%; 
+    height: 220rpx;
+  }
+  .lmkimages .zh-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+  .zh-s{
+    position: absolute;
+    right: 0rpx;
+    top: 0; 
+    z-index: 3;
+    padding: 8rpx 20rpx;
+    border-radius:10rpx;
+    font-size: 20rpx;
+    background: rgb(235, 8, 8); 
+    color: #fff;
+  }
+  .zh-t{
+    width: 30%;
+    text-align: center;
+    font-size: 32rpx;
+    font-weight: bold;
+    padding-left: 6%;
+  box-sizing: border-box;
+  }
+  .zh-f{
+  width: 68%;
+  border: 2rpx solid rgb(235, 8, 8);
+  display: flex;
+  border-radius: 10rpx;
+  margin-top: 10rpx;
+  }
+  .zh-x{
+    position: absolute;
+    z-index: 4;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0 5% 0% 0%;
+    box-sizing: border-box;
+  }
+  .h-t-o{
+    font-size: 38rpx;
+  }
+  .h-f-t{
+    width: 50%;
+    font-size: 24rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: rgb(224, 6, 6);
+  }
+  
+  .f-o-t{
+    font-size: 42rpx;
+    font-weight: bold;
+  }
+  .h-f-o{
+    width: 50%;
+    background: #FE3428;
+    border-radius: 10rpx 0rpx 0rpx 10rpx; 
+    color: #FDE3C0;
+    padding: 0rpx 22rpx 0rpx 10rpx;
+    display: flex;
+    align-items: baseline;
+    padding-bottom: 4rpx;
+    justify-content: center;
+  }
+  .f-o-s{
+    text-decoration: line-through;
+    color: #FBAD9D;
+    font-size: 24rpx;
+  }
+  .h-t-t{
+    font-family: 'KaiTi';
+    color: rgb(224, 6, 6);
+  }
+
+  .mortgagePrice {
+    height: 180rpx;
+    background: #fff1de;
+    border-radius: 10rpx;
+    box-shadow: 0rpx 6rpx 6rpx 2rpx #fbc786;
+    border-right: 2rpx rgb(10, 10, 10, 0.3) solid;
+    display: flex;
+    justify-content: center;
+    width: 220rpx;
+    margin-right: 10rpx;
+  }

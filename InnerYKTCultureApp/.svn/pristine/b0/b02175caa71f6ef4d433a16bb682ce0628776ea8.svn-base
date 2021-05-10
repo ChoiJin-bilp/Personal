@@ -1,0 +1,80 @@
+<!--packageVP/pages/Yantea/Yantea.wxml-->
+<scroll-view scroll-y="true" style = "height:100%;position: relative;padding-top:0rpx;" bindscrolltolower="bindDownLoad" bindscrolltoupper="bindTopLoad" scroll-with-animation = "true">
+  <view id = "top"></view>
+
+  <view class="lisewek">
+    <view class="lisewek-z" data-otherparams="id={{myLevelInfo.level}}" data-pagetype="0" data-package="packageVP" data-page="Yanteasort" catchtap="gotoCommonPage">
+      <!--级别-->
+      <view class="ewekz-z"><image src="{{myLevelInfo.levelImg}}"></image></view>
+      <view class="ewekz-o" >{{myLevelInfo.levelName}}<image src="{{SMDataURL}}/images/PV-Tea-mkh.png"></image>
+      </view>
+    </view>
+    <view class="lisewek-o">
+      <view class="eweko-o" data-otherparams="lp=1&stype=2" data-pagetype="0" data-package="packageVP" data-page="CYmapdepot" catchtap="gotoCommonPage"><image src="{{SMDataURL}}/images/PV-Myself.png"></image>我的作品库</view>
+      <view class="lpry">
+        <view class="eweko-z">返利总金额：<text>{{allMyGetMoney}}元</text></view>
+        <view class="eweko-t" data-pagetype="0" data-package="packageVP" data-page="remaining" catchtap="gotoCommonPage">去提现</view>
+      </view>
+    </view>
+  </view>
+  <view class="timeSelect">
+    <view>日期</view>
+    <view class="datatoday-s-o" data-tag="0" catchtap="chooseDateTime">
+      <text>{{sStartDate}}</text>
+      <image class="picker" src="{{SMDataURL}}/images/xiala.png"></image>
+    </view>
+    <view>-</view>
+    <view class="datatoday-s-o" data-tag="1" catchtap="chooseDateTime">
+      <text>{{sEndDate}}</text>
+      <image class="picker" src="{{SMDataURL}}/images/xiala.png"></image>
+    </view>
+    <view class="eweko-t" style="width: 100rpx;margin-bottom:0;" catchtap="loadInitData">确定</view>
+  </view>
+  <view class="pwert">
+    <view>共{{totalDataCount}}条记录</view>
+    <view>返利<text class="pwetx">{{allRecordMoney}}</text>元</view>
+  </view>
+
+  <block wx:for="{{dataArray}}" wx:for-item="articles" wx:for-index="dataArrayIndex">
+    <block wx:for="{{articles}}" wx:for-item="item" wx:key="id" wx:for-index="index">
+      <view class="business-item" style="{{index==0? 'margin-top:10rpx;':''}}">
+        <view class="business-item-o business-item-z">
+          <text>订单号</text>
+          <text>{{item.orderId}}</text>
+        </view>
+        <view class="moptu">
+          <view class="moptu-o">
+            <view class="business-item-o">
+              <text>使用时间</text>
+              <text>{{item.createDate}}</text>
+            </view>
+            <view class="business-item-o">
+              <text>用户ID</text>
+              <text>{{item.userId}}</text>
+            </view>
+            <view class="business-item-o">
+              <text>图片ID</text>
+              <text>{{item.imageId}}</text>
+            </view>
+            <!-- <view class="business-item-o">
+              <text>商品名称</text>
+              <text>菊花茶</text>
+            </view> -->
+            <view class="business-item-o">
+              <text>返利金额</text>
+              <text>{{item.money}}元</text>
+            </view>
+          </view>
+          <view class="moptu-z">
+            <view class="Cup-z2">
+              <view class="Cup-text2">{{item.name}}</view>
+              <!-- <view class="Cup-text2" style="color: #747474;">ID:5493465</view> -->
+              <image data-tag="0" data-index="{{imageindex}}" catchtap="chType" src="{{item.path}}"></image>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </block>
+  <view id = "bottom"></view>
+</scroll-view>

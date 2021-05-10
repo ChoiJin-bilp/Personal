@@ -1,0 +1,35 @@
+/* pages/feedback/feedback.wxss */
+page{
+  padding: 0 20rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+.feed{
+  display: flex;
+  justify-content: space-between;
+  border-bottom: #ccc 1rpx solid;
+  padding: 20rpx 0;
+  align-items: center;
+}
+.back{
+  display: flex;
+  width: 96%;
+  align-items: center;
+}
+.back image{
+  width: 100rpx;
+  height: 100rpx;
+  margin-right: 20rpx;
+}
+.next{
+  width: 18rpx;
+  height: 30rpx;
+  scale: 1.2;
+}
+.refuse{
+  width: 80%;
+  overflow: hidden;
+  line-height: 50rpx;
+  font-size: 28rpx;
+  word-wrap: break-word;
+}

@@ -1,0 +1,25 @@
+/* pages/comphoto/comphoto.wxss */
+page{
+  width: 100%;
+  height:100%;
+}
+.cardimage{
+  width:47%;
+  float: left;
+  height: 248rpx;
+  margin-left: 2%;
+  text-align: center;
+  margin-top: 20rpx;
+  overflow: hidden;
+  border: solid 2rpx #e5e5e5;
+  box-sizing: border-box;
+  border-radius: 16rpx;
+}
+.cardimage image{
+  display: inline-block;
+  width: 330rpx;
+  height: 248rpx;
+}
+.datalist{
+  height:100%;position: relative;top:3rpx;
+}

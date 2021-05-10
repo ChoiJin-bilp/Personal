@@ -1,0 +1,113 @@
+<!--packageVP/pages/CYmapdepot/CYmapdepot.wxml-->
+<!--云客图库-->
+<block wx:if="{{false}}">
+  <view class="viewforTop">
+  <view class="viewforTop2">
+    <view class="viewfor {{index==0?'viewforhu':''}}" wx:for="{{List}}">{{item.name}}</view>
+  </view>
+</view>
+<view class="pltur">
+  <view class="selectCup">
+    <view class="Cup-list2">
+      <!-- <view class="Cup-z2 {{selectCustomizeImgIndex==imageindex?'Cup-z2Succ':''}}" 
+      wx:for="{{printImgList}}" wx:key='key' wx:for-item="imageitem" wx:for-index="imageindex" 
+      catchtap="selectCustomizeImg" data-index="{{imageindex}}" > -->
+      <view class="Cup-z2 {{selectCustomizeImgIndex==imageindex?'Cup-z2Succ':''}}" 
+      wx:for="{{6}}"  >
+        <!-- <view class="Cup-text2">{{imageitem.name}}</view> -->
+        <view class="Cup-text2">我是图片名字</view>
+          <view class="Cup-text2" style="color: #747474;">ID:5493465</view>
+        <!-- <image data-tag="0" data-index="{{imageindex}}" catchtap="chType" src="{{imageitem.path}}"></image> -->
+        <image data-tag="0" data-index="{{imageindex}}" catchtap="chType" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1364732857,1665216971&fm=26&gp=0.jpg"></image>
+        <view class="numbop"> <image src="{{DataURL}}/images/cy-alitxzl.png"></image><text>56375</text></view>
+      </view>
+    </view>
+  </view>
+</view>
+</block>
+<!--我的创作库-->
+<block wx:if="{{true}}">
+<view class="viewforTop">
+  <view class="viewforTop2">
+    <view class="viewfor {{index==0?'viewforhu':''}}" wx:for="{{List}}">{{item.name}}</view>
+  </view>
+<view style="display:flex;justify-content: space-between;">
+  <view class="viewfor"> <image src="{{DataURL}}/images/PV-time.png"></image> 我使用过的图案</view>
+   <view class="viewfor">编辑</view>
+</view>
+</view>
+<view class="pltur" style="margin-top: 100rpx;">
+  <view class="selectCup">
+    <view class="Cup-list2">
+      <view class="Cup-z2" >
+        <view class="addimg-img"  data-type="0" catchtap="uploadImg">
+                          <image mode="aspectFit" src="{{DataURL}}/images/amy-kaobei.png" ></image>
+                        </view>
+      </view>
+      <!-- <view class="Cup-z2 {{selectCustomizeImgIndex==imageindex?'Cup-z2Succ':''}}" 
+      wx:for="{{printImgList}}" wx:key='key' wx:for-item="imageitem" wx:for-index="imageindex" 
+      catchtap="selectCustomizeImg" data-index="{{imageindex}}" > -->
+      <view class="Cup-z2" 
+      wx:for="{{6}}"  >
+        <!-- <view class="Cup-text2">{{imageitem.name}}</view> -->
+        <view class="lfrpimg">
+          <image catchtap="showdel" src="{{DataURL}}/images/PV-depot.png"></image>
+          <image catchtap="showout" src="{{DataURL}}/images/PV-deppry.png"></image>
+        </view>
+        <view class="Cup-text2">我是图片名字</view>
+          <view class="Cup-text2" style="color: #747474;">ID:5493465</view>
+        <!-- <image data-tag="0" data-index="{{imageindex}}" catchtap="chType" src="{{imageitem.path}}"></image> -->
+        <view class="plfyurt">
+          <image data-tag="0" data-index="{{imageindex}}" catchtap="chType" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1364732857,1665216971&fm=26&gp=0.jpg"></image>
+        </view>
+        <view class="numbop"> <image src="{{DataURL}}/images/cy-alitxzl.png"></image><text>56375</text></view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="butprety">确定</view>
+
+<block wx:if="{{productType||delType}}">
+  <view class="windowBackgroud" catchtouchmove="{{false}}" catchtap="emptyType"></view>
+</block>
+
+<view class="productTypedetail" wx:if="{{productType}}">
+  <view class="fonts">
+    <!-- <view class="fotitle">提示</view> -->
+    <view class="fotitle"> 名称 <input class="mlsyinput" type="text" /></view>
+    <view class="fotitle fot"> 分类     
+      <view class="sour" catchtap="showSelectClassList">
+        <input disabled="true" value="分类"></input>
+        <image src='{{DataURL}}/images/xiala.png'></image>
+        <view class="xiala-v" style="{{showout?'display:none':''}}">
+          <view wx:for="{{6}}" wx:key="key" catchtap="selHotleCompany" data-index="{{index}}">
+            打算的撒</view>
+      </view>
+    </view>
+  
+    </view>
+    <view class="foitem">
+      <view class="addimg-img"  data-type="0" catchtap="uploadImg">
+                          <image mode="aspectFit" src="{{DataURL}}/images/amy-kaobei.png" ></image>
+                        </view>
+    </view>
+    <view class="foitebut">
+      <view catchtap="showout">取消</view>
+      <view catchtap="startWithdraw">保存</view>
+    </view>
+  </view>
+</view>
+
+<view class="productTypedetail" wx:if="{{delType}}">
+  <view class="fonts">
+    <view class="fotitle2">提示</view>
+    <view class="foitem">
+      删除后不可恢复，请谨慎删除。
+    </view>
+    <view class="foitebut">
+      <view catchtap="showdel">取消</view>
+      <view catchtap="startWithdraw">删除</view>
+    </view>
+  </view>
+</view>
+</block>

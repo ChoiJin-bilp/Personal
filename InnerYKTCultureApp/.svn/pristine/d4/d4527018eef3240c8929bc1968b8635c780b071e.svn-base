@@ -1,0 +1,163 @@
+// packageVP/pages/CYmapdepot/CYmapdepot.js
+const app = getApp();
+
+var MD5JS = require('../../../utils/md5.js');
+var Utils = require('../../../utils/util.js');
+var WxParse = require('../../../wxParse/wxParse.js');
+var SMURL = app.getUrlAndKey.smurl,
+  URL = app.getUrlAndKey.url,
+  KEY = app.getUrlAndKey.key,
+  DataURL = app.getUrlAndKey.mdataUrl,
+  DataURL = app.getUrlAndKey.dataUrl,
+  defaultItemImgSrc = DataURL + app.data.defaultImg;
+var appUserInfo = app.globalData.userInfo;
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    DataURL:DataURL,
+    SDataType:0,          //0系统图库，1茶友图库，2我的图库
+    SDActTag:0,           //0无，1新增
+    List:[
+      {name:'全部'},
+      {name:'全部'},
+      {name:'全部'},
+      {name:'全部'},
+      {name:'全部'},
+      {name:'全部'},
+      {name:'全部'},
+      {name:'全部'},
+      {name:'全部'},
+      {name:'全部'},
+      {name:'全部'},
+    ],
+    showout:true,
+    delType:false,
+
+    //返回参数
+    paramId:0,
+    paramPrice:0.00,
+    paramImgUrl:"",
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    let that=this;
+    console.log(options)
+    let SDataType=0,SDActTag=0,pageTitle="";
+    if (Utils.isNotNull(options.stype)) {
+      try {
+        SDataType = parseInt(options.stype);
+        SDataType = isNaN(SDataType) ? 0 : SDataType;
+      } catch (e) {}
+    }
+    if (Utils.isNotNull(options.act)) {
+      try {
+        SDActTag = parseInt(options.act);
+        SDActTag = isNaN(SDActTag) ? 0 : SDActTag;
+      } catch (e) {}
+    }
+
+    that.setData({
+      ["SDataType"]: SDataType,
+      ["SDActTag"]: SDActTag,
+    })
+    pageTitle=SDataType==0?"茶语图库":(SDataType==1?"茶友图库":"我的创作图库");
+    wx.setNavigationBarTitle({
+      title: pageTitle
+    })
+  },
+  showSelectClassList(){
+    this.setData({
+      showout:!this.data.showout
+    })
+  },
+  //显示修改弹窗
+  showout() {
+    this.setData({
+      productType: !this.data.productType
+    })
+  },
+  showdel(){
+    this.setData({
+      delType: !this.data.delType
+    })
+  },
+  emptyType(){
+    this.setData({
+      productType: false,
+      delType:false
+    })
+  },
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  },
+  //方法：返回
+  gotoBackPage: function () {
+    let that = this;
+    try{
+      let pages = getCurrentPages();   //当前页面
+      let prevPage = pages[pages.length - 2];   //上个页面
+      // 直接给上一个页面赋值
+      prevPage.setData({
+        paramId:that.data.paramId,
+        paramSType:that.data.SDataType,
+        paramPrice:that.data.paramPrice,
+        paramImgUrl:that.data.paramImgUrl,
+      });
+    }catch(e){}
+    
+    wx.navigateBack({
+      delta: 1
+    })
+  },
+})

@@ -1,0 +1,35 @@
+<!--pages/newAddress/newAddress.wxml-->
+<view class="newitem">
+  <view class="fistItem">
+    <view class="titleName">联系人</view>
+    <view class="sss">
+      <input placeholder="收货人姓名" value="{{addAddressData.name}}" data-tag="0" bindinput="getInput"></input>
+      <view class="clfe">
+        <view class="{{item.checked?'bag':''}}" wx:for="{{sexs}}" wx:key='key' catchtap="selectSex"
+          data-index="{{index}}">{{item.name}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="fistItem">
+    <view class="titleName">手机号</view>
+    <input value="" placeholder="收货人手机号" value="{{addAddressData.mobile}}" data-tag="1" bindinput="getInput"
+      maxlength="11" type="number"></input>
+  </view>
+  <view class="fistItem">
+    <view class="titleName">收货地址</view>
+    <view class="ccc" catchtap="goToMap"><input disabled placeholder="请输入收货地址" value="{{addAddressData.area}}"> </input>
+      <image src="{{SMDataURL}}/images/amq-next.png"></image>
+    </view>
+  </view>
+  <view class="fistItem">
+    <view class="titleName">详细地址</view>
+    <input style="width:78%;" placeholder="例：7号楼8层101室" value="{{addAddressData.address}}" data-tag="2"
+      bindinput="getInput"></input>
+  </view>
+</view>
+<view class="fairm" bindtap="{{addAddressData.id==''?'confirmAddress':'updateAddress'}}">
+  保存地址
+</view>
+<view class="fairm2" bindtap="deleteAddress" hidden="{{addAddressData.id==''}}">
+  删除
+</view>

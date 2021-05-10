@@ -1,0 +1,164 @@
+<!--pages/source/source.wxml-->
+<view class="source">
+  <view style="display:flex;">
+    <view wx:if="{{CompanydataList.length>0}}" class="sour" catchtap="showSelectClassList">
+      <input disabled="true" value="{{CompanydataList[selCompanyIndex].companyName}}"></input>
+      <image src='{{DataURL}}/images/xiala.png'></image>
+      <view class="xiala-v" style="{{showout?'display:none':''}}">
+        <view wx:for="{{CompanydataList}}" wx:key="key" catchtap="selHotleCompany" data-index="{{index}}">
+          {{item.companyName}}</view>
+      </view>
+    </view>
+    <view class="sourc-o" style="{{pagetype==0&&CompanydataList.length>0?'':'width:100%'}}">
+      <input placeholder="请输入商品名称" bindinput="getInput" data-tag="0"></input>
+      <image catchtap="startSeach" src="https://e.amjhome.com/baojiayou/tts_upload/images/search1.png"></image>
+    </view>
+  </view>
+
+
+  <view class="classify">
+    <view class="detail" style="height:{{Differenheight-104}}rpx;" wx:if="{{pagetype==0||pagetype==2}}">
+      <view class="detail-s" style="max-height:{{Differenheight-284}}rpx;">
+        <view class="detail-s-o" wx:for="{{selProcuctTypeList}}" wx:for-item="item" wx:key="key" data-index="{{index}}" data-id="{{item.id}}" catchtap="seleteProcuctType"
+         >
+          <view class="{{index==selProcuctTypeIndex?'colour':''}}">{{item.name}}
+            <block wx:if="{{item.id!=0&&item.id!=-1}}">
+              <image wx:if="{{isEdit}}" src="{{DataURL}}/images/amq-gai.png" catchtap="editProcuctType"
+                data-item="{{item}}"></image>
+              <image wx:else src="{{DataURL}}/images/amy-del.png" catchtap="deleteProcuctType" data-item="{{item}}">
+              </image>
+            </block>
+          </view>
+        </view>
+      </view>
+      <block wx:if="{{isEdit}}">
+        <image class="age" catchtap="addProcuctType" src="{{DataURL}}/images/amq-enhance.png"></image>
+        <image class="age" catchtap="delProcuctType" src="{{DataURL}}/images/amq-reduce.png"></image>
+      </block>
+      <block wx:else>
+        <view class="but" catchtap="delProcuctType">
+          完成
+        </view>
+      </block>
+    </view>
+    <view style="{{pagetype==0||pagetype==2? 'width:78%;':'width:100%;'}}">
+      <view class="sourc-t">
+        <view class="sourc-t-v {{pagetype==2?'temFont':''}}">
+          <view catchtap="gotoStruction" style="margin-left:0;">新建{{pagetype=='1'?'房源':pagetype=='2'?'':'商品'}}</view>
+          <view catchtap="submitPutDownShelf" data-tag="1">上架</view>
+          <view catchtap="submitPutDownShelf" data-tag="0">下架</view>
+          <block wx:if="{{pagetype==2}}">
+            <view catchtap="submitPutDownShelf" data-pagetype="0" data-package="0" data-page="generated"
+              catchtap="gotoPage">规格模板</view>
+            <view catchtap="onchangeShowCompile" data-tag="0">一键操作</view>
+          </block>
+        </view>
+        <view class="sourc-t-s {{pagetype==2?'temFont':''}}" catchtap="submitPutDownShelf" data-tag="2">删除</view>
+      </view>
+      <view class="sourc-s">
+        <view class="sourc-s-item sourc-s-t">
+          <view>全选</view>
+          <view style="{{pagetype==0||pagetype==2?'width: 26%;':''}}">图片</view>
+          <view style="white-space: nowrap;{{pagetype==0||pagetype==2?'padding-left: 20rpx;':''}}">商品名称</view>
+          <view style="{{pagetype==0||pagetype==2?'width: 19%;':''}}">价格(元)</view>
+          <view style="{{pagetype==0||pagetype==2?'width: 12%;':''}}">状态</view>
+        </view>
+        <scroll-view style="height:{{Differenheight-274}}rpx;" scroll-y="true" bindscrolltolower="bindDownLoad"
+          bindscrolltoupper="bindTopLoad" upper-threshold="10" lower-threshold="10" scroll-with-animation="true">
+          <view bindtap="gotoEdit" data-index="{{index}}" wx:for="{{dataArray}}" data-id="{{item.pid}}"
+            class="sourc-s-item" wx:key="key">
+            <!-- <view bindtap="gotoEdit" data-index="{{index}}" wx:for="{{3}}" data-id="{{item.pid}}" class="sourc-s-item"
+          wx:key="key"> -->
+            <view style="height: 130rpx;;display:flex;align-items: center;" catchtap="onChangstytype"
+              data-index="{{index}}">
+              <view class="item-sourc {{item.isSel? 'all':''}}">
+              </view>
+            </view>
+            <view class="item-img">
+              <image src="{{item.photos}}"></image>
+              <!-- <image src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2534506313,1688529724&fm=26&gp=0.jpg"></image> -->
+            </view>
+            <view>
+              <text>{{item.productName}}</text>
+              <!-- <text>维达抽纸500抽*1</text> -->
+            </view>
+            <view>
+              <text>{{item.sourcePrice}}</text>
+              <!-- <text>1000</text> -->
+            </view>
+            <view style="{{pagetype==0||pagetype==2?'width: 12%;':''}}">
+              <text>{{item.status==0?'上架':'下架'}}</text>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+  </view>
+</view>
+
+
+<block wx:if="{{addProcuctType}}">
+  <view class="tanChuan"></view>
+  <view class="tanChuan-v">
+    <view class="tanChuan-v-o">{{oldProcuctTypeName.length>0?'编辑':'添加'}}分类</view>
+    <view class="tanChuan-v-t">
+      <view class="porltu">
+        <text>分类名称</text>
+        <input placeholder="请输入分类名称,长度不能大于8个字" maxlength="8" bindinput="getInput" data-tag="1"
+          value="{{oldProcuctTypeName}}" />
+      </view>
+      <view class="porltu">
+        <text>分类排序</text>
+        <input placeholder="请输入分类排序" maxlength="8" bindinput="getInput" data-tag="2" value="{{sort}}" />
+      </view>
+    </view>
+    <view class="tanChuan-v-s">
+      <view catchtap="addProcuctType">取消</view>
+      <view catchtap="okSureProcuctType">提交</view>
+    </view>
+  </view>
+</block>
+
+
+<block wx:if="{{showCompile}}">
+  <view class="windowBackgroud" catchtouchmove="{{false}}" catchtap="emptyType"></view>
+</block>
+
+<view class="specifications" wx:if="{{modelList.length>0&&showCompile}}">
+  <view class="selectClassify">
+    <view>选择分类</view>
+    <view class="classifySecondly" catchtap="onchangeCatetype">
+      <input disabled value="{{modelList[selectModelIndex].attributeOne}}"></input>
+      <image src="{{DataURL}}/images/xiala.png"></image>
+      <view class='option_box' style="{{catetype? '':'height:0;'}}">
+        <text class='option' wx:for='{{modelList}}' wx:key="key" data-index='{{index}}'
+          catchtap='optionTaps'>{{item.attributeOne}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="suset" wx:for="{{modelList[selectModelIndex].labels}}" wx:key="key" wx:for-index="index">
+    <view class="posign" catchtap="setAvailable" data-index="{{index}}">{{item.available==0?'无货':'有货'}}</view>
+    <view class="classifySecondly" style="margin-left: 80rpx;">
+      <input disabled value="{{item.lblname}}"></input>
+    </view>
+    <view class="delcompile">
+      <view>￥
+        <input value="{{item.lblprice}}"></input>
+      </view>
+      <view class="weui-cells weui-cells_after-title">
+        <checkbox-group bindchange="checkboxChange" data-index="{{index}}">
+          <label class="weui-cell weui-check__label">
+            <view class="weui-cell__hd">
+              <checkbox checked="{{item.checked}}" />
+            </view>
+            <view class="weui-cell__bd">删除</view>
+          </label>
+        </checkbox-group>
+      </view>
+    </view>
+  </view>
+  <view class="hintbut">
+    <view data-tag="1" catchtap="onchangeShowCompile">取消</view>
+    <view catchtap="sureSetAll">确认</view>
+  </view>
+</view>

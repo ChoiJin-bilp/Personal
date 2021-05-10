@@ -1,0 +1,8 @@
+<!--pages/patchhistory/patchhistory.wxml-->
+<view class="Top" catchtap="gotoPage">
+  <view class="Tpo-z">
+    <image src="{{SMDataURL}}/images/patchistory.png"></image>
+    历史订单
+  </view>
+  <image class="tmag" src="{{SMDataURL}}/images/amy-demtdusk.png"></image>
+</view>

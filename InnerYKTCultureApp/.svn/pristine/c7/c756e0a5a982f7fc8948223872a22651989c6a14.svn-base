@@ -1,0 +1,180 @@
+<!--pages/store/store.wxml-->
+<import src="../template/storeProduct0.wxml" />
+<import src="../template/storeProduct1.wxml" />
+<import src="../template/storeProduct2.wxml" />
+<!-- 搜索栏 -->
+<view class='searchbar'>
+  <view class="search fleft">
+    <input class='fleft' placeholder='请输入{{showTypeName}}名称' placeholder-style='color: #999;font-size: 28rpx;'
+      value="{{selProductKeyParam}}" data-cid='sprdkey' bindinput="changeValueMainData" cursor-spacing="10"></input>
+    <image class='fright' src='{{DataURL}}/images/search1.png' data-tag='0' bindtap='submitSearchPop'></image>
+  </view>
+  <view class='searchbtn'>
+    <view class="fleft">
+      <view class="paixu">
+        <text data-tag="0" bindtap="filterSearch" style="{{isSelFAll?' color: #0066eb; ':'color:#666666;'}}">全部</text>
+      </view>
+      <view class="paixu">
+        <text data-tag="1" bindtap="filterSearch"
+          style="{{isSelFNewProduct?' color: #0066eb; ':'color:#666666;'}}">新品</text>
+      </view>
+      <view class="paixu">
+        <text data-tag="2" bindtap="filterSearch" style="{{isSelFPrice?' color: #0066eb; ':'color:#666666;'}}">价格</text>
+        <image
+          src="{{selPriceConParam==-1?DataURL+'/images/sort.png':selPriceConParam==0?DataURL+'/images/sort-up.png':DataURL+'/images/sort-down.png'}}">
+        </image>
+      </view>
+    </view>
+    <view class="top-share-image">
+      <!-- 二维码 -->
+      <image class="shareimage" src="{{DataURL}}/images/share_icon.png?{{randomNum}}"
+        catchtap="showStoreMainPageQRCode"></image>
+      <!-- 分享 -->
+      <block wx:if="{{!isQRScene && userChannelCnt<=0}}">
+        <button open-type='share' class="sharebutton"
+          style="{{isShowShareBtn?'display: inline-block':'display: none'}}">
+          <image src="{{DataURL}}/images/shop-shart.png?{{randomNum}}"></image>
+        </button>
+      </block>
+      <block wx:if="{{!isQRScene && userChannelCnt>0}}">
+        <button class="sharebutton" style="{{isShowShareBtn?'display: inline-block':'display: none'}}"
+          catchtap="showShareChannelPop">
+          <image src="{{DataURL}}/images/shop-shart.png?{{randomNum}}"></image>
+        </button>
+      </block>
+      <block wx:if="{{isQRScene}}">
+        <!-- 返回 -->
+        <button class="sharebutton" catchtap="gotoHomePage">
+          <image src="{{DataURL}}/images/back2.png?{{randomNum}}"></image>
+        </button>
+      </block>
+    </view>
+  </view>
+</view>
+<!-- 商品列表 -->
+<block wx:if="{{isShop}}">
+  <!-- <block wx:if="{{true}}"> -->
+  <!-- 商品列表【1】：分类+单个商品竖排 -->
+  <template is="storeProduct2"
+    data='{{DataURL:DataURL,dataArray:dataArray,selShowType:selShowType,selProcuctTypeList:selProcuctTypeList,selProductTypeIDParam:selProductTypeIDParam}}' />
+</block>
+<block wx:elif="{{showProductType==1 && selProcuctTypeList.length>0}}">
+  <!-- 商品列表【1】：分类+两个商品竖排 -->
+  <template is="storeProduct1"
+    data='{{DataURL:DataURL,dataArray:dataArray,selShowType:selShowType,selProcuctTypeList:selProcuctTypeList,selProductTypeIDParam:selProductTypeIDParam}}' />
+</block>
+<block wx:else>
+  <!-- 商品列表【2】：无分类+两个商品竖排 -->
+  <template is="storeProduct0" data='{{DataURL:DataURL,dataArray:dataArray,selShowType:selShowType}}' />
+</block>
+
+<!-- 店铺 -->
+<scroll-view hidden="true" class="width100 hide {{selShowType==1?'show':'hide'}}"
+  style="height:90%;position: relative;padding-top:80rpx;" scroll-y="true" scroll-with-animation="true">
+  <view id="top"></view>
+  <block wx:for="{{dataArray}}" wx:for-item="articles" wx:for-index="dataArrayIndex" wx:key="key">
+    <block wx:for="{{articles}}" wx:for-item="item" wx:key="shopId" wx:for-index="index">
+      <view class="merchant">
+        <view class="ashopname" data-shopid='{{item.shopId}}' catchtap='viewShopDetail'>
+          <image src="{{item.shopLogo}}"></image>
+          <text>{{item.shopName}}</text>
+          <image class="fright" src="{{DataURL}}/images/unfold.png"></image>
+        </view>
+        <view class="commodity">
+          <block wx:for="{{item.detailList}}" wx:for-item="pitem" wx:key="pid" wx:for-index="index">
+            <image mode="scaleToFill" src="{{pitem.photos}}" data-id="{{pitem.pid}}" catchtap='viewProductDetail'>
+            </image>
+          </block>
+        </view>
+      </view>
+    </block>
+  </block>
+  <view id="bottom"></view>
+</scroll-view>
+
+<view class='shopimgcar' catchtap='gotoShoppingCart'>
+  <view class='shopimgbox'>
+    <view class='car-num'>{{shoppingCartCnt}}</view>
+    <image class='car-icon' src='{{DataURL}}/images/shopping.png'></image>
+  </view>
+</view>
+
+<!-- 新人领劵弹窗 -->
+<view class="userule" wx:if="{{isShowReceiveCouponPop}}">
+  <view class="bgopcity"></view>
+  <view class="textrule">
+    <image class='Sendcoupon' src='{{DataURL}}/images/Sendcoupon.png'></image>
+    <view class="couponbox">
+      <scroll-view style="height:270rpx;" scroll-y="true">
+        <view class="Acoupon" wx:for="{{couponData}}" wx:for-index="index" wx:key="id" data-index="{{index}}">
+          <image src='{{DataURL}}/images/coupon.png'></image>
+          <view class="shadow"></view>
+          <view class="Acouponinfor">
+            <view class="facevalue">
+              <view class="facevalue-price fleft">￥<text>{{item.discount}}</text></view>
+              <view class="facevalue-name fright" wx:if='{{item.mold == 0}}'>满减券</view>
+              <view class="facevalue-name fright" wx:if='{{item.mold == 1}}'>抵扣券</view>
+            </view>
+            <view class="condition">
+              <view class="facevalue-data fleft">领取后有效期 {{item.validday}} 天</view>
+              <view wx:if='{{item.mold == 0}}' class="facevalue-uses fright">满{{item.full}}可用</view>
+            </view>
+          </view>
+          <view class="Acouponuser">
+            <view class='fleft'>{{item.productNames.length>0?item.productNames:item.typename}}</view>
+            <view catchtap="hideModaluserule" class='fright'>立即用劵</view>
+          </view>
+        </view>
+      </scroll-view>
+
+      <image class="clearimg" catchtap="hideModaluserule" src='{{DataURL}}/images/clearpop.png'></image>
+    </view>
+  </view>
+</view>
+<!-- 分享 -->
+<view class="userule" wx:if="{{isShowSelSChannelPop}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class='boxviwe'>
+    <scroll-view class="pop-array" scroll-y>
+      <text class="box-title">请选择分享渠道</text>
+      <block wx:for="{{userChannelList}}" wx:for-item="item" wx:for-index="index" wx:key="id">
+        <view class="chose-btn" data-id="{{item.id}}" data-qrcode='{{item.qrcode}}' bindtap="choseShareChannel"
+          style="{{currentShareChannelId == item.id?' border:2rpx solid #0066eb; ':'border:2rpx solid #e5e5e5;'}}">
+          <button>{{item.name}}</button>
+        </view>
+      </block>
+    </scroll-view>
+    <view class="function" id="function">
+      <button bindtap="hideShareChannelPop">取消</button>
+      <button open-type='share'>确定</button>
+    </view>
+  </view>
+</view>
+
+<!-- 生成图片 -->
+<view class="userule" wx:if="{{isShowQRCode}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="qrimages">
+    <view class="imagesbox">
+      <view class="imgtop">
+        <image class='logo-image' src="{{cardImagUrl}}"></image>
+      </view>
+      <!-- <view class="imgname"><text>李子木</text>的名片</view>
+      <image class="imgimage" src="{{DataURL}}/images/imagebox.png"></image>
+      <view class="qrcardimg">
+          <image class="qrcode" src=""></image>
+          <view>长按二维码查看详情</view>
+      </view> -->
+    </view>
+    <view class='width100 btn-operation' style='height:100rpx;'>
+      <button catchtap='hideModalQRcode'>取消</button>
+      <button catchtap="showCardImages">确定</button>
+    </view>
+  </view>
+</view>
+<!--悬浮球-->
+<v-folat id="myComponent"/>
+
+<view class="width100">
+  <v-cheirapsisAlert id="chsAlert" pageName="store" />
+</view>

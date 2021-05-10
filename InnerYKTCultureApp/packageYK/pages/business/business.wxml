@@ -1,0 +1,138 @@
+<!--pages/business/business.wxml-->
+<view catchtap="ondelteamtype">
+  <!--游客登录显示-->  
+  <view class="moneny" wx:if="{{useInoftype}}" >
+    <view class="moneny-o">
+      <view  class="moneny-x">
+        <view>累计金额</view>
+        <view>￥<text>5684.34</text></view>
+        <view></view>
+      </view>
+      <view class="moneny-x">
+        <view>可提现金额</view>
+        <view>￥<text>5684.34</text></view>
+        <view style="text-decoration: underline;">提现</view>
+      </view>
+    </view>
+    <image src="{{DataURL}}/images/statistics-bg.png">
+    </image>
+  </view>
+  <!--用户登录显示-->
+  <view class="moneny"  wx:if="{{!useInoftype}}">
+    <view class="moneny-o">
+      <view  class="moneny-z">
+        <view>累计金额</view>
+        <view>￥<text>5684.34</text></view>
+      </view>
+    </view>
+    <image src="{{DataURL}}/images/statistics-bg.png">
+    </image>
+  </view>
+  
+  
+  
+  <!-- 合作方 -->
+  <view class="business-tit">
+    <view class="business-tit-v" catchtap="onChangeteamtype">
+      <input disabled="true" value="合作方"></input>
+      <image src="{{DataURL}}/images/xiala.png">
+      </image>
+      <view class="xiala" wx:if="{{teamtype}}" >
+        <view>平台</view>
+        <view>酒店</view>
+        <view>代理商</view>
+        <view>平台业务人员</view>
+      </view>
+    </view>
+    <view catchtap="onChangedivtype"  class="business-tit-v">
+      <input disabled="true" value="{{consto}}"></input>
+      <image src="{{DataURL}}/images/xiala.png" >
+      </image>
+      <view class="xiala" wx:if="{{divtype}}">
+        <view catchtap="onchangeCS" data-id="运营生成统计">运营生成统计</view>
+        <view catchtap="onchangeCS" data-id="销售数据统计">销售数据统计</view>
+        <view catchtap="onchangeCS" data-id="订房分成统计">订房分成统计</view>
+        <view catchtap="onchangeCS" data-id="设备使用率">设备使用率</view>
+      </view>
+    </view>
+    <view catchtap="onChangesstype" class="business-tit-v {{sstype? 'position':''}}" style="{{sstype? 'width:100%;':''}}">
+      <input placeholder="搜索"></input>
+      <image src="{{DataURL}}/images/search.png">
+      </image>
+    </view>
+  </view>
+
+  
+  <!-- 主题内容 -->
+  <view wx:if="{{!usagetype}}">
+    <view class="business-item" wx:for="{{2}}" wx:key="index">
+      <view  class="business-item-v">
+        <view  class="business-item-v-v">
+          <text>投放场地</text>
+          <text>东方科技大厦</text>
+        </view>
+        <view class="business-item-v-v">
+          <text>设备编码</text>
+          <text>DFJK-16675408501</text>
+        </view>
+        <view class="business-item-v-v">
+          <text>启动时间</text>
+          <text>2020.01.08 14:52</text>
+        </view>
+      </view>
+      <view  class="business-item-b">
+        <view class="business-item-b-v">
+          <text>分成比例</text>
+          <text>10%</text>
+        </view>
+        <view class="business-item-b-v">
+          <text>奖励金额(元)</text>
+          <text>11</text>
+        </view>
+        <view class="business-item-b-v">
+          <text>用时(分钟)</text>
+          <text>55</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 设备使用率页面 -->
+  <view class="usage" wx:if="{{usagetype}}">
+    <view class="usage-o" style="color:#999;">
+      <text>投放场地</text>
+      <text>设备编号</text>
+      <view>使用率
+          <image wx:if="{{false}}" src="{{SMDataURL}}/images/paixu.png">
+          </image>
+          <image wx:if="{{false}}" src="{{SMDataURL}}/images/shengxu.png">
+          </image>
+          <image wx:if="{{true}}" src="{{SMDataURL}}/images/jiangxu.png">
+          </image>
+      </view>
+      <view style="padding-right:20rpx;">时长<text style="font-size:24rpx;">(分钟)</text>
+          <image wx:if="{{false}}" src="{{SMDataURL}}/images/paixu.png">
+          </image>
+          <image wx:if="{{false}}" src="{{SMDataURL}}/images/shengxu.png">
+          </image>
+          <image wx:if="{{true}}" src="{{SMDataURL}}/images/jiangxu.png">
+          </image>
+      </view>
+    </view>
+    <view wx:for="{{3}}" wx:key="index" class="usage-o">
+      <text>东方科技大厦</text>
+      <text>DFKJ-15482</text>
+      <text>80%</text>
+      <text>120</text>
+    </view>
+  </view>
+
+
+
+
+
+
+
+
+
+</view>

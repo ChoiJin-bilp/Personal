@@ -1,0 +1,199 @@
+/* pages/chainhoteldetail/chainhoteldetail.wxss */
+page{
+  background: #f6f6f6;
+}
+.looktg{
+  position: fixed;
+  left: 2%;
+  top: 54rpx;
+  width: 50rpx;
+  height: 50rpx;
+  z-index: 9999999;
+}
+
+/* 轮播 */
+swiper {
+  width: 100%;
+  height: 400rpx;
+  /* border-radius: 20rpx; */
+  overflow: hidden;
+  margin-bottom: 20rpx;
+}
+.slide-image{
+  width: 100%;
+  height: 400rpx;
+}
+.banner{
+  margin: 0 auto;
+  height: 400rpx;
+}
+
+.Information{
+  width: 94%;
+  margin: 0 auto;
+  clear: both;
+  border-bottom: solid 2rpx #e5e5e5;
+  padding: 16rpx 0;
+  font-size: 30rpx;
+}
+.Information text.text1{
+  padding: 0 26rpx;
+  border-right: solid 1px #e5e5e5;
+  color: #333;
+}
+.Information text.text1:first-child{
+  padding:0 26rpx 0 0;
+}
+
+.navview{
+  width: 100%;
+  padding: 0 3%;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.navview .hotelname{
+  width: 100%;
+  height:48rpx;
+  line-height: 48rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #000;
+}
+.navview .distance{
+  display: inline-block;
+  font-size: 30rpx;
+  color: #666;
+  padding: 0 20rpx; 
+  border-left: solid 1rpx #e5e5e5;
+}
+.navview .distance:first-child{
+  border-left:none;
+  padding-left: 0;
+}
+.navview .hoteladd{
+  width: 100%;
+  height:50rpx;
+  line-height: 50rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 30rpx;
+  padding: 10rpx 0;
+  color: #000;
+}
+.navview .hoteladd image{
+  width: 25rpx;
+  height: 30rpx;
+  padding: 12rpx 20rpx 8px 0;
+  vertical-align: top;
+}
+.lineview{
+  width: 94%;
+  margin: 0 3%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-bottom: solid 1px #e5e5e5;
+  border-top: solid 1px #e5e5e5;
+  height: 72rpx;
+  margin-top: 20rpx;
+}
+.lineview .fleft {
+  width: 33%;
+  height: 52rpx;
+  box-sizing: border-box;
+  border-right: solid 1px #e5e5e5;
+  line-height: 52rpx;
+  margin-top: 10rpx;
+  text-align: center;
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #000;
+}
+.lineview .fleft:last-child{
+  border-right: none;
+}
+.lineview .fleft image{
+  width: 36rpx;
+  height: 34rpx;
+  padding: 10rpx 0;
+  vertical-align: top;
+}
+
+.list {
+  padding:0 3%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 10rpx;
+}
+ 
+.list-half {
+  width: 48%;
+  box-sizing: border-box;
+}
+.list-half .card {
+  background-color: #fff;
+  overflow: hidden;
+  margin-bottom: 20rpx;
+  padding-bottom: 20rpx;
+  border-radius: 16rpx;
+}
+.list-half .card image{
+  width: 100%;
+  float: left;
+  margin:0;
+  padding: 0;
+  height: 320rpx;
+}
+shoppay,.shoppaycost{
+  width: 94%;
+  padding: 2rpx 3%;
+  clear: both;
+}
+.productName{
+  width: 94%;
+  max-height: 72rpx;
+  line-height: 36rpx;
+  text-align: left;
+  overflow: hidden;
+  padding: 2rpx 3%;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-size: 30rpx;
+  /* font-weight: bold; */
+  color: #000;
+}
+.sellingcost {
+  font-size: 26rpx;
+  color: #999;
+  text-decoration:line-through;
+}
+.selling{
+  display: inline-block;
+  font-size: 28rpx;
+  color: #ff1f1f!important;
+}
+.selling text{
+  font-size: 30rpx;
+  /* font-weight: bold; */
+  padding: 0 0 0 4rpx;
+}
+.breakfast{
+  display: inline-block;
+  margin:4rpx 10rpx 4rpx 3%;
+  height: 36rpx;
+  line-height: 36rpx;
+  background: #ff984d;
+  color: #fff;
+  padding: 0 12rpx;
+  border-radius: 6rpx;
+  font-size: 24rpx;
+}

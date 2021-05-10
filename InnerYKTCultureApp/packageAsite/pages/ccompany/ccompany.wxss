@@ -1,0 +1,310 @@
+/* pages/ccompany/ccompany.wxss */
+page{
+  background: #fff;
+}
+.noticetext{
+  color: #136fe6;
+  font-weight: bold;
+}
+.Profiles{
+  background: #fff;
+  padding-bottom: 20rpx;
+}
+.comp-name{
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 1rem;
+  font-weight: bold;
+}
+.comp-image{
+  width: 394rpx;
+  height: 84rpx;
+  margin:40rpx 0 10rpx 0;
+}
+.portion{
+  background: #fff;
+  /* margin-top: 16rpx; */
+  padding-bottom: 20rpx;
+}
+.nav-title{
+  width: 92%;
+  height: 60rpx;
+  padding: 20rpx 4%;
+}
+.border-l{
+  width: 12rpx;
+  height: 60rpx;
+  background: #136fe6;
+  left: 0;
+  top: 16rpx;
+}
+.title-name{
+  width: 100%;
+  height: 60rpx;
+  line-height: 60rpx;
+  border-bottom: solid 2rpx #e6e6e6;
+}
+.nav-name{
+  font-size: 1rem;
+  color: #333;
+  font-weight: bold;
+  text-transform:uppercase;
+}
+.nav-name1{
+  font-size: 1rem;
+  color: #333;
+  font-weight: bold;
+  height: 60rpx;
+  width: 94%;
+  margin: 0 auto;
+  line-height: 60rpx;
+  background: red;
+  padding: 20rpx 0;
+}
+.nav-name text{
+  font-size: 0.8rem;
+  font-weight: normal;
+  color: #999;
+  margin-left: 20rpx;
+}
+.more{
+  width: 28rpx;
+  height: 28rpx;
+  margin-top: 16rpx;
+}
+.Scope{
+  width: 92%;
+  margin: 0 auto;
+  border-radius: 16rpx;
+  overflow: hidden;
+  margin-top: 20rpx;
+}
+.business-photo{
+  width: 210rpx;
+  height: 158rpx;
+  margin-left: 4.3%;
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+.business-photo:first-child{
+margin-left:0;
+}
+.business-photo image{
+  width: 210rpx;
+  height: 158rpx;
+}
+.business{
+  width: 210rpx;
+  height: 210rpx;
+  margin-left: 4.3%;
+}
+.business:first-child{
+margin-left:0;
+}
+.business image{
+  width: 210rpx;
+  height: 158rpx;
+}
+.business text{
+  display: block;
+  width: 100%;
+  height: 52rpx;
+  line-height: 48rpx;
+  font-size: 0.8rem;
+  color: #333;
+  text-align: center;
+}
+.business:first-child{
+  margin-left: 0;
+}
+.Profile,.Contact{
+  width: 92%;
+  margin: 0 auto;
+  font-size: 0.8rem;
+  color: #333;
+}
+.Profile text{
+  display: block;
+  width: 100%;
+  line-height: 40rpx;
+  margin-top: 12rpx;
+  text-align: justify;
+  word-break:break-all;
+  text-indent: 1.6rem;
+  clear: both;
+}
+.Contact-way{
+  line-height: 48rpx;
+}
+.map{
+  width: 94%;
+  margin: 0 auto;
+  background: #fff;
+}
+.noticetext{
+  width: 100%;
+  height: 80rpx;
+  line-height: 90rpx;
+  text-align: center;
+  color: #136fe6;
+  font-weight: bold;
+}
+
+/* 团队介绍 */
+.personIcon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #fff;
+}
+
+.team-background {
+  border-radius: 10rpx;
+  background-color: #fff;
+  color: #000;
+  margin: 30rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.team-text {
+  width: 94%;
+  margin: 0 auto;
+  font-size: 30rpx;
+  margin-top: 10rpx;
+  text-indent: 2rem;
+  text-align: justify;
+  color:#333;
+}
+
+.team-list {
+  position: relative;
+  height: 230rpx;
+  padding:20rpx 0; 
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* border-top: 1rpx solid #e4e4e4; */
+}
+
+.team-list-left {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 10rpx;
+}
+
+.team-list-rigth {
+  width: 60%;
+  margin: 0rpx auto;
+}
+.team-list-text{
+  font-size:30rpx;
+  color:#333;
+}
+
+/*公司愿景*/
+.company-background{
+  height:800rpx;
+  border-radius:10rpx;
+  background-color:  #fff;
+  color: #000;
+  margin: 30rpx;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+.company-text{
+  width: 94%;
+  margin: 0 auto;
+  font-size: 30rpx;
+  margin-top: 10rpx;
+  text-indent: 2rem;
+  text-align: justify;
+}
+/* 发展历史 */
+.toppage{
+  /* position: absolute;
+  top: 100rpx;
+  left: 50rpx; */
+  margin-top: 30rpx;
+}
+.circleicon{
+  width:45rpx;
+  height:45rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #99ccff;
+  margin-bottom: -20rpx;
+  z-index: 999;
+}
+.team-list {
+  position: relative;
+  height: 300rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-top: -30rpx;
+}
+.team-list-one {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-top: -30rpx;
+}
+.team-list-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 10rpx;
+}
+.prop{
+  width: 25rpx;
+  height: 250rpx;
+  background: #F2F2F2;
+}
+.team-list-text{
+font-size:30rpx;
+color:#333;
+}
+.traffic{
+  width: 92%;
+  margin: 0 auto;
+  color: #333;
+  padding-bottom: 40rpx;
+}
+.line{
+  width: 100%;
+  clear: both;
+  padding: 20rpx 0;
+  border-bottom: solid 2rpx #e5e5e5;
+}
+.line:last-child{
+  border-bottom: solid 2rpx #fff;
+}
+.line image.fleft{
+  width: 40rpx;
+  height: 40rpx;
+}
+.line view.fright{
+  width: 90%;
+}
+.trafficway{
+  margin-top:20rpx; 
+}
+.trafficway:first-child{
+  margin-top: 0;
+}
+.trafficway view{
+  font-size:32rpx;
+  color: #000;
+}
+.trafficway text{
+  font-size:28rpx;
+  color: #666;
+}

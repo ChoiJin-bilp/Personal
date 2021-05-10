@@ -1,0 +1,153 @@
+/* components/scanCode/scanCode.wxss */
+.pull{
+  height: 96%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 80rpx;
+  box-sizing: border-box;
+  font-size: 30rpx;
+  position: absolute;
+}
+.fstImg{
+  width: 85%;
+  height: 50rpx;
+  font-size: 52rpx;
+  font-family: "楷体";
+  font-weight: bold;
+  margin: auto;
+}
+/* .fstImg{
+  width: 518rpx;
+  height: 35rpx;
+  scale: 1.3;
+} */
+.Scanlogin-o{
+  width: 100%;
+  text-align: center;
+}
+.secImg{
+  width: 79%;
+  height: 578rpx;
+}
+.attempt{
+  font-size: 30rpx;
+  text-align: center;
+  width: 100%;
+}
+.gistrants{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 50rpx;
+  box-sizing: border-box;
+}
+.gistrants input{
+  height: 54rpx;
+  padding-left:20rpx; 
+  border: #999999 solid 2rpx;
+  width: 70%;
+}
+.gistrants view{
+  display: flex;
+  align-items: center;
+  height: 54rpx;
+  border: #0066FF solid 2rpx;
+  padding: 10rpx;
+  padding-left: 30rpx; 
+  padding-right: 30rpx;
+  border-radius: 10rpx;
+  color: #0066FF;
+  box-sizing: border-box;
+}
+.lijibut{
+  color: #0066FF;
+  
+}
+
+@keyframes sploosh {
+  0% {
+    box-shadow: 0 0 0 0px rgba(15, 141, 233, 0.7);
+    background: rgba(15, 141, 233, 0.7);
+  }
+  100% {
+    box-shadow: 0 0px 140rpx 140rpx rgba(15, 141, 233, 0);
+    background: rgba(15, 141, 233, 0);
+  }
+}
+.dot {
+  animation: sploosh 2s cubic-bezier(1, 1, 1, 1);
+}
+.dot2 {
+  animation: sploosh 2s cubic-bezier(1, 1, 1, 1);
+}
+.dot3 {
+  animation: sploosh 1.5s cubic-bezier(1, 1, 1, 1);
+}
+.dot,.dot2,.dot3{
+  height: 358rpx;
+  width: 356rpx;
+  font-size: 20px;
+  color: #fff;
+  line-height: 100px;
+  text-align: center;
+  border-radius: 100%;
+  position: absolute;
+  top: 108rpx;
+  left: 192rpx;
+  z-index: -4;
+  background: rgba(15, 141, 233, 0.7);
+  animation-iteration-count:infinite;
+}
+.icon{
+  width:84rpx;
+  height: 84rpx;
+}
+.tabBar{
+  width:100%;
+  bottom:0;
+  padding:10rpx;
+  font-size:20rpx;
+  color:#8A8A8A;
+  display: flex;
+  margin-top:40rpx;
+}
+
+ .tabBar-item{
+  float:left;
+  width:50%;
+  text-align: center;
+  overflow: hidden;
+}
+/*当前字体颜色*/
+.tabBartext{
+font-size: 32rpx;
+color:#fff;
+display: flex;
+}
+.switchbut{
+  width: 200rpx;
+  height: 60rpx;
+  border-radius:16rpx; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0F8DE9;
+  font-weight: bold;
+  margin-left: 110rpx;
+}
+.return{
+  width: 100%;
+  display: flex;
+  justify-content:  space-between;
+  align-items: center;
+  font-size: 38rpx;  
+  padding:0 40rpx;
+  box-sizing: border-box;
+}
+.return image{
+  width: 140rpx;
+  height: 140rpx;
+  margin-top: -20rpx;
+}

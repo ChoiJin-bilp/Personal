@@ -1,0 +1,85 @@
+<view class='topTabSwiper'>
+    <view class='tab  {{currentData == 0 ? "tabBorer" : ""}}'  data-current = "0" bindtap='checkCurrent'>我的</view>
+    <view class='tab  {{currentData == 1 ? "tabBorer" : ""}}'  data-current = "1" bindtap='checkCurrent'>收到</view>
+    <view class='tab  {{currentData == 2 ? "tabBorer" : ""}}'  data-current = "2" bindtap='checkCurrent'>发送</view>
+</view>
+<swiper current="{{currentData}}" class='swiper' style="height:{{windowH}}px" duration="300" bindchange="bindchange">
+  <swiper-item>
+    <view class="add-phone" >
+      <view wx:if='{{userVersion}}' class="width92 mycard-title">
+        <image catchtap='newcompany' src='{{DataURL}}/images/upimg.png'></image>
+        <text catchtap='newcompany'>添加公司</text>
+      </view>
+      <view class="nav-box" style='padding-top:68rpx;'>  
+        <view class="A-company" wx:for="{{companyInfo}}"  wx:key="id"  wx:for-index="index" data-index="{{index}}" data-vtype="2" catchtap='checkcompany'>
+          <view wx:if="{{item.defaultType == 2}}" class='Default'>默认</view> 
+          <view class='head-company'>
+            <view class='fleft head-name'>{{item.label}}</view>
+          </view>
+          <view class='foot-company'>
+            <view class='width100 use-data'>
+              <text>负责人：{{item.legal}}</text>
+              <text>手机号：{{item.mobile}}</text>
+            </view>
+            <view class='width100 use-company'>公司：{{item.company}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </swiper-item>
+
+  <swiper-item>
+    <view class="add-phone">
+      <view class='receive' data-vtype="6" catchtap='checkcompany' wx:for="{{companySendOrReceInfo}}"  wx:key="id" wx:for-index="index" data-index="{{index}}">
+        <view class='width100 receive-data'>
+          <text>负责人：{{item.legal}}</text>
+          <text>手机号：{{item.mobile}}</text>
+        </view>
+        <view class='width100 receive-company'>公司：{{item.company}}</view>
+        <view class='width100 receive-time'>{{item.rectime}}</view>
+      </view>
+    </view>
+  </swiper-item>
+
+  <swiper-item>
+    <view class="add-phone" >
+        <view class="send-company" data-vtype="7" wx:for="{{companySendOrReceInfo}}"  wx:key="id" wx:for-index="index" data-index="{{index}}">
+          <view class='reception'>
+              <text>接收人信息</text>
+              <image data-index="{{index}}" bindtap="showreceptionpop" src="{{DataURL}}/images/xiala.png"></image>
+          </view>
+          <view class='receive' data-vtype="7" data-index="{{index}}" catchtap='checkcompany'>
+            <view class='width100 receive-data'>
+              <text>负责人：{{item.legal}}</text>
+              <text>手机号：{{item.mobile}}</text>
+            </view>
+            <view class='width100 receive-company'>公司：{{item.company}}</view>
+            <view class='width100 receive-time'>{{item.sendTime}}</view>
+          </view>
+        </view>
+    </view>
+  </swiper-item>
+</swiper>
+
+<view class="userule" wx:if="{{receptionpop}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="tipsbox"  >
+    <scroll-view  scroll-y class="pop-array" style="{{receiverList.length > 5 ? 'height:800rpx' : ''}}">
+
+      <view class='receive1' wx:for="{{receiverList}}"  wx:key="id" wx:for-index="index" data-index="{{index}}">
+        <view class='width100 receive-data'>
+          <text>接收人：{{item.contact}}</text>
+          <text>手机号：{{item.mobile}}</text>
+        </view>
+        <view class='width100 receive-company'>公司：{{item.company}}</view>
+        <view class='width100 receive-time'>{{item.sendTime}}</view>
+      </view>
+
+    </scroll-view>
+    <view class='delete-box'>
+      <image class='del-record' bindtap="hidereceptionpop" src='{{DataURL}}/images/clearpop.png?213'></image>
+    </view>  
+  </view>
+</view>
+
+

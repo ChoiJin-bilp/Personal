@@ -1,0 +1,33 @@
+<!--pages/selectStore/selectStore.wxml-->
+<view class="fistItem">
+  <view class="titleName">
+    <view>深圳市南山区科技园东方科技大厦（和几款</view>
+    <image src="{{SMDataURL}}/images/xiala.png"></image>
+  </view>
+  <view class="budress" catchtap="goToMap">
+    <image src="{{SMDataURL}}/images/al-adress.png"></image>
+    地图
+  </view>
+</view>
+
+<view class="nut">
+  <view class="addtitle">
+    <image src="{{SMDataURL}}/images/search.png"></image>
+    <input></input>
+  </view>
+</view>
+
+
+<view class="buthunt" catchtap="goToShop">
+  <view class="buthunttop">
+    <view>科兴科技园店</view>
+    <view>
+      <text>离我最近的</text>0.24km
+    </view>
+  </view>
+  <view class="pinjia">
+    <image wx:for="{{4}}" src="{{SMDataURL}}/images/buxinxin.png"></image>
+    <image wx:for="{{1}}" src="{{SMDataURL}}/images/huixixin.png"></image>
+  </view>
+  <view class="bot">广东省深圳市南山区大冲新城花园2栋2E座入口旁边</view>
+</view>

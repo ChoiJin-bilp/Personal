@@ -1,0 +1,445 @@
+<!--pages/hoteldetails/hoteldetails.wxml-->
+<swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">  
+  <block wx:for="{{proDataInfo.videoList}}" wx:for-item="item" wx:for-index="index" wx:key="item">
+    <swiper-item>
+      <view class='course-pannle-item'>
+        <view class='video-item'>
+          <video id="myVideo" src="{{item.src}}" poster="{{item.poster}}" controls autoplay='{{false}}' show-center-play-btn="true"></video>
+        </view>
+      </view>
+    </swiper-item>
+  </block>
+  <block wx:for="{{proDataInfo.photos}}" wx:for-item="item" wx:for-index="index" wx:key="item">
+    <swiper-item>
+      <image mode="aspectFit" class="img_toplist{{index}} slide-image" src="{{item.isShow? item.src+'?'+randomNum : ''}}" data-src='{{item.src}}' catchtap="viewImg" bindLoad="imageLoad" data-index="0" />
+    </swiper-item>
+  </block>
+</swiper>
+<!-- 普通酒店选项——入住时段 -->
+<block wx:if="{{roomSellType==0}}">
+  <view class="selection">
+    <view class="fleft" data-tag="0" catchtap="chooseDateTime">
+      <view class="viewname">入住</view>
+      <text class="viewdate">{{dtShortCheckInStart}}</text>
+    </view>
+    <view class="fleft" data-tag="0" catchtap="chooseDateTime">
+      <view class="viewname">离店</view>
+      <text class="viewdate">{{dtShortCheckInEnd}}</text>
+    </view>
+    <view class="fright">
+      共<text>{{buyNum}}</text>晚
+    </view>
+  </view>
+</block>
+
+<view class="name-price">
+  <!-- 普通酒店选项——价格 -->
+  <block wx:if="{{roomSellType==0}}">
+    <view class="commodity-price">
+      <view class="current-price fleft"><text>¥</text>{{buyAmount}}</view>
+    </view>
+  </block>
+  <text class="commodity-name">{{proDataInfo.productName}}</text>
+
+  <!-- 光趣选项——套餐列表 -->
+  <block wx:if="{{roomSellType==1}}">
+    <view class="commodity-combo">
+      <view class="combo-title">套餐</view>
+      <view class="combo-table">
+        <block wx:for="{{proDataInfo.productDetailList[selDIndex].group_purchase_meal_msg}}" wx:for-item="setMealItem" wx:key="mealName" wx:for-index="index">
+          <view class="combo-tbody">
+            <view class="fleft">{{setMealItem.mealName}}</view>
+            <view class="center"><text>{{setMealItem.mealNum}}</text>份</view>
+            <view class="fright"><text>{{setMealItem.mealMoney}}</text>元</view>
+          </view>
+        </block>
+        <view class="combo-tbody">
+          <view class="fleft"></view>
+          <view class="center">总价</view>
+          <view class="fright"><text>{{proDataInfo.productDetailList[selDIndex].sourcePrice}}</text>元</view>
+        </view>
+        <view class="combo-thead">
+          <view class="fleft"></view>
+          <view class="center">团购价</view>
+          <view class="fright" style="color: #ff3333;"><text>{{proDataInfo.minprice}}</text>元</view>
+        </view>
+        <view class="combo-remark">{{proDataInfo.productDetailList[selDIndex].detailRemark}}</view>
+      </view>
+    </view>
+  </block>
+  
+  <view class="enjoyicon">
+    <image src="{{DataURL}}/images/shop-shart.png?{{randomNum}}" catchtap="shareWXStoreProduct"></image>
+    <!-- 普通查看显示二维码，分享查看显示返回 -->
+    <block wx:if="{{isNormalView==1}}">
+      <!-- 二维码 ：代理商品不能生成二维码 -->
+      <block wx:if="{{vtype!=2}}">
+        <image src="{{DataURL}}/images/share_icon.png?{{randomNum}}" catchtap="shareStoreDetails"></image>
+      </block>
+    </block>
+    <block wx:else>
+      <image src="{{DataURL}}/images/back2.png?{{randomNum}}" catchtap="gotoHomePage"></image>
+    </block>
+  </view>
+</view>
+<!-- 赠品 -->
+<block wx:if="{{proDataInfo.giftId!=''}}">
+  <view class="allshopmame" data-id='{{proDataInfo.giftId}}' catchtap="showGiftDetailPop">
+    <view class="complimentary">
+      <view class="fleft">赠品</view>
+      <image class="flfet" mode="aspectFit" src="{{proDataInfo.gphotos}}"></image>
+      <text>{{proDataInfo.giftName}}</text>
+      <image class="fright" src="{{DataURL}}/images/unfold.png"></image>
+    </view>
+  </view>
+</block>
+
+
+<!-- 规格 -->
+<!-- 【1】光趣选项 -->
+<block wx:if="{{roomSellType==1}}">
+</block>
+<!-- 【2】普通酒店选项 -->
+<block wx:if="{{roomSellType==0}}">
+  <view class="allshopmame">
+    <view class="storerule" catchtap="showProductSpecsPop">
+      <view class="fleft">规格</view>
+      <block wx:if="{{proSDetailId==''}}">
+        <text>选择规格</text>
+      </block>
+      <block wx:else>
+        <text>已选：{{proDataInfo.productDetailList[selDIndex].isHaveTwo?proDataInfo.productDetailList[selDIndex].attributeOne+' '+proDataInfo.productDetailList[selDIndex].attributeTwo:proDataInfo.productDetailList[selDIndex].attributeOne+proDataInfo.productDetailList[selDIndex].attributeTwo}}</text>
+      </block>
+      <image class="fright" src="{{DataURL}}/images/unfold.png" data-shopid='{{proDataInfo.shopId}}'></image>
+    </view>
+    <!-- 规格图片：所选规格图片红框标识 -->
+    <view class="store-type" catchtap="showProductSpecsPop">
+      <view class="store-style">
+        <block wx:if="{{selDIndex>4}}">
+          <image mode="aspectFit" style="border: solid 1px #ff1f1f;" src="{{proHeadPhotoList[selDIndex]}}" data-src='{{item}}'></image>
+        </block>
+        <block wx:for="{{proHeadPhotoList}}" wx:for-item="item" wx:for-index="index" wx:key="item">
+          <block wx:if="{{selDIndex<=4 && index<=4}}">
+            <image mode="aspectFit" style="{{selDIndex==index?'border: solid 1px #ff1f1f;':''}}" src="{{item}}" data-src='{{item}}'></image>
+          </block>
+          <block wx:if="{{selDIndex>4 && index<=3}}">
+            <image mode="aspectFit" style="{{selDIndex==index?'border: solid 1px #ff1f1f;':''}}" src="{{item}}" data-src='{{item}}'></image>
+          </block>
+        </block>
+      </view>
+      <text>共有 {{proDataInfo.productDetailCnt}} 种规格可选</text>
+    </view>
+  </view>
+</block>
+
+<!-- 客服信息 -->
+<view class="allshopmame">
+  <view class="ashopname relative">
+    <image class="storelogo" mode="aspectFit" src="{{proDataInfo.shopLogo}}" data-shopid='{{proDataInfo.shopId}}' catchtap='viewShopDetail'></image>
+    <view class="storename" data-shopid='{{proDataInfo.shopId}}' catchtap='viewShopDetail'>{{proDataInfo.shopName}}</view>
+    <image class="fright" src="{{DataURL}}/images/unfold.png" data-shopid='{{proDataInfo.shopId}}' catchtap='viewShopDetail'></image>
+    <button class="kefu fright" open-type='contact' session-from=''>
+      <view class="kefu-btn">
+        <image src="{{DataURL}}/images/kefu.png?{{randomNum}}"></image>
+        <text class="btn-kf">客服</text>
+      </view>
+    </button>
+  </view>
+</view>
+<!-- <view class="inventory">可订房量
+  <text>剩<text>{{proDataInfo.productDetailList[selDIndex].strStock}}</text>间</text>
+</view> -->
+
+<!-- 详情 -->
+<!-- 【1】普通酒店选项 -->
+<block wx:if="{{roomSellType==0}}">
+  <view class="baby-details">
+    <text></text>
+    <view>房间详情</view>
+  </view>
+  <view class="baby-introduce">
+    <!-- <block wx:for="{{proDataInfo.introductionImgs}}" wx:for-item="item" wx:for-index="index" wx:key="item">
+      <image class="img_introduce{{index}}" mode="widthFix" src="{{item.isShow? item.src+'?'+randomNum : ''}}"></image>
+    </block> -->
+    <view class="facility">
+      <block wx:if="{{proDataInfo.cast!=''}}">
+        <view class="facilityview ">
+          <image src="{{DataURL}}/images/hotel1.png"></image>
+          <view>{{proDataInfo.area}}</view>
+        </view>
+      </block>
+      <block wx:if="{{proDataInfo.window!=''}}">
+        <view class="facilityview">
+          <image src="{{DataURL}}/images/hotel2.png"></image>
+          <view>{{proDataInfo.window}}</view>
+        </view>
+      </block>
+      <block wx:if="{{proDataInfo.bed!=''}}">
+        <view class="facilityview">
+          <image src="{{DataURL}}/images/hotel3.png"></image>
+          <view>{{proDataInfo.bed}}</view>
+        </view> 
+      </block>
+      <block wx:if="{{proDataInfo.smoking!=''}}">
+        <view class="facilityview">
+          <image src="{{DataURL}}/images/hotel4.png"></image>
+          <view>{{proDataInfo.smoking}}</view>
+        </view> 
+      </block>
+      <block wx:if="{{proDataInfo.wifi!=''}}">
+        <view class="facilityview">
+          <image src="{{DataURL}}/images/hotel5.png"></image>
+          <view>{{proDataInfo.wifi}}</view>
+        </view>
+      </block>
+      <block wx:if="{{proDataInfo.numFloor!=''}}">
+        <view class="facilityview">
+          <image src="{{DataURL}}/images/hotel6.png"></image>
+          <view>{{proDataInfo.numFloor}}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+  <view class="introduce">
+    <view class="introduceview">
+      <view>费用政策</view>
+      <text>{{proDataInfo.cast}}</text>
+    </view>
+    <view class="introduceview">
+      <view>便利设施</view>
+      <text>{{proDataInfo.conveniences}}</text>
+    </view>
+    <view class="introduceview">
+      <view>浴室配套</view>
+      <text>{{proDataInfo.bathroom}}</text>
+    </view>
+    <view class="introduceview">
+      <view>媒体科技</view>
+      <text>{{proDataInfo.media}}</text>
+    </view>
+    <view class="introduceview">
+      <view>食品饮品</view>
+      <text>{{proDataInfo.foodAndDrink}}</text>
+    </view>
+  </view>
+  <view class="ruleview">
+    <view >使用规则</view>
+    <text>{{proDataInfo.rulesOfuse}}</text>
+  </view>
+</block>
+<!-- 【2】光趣选项 -->
+<block wx:if="{{roomSellType==1}}">
+  <view class="baby-details">
+    <text></text>
+    <view>图文详情</view>
+  </view>
+  <view class="introduce1">
+    <view class="width100 introduceview1 {{showView?'showtext':'hidetext'}}">
+      <block wx:for="{{proDataInfo.productDetailList[selDIndex].group_purchase_photos}}" wx:for-item="item" wx:for-index="index" wx:key="item">
+        <image class="img_introduce{{index}} introduceimage1" mode="widthFix" src="{{item.isShow? item.src+'?'+randomNum : ''}}"></image>
+      </block>
+      <image class="introduceimage1" mode="widthFix" src=""></image>
+      <text></text>
+    </view>
+    <view class="checkmore" bindtap="checkmore">{{showView?'收起':'查看更多图文介绍'}}</view>
+  </view>
+  <view class="hotelview">
+    <view class="hotelviewtitle">购买须知</view>
+    <view class="width100">
+    </view>
+  </view>
+  <view class="hotelview">
+    <view class="hotelviewtitle">有效期</view>
+    <view class="width100">
+      <text>·</text>
+      <view>{{proDataInfo.productDetailList[selDIndex].group_purchase_startimeStr}}至{{proDataInfo.productDetailList[selDIndex].group_purchase_endtimeStr}}</view>
+    </view>
+  </view>
+  <block wx:for="{{proDataInfo.productDetailList[selDIndex].group_purchase_remind}}" wx:for-item="item" wx:for-index="index" wx:key="item">
+    <view class="hotelview">
+      <view class="hotelviewtitle">{{item.title}}</view>
+      <view class="width100">
+        <text>·</text>
+        <view>{{item.value}}</view>
+      </view>
+    </view>
+  </block>
+</block>
+
+<!-- 预订 -->
+<!-- 【1】普通酒店选项 -->
+<block wx:if="{{roomSellType==0}}">
+  <view class="footer">
+    <view class='but-pay'>
+      <view class="now-pay" catchtap='submitMyOrder'>立即抢购</view>
+    </view>
+  </view>
+</block>
+<!-- 【2】光趣选项 -->
+<block wx:if="{{roomSellType==1}}">
+  <view class="footer">
+    <view class="fleft">
+      <view>￥{{buyAmount}}</view>
+      <text>门市价 {{buyAmountSource}}元</text>
+    </view>
+    <view class='but-pay'>
+      <view class="now-pay" catchtap='submitMyOrder'>立即抢购</view>
+    </view>
+  </view>
+</block>
+
+<!-- 分享 -->
+<view class="userule" wx:if="{{showsaveimage}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="save-image">
+    <view class="boxhongbao">
+      <block wx:if="{{roleStatus==1}}">
+        <view class='save-title relative'>房型价格<button catchtap="showChgSharePricePop">修改</button></view>
+      </block>
+      <text class='save-title'>分享标题</text>
+      <view class="pop-save">
+        <input class="save-text" placeholder='{{shareWXAlert}}' placeholder-class='placeholder' cursor-spacing="10" value='{{shareWXAlert}}' bindinput="changeWXSSAlert" cursor-spacing="10" maxlength='30'></input>
+      </view>
+      <text class='save-title'>分享图片</text>
+      <!-- 发送图片 -->
+      <view class="pop-saveimg">
+        <image mode='aspectFit' class="mr-image fleft" src='{{shareWXImg}}' data-src='{{shareWXImg}}' catchtap="viewImg"></image>
+        <view class="change-image fleft" data-type="2" catchtap="uploadImg">更换图片></view>
+      </view>
+
+    </view>
+    <view class='width100 btn-operation' style='position: absolute;left: 0;bottom: 0; background: #fff; height:100rpx;'>
+      <button catchtap='cancelWXSend'>取消</button>
+      <button open-type='share'>确定</button>
+    </view>
+  </view>
+</view>
+<!-- 分享商品修改价格 -->
+<view class="userule" wx:if="{{isShowChgSharePricePop}}" catchtouchmove="ture">
+  <view class="bgopcity"></view>
+  <view class="changemoney">
+    
+    <view class='changemoneynav'>
+      <text class="navtitle">商品价格</text>
+      <block wx:for="{{proDataInfo.productDetailList}}" wx:for-item="item" wx:for-index="index" wx:key="productDetailId">
+        <view class="sptype">
+          <text class="sptypename">{{item.isHaveTwo?item.attributeOne+' '+item.attributeTwo:item.attributeOne+item.attributeTwo}}</text>
+          <view>元</view>
+          <input type='digit' cursor-spacing="10" data-cid="shareprice" data-sn="{{item.sn}}" bindinput='changeValueMainData' placeholder='请输入价格' placeholder-class='placeholder'></input>
+        </view>
+      </block>
+    </view>
+    <view class='width100 btn-operation' style='position: absolute;left: 0;bottom: 0; background: #fff; height:100rpx;'>
+      <button catchtap='hideChgSharePricePop'>取消</button>
+      <button catchtap='submitChgSharePricePop'>确定</button>
+    </view>
+  </view>
+</view>
+
+<!-- 生成图片 -->
+<view class="userule" wx:if="{{isShowQRCode}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="qrimages">
+    <view class="imagesbox">
+      <view class="imgtop">
+        <image class='logo-image' src="{{cardImagUrl}}"></image>
+      </view>
+    </view>
+    <view class='width100 btn-operation' style='height:100rpx;'>
+      <button catchtap='hideModalQRcode'>取消</button>
+      <button catchtap="showCardImages">确定</button>
+    </view>
+  </view>
+</view>
+
+<!-- 赠品弹窗 -->
+<view class="userule" wx:if="{{isShowGiftDetail}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="popgift">
+    <scroll-view scroll-y="true" class="giftscroll">
+      <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+        <block wx:for="{{giftDataInfo.detailPhoto}}" wx:for-item="item" wx:key="item">
+          <swiper-item>
+            <image mode="aspectFit" src="{{item}}" data-src='{{item}}' catchtap="viewImg" class="gift-image" width="355" height="132" />
+          </swiper-item>
+        </block>
+      </swiper>
+      <view class="bgwhite giftname width92">
+        <view>¥ {{giftDataInfo.sellPrice}}</view>
+        <text>{{giftDataInfo.productName}}</text>
+      </view>
+      <block wx:if="{{giftDataInfo.remark!=''}}">
+        <view class="bgwhite giftinfor width92">
+          <view>商品描述</view>
+          <text>{{giftDataInfo.remark}}</text>
+        </view>
+      </block>
+      <view class="bgwhite giftinfor width92">
+        <view>商品详情</view>
+        <block wx:for="{{giftDataInfo.gIntroductionImgs}}" wx:for-index="index" wx:key="item">
+          <image class="fenxiaoimage width100" mode="widthFix" src="{{item}}?{{randomNum}}" data-src='{{item}}' catchtap="viewImg"></image>
+        </block>
+      </view>
+    </scroll-view>
+    <view class="detimg" style="background:none">
+      <image bindtap="hideGiftDetailPop" src='{{DataURL}}/images/clearpop.png'></image>
+    </view>
+  </view>
+</view>
+<!-- 规格弹窗 -->
+<view class="userule" wx:if="{{isShowProductSpecs}}" catchtouchmove="true">
+  <view class="bgopcity" bindtap="hideProductSpecsPop"></view>
+  <view class="poprule">
+    <scroll-view scroll-y="true" class="rulescroll">
+      <view class="popruleimage {{proDataInfo.productDetailList[selDIndex].detailPhoto.length>0?'show':'hide'}}">
+        <image mode="aspectFit" src="{{proDataInfo.productDetailList[selDIndex].detailPhoto[0]}}" data-src='{{proDataInfo.productDetailList[selDIndex].detailPhoto[0]}}' catchtap="viewImg"></image>
+      </view>
+      <view class="totalpay">
+        <block wx:if="{{buyNum>0}}">
+          <!-- 数量大于0的情况——显示合计费用 -->
+          <block wx:if="{{!proDataInfo.productDetailList[selDIndex].isShowPrice1 && !proDataInfo.productDetailList[selDIndex].isShowPrice2}}">
+            <view class="total">
+              <text>￥{{buyAmountSource}}</text>
+            </view>
+          </block>
+          <block wx:if="{{proDataInfo.productDetailList[selDIndex].isShowPrice2}}">
+            <view class="total">{{proDataInfo.productDetailList[selDIndex].discountType==0?'特惠':'套装'}}价：
+              <text>￥{{buyAmountDiscount}}</text>
+            </view>
+          </block>
+          <block wx:if="{{proDataInfo.productDetailList[selDIndex].isShowPrice1 && proDataInfo.productDetailList[selDIndex].isShowPrice3}}">
+            <view class="total">券后价：
+              <text>￥{{buyAmountCoupon}}</text>
+            </view>
+          </block>
+        </block>
+        <block wx:else>
+          <!-- 数量小于等于0的情况——显示单价 -->
+          <block wx:if="{{!proDataInfo.productDetailList[selDIndex].isShowPrice1 && !proDataInfo.productDetailList[selDIndex].isShowPrice2}}">
+            <view class="total">
+              <text>￥{{proDataInfo.productDetailList[selDIndex].sourcePrice}}</text>
+            </view>
+          </block>
+          <block wx:if="{{proDataInfo.productDetailList[selDIndex].isShowPrice2}}">
+            <view class="total">{{proDataInfo.productDetailList[selDIndex].discountType==0?'特惠':'套装'}}价：
+              <text>￥{{proDataInfo.productDetailList[selDIndex].discountPrice}}</text>
+            </view>
+          </block>
+          <block wx:if="{{proDataInfo.productDetailList[selDIndex].isShowPrice1 && proDataInfo.productDetailList[selDIndex].isShowPrice3}}">
+            <view class="total">券后价：
+              <text>￥{{proDataInfo.productDetailList[selDIndex].couponPrice}}</text>
+            </view>
+          </block>
+        </block>
+      </view>
+      <view class="commodity-detail">
+        <view class="namecommodity">房型规格</view>
+        <view class='SP-size'>
+          <block wx:for="{{proDataInfo.productDetailList}}" wx:for-index="index" wx:key="productDetailId">
+            <view class="chose-txt" data-index="{{index}}" bindtap="exchangeDetail" style="{{index == selDIndex?' border:2rpx solid #136fe6;color:#136fe6;':'border:2rpx solid #e5e5e5;color#666;'}}">{{proDataInfo.productDetailList[index].isHaveTwo?proDataInfo.productDetailList[index].attributeOne+' '+proDataInfo.productDetailList[index].attributeTwo:proDataInfo.productDetailList[index].attributeOne+proDataInfo.productDetailList[index].attributeTwo}}</view>
+          </block>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

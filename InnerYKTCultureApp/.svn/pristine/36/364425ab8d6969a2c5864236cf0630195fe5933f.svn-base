@@ -1,0 +1,103 @@
+<!--pages/facility/facility.wxml-->
+<view class="facility">
+  <view class="facility-o">
+    <view class="facility-o-v">
+      <input
+      placeholder="搜索" cursor-spacing="10"
+      >
+      </input>
+      <image src="{{SMDataURL}}/images/search.png"></image>
+    </view>
+    <view class="facility-o-t">
+      添加设备
+    </view>
+  </view>
+  <view class="facility-t">
+    <view class="facility-t-v">
+      <view catchtap="onChangeArray">
+          <text class="discolor">分类一</text>
+          <image wx:if="{{!search}}" class="posty" catchtap="" src="{{SMDataURL}}/images/amy-xg.png">
+          </image>
+      </view>  
+       <view catchtap="onChangeArray">
+          <text class="{{arry == index?'discolor':''}}" >分类二</text>
+          <image wx:if="{{!search}}" class="posty" src="{{SMDataURL}}/images/amy-xg.png">
+          </image>
+      </view> 
+      <view  catchtap="onChangeArray">
+          <text class="{{arry == index?'discolor':''}}" >分类三</text>
+          <image wx:if="{{!search}}" class="posty" src="{{SMDataURL}}/images/amy-xg.png">
+          </image>
+      </view>  
+      <view  data-num='index' catchtap="onChangeArray">
+          <text class="{{arry == index?'discolor':''}}">分类四</text>
+          <image wx:if="{{!search}}" class="posty" src="{{SMDataURL}}/images/amy-xg.png">
+          </image>
+      </view>     
+    </view>
+    <view class="dance"></view>  
+    <block wx:if="{{search}}">
+      <image catchtap="onChangeSearch" src="{{SMDataURL}}/images/amy-sb.png">
+      </image>
+    </block>
+    <block wx:else>
+      <view class="svsit">
+        <image src="{{SMDataURL}}/images/amy-tj.png">
+        </image>
+        <text catchtap="onChangeSearch">完成</text>
+      </view>
+    </block>
+  </view>
+  <view class="facility-s" wx:for="{{4}}" wx:key='index'>
+    <view  class="facility-s-o">
+      <view class="onest">
+        <text class="onest-t">设备编码：</text>
+        <view class="onest-o">
+          <text>684894541</text>
+          <text>(我是备注)</text>
+        </view>
+      </view>
+      <!-- <view class="anniu">备注</view> -->
+    </view>
+    <view class="facility-s-s" style="margin:30rpx 0;justify-content: start;">
+      <text style="color:#999">设备状态：</text>
+      <view class="option">
+        <view class="choice">
+          <view class="diot huicolor">
+            <view></view>
+          </view>
+          <text>启用</text>
+        </view>
+        <view class="choice">
+          <view class="diot huicolortt">
+            <view></view>
+          </view>
+          <text>未启用</text>
+        </view>
+      </view>
+    </view>
+    <view class="facility-s-s" style="margin-top:30rpx; ">
+      <view style="color:#999">设备管理：</view>
+      <view class="blu">
+        <view class="anniu">测试</view>
+        <view class="anniu">设置</view>
+        <image src="{{DataURL}}/images/QR.png" style="margin-right:20rpx;" data-item="{{item}}" catchtap="createWXQRCodeImg"></image>
+      </view>
+    </view>
+  </view>
+  
+</view>
+
+<block wx:if="{{false}}" >
+<view class="tanChuan"></view>
+<view class="tanChuan-v">
+    <view  class="tanChuan-v-o" >分类编辑</view>
+    <view  class="tanChuan-v-t">
+      <input></input>
+    </view>
+    <view  class="tanChuan-v-s">
+      <view catchtap="hideFinishAlertPop">取消</view>
+      <view catchtap="submitConitueService">提交</view>
+    </view>
+  </view>
+</block>

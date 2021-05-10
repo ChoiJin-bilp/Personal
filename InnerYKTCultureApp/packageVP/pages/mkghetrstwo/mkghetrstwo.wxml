@@ -1,0 +1,97 @@
+<!--packageVP/pages/mkghetrstwo/mkghetrstwo.wxml-->
+<!-- 如果为核销管理 -->
+<block wx:if="{{loginType==0}}">
+  <view class="lrte">
+    <view class="lpor" catchtap="gotoSCanQRCodeRCVPage">
+        <image src="{{SMDataURL}}/images/mine-code.png"></image>
+        <view>扫码核销</view>
+    </view>
+    <view class="lpor" data-pagetype="0" data-package="packageVP" data-page="verification" catchtap="gotoCommonPage">
+      <image src="{{SMDataURL}}/images/VP-xq.png"></image>
+      <view>核销记录</view>
+    </view>
+  </view>
+</block>
+
+<view>
+  <!--充值记录-->
+  <view class="mstuo">充值记录</view>
+  <view class="forTime">
+    <view class="item">
+      <view class="fpsye">充值单号：</view>
+      <view class="contexts">{{rechargeDataObj.tradeNo}}</view>
+    </view>
+    <view class="item">
+      <view class="fpsye">会员手机号：</view>
+      <view class="contexts">{{curUserMobile}}</view>
+    </view>
+    <view class="item">
+      <view class="fpsye">充值用户ID：</view>
+      <view class="contexts">{{curUserId}}</view>
+    </view>
+    <view class="item">
+      <view class="fpsye">充值金额：</view>
+      <view class="contexts">{{rechargeDataObj.price}}</view>
+    </view>
+    <view class="item">
+      <view class="fpsye">实付金额：</view>
+      <view class="contexts">{{rechargeDataObj.money}}</view>
+    </view>
+    <view class="item">
+      <view class="fpsye">会员积分：</view>
+      <view class="contexts">{{rechargeDataObj.integral}}</view>
+    </view>
+  </view>
+  <!--恭喜你已获得-->
+  <view class="sprye">恭喜您已获得：</view>
+  <view class="herd">
+    <rich-text class="tit2" nodes="{{rechargeDataObj.content}}"></rich-text>
+  </view>
+  <!--核销信息-->
+  <block wx:if="{{curVerify!=0}}">
+    <view class="sprye2">核销信息</view>
+    <!-- 已核销 -->
+    <block wx:if="{{curVerify==2}}">
+      <view class="herd">
+        <view class="tit2 tit3">
+          <view>核销地址：{{rechargeDataObj.verify_addr}}</view>
+          <view>操作人：{{rechargeDataObj.verify_admin}}</view>
+          <view>操作人ID：{{rechargeDataObj.verify_adminUId}}</view>
+          <view>核销时间：{{rechargeDataObj.updateDateStr}}</view>
+        </view>
+      </view>
+      <view class="mlpbut">已核销</view>
+    </block>
+    
+    <!-- 未核销 -->
+    <block wx:if="{{curVerify==1}}">
+      <!-- 普通用户查看 -->
+      <block wx:if="{{loginType==1}}">
+        <view class="mhfg">
+          <view><image src="{{rechargeDataObj.orImgUrl}}"></image></view>
+          <view class="messetop">
+            <view class="plit">
+              <image src="{{SMDataURL}}/images/chayu-laba.png"></image><text>请将兑换码告知店员予以兑换</text>
+            </view>
+          </view>
+        </view>
+      </block>
+      <!-- 核销管理员查看 -->
+      <block wx:else>
+        <!--按钮-->
+        <view class="mlpbut" catchtap="submitVerifyRechargeInfo">核销</view>
+      </block>
+    </block>
+    
+    
+  </block>
+  <block wx:if="{{curVerify==0}}">
+    <view class="mhfg">
+      <view class="messetop">
+        <view class="plit">
+          <image src="{{SMDataURL}}/images/chayu-laba.png"></image><text>该次充值无核销商品，无须核销操作</text>
+        </view>
+      </view>
+    </view>
+  </block>
+</view> 

@@ -1,0 +1,276 @@
+<!--packageVP/pages/MywantMassage/MywantMassage.wxml-->
+<!--按摩器介绍-->
+<view class="introduce">
+  <view data-pagetype="0" data-package="" data-page="massageIntroduced" catchtap="gotoPage">
+    <image src="{{DataURL}}/images/amy-introduce2.png" class="osize"></image>
+    <text>按摩介绍</text>
+  </view>
+  <view catchtap="onchangeExplain">
+    <image src="{{DataURL}}/images/amy-explain2.png" class="osize"></image>
+    <text>使用说明</text>
+  </view>
+  <view catchtap="onchangeroof">
+    <image src="{{DataURL}}/images/amy-declare2.png" class="osize"></image>
+    <text>注意事项</text>
+  </view>
+</view>
+<view style="margin-top:40rpx;">
+  <view class="tryto">可使用按摩劵：</view>
+  <block wx:if="{{drawAwardRecordList.length != 0}}">
+    <view class="massageSecurities">
+      <view class="massgelist"  wx:if="{{item.lotteryProduct!=5}}" wx:for="{{drawAwardRecordList}}" wx:for-item="item" wx:for-index="index" wx:key="id" style="{{index==0?'':'margin-top:20rpx;'}}">
+        <!-- 【1.2】未使用普通按摩劵 -->
+          <image src="{{DataURL}}/images/amy-onuse2.png"></image>
+          <view class="mainmessage">
+            <view class="massageOne">
+              <view class="useTime">
+                <view class="TimeFont">{{item.duration}}</view>
+                <view class="Timeunit">
+                  <view>分钟</view>
+                  <view>{{item.lotteryProduct==0?'按摩劵':(item.lotteryProduct==1?'按摩劵':(item.lotteryProduct==2?'按摩劵':''))}}</view>
+                </view>
+              </view>
+              <block wx:if="{{item.lotteryProduct==4 || item.lotteryProduct==5}}">
+                <view class="TimeAM">{{item.synCouponName}}</view>
+              </block>
+              <view style="font-size: 26rpx; color:#FFECDF;">领劵日期：{{item.receiveDate}}</view>
+              <view style="font-size: 26rpx; color:#FFECDF;">有效日期：{{item.endTime}}</view>
+            </view>
+            <view class="massageSecond">
+              <block wx:if="{{currentData==0}}">
+                <block wx:if="{{item.shareUserId==item.userId}}">
+                  <view class="startAM2 startAM1" data-item="{{item}}" >仅供分享</view>
+                </block>
+                <block wx:else>
+                  <view class="startAM2" data-item="{{item}}" catchtap="useMyAward">开始按摩</view>
+                </block>
+
+                <!-- <block wx:if="{{item.isCancelShare==0 && item.lotteryProduct!=0}}">
+                  <button open-type="share" class="stare stare2" data-index="{{index}}" data-item="{{item}}"><image src="{{DataURL}}/images/amj-stare.png"></image>赠送给朋友</button>
+                </block> -->
+              </block>
+            </view>
+          </view>
+      </view>
+    </view>
+  </block>
+    <block wx:else >
+        <view  class="massageSecurities2" >
+          您暂无按摩劵！
+        </view>
+      </block>
+</view>
+<view style="margin-top:40rpx;">
+  <view class="tryto">可使用优惠劵：</view>
+  <block wx:if="{{drawAwardRecordList.length != 0}}">
+    <view class="massageSecurities">
+  <!-- <view class="massgelist" wx:for="{{drawAwardRecordList}}" wx:for-item="item" wx:for-index="index" wx:key="id" style="{{index==0?'':'margin-top:20rpx;'}}"> -->
+      <view class="massgelist" wx:if="{{item.lotteryProduct==5}}" wx:for="{{drawAwardRecordList}}" wx:for-item="item" wx:for-index="index" wx:key="id" style="{{index==0?'':'margin-top:20rpx;'}}">
+        <!-- 【1.1】未使用组合劵 -->
+          <image src="{{DataURL}}/images/amy-onuse3.png"></image>
+          <view class="mainmessage">
+            <view class="massageOne">
+              <view class="useTime">
+                <view class="TimeFont2">{{item.synCouponPrice}}</view>
+                <view class="Timeunit">
+                  <view>元</view>
+                  <view class="outfont">特惠</view>
+                </view>
+              </view>
+              <view class="TimeAM2">{{item.synCouponName}}</view>
+              <view class="moptdata">领劵日期：{{item.receiveDate}}</view>
+              <view class="moptdata"> <view  class="moptloe" >有效日期：{{item.endTime}}</view></view>
+            </view>
+            <view class="massageSecond">
+              <!-- 组合劵可以按摩条件为状态为“0” -->
+              <block wx:if="{{item.status==0}}">
+                <view class="startAM2" data-item="{{item}}" catchtap="useMyAward">开始按摩</view>
+              </block>
+              <!-- 组合劵可以使用（购买商品）条件为状态为“1” -->
+              <block wx:else>
+                <view class="startAM2" data-item="{{item}}" catchtap="useSynCoupon">开始使用</view>
+              </block>
+            </view>
+          </view>
+      </view>
+    </view>
+  </block>
+  <block wx:else >
+    <view  class="massageSecurities2" >
+      您暂无优惠劵！
+    </view>
+  </block>
+</view>
+
+
+    <!--优惠劵-->
+    <!-- <view style="margin-top:20rpx;">
+      <view class="tryto">可使用的优惠劵：</view>
+      <swiper current="{{currentData}}" class='swiper' style="{{currentData==3?'top: 0rpx;':''}}" duration="300"
+  bindchange="swiperChange">
+  <swiper-item>
+      <view class="Acoupon white" wx:for="{{4}}" wx:for-item="item" wx:key="id" wx:for-index="index"
+      bindlongtap="deleteCoupons" data-index="{{index}}">
+      <image src='{{DataURL}}/images/coupon.png'></image>
+      <view class='shadow' wx:if="{{detailType}}"></view>
+      <view class="leftradius"></view>
+      <view class="rightradius"></view>
+      <view class="Acouponinfor">
+        <view class="facevalue">
+          <view class="facevalue-price fleft">
+            {{item.mold == 2?"":"￥"}}<text>{{item.mold == 2?'0元免单':item.discount}}</text>
+          </view>
+          <view class="facevalue-name fright" wx:if='{{item.mold == 0}}'>满减券</view>
+          <view class="facevalue-name fright" wx:if='{{item.mold == 1}}'>抵扣券</view>
+          <view class="facevalue-name fright" wx:if='{{true}}'>免单券</view>
+        </view>
+        <view class="condition">
+          <view class="facevalue-data fleft">有效期至 {{item.valid_date}}</view>
+          <view wx:if='{{item.mold == 0}}' class="facevalue-uses fright">满{{item.full}}可用</view>
+        </view>
+      </view>
+      <view class="Acouponuser">
+        <view class='fleft' class='fleft'
+          style="width: 60%;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">
+          {{item.productNames.length>0?item.productNames:item.typename}}</view>
+        <view class='fright' catchtap="goUseCoupon" data-index="{{index}}">立即用券</view>
+      </view>
+    </view>
+  </swiper-item>
+  </swiper>
+  </view>   -->
+  
+  
+  
+  <view class="spltu">
+      <view class="mlpbut" catchtap="goUseCoupon">购买按摩劵</view>
+  </view>
+    
+  
+    
+    
+    
+    
+    
+    
+    
+    
+  <!--使用说明弹窗-->
+  <block wx:if="{{explaintype}}">
+    <view catchtouchmove="true">
+      <view class="tanChuan" catchtap="onchangeExplain">
+        <view class="close">
+          <view style="width:100%;height:100%;position: relative;" catchtap="onchangeExplain">
+            <view class="close-o"></view>
+            <view class="close-t"></view>
+          </view>
+        </view>
+      </view>
+      <view style="background:#FACD91;" class="tanChuan-v">
+        <scroll-view class="tanChuan-v-t" scroll-y="true">
+          <view class="struction">
+            <view class="title" style="font-size:30rpx;">
+              使用说明
+            </view>
+            <view>
+              <view class="content">1、详细阅读“{{sysName}}”使用注意事项、了解产品的使用要求。</view>
+              <view class="content roof">2、检查产品的电源、电路有无破损，确保使用安全。</view>
+              <view class="content roof">3、准备按摩前请务必佩戴脚套，讲究卫生。</view>
+              <view class="content roof">4、首页每天都赠送一次免费抽奖机会，多种免费按摩时长等你来拿，千万不要错过。</view>
+              <view class="content roof">5、购买按摩时间、或使用按摩劵，点击“开始”按钮后，按摩器开始运行。注：当按摩器开始运作倒计时的时候，如您在倒计时过程中点击暂停，设备会停止，但是倒计时依旧会继续，直到体验分钟数结束为止。</view>
+              <view class="content roof">6、当按摩器启动时，默认为“正转”模式，除此之外，您还可以根据需要来切换“反转”和“捂脚”模式。</view>
+              <view class="content roof">7、按摩器共有五档，启动时强度默认为三挡，您可根据按摩的力度大小进行调节。（1挡为最弱，5挡为最强）</view>
+              <view class="content roof">8、按摩器启动时，默认为“加热”模式，您可根据需要来调节成“不加热”。</view>
+              <view class="content roof">9、保持舒适的体态，开始足部按摩。</view>
+              <view class="content roof">10、按摩结束后，请将按摩器放置到安全的位置，以免造成绊倒，和方便二次使用。</view>
+            </view>
+            <view class="content roof">按摩可以放松我们的身体，双脚作为我们平时行走站立的关键部位，每天都承担着大量的工作，久而久之十分疲累，所以我们也应在每天对双脚进行按摩放松，这样有益我们的健康，长此以往，还能增加我们的寿命。</view>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+  </block>
+
+  <!--注意事项弹窗-->
+  <block wx:if="{{roof}}">
+    <view height="1500rpx" width="100%" catchtouchmove="true">
+      <view class="tanChuan" catchtap="onchangeroof">
+        <view class="close">
+          <view style="width:100%;height:100%;position: relative;" catchtap="onchangeroof">
+            <view class="close-o"></view>
+            <view class="close-t"></view>
+          </view>
+        </view>
+      </view>
+      <view style="background:#FACD91;" class="tanChuan-v">
+        <scroll-view class="tanChuan-v-t" scroll-y="true">
+          <!--新板块内容-->
+          <view class="struction">
+            <view class="title" style="font-size:30rpx;">
+              重要安全事项说明
+            </view>
+            <view>
+              <view class="content">●为确保安全及正确使用产品，使用前请务必详细参阅操作手册。</view>
+              <view class="content roof">●请务必依照本操作手册内的产品用途使用本产品。</view>
+              <view class="content roof">●使用完毕后或清洁产品前，请将电源插头从插座中拔除。</view>
+              <view class="content roof">●请务必谨慎使用温热功能，避免灼伤。</view>
+              <view class="content roof">●请勿用于感觉迟钝和过于敏感的皮肤，血液循环不良的部位，切勿让儿童或者身心功能障碍者自行使用温热功能，操作不当可能存在危险。</view>
+              <view class="content roof">●为避免因过热而导致走火、触电、或造成伤害，请勿将产品在枕头或毯子下操作。</view>
+              <view class="content roof">●请勿覆盖使用，以免造成马达温度过高而导致故障或损坏。</view>
+              <view class="content roof">●若儿童，身心功能障碍与伤残者使用该产品，需要有旁人指导且能负责其安全。</view>
+              <view class="content roof">●如在按摩进行中感到不适，请立即停止按摩。</view>
+              <view class="content roof">●如果电源线破损时，请立即停止使用，关闭电源开关，将电源线拔离插座，必须到制造商、代理商处修理或更换，以避免危险。</view>
+              <view class="content roof"> ●为确保安全及正确使用产品，使用前请务必详细参阅操作手册。</view>
+              <view class="content roof">●请勿使用非制造商所推荐的零部件。</view>
+              <view class="content roof">●若想切断电源，请将所有的操作控制关闭后，将电源插头由插座中拔除。</view>
+              <view class="content roof">●本产品不能作为自我诊断或治疗之用，如需要诊断或治疗，应由专业医疗人员处理。</view>
+              <view class="content roof">●器具表面发热，对热不敏感的人，使用时必须注意。</view>
+            </view>
+            <view class="title" style="font-size:30rpx;">
+              使用环境
+            </view>
+            <view>
+              <view class="content">●请勿在潮湿或过多灰尘的环境下使用产品，以免产品发生故障。</view>
+              <view class="content roof">●请勿在室温高于40℃的环境下使用本产品。</view>
+              <view class="content roof">●请勿将产品放置户外。</view>
+              <view class="content roof">●请勿将产品置放于电热器旁、炉具附近或者阳光直射处。</view>
+            </view>
+            <view class="title" style="font-size:30rpx;">
+              不适应本产品的人士
+            </view>
+            <view>
+              <view style="color: #666;line-height: 48rpx;font-size:30rpx;">如果您有以下情形，使用前请先咨询医生。</view>
+              <view class="content">●正在接受医生治疗者或身体感觉不适者。</view>
+              <view class="content roof">●高血压、心脏病、脑动脉硬化、脑血栓患者。</view>
+              <view class="content roof">●患有恶性肿瘤者。</view>
+              <view class="content roof">●患有骨骼疏松症。</view>
+              <view class="content roof">●孕妇及月经期妇女。</view>
+              <view class="content roof">●正在使用心脏起搏器或者植入医疗器者。</view>
+              <view class="content roof">●患有急性疾病者。</view>
+              <view class="content roof">●未成年人。</view>
+            </view>
+          </view>
+          <view class="title" style="font-size:30rpx;">
+            开关注意事项
+          </view>
+          <view>
+            <view class="content">●请勿用湿手操作控制开关。</view>
+            <view class="content roof">●请勿让控制开关接触水等液体。</view>
+          </view>
+          <view class="title" style="font-size:30rpx;">
+            注意！
+          </view>
+          <view>
+            <view class="content">●请勿在产品操作时入睡。</view>
+            <view class="content roof">●请勿在酒醉或身体不适时使用本产品。</view>
+            <view class="content roof">●请勿直接将按摩头贴近手部、手肘关节、膝盖、胸部或腹部。</view>
+            <view class="content roof">●连续使用本产品时间请勿超过三十分钟。</view>
+            <view class="content roof">●若产品的布套已经破损，请勿使用。</view>
+            <view class="content roof">●请勿在进食前后一小时使用，以免造成反效果。</view>
+            <view class="content roof">●在偏低室温中使用产品时，切勿骤然使用温热功能，建议将温度逐渐调至正常范围后再使用。</view>
+            <view class="content roof">●若是将产品由低温储存处移至温暖环境使用时，可能会因为机件内水汽聚集而影响产品的正常运作，甚至造成机件故障。建议移动后，先将产品在正常室温放置一小时后再开机使用。</view>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+  </block>

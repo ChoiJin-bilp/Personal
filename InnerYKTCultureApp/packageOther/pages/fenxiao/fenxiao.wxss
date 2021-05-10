@@ -1,0 +1,232 @@
+/* packageOther/pages/fenxiao/fenxiao.wxss */
+page{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.fenxiao{
+  width: 94%;
+  background: #fff;
+  margin:20rpx auto;
+  border-radius:10rpx; 
+}
+.checkmore{
+  width: 94%;
+  margin: 0 auto;
+  height: 60rpx;
+  line-height:60rpx;
+  text-align: right;
+  color: #0066eb;
+  font-size: 30rpx; 
+}
+.hidetext{
+  height:680rpx;
+  overflow: hidden;
+}
+.showtext{
+  height:780rpx;
+  overflow-y:scroll;
+}
+.FX-title{
+  width: 100%;
+  padding: 30rpx 0;
+  font-size: 34rpx;
+  font-weight: bold;
+  text-align: center;
+}
+.fx-text{
+  display: inline-block;
+  width: 94%;
+  padding: 0 3%;
+  line-height: 46rpx;
+  font-size: 30rpx;
+  color: #666;
+  margin-bottom: 30rpx;
+  word-break: break-all;
+}
+.fx-text text{
+  display: inline-block;
+  width: 100%;
+  line-height: 46rpx;
+  font-size: 30rpx;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+.fx-text view{
+  width: 100%;
+  line-height: 46rpx;
+  font-size: 30rpx;
+  color: #666;
+  margin-bottom: 10rpx;
+}
+.bigtitle{
+  width: 94%;
+  padding: 0 3%;
+  line-height: 46rpx;
+  font-size: 32rpx;
+  color: #333;
+  margin-bottom: 30rpx;
+}
+.agreement{
+  width: 100%;
+  background:#fff;
+  position: fixed;bottom: 0;left: 0;
+  padding: 0 3%;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 26rpx;
+  color: #666;
+  padding-top: 20rpx;
+}
+.pleasechoose1{
+  width: 100%;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  text-align: left;
+  padding: 0 10rpx;
+  box-sizing: border-box;
+}
+.pleasechoose2{
+  width: 100%;
+  line-height: 36rpx;
+  font-size: 28rpx;
+  text-align: left;
+  padding: 0 10rpx;
+  box-sizing: border-box;
+}
+.pleasechoose1 text.fright{
+  display: inline-block;
+}
+.pleasechoose1 text.fright text{
+  font-size: 34rpx;
+  margin: 0 10rpx 0 0;
+  color: #ff1f1f
+}
+.pleasechoose{
+  box-sizing: border-box;
+  height: 40rpx;
+  line-height: 40rpx;
+  text-align: left;
+  font-weight: bold;
+}
+.boxcheck{
+  display: inline-block;
+  vertical-align: middle;
+  transform:scale(.7);
+  margin-top: -8rpx;
+}
+.agreement button{
+  display: inline-block;
+  padding: 0 60rpx;
+  height: 72rpx;
+  line-height: 68rpx;
+  border: solid 2rpx #0066eb;
+  color: #0066eb;
+  font-size: 32rpx;
+  border-radius: 36rpx;
+  box-sizing: border-box;
+  margin: 20rpx 0;
+}
+
+/*弹窗*/
+.userule{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+.tipsbox{
+  width:90%;
+  position: absolute;
+  background: #fff;
+  top:50%;left:50%;
+  transform: translate(-50%,-50%);
+  z-index: 9999;
+  padding: 0 20rpx;
+  border-radius: 8px;
+}
+
+.topuptips{
+  display: block;
+  width: 100%;
+  line-height: 60rpx;
+  color: #999;
+  font-size: 28rpx;
+  padding: 30rpx 30rpx 0 30rpx;
+  box-sizing: border-box;
+}
+.topuptips text{
+  color: #ff1f1f;
+  margin: 0 10rpx;
+}
+.pop-foot{
+  width: 100%;
+  height: 100rpx;
+  text-align: center;
+  margin-top: 40rpx;
+}
+.pop-foot button{
+  display: inline-block;
+  padding: 0 56rpx;
+  height:64rpx;
+  line-height: 62rpx;
+  margin-left:60rpx;
+  text-align: center;
+  border-radius: 64rpx;
+  background: #fff;
+  border: solid 2rpx #136fe6;
+  box-sizing: border-box;
+  color: #136fe6;
+  font-size: 28rpx;
+}
+.pop-foot button:first-child{
+  margin-left: 0;
+  border: solid 2rpx #999;
+  color: #666;
+}
+.backmoney{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.backmoney view{
+  width: 100%;
+  height: 120px;
+  line-height: 120px;
+  font-size: 36rpx;
+  color:#000;
+  font-weight: bold;
+  text-align: center;
+  padding: 0 4%;
+  box-sizing: border-box;
+}
+.backmoney text{
+  display: inline-block;
+  width: 100%;
+  line-height: 40rpx;
+  font-size: 30rpx;
+  color:#333;
+  padding: 0 4%;
+  box-sizing: border-box;
+  word-wrap: break-word; 
+}
+.backmoney button{
+  position: absolute;
+  left: 50%;
+  bottom:40rpx; 
+  display: inline-block;
+  width: 360rpx;
+  height:64rpx;
+  line-height: 62rpx;
+  margin-left:-180rpx;
+  text-align: center;
+  border-radius: 64rpx;
+  background: #fff;
+  border: solid 2rpx #136fe6;
+  box-sizing: border-box;
+  color: #136fe6;
+  font-size: 28rpx;
+}

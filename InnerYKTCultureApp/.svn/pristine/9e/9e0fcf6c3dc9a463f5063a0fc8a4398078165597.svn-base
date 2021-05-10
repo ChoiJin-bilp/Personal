@@ -1,0 +1,332 @@
+/* packageYK/pages/GetAMassage/GetAMassage.wxss */
+.Lotterypop{
+  width:92%;
+  margin: 0rpx auto;
+  margin-top: 70rpx; 
+  border-radius: 8px;
+  padding:26rpx;
+  max-height: 730rpx;
+  box-sizing: border-box;
+  background: -webkit-linear-gradient(top, #ed6a32, #db2528); /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(bottom, #ed6a32, #db2528); /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(bottom, #ed6a32, #db2528); /* Firefox 3.6 - 15 */
+  background: linear-gradient(to bottom, #ed6a32, #db2528); /* 标准的语法（必须放在最后） */
+  overflow-y: auto;
+}
+.Lotterypop .Lotteryscrollview{
+  width: 100%;
+  padding-bottom: 20rpx;
+  height: 600rpx;
+  max-height: 600rpx;
+  box-sizing:border-box;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+.titleview1{
+  width: 100%;
+  font-size: 30rpx;
+  color: #f9d7d0;
+  padding: 10rpx 0 10rpx 0;
+  text-align: center;
+}
+.mywinview{
+  width: 100%;
+  padding: 20rpx;
+  height: 120rpx;
+  line-height: 34rpx;
+  background: #fff1c2;
+  border-radius: 12rpx;
+  margin-top: 30rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: #8c5443;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+.mywinview text{
+  padding: 0 6rpx;
+  font-size: 48rpx;
+}
+.nowaway{
+  display: inline-block;
+  width: 60%;
+  padding: 0;
+  height: 78rpx;
+  font-size: 40rpx;
+  line-height: 80rpx;
+  border-radius: 30rpx;
+  text-align: center;
+  margin: 40rpx 20% 0 20%;
+  color: #dd2b29;
+  background: -webkit-linear-gradient(top, #fff5d1, #fbb25e); /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(bottom, #fff5d1, #fbb25e); /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(bottom, #fff5d1, #fbb25e); /* Firefox 3.6 - 15 */
+  background: linear-gradient(to bottom, #fff5d1, #fbb25e); /* 标准的语法（必须放在最后） */
+  /* font-weight: bold; */
+  animation: Flow 0.7s ease infinite alternate;
+}
+.tip{
+  margin: 0;
+  color: #fff;
+  font-size: 26rpx;
+}
+.colorlist{
+  animation: Flow 0.7s ease infinite alternate;
+}
+@keyframes Flow {
+    from {
+        /* text-shadow: 0 0 10rpx #fff,
+                     0 0 20rpx #fff,
+                     0 0 30rpx #fff, */
+        transform: scale(1);
+    }
+    to {
+        /* text-shadow: 0 0 10rpx #E2DC64,
+                     0 0 20rpx #E2DC64,
+                     0 0 30rpx #E2DC64; */
+        transform: scale(1.1);
+
+    }
+}
+/*规则css*/
+.ticket{
+    width: 700rpx;
+    margin: 10rpx auto;
+    padding: 20rpx;
+    box-sizing: border-box;
+    /* background: #FFBCA0; */
+    background: #e5e5e5;
+    border-radius:10rpx; 
+    margin-top: 100rpx;
+    height: 350rpx;
+    /* position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0; */
+}
+.ticket-v{
+  display: flex;
+  justify-content: space-between;
+}
+.ticket-v view:nth-of-type(1){
+  color: #333;
+  font-weight: bold;
+  line-height: 50rpx;
+  border-bottom:#333 solid 3rpx; 
+}
+.ticket-v view:nth-of-type(2){
+  font-weight: normal;
+}
+.ticket-o{
+  font-size: 28rpx;
+  margin-top:20rpx;
+  line-height: 40rpx; 
+  color: #333;
+}
+
+
+
+
+
+
+
+
+
+
+/*按摩劵新样式*/
+.massgelist {
+  position: relative;
+  height: 210rpx;
+}
+
+.massgelist image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.mainmessage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  display: flex;
+}
+.massageOne {
+  width: 67%;
+  padding: 14rpx 20rpx;
+  box-sizing: border-box;
+  color: #fff;
+  font-size: 34rpx;
+}
+.useTime {
+  display: flex;
+  align-items: flex-end;
+}
+.TimeFont {
+  font-size: 82rpx;
+  line-height: 82rpx;
+}
+
+.Timeunit {
+  margin-left: 10rpx;
+  display: flex;
+  align-items: flex-end;
+}
+
+.Timeunit .price {
+  background: #ff3b3b;
+  padding: 4rpx 10rpx;
+  color: #fff;
+  font-size: 34rpx;
+  border-radius: 10rpx;
+  margin-left: 10rpx;
+}
+
+.TimeAM {
+  margin: 6rpx 0;
+}
+.massageSecond {
+  width: 33%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.massageSecond .startAM {
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 62rpx;
+  width: 206rpx;
+  border: #fff solid 2rpx;
+  border-radius: 50rpx;
+  font-size: 40rpx;
+}
+
+.stare {
+  margin-top: 30rpx;
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  color: #fff;
+  font-size: 30rpx;
+  align-items: center;
+}
+
+.stare image {
+  width: 38rpx;
+  height: 38rpx;
+  position: relative;
+  margin-right: 10rpx;
+}
+.Top{
+  padding: 20rpx;
+  box-sizing: border-box;
+  margin-top: 40rpx;
+}
+
+
+
+
+.Top2{
+  display: flex;
+  justify-content: space-between;
+  flex-direction:  column;
+  position: relative;
+
+}
+.img{
+  width: 750rpx;
+  height: 595rpx;
+}
+.hegt-ne{
+  position: absolute;
+  width: 90%;
+  top: 555rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #FDF2E1;
+  height: 100%;
+  border-radius: 10rpx;
+  padding: 30rpx;
+  box-sizing: border-box;
+}
+.ticket-o2{
+  font-size: 30rpx;
+  margin-top:20rpx;
+  margin-left:40rpx;
+  line-height: 40rpx; 
+  color: #333;
+}
+.but{
+  background: linear-gradient(to bottom,#FFD271,#FE9E35);
+  box-shadow: 2rpx 4rpx 4rpx #EE7E28; 
+  border-radius: 40rpx;
+  padding: 0rpx 40rpx;
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 40rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  color: #fff;
+  font-size: 36rpx;
+  align-items: center;
+}
+.nuttext{
+  color: #3E3E3E;
+  text-decoration: line-through;
+  font-size: 32rpx;
+}
+.nutprice{
+  font-size: 70rpx;
+}
+.massageSecond .startAM2 {
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50rpx;
+  width: 206rpx;
+  border: #fff solid 2rpx;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+  background: transparent;
+}
+.massageSecond .startAM2:nth-of-type(1){
+  margin-bottom: 14rpx;
+}
+.TimeFont2 {
+  font-size: 60rpx;
+  line-height: 60rpx;
+  font-family: DIN;
+}
+.Timeunit .outfont{
+  font-size: 30rpx;
+  color: #ff3b3b;
+  margin-left: 10rpx;
+}
+.moptdata{
+  font-size: 24rpx;
+  color:#FFF;
+  display: flex;
+}
+.moptloe{
+  padding: 4rpx 10rpx;
+  background:rgb(255, 255, 255,0.6);
+  border-radius: 4rpx;
+  color:#FA612B;
+}
+.TimeAM2 {
+  font-size: 28rpx;
+  color: #ffffff;
+  }

@@ -1,0 +1,107 @@
+<!--packageSMall/pages/merchant/merchant.wxml-->
+<view class='pages'>
+  <!-- 下拉框 -->
+  <view class='top-selected' bindtap='bindShowMsg'>
+    <text>{{grade_name}}</text>
+    <image src='{{DataURL}}/images/xiala.png'></image>
+  </view>
+  <!-- 下拉需要显示的列表 -->
+  <view class="select_box" wx:if="{{select}}">
+    <view wx:for="{{grades}}" wx:key="unique">
+      <view class="select_one" bindtap="mySelect" data-name="{{item}}" data-index="{{index}}">{{item}}</view>
+    </view>
+  </view>
+  <view class="add-phone">
+    <input class="search" placeholder-style='color:#999; font-size:28rpx;' placeholder="请输入姓名、手机或商品名称" value="{{smKey}}" data-cid='smkey' bindinput="changeValueMainData" cursor-spacing="10" />
+    <image src="{{DataURL}}/images/search.png" catchtap='gotoSMallPage'></image>
+  </view>
+</view>
+<view class="main-shop" wx:for="{{orderList}}" wx:key="index" wx:for-item="orders" catchtap="logisticsPage" data-item="{{orders}}">
+  <view class="cart-box">
+    <view class="cart-list">
+      <view class="storenumber">订单编号：{{orders.orderId}}</view>
+      <view class="useinfor">
+        <view class="storeicon">收件人信息：</view>
+        <text>{{orders.contact}}</text>
+        <text>{{orders.phone}}</text>
+      </view>
+      <block wx:for="{{orders.detail}}" wx:key="id" wx:for-item="item" wx:for-index="itemindex">
+        <!-- <view class="ashopname">
+          <image class="storelogo" src="{{item.companyLogo}}"></image>
+          <text class="storename">{{item.companyName}}</text>
+          <view class="storeicon">{{item.LevelName}}</view>
+        </view> -->
+        <view class="astoredetails">
+          <image class="cart-thumb-one" mode="scaleToFill" src="{{item.detailPhotos}}"></image>
+          <view class='cart-infor-one'>
+            <view class="cart-pro-name">{{item.productName}}</view>
+            <view class='cart-norms'>{{item.attributeOne +' '+ item.attributeTwo}}</view>
+            <view class='cart-moeny-one'>
+              <view wx:if="{{orders.linkNo == 1}}" class='cart-pro-price-one'>
+                <text>{{item.price}} 积分</text>
+              </view>
+              <view wx:else class='cart-pro-price-one'>￥
+                <text>{{item.price}}</text>
+              </view>
+              <view class="cart-count-box-one">
+                <text>x{{item.number}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+      <!-- 多个商品合计 -->
+      <view class="heji">合计：
+        <text>￥{{orders.amount}}</text>
+      </view>
+      <view class='width100 orderdetails'>
+        <text>{{orders.create_date}}</text>
+        <view class="order-btn">
+          <text wx:if="{{orders.status == 1}}" class="order-btn1">待发货</text>
+          <text wx:elif="{{orders.status == 6}}" class="order-btn1">已发货</text>
+          <text wx:elif="{{orders.status == 2}}" class="order-btn2">已完成</text>
+          <text wx:elif="{{orders.status == 0}}" class="order-btn1">未支付</text>
+          <text wx:elif="{{orders.status == 3}}" class="order-btn2">已取消</text>
+          <!-- <button wx:if="{{orders.status == 1||orders.status == 6||orders.status == 0}}" catchtap="showchangeinfor" data-item="{{orders}}">更改</button> -->
+          <button wx:if="{{orders.status == 1||orders.status == 6}}" catchtap="showchangeinfor" data-item="{{orders}}">更改</button>
+          <!-- 删 除 -->
+          <button wx:if="{{orders.status ==2||orders.status==3}}" catchtap="removeTips" data-item="{{orders}}">删除</button>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 更改弹出窗 -->
+<view class="userule" wx:if="{{changeinfor}}">
+  <view class="bgopcity"></view>
+  <view class="recordbox">
+    <text class='tilte'>订单更改</text>
+    <view class='ListBoxItem'>
+      <text class='List-name'>订单状态</text>
+      <picker bindchange="bindPickerChange" value="{{index}}" range="{{changeStatus}}">
+        <view class="picker relative">{{changeStatus[selectStatusIndex]}}
+          <image class="xiala" src='{{DataURL}}/images/xiala.png'></image>
+        </view>
+      </picker>
+    </view>
+    <view class='ListBoxItem'>
+      <text class='List-name'>物流公司</text>
+      <input bindinput='getInputExpressCompany' data-type='1' maxlength='10' data-field='addAddressData.name' />
+      <!-- 下拉需要显示的列表 -->
+      <view class="selectbox" wx:if="{{selectExpress}}">
+        <view wx:for="{{express}}" wx:key="unique">
+          <view class="selectone" bindtap="bindSelectExpress" data-item="{{item}}">{{item.name}}</view>
+        </view>
+      </view>
+    </view>
+    <view class='ListBoxItem'>
+      <text class='List-name'>物流单号</text>
+      <input bindinput='getInputExpressNO' type='number' data-type='2' maxlength='11' data-field='addAddressData.mobile' />
+    </view>
+
+    <view class='guidancepop-btn'>
+      <button catchtap="hidechangeinfor">取消</button>
+      <button catchtap='changeOrder'>确定</button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,231 @@
+<!--packageVP/pages/Payformassage/Payformassage.wxml-->
+<block wx:if="{{false}}">
+  <view class="title">1、可选择付费启动按摩器</view>
+  <!-- <image class="oneimg" src="{{SMDataURL}}/images/ops-a.png"></image> -->
+  <view style="display:flex;">
+    <!--顶部优惠选项-->
+    <block>
+      <!-- 相应公司是否已设置免费按摩 -->
+      <block wx:if="{{isSetFreeCheirapsis==1}}">
+        <view class="mortgagePrice">
+          <view class="useTime" catchtap="gotoFreeCheirapsis">免费按摩</view>
+        </view>
+      </block>
+
+      <!-- <block wx:for="{{payCheirapsisProductList}}" wx:for-item="item" wx:key="id" wx:for-index="index" data-index='index'> -->
+      <block wx:for="{{1}}" wx:for-item="item" wx:key="id" wx:for-index="index" data-index='index'>
+        <view class="zh-o {{isSetFreeCheirapsis==1?'':'freeconpon'}}" data-item="{{item}}" catchtap="payforCheirapsis">
+          <image class="zh-img" src="{{SMDataURL}}/images/amq-haskd.png"></image>
+          <block wx:if="{{item.priceType==2}}">
+            <view class="zh-s">仅限{{item.promotionstart}}~{{item.promotionend}}</view>
+          </block>
+          <block wx:if="{{item.priceType==3}}">
+            <view class="zh-s">每日{{item.promotionstart}}~{{item.promotionend}}</view>
+          </block>
+
+          <view class="zh-x">
+            <view class="zh-t">
+              <block wx:if="{{item.priceType==2}}">
+                <view class="h-t-t">推广期</view>
+              </block>
+              <block wx:if="{{item.priceType==3}}">
+                <view class="h-t-t">限时</view>
+              </block>
+              <view class="h-t-o">{{item.priceType==2 || item.priceType==3?'特惠价':'优惠价'}}</view>
+            </view>
+            <view class="zh-f" style="{{isSetFreeCheirapsis==1?'':'width:70%;'}}">
+              <view class="h-f-o">
+                <text>￥</text>
+                <text class="f-o-t">{{item.price}}</text>
+                <block wx:if="{{item.actprice>item.price}}">
+                  <text class="f-o-s">￥{{item.actprice}}</text>
+                </block>
+              </view>
+              <view class="h-f-t">时长：{{item.duration}}分钟</view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </block>
+  </view>
+
+
+  <view class="title">2、每日都可免费抽奖，消费，按摩券等你来抽</view>
+  <image class="twoimg" src="{{SMDataURL}}/images/ops-b.png"></image>
+  <view class="bnkt" catchtap="gotoback" data-pout="0">去抽奖</view>
+  <view class="title">3、关注公众号，获取最新活动信息</view>
+  <image class="thidimg" src="{{SMDataURL}}/images/ops-c.png"></image>
+  <view style="width:100%;text-align:center;">
+    <image class="fourimg" bindtap="previewImg" data-src="{{SMDataURL}}/images/ops-d.png" mode="scaleToFill"
+      src="{{SMDataURL}}/images/ops-d.png"></image>
+  </view>
+</block>
+<block>
+  <!-- <view class="title">1、选择心仪饮品，点击加入购物车</view>
+<view style="width:100%;text-align:center;">
+  <image class="fristimg" src="{{SMDataURL}}/images/opt-e.png"></image>
+</view>
+  <view class="title">2、去结算</view>
+  <image class="siximg" src="{{SMDataURL}}/images/opt-d.png"></image>
+  <view class="title">3、提交订单</view>
+  <image class="sevenimg" src="{{SMDataURL}}/images/opt-c.png"></image>
+  <view class="title">4、支付成功</view>
+  <view style="width:100%;text-align:center;">
+  <image class="eightimg" src="{{SMDataURL}}/images/opt-b.png"></image>
+</view>
+  <view class="title">5、启动按摩器</view>
+  <image class="nintimg" src="{{SMDataURL}}/images/opt-a.png"></image>
+  <view class="bnkt" catchtap="gotoback" data-pout="1">去购物</view> -->
+
+  <!--第1页-->
+  <view class="polwrteq" style="{{num==1?'':'display:none;'}} height:{{Ballheight}}rpx;">
+        <!--进度条-->
+        <view class="poryu">
+      <view class="lirop">
+        <view class="turep" style="width:{{num*16.66}}%;"></view>
+      </view>
+      <view class="stepfont"><text>{{num}}/6</text></view>
+    </view>
+    <image class="polwrteqimg" src="{{SMDataURL}}/images/bustop-step1.png"></image>
+    <image class="korimg" src="{{SMDataURL}}/images/bustop-upway.png"></image>
+    <view class="lporptext">
+      <view>第一步：</view>
+      <view>选择心仪饮品，点击加入购物车</view>
+      <!-- <view class="potuo" catchtap="Somnrtnum" data-num="0" style="margin-top:114rpx;">
+        <image class="potuoimg" src="/images/bustop-back.png"></image>
+        <image class="potimgsite" src="/images/bustop-pouit.png"></image>
+        上一步
+      </view> -->
+      <view class="potuo" catchtap="Somnrtnum" data-num="1" style="margin-top:20rpx;margin-top:114rpx;">
+        <image class="potuoimg" src="{{SMDataURL}}/images/bustop-back.png"></image>
+        下一步
+      </view>
+    </view>
+  </view>
+  <!--第2页-->
+  <view class="polwrteq" style="{{num==2?'':'display:none;'}}height:{{Ballheight}}rpx;">
+        <!--进度条-->
+        <view class="poryu">
+      <view class="lirop">
+        <view class="turep" style="width:{{num*16.66}}%;"></view>
+      </view>
+      <view class="stepfont"><text>{{num}}/6</text></view>
+    </view>
+    <!--背景图-->
+    <image class="polwrteqimg" src="{{SMDataURL}}/images/bustop-step2.png"></image>
+    <view class="textfon">第二步：去结算</view>
+    <image class="korimg korimg2" src="{{SMDataURL}}/images/bustop-downrightway.png"></image>
+    <view class="lporptext" style="top:42%;left:33%">
+      <view class="potuo" catchtap="Somnrtnum" data-num="0">
+        <image class="potuoimg" src="{{SMDataURL}}/images/bustop-back.png"></image>
+        <image class="potimgsite" src="{{SMDataURL}}/images/bustop-pouit.png"></image>
+        上一步
+      </view>
+      <view class="potuo" catchtap="Somnrtnum" data-num="1" style="margin-top:20rpx;">
+        <image class="potuoimg" src="{{SMDataURL}}/images/bustop-back.png"></image>
+        下一步
+      </view>
+    </view>
+  </view>
+  <!--第3页-->
+  <view class="polwrteq" style="{{num==3?'':'display:none;'}}  height:{{Ballheight}}rpx;">
+        <!--进度条-->
+        <view class="poryu">
+      <view class="lirop">
+        <view class="turep" style="width:{{num*16.66}}%;"></view>
+      </view>
+      <view class="stepfont"><text>{{num}}/6</text></view>
+    </view>
+    <!--背景图-->
+    <image class="polwrteqimg" src="{{SMDataURL}}/images/bustop-step3.png"></image>
+    <view class="textfon textfon3">第三步：提交订单</view>
+    <image class="korimg korimg3" src="{{SMDataURL}}/images/bustop-downrightway.png"></image>
+    <view class="lporptext" style="top:42%;left:33%">
+      <view class="potuo" catchtap="Somnrtnum" data-num="0">
+        <image class="potuoimg" src="{{SMDataURL}}/images/bustop-back.png"></image>
+        <image class="potimgsite" src="{{SMDataURL}}/images/bustop-pouit.png"></image>
+        上一步
+      </view>
+      <view class="potuo" catchtap="Somnrtnum" data-num="1" style="margin-top:20rpx;">
+        <image class="potuoimg" src="{{SMDataURL}}/images/bustop-back.png"></image>
+        下一步
+      </view>
+    </view>
+  </view>
+  <!--第4页-->
+  <view class="polwrteq" style="{{num==4?'':'display:none;'}} height:{{Ballheight}}rpx;">
+        <!--进度条-->
+        <view class="poryu">
+      <view class="lirop">
+        <view class="turep" style="width:{{num*16.66}}%;"></view>
+      </view>
+      <view class="stepfont"><text>{{num}}/6</text></view>
+    </view>
+    <!--背景图-->
+    <image class="polwrteqimg" src="{{SMDataURL}}/images/bustop-step4.png"></image>
+    <view class="textfon textfon4">第四步：确认按成支付</view>
+    <image class="korimg korimg4" src="{{SMDataURL}}/images/bustop-upway.png"></image>
+    <view class="lporptext" style="top:20%;left:33%">
+      <view class="potuo" catchtap="Somnrtnum" data-num="0">
+        <image class="potuoimg" src="{{SMDataURL}}/images/bustop-back.png"></image>
+        <image class="potimgsite" src="{{SMDataURL}}/images/bustop-pouit.png"></image>
+        上一步
+      </view>
+      <view class="potuo" catchtap="Somnrtnum" data-num="1" style="margin-top:20rpx;">
+        <image class="potuoimg" src="{{SMDataURL}}/images/bustop-back.png"></image>
+        下一步
+      </view>
+    </view>
+  </view>
+  <!--第5页-->
+  <view class="polwrteq" style="{{num==5?'':'display:none;'}} height:{{Ballheight}}rpx;">
+        <!--进度条-->
+        <view class="poryu">
+      <view class="lirop">
+        <view class="turep" style="width:{{num*16.66}}%;"></view>
+      </view>
+      <view class="stepfont"><text>{{num}}/6</text></view>
+    </view>
+    <!--背景图-->
+    <image class="polwrteqimg" src="{{SMDataURL}}/images/bustop-step5.png"></image>
+    <view class="textfon textfon5">第五步：完成</view>
+    <image class="korimg korimg5" src="{{SMDataURL}}/images/bustop-way.png"></image>
+    <view class="lporptext" style="top:20%;left:33%">
+      <view class="potuo" catchtap="Somnrtnum" data-num="0">
+        <image class="potuoimg" src="{{SMDataURL}}/images/bustop-back.png"></image>
+        <image class="potimgsite" src="{{SMDataURL}}/images/bustop-pouit.png"></image>
+        上一步
+      </view>
+      <view class="potuo" catchtap="Somnrtnum" data-num="1" style="margin-top:20rpx;">
+        <image class="potuoimg" src="{{SMDataURL}}/images/bustop-back.png"></image>
+        下一步
+      </view>
+    </view>
+  </view>
+  <!--第六页-->
+  <view class="polwrteq" style="{{num==6?'':'display:none;'}} height:{{Ballheight}}rpx;">
+        <!--进度条-->
+        <view class="poryu">
+      <view class="lirop">
+        <view class="turep" style="width:{{num*16.66}}%;"></view>
+      </view>
+      <view class="stepfont"><text>{{num}}/6</text></view>
+    </view>
+    <!--背景图-->
+    <image class="polwrteqimg" src="{{SMDataURL}}/images/bustop-step6.png"></image>
+    <view class="textfon textfon6">第六步：启动按摩器</view>
+    <image class="korimg korimg6" src="{{SMDataURL}}/images/bustop-way.png"></image>
+    <view class="lporptext" style="top:75%;left:33%">
+      <view class="potuo" catchtap="Somnrtnum" data-num="0">
+        <image class="potuoimg" src="{{SMDataURL}}/images/bustop-back.png"></image>
+        <image class="potimgsite" src="{{SMDataURL}}/images/bustop-pouit.png"></image>
+        上一步
+      </view>
+      <!-- <view class="potuo" catchtap="Somnrtnum" data-num="1" style="margin-top:20rpx;">
+        <image class="potuoimg" src="/images/bustop-back.png"></image>
+        下一步
+      </view> -->
+    </view>
+  </view>
+  <view class="bnkt" catchtap="gotoback" data-pout="1">去点餐</view>
+</block>

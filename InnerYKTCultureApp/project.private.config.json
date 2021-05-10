@@ -1,0 +1,95 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "name": "支付成功",
+          "pathName": "packageOther/pages/successDetailspa/successDetailspa",
+          "query": "linkNo=8&pid=&mold=20&oid=B202104100002",
+          "scene": null
+        },
+        {
+          "name": "packageOther/pages/successDetailspa/successDetailspa",
+          "pathName": "packageOther/pages/successDetailspa/successDetailspa",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "packageVP/pages/Yantea/Yantea",
+          "pathName": "packageVP/pages/Yantea/Yantea",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "packageYK/pages/seniority/seniority",
+          "pathName": "packageYK/pages/seniority/seniority",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "packageVP/pages/Yanteasort/Yanteasort",
+          "pathName": "packageVP/pages/Yanteasort/Yanteasort",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "packageVP/pages/CYmapdepot/CYmapdepot",
+          "pathName": "packageVP/pages/CYmapdepot/CYmapdepot",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "packageVP/pages/CYmapdepot/CYmapdepot",
+          "pathName": "packageVP/pages/CYmapdepot/CYmapdepot",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "packageVP/pages/callServe/callServe",
+          "pathName": "packageVP/pages/callServe/callServe",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "packageVP/pages/mkghetrstwo/mkghetrstwo",
+          "pathName": "packageVP/pages/mkghetrstwo/mkghetrstwo",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "packageVP/pages/Paysucces/Paysucces",
+          "pathName": "packageVP/pages/Paysucces/Paysucces",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "packageVP/pages/orderPrintImg/orderPrintImg",
+          "pathName": "packageVP/pages/orderPrintImg/orderPrintImg",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "packageOther/pages/commoditydetail/commoditydetail",
+          "pathName": "packageOther/pages/commoditydetail/commoditydetail",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "packageVP/pages/orderPrintImg/orderPrintImg",
+          "pathName": "packageVP/pages/orderPrintImg/orderPrintImg",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

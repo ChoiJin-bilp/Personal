@@ -1,0 +1,929 @@
+/* pages/personal/personal.wxss */
+page{
+  padding-bottom:20rpx; 
+}
+.show{
+  display: block;
+}
+.hide{
+  display: none;
+}
+.otherbox{
+  width: 100%;
+}
+/* .otherbox .perfect-list,.maintipsbox{ */
+.otherbox .perfect-list{
+  display: inline-block;
+  width: 90%;
+  margin: 0 auto;
+  line-height: 68rpx;
+  padding: 10rpx 0;
+  margin-left: 5%;
+  clear: both;
+  position: relative;
+  border-bottom: solid 2rpx #f5f5f5;
+}
+.otherbox .perfect-list text.fleft{
+  width: 18%;
+  height: 68rpx;
+  line-height: 68rpx;
+  margin-right: 2%;
+  color: #999;
+  font-weight:500;
+  font-size: 28rpx;
+  text-align:justify;
+}
+.otherbox .perfect-list text.fleft::after{
+  width: 100%;
+  display: inline-block;
+  content: '';
+}
+.otherbox .perfect-list input{
+  width: 78%;
+  margin-left: 2%;
+  color: #333;
+  height: 68rpx;
+  line-height: 68rpx;
+  font-size: 28rpx;
+}
+.otherbox .perfect-list .section{
+  width: 78%;
+  margin-left: 2%;
+  color: #333;
+  font-size: 28rpx;
+}
+.introduction{
+  width: 76%;
+  color: #333;
+  height: 160rpx;
+  line-height: 40rpx;
+  font-size: 28rpx;
+  border-bottom: solid 2rpx #f5f5f5;
+}
+
+.save{
+  width: 100%;
+  background: #fff;
+  text-align: center;padding-bottom: 20rpx;
+}
+.save button{
+  margin-left: 40rpx;
+  margin-top: 20rpx;
+}
+.save button:first-child{
+  margin-left: 0;
+}
+.btn-foot{
+  display: inline-block;
+  height: 60rpx;
+  line-height: 56rpx;
+  font-size: 0.75rem;
+  box-sizing: border-box;
+  border-radius: 60rpx;
+  background: #fff;
+  padding: 0 60rpx;
+  margin-top: 10rpx;
+}
+.btn-foot1{
+  display: inline-block;
+  height: 60rpx;
+  line-height: 56rpx;
+  font-size: 0.75rem;
+  box-sizing: border-box;
+  border-radius: 60rpx;
+  background: #fff;
+  padding: 0 60rpx;
+  margin-top: 10rpx;
+}
+
+.btn-enable{
+  color: #0066eb;
+  border: solid 2rpx #0066eb;
+}
+.btn-disable{
+  color: #999;
+  border: solid 2rpx #999;
+}
+.radio-group{
+  width:78%;
+  float: left;
+  margin-left: 2%;
+  font-size: 28rpx;
+  color: #666;
+}
+.radio{
+  display: inline-block;
+  width: 240rpx;
+  height: 40rpx;
+}
+.role{
+  margin-right: 16rpx;
+}
+.radio:first-child{
+  margin-left: 0;
+}
+radio .wx-radio-input{
+   width: 40rpx;
+   height: 40rpx; 
+}
+.section{
+  float: left;
+  width:80%;
+  margin-left:0;
+}
+.section textarea{
+  width: 100%;
+  height: 180rpx;
+  border: solid 2rpx #f5f5f5;
+  box-sizing: border-box;
+  border-radius: 16rpx;
+  margin: 10rpx auto;
+  margin-bottom: 0;
+  line-height: 40rpx;
+  font-size: 28rpx;
+}
+.text-box{
+  display: inline-block;
+  width: 100%;
+  height: 180rpx;
+  border: solid 2rpx #f5f5f5;
+  box-sizing: border-box;
+  border-radius: 16rpx;
+  margin: 10rpx auto;
+  margin-bottom: 0;
+  line-height: 40rpx;
+  overflow: hidden;
+  overflow-y: scroll;
+  word-wrap:break-word;
+  text-align: justify;
+  font-size: 28rpx;
+}
+
+/* .required{
+  display: block;
+  width: 40rpx;
+  height: 40rpx;
+  margin-left: 0rpx;
+  float: left;
+  color: red!important;
+} */
+
+/*下拉*/
+.selectbox{
+    position: relative;
+    width: 78%;
+    margin-left: 2%;
+}
+.list-msg{
+    position: relative;
+    width: 92%;
+    text-indent: 0.5rem;
+    margin: 40rpx auto;
+    margin-bottom: 30rpx;
+}
+.list-msg2 {
+    width: 100%;
+    height: 68rpx;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* border: 1px solid #e5e5e5; */
+    border-radius: 8rpx;
+    color: #333;
+    font-size: 28rpx;
+    line-height: 68rpx;
+}
+.list-msg2 image{
+  width: 22rpx;height: 22rpx;
+  margin-right: 20rpx;
+  /* background: red; */
+}
+.list-msg2 text{
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+
+.select_box {
+    background:#f8f8f8;
+    width: 100%;
+    position: absolute;
+    top: 64rpx;
+    z-index: 999999;
+    overflow: hidden;
+    animation: myfirst 0.5s;
+}
+.select_one {
+    height: 60rpx;
+    line-height: 60rpx;
+    border: 1px solid #e5e5e5;
+    font-size: 28rpx;
+    color: #333;
+    border-top: none;
+}
+.perfect-list .section{
+  width: 80%;
+  color: #333;
+  font-size: 28rpx;
+  position: relative;
+  z-index: 99;
+}
+.picker{
+  color: #333;
+  font-size: 28rpx!important;
+}
+.up-image{
+  float: left;
+  width: 140rpx;
+  height: 140rpx;
+  border: solid 2rpx #f5f5f5;
+  border-radius: 8rpx;
+  overflow: hidden;
+  margin-top: 20rpx;
+  margin-left: 2%;
+  margin-bottom: 20rpx;
+}
+.up-image image{
+  width: 100%;
+  height: 100%;
+}
+.title-name{
+width: 90%;
+height: 80rpx;
+line-height: 80rpx;
+padding: 0 5%;
+font-size: 32rpx;
+border-bottom: solid 3rpx #e5e5e5;
+color: #999;
+font-weight: bold;
+}
+.bgwhite{
+  background: #fff;
+  color: #666;
+  border: solid 2rpx #999;
+  box-sizing: border-box;
+}
+.bgblue{
+  background: #0066eb;
+  color: #fff;
+  border: solid 2rpx #0066eb;
+  box-sizing: border-box;
+}
+.row{
+    flex: 1;
+    display: flex;
+    width: 76%;
+    height:100%;
+    margin: 0 5%;
+    overflow: hidden;
+}
+.row .text{
+    flex: 1;
+    width: 96%;
+    height: 240rpx;
+    font-size: 28rpx;
+    line-height: 22px;
+    color: #333;
+    border: solid 2rpx #f5f5f5;
+    border-radius: 16rpx;
+    padding: 12rpx 2%;
+}
+
+.required{
+  height: 40rpx;
+  line-height: 40rpx;
+  margin: 0;
+  padding: 0;
+  margin-left:10rpx;
+  color: #ff0000!important;
+}
+.tips-text{
+  display: block;
+  width:76%;
+  padding-left:22%; 
+  color: #ccc;
+  line-height: 40rpx;
+  font-size: 0.7rem;
+}
+.post-absolute{
+  position: absolute;
+}
+.code,.password,.upgrade{
+  right: 0;
+  top: 14rpx;
+  height: 60rpx;
+  line-height: 56rpx;
+  font-size: 28rpx;
+  color: #0066eb;
+  text-align: right;
+  padding: 0;
+  margin: 0;
+  background: #fff;
+}
+
+.showImg{
+  width: 60rpx;
+  height: 60rpx;
+  position: absolute;
+  right: 0;
+  top: 12rpx;
+}
+.logout{
+  right: 0;
+  top: 14rpx;
+  height: 60rpx;
+  line-height: 56rpx;
+  font-size: 28rpx;
+  text-align: right;
+  background: #fff;
+  padding: 0;
+  margin: 0;
+  color: #ff4343;
+  
+}
+/*弹窗*/
+.userule{
+  position: fixed;
+  left: 0;top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+
+.Edit-Profile,.Edit-phone,.Edit-cancel{ 
+  width:86%;
+  position: absolute;
+  top:50%;left:50%;
+  transform: translate(-50%,-55%);
+  z-index: 99999;
+  background: #fff;
+  border-radius: 16rpx;
+}
+.Edit-Profile{
+padding-bottom: 40rpx;
+}
+.login-put,.login-put1{
+  width: 94%;
+  margin: 30rpx auto;
+}
+.login-put view,.login-put1 view.top-put{
+  display: block;
+  width: 100%;
+  margin-bottom: 40rpx;
+  color: #0066eb;
+  text-align: center;
+}
+.login-put .tips-cancel text{
+  color: #ff2e2e;
+  display: block;
+  font-size: 0.75rem;
+  height: 40rpx;
+  line-height: 40rpx;
+}
+.login-put label{
+  display: block;
+  width: 100%;
+  height: 60rpx;
+  line-height: 60rpx;
+  margin-bottom: 30rpx;
+}
+.login-put label text{
+  display:block;
+  float: left;
+  text-align: right;
+  width: 24%;
+  margin-right: 2%;
+  font-size: 28rpx;
+}
+.login-put label input{
+  display:block;
+  float: left;
+  width: 74%;
+  height: 60rpx;
+  line-height: 60rpx;
+  background: #e9e9e9;
+ padding-left: 29rpx;
+box-sizing: border-box;
+ border-radius: 16rpx;
+}
+
+.showtext{
+  width: 84%;
+  margin: 0 auto;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  color: #999;
+}
+.login-put label button{
+  width:32%;
+  float: right;
+  height: 60rpx;
+  line-height: 60rpx;
+  background:#fff;
+  box-sizing: border-box;
+  font-size: 0.7rem;
+  border-radius: 30rpx;
+  border: solid 2rpx #0066eb; 
+  color: #0066eb;
+}
+
+button.ben-style-left,button.ben-style-right{
+  width:30%;
+  height: 60rpx;
+  line-height: 60rpx;
+  background:#fff;
+  margin: 30rpx 10%;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  border-radius: 30rpx;
+}
+.ben-style-left{
+  border: solid 2rpx #0066eb; 
+  color: #0066eb
+}
+.ben-style-right{
+  border: solid 2rpx #0066eb; 
+  color: #0066eb
+}
+.post-absolute{
+  position: absolute;
+}
+.bindconfirm{
+  display: inline-block;
+}
+.serve{
+  width: 80%;
+  padding: 0 10%;
+  height: 48rpx;
+  left: 0;
+  bottom: 100rpx;
+  z-index: 9999;
+  font-size: 0.7rem;
+  vertical-align: middle;
+  color: #666;
+  margin-top: 12rpx;
+  text-align: left;
+}
+.serve checkbox{
+
+  transform:scale(.8);
+}
+.serves{
+  width: 80%;
+  height: 48rpx;
+  left: 0;
+  bottom: 100rpx;
+  z-index: 9999;
+  font-size: 0.7rem;
+  vertical-align: middle;
+  color: #666;
+  margin-top: 12rpx;
+  text-align: left;
+}
+.serves checkbox{
+  transform:scale(.8);
+}
+
+/*服务协议弹窗*/
+.serveprotocol{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 99999;
+}
+
+.servetext{
+  width: 90%;
+  height: 84%;
+  position: absolute;
+  left: 5%;
+  top:4%;
+  background: #f5f5f5;
+  z-index: 9999;
+  border-radius:8px;
+  color: #999;
+}
+/* .clearserver{
+  position: absolute;
+  right: 50%;
+  bottom: 1%;
+  width: 24px;
+  height: 24px;
+  margin:0 -24rpx 0 0;
+} */
+.clearserver{
+   position: absolute;
+  right: 50%;
+  bottom: 1%;
+  width:200rpx;
+  height: 56rpx;
+  margin:0 -100rpx 0 0;
+  background: #0066eb;
+  line-height: 56rpx;
+  color: #fff;
+  font-size: 0.7rem;
+}
+.topname{
+  width: 100%;
+  height: 60rpx;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+  padding: 4px 0;
+}
+.namebox{
+  width: 100%;
+  font-size: 0.75rem;
+  text-align: justify;
+}
+.namebox:first-child{margin-bottom: 10rpx;}
+.YQrule{
+  position: absolute;
+  left: 3%;
+  top:2%;
+  width: 94%;
+  height:90%;
+  margin: 0 auto;
+  border-radius:8px; 
+  text-align: center;
+  overflow-y: scroll;
+}
+.tittext{
+  width: 100%;
+  clear: both;
+}
+.tittext text.SJ{
+  text-indent: 1em;
+}
+.yqtext{
+  width: 96%;
+  margin: 0 auto;
+  text-align: left;
+  overflow: hide;
+}
+.tittext view{
+  width:100%;
+  margin: 4px auto;
+  font-size: 0.75rem;
+  color: #666;
+}
+.tittext text{
+  display: block;
+  width: 100%;
+  margin: 4px auto;
+  font-size: 0.68rem;
+  color: #999;
+  text-align: justify;
+}
+
+/*服务协议弹窗*/
+.pay{
+  width: 80%;
+  margin: 0 auto;
+  height: 60rpx;
+  clear: both;
+  padding: 10rpx 10%;
+  /* position:fixed; */
+  bottom: 0px;
+}
+.pay input,.pay button,.pay text{
+  display: inline-block;
+  vertical-align: middle;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+.pay input{
+  border: solid 2rpx #e5e5e5;
+  border-radius:12rpx;
+  width: 140rpx;
+  margin-top: 8rpx;
+  margin: 0 20rpx;
+}
+.pay button{
+  background: #0066e9;
+  border-radius:12rpx;
+  width: 140rpx;
+  color: #fff;
+  font-size: 28rpx;
+  margin: 0 20rpx;
+}
+.bg-color{
+  width: 100%;
+  height: 24rpx;
+  background: #f2f2f2;
+}
+
+.othername{
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  color: #c6ccd3;
+  text-align: left;
+  font-size: 32rpx;
+  
+}
+.othername text{
+  color: #999;
+  font-weight: bold;
+}
+.show-qyb{
+  width: 90%;
+  padding: 0 5%;
+  clear: both;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-bottom: solid 2rpx #f5f5f5;
+}
+.show-qyb view.fleft{
+  width: 100%;
+  text-align: left;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #999;
+}
+
+.post-unit{
+    position: absolute;
+    right: 0;
+    height: 80rpx;
+    line-height: 80rpx;
+    font-size: 28rpx;
+    color: #666;
+}
+.post-unit text{
+    color: #999;
+    margin-left: 6rpx;
+}
+.hangye{
+  color: #ccc;
+  font-size: 30rpx;
+  width: 80%;
+  height: 68rpx;
+  line-height: 68rpx;
+}
+/* 授权 */
+/* .authorization{
+  width:80%;
+  position: absolute;
+  height: 440rpx;
+  background: #fff;
+  top:50%;left:50%;
+  padding: 30rpx 3% 0rpx 3%;
+  transform: translate(-50%,-50%);
+  z-index: 10060;
+  border-radius: 8px;
+}
+.clear50{
+  height: 40rpx;
+}
+.title-top{
+  width: 94%;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+  margin: 0 auto;
+  margin-bottom: 40rpx;
+}
+.poptextnav{
+  width: 94%;
+  line-height: 52rpx;
+  font-size: 0.8rem;
+  margin: 0 auto;
+  color: #666;
+}
+.iknow{
+  display: inline-block;
+  height: 64rpx;
+  padding: 0 60rpx;
+  margin-top: 40rpx;
+  line-height: 60rpx;
+  font-size: 0.85rem;
+  border-radius: 32rpx;
+  background: #fff;
+  border: solid 2rpx #0066eb;
+  color: #0066eb;
+  margin-left: 20%;
+}
+.iknow:first-child{
+   margin-left: 0;
+}
+.pop-foot-sq{
+  height: 100rpx;
+}
+.pop-foot-sq text{
+  display: block;
+  width: 35%;
+  height:60rpx;
+  line-height: 56rpx;
+  margin: 20rpx 7.5%;
+  text-align: center;
+  border-radius: 60rpx;
+  float: left;
+}*/
+.Competition{
+  width: 74%;
+  margin-left: 2%;
+  height: 64rpx;
+  line-height: 60rpx;
+  background: white;
+  border: solid 2rpx #0066e9;
+  color: #0066e9;
+  font-size: 28rpx;
+  border-radius:32rpx;
+} 
+
+/* 领劵弹窗 */
+.textrule{
+  width:620rpx;
+  background: #fff;
+  border-radius: 8px;
+  position: absolute;
+  top:50%;left:50%;transform: translate(-50%,-50%);
+  z-index: 9999;
+}
+.Sendcoupon{
+  display: block;
+  width: 620rpx;
+  height: 228rpx;
+  padding:0;
+  margin: 0; 
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  overflow: hidden;
+}
+.couponbox1{
+  width: 560rpx;
+  padding-bottom: 30rpx;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+.Acoupon{
+  position: relative;
+  width: 560rpx;
+  height: 198rpx;
+  margin-top: 20rpx;
+}
+.shadow{
+  width: 560rpx;
+  height: 4px;
+  box-shadow:0 4px 4px#ccc;
+  position: absolute;
+  left: 0;top: 190rpx;
+  z-index: 98;
+}
+.Acoupon image{
+  position: absolute;
+  left: 0; top: 0;
+  width: 560rpx;
+  height: 198rpx;
+  z-index: 99;
+}
+.Acouponinfor{
+  position: absolute;
+  left: 4%; top: 0;
+  width: 92%;
+  height: 140rpx;
+  z-index: 100;
+  color: #fff;
+}
+.facevalue{
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 0.9rem;
+}
+.facevalue-price text{
+  font-size: 1.4rem;
+}
+.condition{
+  width: 100%;
+  height: 60rpx;
+  font-size: 0.6rem;
+}
+.facevalue-data{
+  clear: both;
+}
+.Acouponuser{
+  position: absolute;
+  left: 4%; bottom: 0;
+  width: 92%;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 0.7rem;
+  z-index: 100;
+  color: #fff;
+}
+.clearimg{
+  width: 60rpx;
+  height: 60rpx;
+  position: absolute;
+  bottom: -80rpx;
+  margin: 0 -30rpx;
+  z-index: 10000;
+}
+.Acouponuser .fleft{
+  width: 60%;
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.Acouponuser .fright{
+  background: #fff;
+  height:48rpx;
+  color: #ff4141;
+  padding: 0 20rpx;
+  margin-top: 6rpx;
+  line-height: 48rpx;
+  border-radius: 48rpx;
+}
+.login-put1 .perfect-list{
+  display: inline-block;
+  width: 94%;
+  margin: 0 auto;
+  line-height: 68rpx;
+  padding: 10rpx 3%;
+  clear: both;
+  position: relative;
+  /* background: red; */
+}
+.login-put1 .perfect-list text.fleft{
+  width: 18%;
+  height: 68rpx;
+  line-height: 68rpx;
+  margin-right: 2%;
+  color: #999;
+  font-weight:500;
+  font-size: 28rpx;
+  text-align:justify;
+}
+.login-put1 .perfect-list text.fleft::after{
+  width: 100%;
+  display: inline-block;
+  content: '';
+}
+.login-put1 .perfect-list input{
+  color: #333;
+  height: 68rpx;
+  line-height: 68rpx;
+  float: right;
+  width: 74%;
+  padding: 0 2%;
+  font-size: 32rpx;
+  background: #fff;
+  border: solid 2rpx #e5e5e5;
+  border-radius: 12rpx;
+}
+
+.login-put1 .perfect-list .radio-group{
+  width: 74%;
+  padding: 0 2%;
+  float: right;
+  height: 68rpx;
+  line-height: 68rpx;
+}
+.login-put1 .perfect-list .radio-group {
+  width:74%;
+  float: right;
+  font-size: 28rpx;
+  color: #666;
+}
+.login-put1 .perfect-list .radio-group .radio{
+  float: left;
+  width: 200rpx;
+  height: 40rpx;
+}
+.login-put1 .perfect-list .section{
+  float: right;
+  width: 74%;
+  padding: 0 2%;
+  color: #333;
+  font-size: 28rpx;
+  background: #fff;
+  border: solid 2rpx #e5e5e5;
+  border-radius: 12rpx;
+  height: 68rpx;
+  line-height: 68rpx;
+}
+
+.maintipsbox{
+  width:90%;
+  position: absolute;
+  background: #fff;
+  top:50%;left:50%;
+  padding: 40rpx 0 30rpx 0;
+  transform: translate(-50%,-50%);
+  z-index: 10060;
+  border-radius: 8px;
+}
+.tipstext{
+  width: 90%;
+  margin: 0 auto;
+  font-size: 28rpx;
+  padding: 20rpx 0;
+  line-height: 44rpx;
+}

@@ -1,0 +1,167 @@
+/* packageVP/pages/Paysucces/Paysucces.wxss */
+page{
+  background-color: #F6F6F6;
+}
+.topimag{
+  text-align:center;
+  margin-top: 30rpx;
+}
+.topimag image{
+width: 287rpx;
+height: 287rpx;
+}
+.title{
+  font-size: 36rpx;
+color: #333333;
+line-height: 48rpx;
+text-align: center;
+font-weight: bold;
+margin-top: 36rpx;
+}
+.ordering{
+font-size: 30rpx;
+text-align: center;
+color: #999999;
+line-height: 48rpx;
+}
+.poliu{
+  padding: 24rpx;
+  box-sizing: border-box;
+  margin-top: 10rpx;
+}
+.item-text{
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 30rpx;
+  border-bottom: #e5e5e5 2rpx solid;
+  margin-top: 30rpx;
+}
+.item-text view:nth-of-type(1){
+  font-size: 30rpx;
+color: #999999;
+line-height: 48rpx;
+}
+.item-text view:nth-of-type(2){
+  font-size: 30rpx;
+  font-family: DIN, DIN-Regular;
+  color: #333333;
+  line-height: 48rpx;
+}
+.jifen{
+  margin-top: 30rpx;
+  display: flex;
+  justify-content: space-between;
+  font-size: 26rpx;
+color: #333333;
+}
+.jifen text{
+  width: 20%;
+  text-align: right;
+  text-decoration: underline;
+color: #3f8aec;
+}
+.boed{
+  height: 217rpx;
+  background: #fff;
+border: 2rpx solid #e5e5e5;
+border-radius: 12rpx;
+display: flex;
+margin-top: 30rpx;
+}
+.boedope{
+  box-shadow: 1rpx 1rpx 6rpx 0rpx rgba(225,212,191,0.80); 
+  background: #faf0dd;
+border: 2rpx solid #e6cb9d;
+}
+.boedon{
+  width: 70%;
+  padding: 24rpx;
+  box-sizing: border-box;
+}
+.context{
+  width: 29%;
+  border-left: 2rpx dashed #bebbb7;
+  position: relative;
+}
+.contextpo{
+  position: absolute;
+  top: -10rpx;
+  left: -12rpx;
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+  background-color: #F6F6F6;
+  border: 2rpx solid #e6cb9d;
+}
+.contextpo-v{
+  position: absolute;
+  top: -10rpx;
+  left: -2rpx;
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+  background-color: #F6F6F6;
+  border: 2rpx solid #F6F6F6;
+}
+.contextpz{
+  position: absolute;
+  bottom: -12rpx;
+  left: -14rpx;
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+  background-color: #F6F6F6;
+  border: 2rpx solid #e6cb9d;
+}
+.contextpz-v{
+  position: absolute;
+  bottom: -10rpx;
+  left: -2rpx;
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+  background-color: #F6F6F6;
+  border: 2rpx solid #F6F6F6;
+}
+
+.shuchu{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cko{font-size: 32rpx;
+  font-weight: bold;
+  color: #333333;
+  line-height: 48rpx;
+}
+.phgr{
+  margin-top:18rpx;
+}
+.phgr view{
+  font-size: 28rpx;
+  color: #b88a57;
+  line-height: 36rpx;
+}
+.fded{
+  width: 144rpx;
+  height: 60rpx;
+  opacity: 1;
+  background: #3f8aec;
+  border-radius: 30rpx;
+  font-size: 28rpx;
+  color: #ffffff;
+  text-align: center;
+  line-height: 60rpx;
+}
+.mlpbut{
+  height: 70rpx;
+background: #3f8aec;
+border-radius: 35rpx;
+font-size: 30rpx;
+color: #ffffff;
+text-align: center;
+line-height: 70rpx;
+margin-top: 30rpx;
+}

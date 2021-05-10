@@ -1,0 +1,24 @@
+<!--pages/userLogin/userLogin.wxml-->
+<view class="login">
+    <view class="login-top">
+      <!-- <image src="{{userLoginImgUrl}}"></image> -->
+      <image src="{{DataURL}}/images/logo-ykcy4.png"></image>
+    </view>
+    <view>
+      <view class="adddvice-s-s">
+        <view>
+          <text>账</text>
+          <text>号</text>
+        </view>
+        <input data-cid='accountName' bindinput='changeValueMainData' value='{{accountName}}' cursor-spacing="10"></input>
+      </view>     
+      <view class="adddvice-s-s">
+        <view>
+          <text>密</text>
+          <text>码</text>
+        </view>
+        <input password="true" data-cid='accountPwd' bindinput='changeValueMainData' value='{{accountPwd}}' cursor-spacing="10"></input>
+      </view>
+    </view>
+    <view class="anniu" catchtap="submitLoginInfo">登录</view>
+</view>

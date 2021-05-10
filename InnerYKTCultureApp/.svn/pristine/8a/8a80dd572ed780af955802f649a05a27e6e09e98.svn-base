@@ -1,0 +1,78 @@
+<!--packageVP/pages/remaining/remaining.wxml-->
+<view class="messetop" catchtap="showout">
+  <view class="plit">
+    <image src="{{DataURL}}/images/chayu-laba.png"></image><text>如遇到提现高峰期，到账时间可能会顺延，预计将会在1-3个工作日内到账，谢谢配合。</text>
+  </view>
+</view>
+<view class="ligfo">
+  <view class="posor" catchtap="viewWalletDetail">零钱明细 ></view>
+  <view class="til">当前余额(元)</view>
+  <view class="money">{{remainingSum}}</view>
+  <view class="mlist">
+    <view class="lsitem" style="border-right:solid 2rpx #b88a57;">
+      <view>可提现金额</view>
+      <view style="color: #b88a57;">{{withdrawableSum}}</view>
+    </view>
+    <view class="lsitem">
+      <view>不可提现金额</view>
+      <view style="color: #999999;">{{nowithdrawalSum}}</view>
+    </view>
+  </view>
+</view>
+<view style="margin-top:20rpx;">
+  <view class="item-text">
+    <view>
+      提现金额：
+      <input type='digit' placeholder='请输入提现金额' data-cid='withdrawsum' bindinput="changeValueMainData" cursor-spacing="10"></input>
+    </view>
+    <view class="bio" style="color: #3f8aec;" data-sum="{{withdrawableSum}}" catchtap="withdrawAllCash">全部提现</view>
+  </view>
+  <view class="item-text">
+    <view>手续费：</view>
+    <view>{{serviceCharge}}</view>
+  </view>
+  <block wx:if="{{isShowWithDraw}}">
+    <view class="item-text">
+      <view>实际到账：</view>
+      <view>{{withdrawSum}}</view>
+    </view>
+  </block>
+  
+</view>
+<view class="bot-z">
+      <view></view>
+      <view catchtap="onchangedetailType">提现规则<image src="{{DataURL}}/images/prodetail-js.png"></image></view>
+</view>
+<!--提现介绍弹窗-->
+<view class="commoditydetail {{detailType?'commoditydetailout':''}}">
+  <view class="commod-z">
+    <view class="commd-title">提现规则</view>
+    <view class="commd-font" style="padding-top:20rpx;border-top:4rpx #f6f6f6 solid;">1、提现办理时间:每日9:00-18:00；</view>
+ <view class="commd-font">2、提现到账时间:提现成功后一般将在1-3个工作日到账，周末顺延。如逾期未到账，请查询出入账明细或在我的钱包查询余额是否有退回。</view>
+ <view class="commd-font"> 3、提现金额必须大于0.3元，否则不可提现。</view>
+ <view class="commd-font">4、提现功能必须关联本人微信账号。</view>
+ <view class="commd-font"> 5、如有任何疑问，请拨打:0755-8277-9639</view>
+ <view class="commd-font">6、所有解释权归云客茶语公司所有。</view>
+ <view class="bpoisk" catchtap="onchangedetailType"> 好的</view>
+  </view>
+</view>
+
+  <!--背景弹窗-->
+  <block wx:if="{{detailType||productType}}">
+<view class="windowBackgroud" catchtouchmove="{{false}}" catchtap="emptyType"></view>
+</block>
+<view class="mlpbut" bindtap='submitWithDrawInfo'>提现</view>
+
+<!--消息提示弹窗-->
+<view class="productTypedetail" wx:if="{{productType}}">
+  <view class="fonts">
+    <view class="fotitle">提现通知</view>
+    <view class="foitem">
+      如遇到提现高峰期，到账时间可能会顺延，预计将会在1-3个工作日内到账，谢谢配合。
+    </view>
+    <view class="foitebut">
+      <view catchtap="showout">我知道了</view>
+      <!-- <view catchtap="startWithdraw">兑换</view> -->
+    </view>
+  </view>
+</view>

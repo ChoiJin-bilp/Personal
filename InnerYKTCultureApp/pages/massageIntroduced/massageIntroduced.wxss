@@ -1,0 +1,79 @@
+/* pages/massageIntroduced/massageIntroduced.wxss */
+page{
+  font-size: 34rpx;
+}
+.looktg{
+  position: fixed;
+  left: 2%;
+  top: 54rpx;
+  width: 50rpx;
+  height: 50rpx;
+  z-index: 9999999;
+}
+.option{
+  background: #E9F3F5;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 100rpx;
+}
+.title{
+  width: 100%;
+  text-align: center;
+  font-size: 34rpx;
+  color: #333;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: bold;
+  margin-top: 40rpx;
+  margin-bottom: 30rpx;
+  transform: t
+}
+.content{
+  text-indent: 1rem;
+  color: #666;
+  line-height: 48rpx;
+  font-size: 30rpx;
+}
+.struction{
+  box-sizing: border-box;
+  width: 100%;
+}
+.foot{
+  background:#FFD7A6;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 20rpx;
+  margin-top: -8rpx;
+}
+.roof{
+  margin-top: 10rpx;
+}
+.roof2{
+    margin-top: 20rpx;
+}
+.option .tion-o{
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tion-s{
+  width: auto;
+  padding: 0 20rpx;
+        color: #000;
+        padding-bottom:6rpx; 
+}
+.colormg{
+  text-shadow: 0px 2rpx 10rpx rgb(243, 239, 239), 
+              0px 2rpx 10rpx rgb(243, 239, 239), 
+              0rpx 2rpx 10rpx rgb(243, 239, 239), 
+              0rpx 2rpx 10rpx rgb(243, 239, 239); 
+          color: rgb(65, 184, 253);
+}
+.flexfg{
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+}     

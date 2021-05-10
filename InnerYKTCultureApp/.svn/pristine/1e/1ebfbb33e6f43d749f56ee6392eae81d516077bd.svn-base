@@ -1,0 +1,20 @@
+<!--pages//addressDelivery/addressDelivery.wxml-->
+<view class="wxkong" hidden="{{addressList.length>0}}">请添加收货地址~</view>
+<view class="addtitle" style="background:#FFF;" hidden="true">当前地址</view>
+<view class="additem" hidden="true">
+  <view>深圳市南山区科技园东方科技大厦大家好</view>
+  <view>
+    <image src="{{SMDataURL}}/images/fhtarget.png" />重新定位</view>
+</view>
+<view class="addtitle" hidden="true">收货地址</view>
+<view class="addressDeliveryItem" wx:for="{{addressList}}" wx:key="key">
+  <view catchtap="selectAddress" data-index="{{index}}">
+    <view class="addressfont">{{item.area}}{{item.address}}</view>
+    <view class="addfont">{{item.name}}({{item.sex}})<text>{{item.mobile}}</text></view>
+  </view>
+  <image src="{{SMDataURL}}/images/bidizhi.png" catchtap="changeAddress" data-index="{{index}}">
+  </image>
+</view>
+<view class="bust" catchtap="gotoPage">
+  <view class="addnum"></view>新增地址
+</view>

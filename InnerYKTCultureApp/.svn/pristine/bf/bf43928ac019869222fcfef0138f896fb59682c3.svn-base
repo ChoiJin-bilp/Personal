@@ -1,0 +1,734 @@
+/* pages/amited/amited.wxss */
+page{
+  background: #F0F1F3;
+  padding-bottom:120rpx; 
+  box-sizing: border-box;
+}
+.amitedO{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 20rpx 40rpx;
+  box-sizing: border-box;
+}
+.amitedTime{
+  font-weight: bold;
+}
+.amitedcommit{
+  color: #36A3F9;
+  font-size: 28rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.amitedcommit image{
+  width: 40rpx;
+  height: 40rpx;
+}
+.schedule{
+  font-size: 28rpx;
+  color: #000;
+}
+.schedule text{
+  color: #008665;
+}
+.adressTitle{
+  color: #7C8186;
+padding: 20rpx 40rpx;
+  box-sizing: border-box;
+}
+.drinkItem{
+  display: flex;
+  align-items: center;
+  background: #F7F7F7;
+  box-sizing: border-box;
+  padding: 20rpx 40rpx;
+  margin-top: 10rpx;
+}
+.drinkItem image{
+width: 25%;
+height: 130rpx;
+padding: 10rpx 20rpx;
+box-sizing: border-box;
+margin-top: 20rpx;
+}
+.mainPortion{
+  margin-top:10rpx;
+  background: #fff;
+}
+.itemconse{
+  display: flex;
+  justify-content: space-between;
+  font-size: 30rpx;
+  align-items: center;
+}
+.itself{
+  display: flex;
+  justify-content: space-between;
+ line-height: 40rpx;
+  color: #959A9E;
+  font-size: 24rpx;
+  margin-top: 30rpx;
+}
+.totalny{
+  display: flex;
+  justify-content: flex-end;
+  padding: 20rpx 40rpx;
+  font-size: 30rpx;
+  padding-bottom: 0rpx;
+}
+.totalny text{
+  color: #9B6032;
+  font-family: 'DIN';
+}
+.remark{
+  width: 20%;
+  font-size: 28rpx;
+  color: #333;
+}
+.amitedO input{
+  width: 100%;
+  font-size: 28rpx;
+}
+.pobottom{
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100rpx;
+  width: 100%;
+  background: #fff;
+  color: #333;
+  z-index: 120;
+}
+.pobottom text{
+    color: #9B6032;
+    font-size: 32rpx;
+    margin-left: 10rpx;
+}
+.pobottom view:nth-of-type(1){
+  padding: 10rpx 20rpx;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pobottom view:nth-of-type(2){
+  background: #008665;
+  font-size: 34rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  height: 100%;
+  width: 200rpx;
+}
+/*共用弹窗*/
+.windowBackgroud {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(7, 7, 7, 0.6);
+  z-index: 20;
+}
+/*选择取餐时间弹窗*/
+.takeFoodtime {
+  position: fixed;
+  bottom: 0rpx;
+  left: 0;
+  z-index: 25;
+  width: 100%;
+  background: #eff0f2;
+  transition: bottom 0.4s;
+}
+.takeFoodtimeout {
+  bottom: -600rpx;
+}
+.dingCantitle{
+  font-size: 32rpx;
+  color: #333;
+  font-weight: bold;
+  text-align: center;
+  margin: 30rpx 0;
+}
+.dingCan{
+  display:flex;
+}
+
+
+
+
+.sroll {
+  width: 100%;
+  max-height: 320rpx;
+  overflow: auto;
+}
+.sroll .bbview{
+  width: 100%;
+  text-align: left;
+  line-height: 80rpx;
+  font-size: 26rpx;
+  border-bottom: #D7D7D7 solid 2rpx;
+}
+.sroll .aaview{
+  width: 100%;
+  text-align: center;
+  line-height: 80rpx;
+  font-size: 26rpx;
+}
+.btouch{
+  background: #ccc;
+  width: 40%;
+}
+.ytouch{
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+.aaviewcolor{
+  background: #fff;
+}
+.srollcolor{
+  color: #2FA1FC;
+  position: relative;
+}
+.srollcolor text{
+font-size: 28rpx;
+margin-left: 10rpx;
+}
+.del{
+  height: 80rpx;
+  font-size: 34rpx;
+  color: #333;
+  border-top: 2rpx solid #999; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.distribution{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 30rpx;padding: 20rpx 40rpx;
+  border-bottom: #F7F7F7 2rpx solid;
+}
+.delivery{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 40rpx;
+  background: #fff;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+.delivery image{
+  width: 40rpx;
+height: 40rpx;
+
+}
+.wehtFont{
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+  font-size: 30rpx;
+}
+.dressItem{
+  width: 100%;
+  font-size: 30rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+.dressItem view:nth-of-type(1){
+  font-weight: bold;
+}
+.dressItem view:nth-of-type(1) text{
+  margin-left: 20rpx;
+}
+.dressItem view:nth-of-type(2){
+  color: #999;
+  font-size: 28rpx;
+  margin-top: 20rpx;
+}
+.sitdown{
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
+  margin: 0 auto;
+  width: 100%;
+  padding: 2%;
+  box-sizing: border-box;
+  margin-top: 20rpx;
+}
+.sit-o{
+  display: flex;
+  height: 70rpx;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10rpx;
+  box-sizing: border-box;
+  background: #F2F2F2;
+  color: rgb(38, 135, 226);
+  margin: 12rpx auto;
+  margin-top: 0rpx;
+  margin-left: 30rpx;
+  font-weight: bold;
+  padding: 0 20rpx;
+  max-width: 360rpx;
+}
+.sit-t{
+  font-size: 28rpx;
+  color: #ccc;
+}
+.pat-t{
+  display: flex;
+  border: #CECECE solid 2rpx;
+  width: 220rpx;   
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 8rpx;
+  box-sizing: border-box;
+  position: relative;
+  height: 40rpx;
+  background-color: #fff;
+}
+.sbye{
+  width: 50%;
+  height: 100%;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  z-index: 6;
+  line-height: 46rpx;
+  color: #666;
+  font-size: 26rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pat-s-g{
+  z-index: 4;
+  position: absolute;
+  width: 50%;
+  border-radius: 8rpx;
+  height: 100%;
+  background: #2f9f82;
+  left: 50%;
+  top: 0;
+  box-shadow: 2rpx 2rpx 10rpx rgba(5, 4, 4, 0.5);
+  transition: left 0.2s ;
+}
+.colortype{
+  color: #fff;
+}
+.cost{
+  left: 0;
+}
+.usenote{width:94%; font-size: 28rpx;color: #000;padding:10px;background: #fff;margin: 0 auto;margin-bottom: 16rpx;box-sizing: border-box;border-radius: 12rpx;}
+.note-o{
+  color: rgb(235, 62, 62);
+}
+.note-t{
+  margin-top: 10rpx;
+  color: #7F7F7F;
+  font-size: 26rpx;
+}
+.note-t text:nth-of-type(1){
+  font-size: 34rpx;
+  color: #7F7F7F;
+  font-weight: bold;
+}
+.note-t text:nth-of-type(2){
+  font-size: 30rpx;
+margin-left: 20rpx;
+}
+/*优惠劵样式*/
+.use-privilege{
+  width: 100%;
+  margin: 0 auto;
+  height: 72rpx;
+  line-height: 72rpx;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  clear: both;
+  background: #FFF;
+  padding: 0 18rpx;
+  box-sizing: border-box;
+  margin-top: 10rpx;
+}
+.tips-title{
+  font-size: 28rpx;
+  color: #000;
+  width: 170rpx;
+}
+.choose{
+  width: 80%;
+  color: #ff1f1f;
+  margin-left: 20rpx;
+}
+.note-item-text{
+  display: -webkit-box;
+  line-height: 28rpx;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp:3;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  margin-top: 25rpx;
+  font-size: 28rpx;
+}
+.note-item-text17{
+  display: -webkit-box;
+  line-height: 28rpx;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp:3;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  margin-top: 25rpx;
+  font-size: 18rpx;
+}
+.dropdown{
+  height: 16rpx;
+   width: 26rpx;
+   margin-top: 28rpx;
+   margin-left: 10rpx;
+   vertical-align: middle;
+ }
+ /* 优惠劵 */
+.Acoupon{
+  position: relative;
+  width: 560rpx;
+  height: 198rpx;
+}
+.shadow{
+  width: 560rpx;
+  height: 4px;
+  box-shadow:0 4px 4px#ccc;
+  position: absolute;
+  left: 0;top: 190rpx;
+  z-index: 98;
+}
+.Acoupon image{
+  position: absolute;
+  left: 0; top: 0;
+  width: 560rpx;
+  height: 198rpx;
+  z-index: 99;
+}
+.Acouponinfor{
+  position: absolute;
+  left: 4%; top: 0;
+  width: 92%;
+  height: 140rpx;
+  z-index: 100;
+  color: #fff;
+}
+.facevalue{
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 0.9rem;
+}
+.facevalue-price text{
+  font-size: 1.4rem;
+}
+.condition{
+  width: 100%;
+  height: 60rpx;
+  font-size: 0.6rem;
+}
+.facevalue-data{
+  clear: both;
+}
+.Acouponuser{
+  position: absolute;
+  left: 4%; bottom: 0;
+  width: 92%;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 0.7rem;
+  z-index: 100;
+  color: #fff;
+}
+.clearimg{
+  width: 60rpx;
+  height: 60rpx;
+  position: absolute;
+  bottom: -80rpx;
+  margin: 0 -30rpx;
+  z-index: 10000;
+}
+.Acouponuser .fleft{
+  width: 60%;
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.Acouponuser .fright{
+  background: #fff;
+  height:48rpx;
+  color: #ff4141;
+  padding: 0 20rpx;
+  margin-top: 6rpx;
+  line-height: 48rpx;
+  border-radius: 48rpx;
+}
+
+/* 优惠劵单选 */
+checkbox {
+  width: 50rpx;
+  height: 50rpx;
+  margin: 75rpx 16rpx 75rpx 16rpx;
+}
+/*checkbox 选项框大小  */
+checkbox .wx-checkbox-input {
+  width: 50rpx;
+  height: 50rpx;
+  border-radius: 50%;
+}
+/*checkbox选中后样式  */
+checkbox .wx-checkbox-input.wx-checkbox-input-checked {
+  background: #fff;
+}
+/*checkbox选中后图标样式  */
+checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
+  width: 32rpx;
+  height: 32rpx;
+  line-height: 32rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: #0066eb;
+  background: transparent;
+  transform: translate(-50%, -50%) scale(1);
+  -webkit-transform: translate(-50%, -50%) scale(1);
+}
+.coupontext{
+  display: block;
+  width:100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: #333;
+}
+.freight{
+  height: 40rpx;
+  line-height: 44rpx;
+  font-size: 30rpx;
+  color: #ff1f1f!important;
+}
+.freights{
+  width: 100%;
+  height: 40rpx;
+  line-height: 44rpx;
+  font-size: 30rpx;
+  color: #ff1f1f!important;
+}
+.fleft{float: left;} 
+.fright{float: right;}
+/* 弹窗 */
+.userule{
+  position: fixed;
+  left: 0;top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  overflow: hidden;
+  z-index: 130;
+}
+.couponbox{
+  width:90%;
+  position: absolute;
+  top:50%;left:50%;
+  transform: translate(-50%,-50%);
+  z-index: 9999;
+  max-height: 86%;
+  border-radius: 8px;
+  background: #fff;
+  overflow: hidden;
+  padding-bottom: 100rpx;
+}
+.pop-array{
+   width: 100%;
+  overflow-y: scroll;
+}
+
+.chose-txt{
+  border-radius: 8px; 
+  width: 84%;
+  padding: 0 2%;
+  height:64rpx; 
+  line-height: 64rpx;
+  text-align: center;
+  margin: 20rpx auto;
+  clear: both;
+  font-size: 32rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.pop-btn{
+ position:fixed;
+  width: 100%;
+  height: 100rpx;
+  background: #fff;
+  bottom:0;
+  left: 0;
+  z-index: 99999;
+  border-top: solid 2rpx #e5e5e5;
+}
+.pop-btn button{
+  width: 26%;
+  height: 60rpx;
+  margin-top: 20rpx;
+  line-height: 56rpx;
+  float: left;  
+  border-radius: 30rpx;
+  box-sizing: border-box;
+  margin-left: 5%;
+  font-size: 32rpx;
+  border: solid 2rpx #0066eb;
+  color: #0066eb ;
+}
+.checkbox-con{
+  width: 100%;
+}
+.checkbox{
+  width: 100%;
+  height: 240rpx;
+  display: flex;
+  position: relative;
+  align-items: center;
+  padding: 30rpx 20rpx;
+  box-sizing: border-box;
+}
+/*文字弹窗*/
+.productTypedetail {
+    position: fixed;
+    bottom: 120rpx;
+    left: 160rpx;
+    background: #ffffff;
+    border-radius: 20rpx;
+    padding: 4rpx 20rpx;
+    width: 50%;
+    box-sizing: border-box;
+    font-size: 34rpx;
+    color: #333;
+    border: #999 solid 2rpx;
+    z-index: 100;
+}
+.fonts3 {
+  position: fixed;
+  bottom: 135rpx;
+  left: 246rpx;
+  z-index: 101;
+}
+.fonts{
+position: relative;
+}
+.fonts::after{
+  content: "";
+  width: 0rpx;
+  height: 0rpx;
+  border-bottom: 30rpx solid transparent;
+  border-top: 42rpx solid #FFF;
+  border-left: 0rpx solid transparent;
+  border-right: 60rpx solid transparent;
+  position: absolute;
+  left: -26rpx;
+  bottom: -82rpx;
+  animation: showZeroAlert 1s ease infinite alternate;
+  z-index: 2;
+}
+.fonts::before{
+  content: "";
+  width: 0rpx;
+  height: 0rpx;
+  border-bottom: 30rpx solid transparent;
+  border-top: 44rpx solid #999;
+  border-left: 0rpx solid transparent;
+  border-right: 60rpx solid transparent;
+  position: absolute;
+  left: -28rpx;
+  bottom: -86rpx;
+  animation: showZeroAlert 1s ease infinite alternate;
+  z-index: 0;
+}
+.fotitle{
+  text-align: center;
+  font-weight: bold;
+}
+
+.foitem{
+  font-size: 24rpx;
+  margin-top: 20rpx;
+}
+.foitem text{
+  color: #ff3333;
+}
+.fonts1{
+  position: relative;
+}
+.dropdel{
+  position: absolute;
+  top: -20rpx;
+  right: -16rpx;
+  width: 30rpx;
+  height: 30rpx;
+}
+.foitebut{
+  display: flex;
+  font-size: 24rpx;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 20rpx;
+}
+.foitebut view {
+  border-radius: 10rpx;
+  margin-top: 26rpx;
+  padding: 4rpx 0rpx;
+  width: 150rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.foitebut view:nth-of-type(1){
+  background: #66B1FF;
+  color: #fff;
+}
+/*充值免单*/
+.freepay{
+  width: 96%;
+  margin: 10rpx auto;
+  background-color: #fff;
+  border-radius: 10rpx;
+}
+.fpay{
+  display: flex;
+}
+.fpay view{
+  background-color: #F3AC7C;
+  border-radius: 10rpx;
+  padding: 6rpx 20rpx;
+  font-size: 30rpx;
+color: #fffefe;
+}
+.fpay-o{
+  padding: 40rpx;
+  padding-top: 20rpx;
+}
+.contfont{
+  font-size: 28rpx;
+color: #333333;
+}
+.contfont text{
+  color: #FF3333;
+}
+.choicefont{
+  text-align: right;
+}

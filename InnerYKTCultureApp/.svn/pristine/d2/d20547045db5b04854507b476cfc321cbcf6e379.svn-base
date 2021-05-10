@@ -1,0 +1,80 @@
+<!--packageYK/pages/statShare/statShare.wxml-->
+<scroll-view class="width100" style = "height:100%;position: relative;" scroll-y="true" bindscrolltolower="bindDownLoad" bindscrolltoupper="bindTopLoad" scroll-with-animation = "true">
+  <view id = "top"></view>
+
+  <view class="fcton">
+    <view  class="fcton-t">
+      <!-- 如果为管理员 -->
+      <block wx:if="{{roleStatus==1}}">
+        <view class="fcton-t-o">
+          <input disabled="true" disabled="true" placeholder="{{selParterName==''?'选择合作商':selParterName}}" bindtap="onChangeShowPartnerList">
+          </input>
+          <image catchtap="onChangeShowPartnerList" class="searche {{isShowPartnerList? 'zhuandong':''}}" src="{{DataURL}}/images/xiala.png"></image>
+          <view wx:if="{{isShowPartnerList}}" class="xialaw ">
+            <block wx:for="{{partnerList}}" wx:for-item="item" wx:for-index="index" wx:key="userId">
+            <view catchtap="selPartnerData" data-item="{{item.userId}}">{{item.userName}}</view> 
+            </block>
+          </view>
+        </view>
+      </block>
+      
+      <view class="{{roleStatus==1?'fcton-t-t':'fcton-t-t1'}}">
+        <input placeholder="输入关键字" data-cid='keyword' bindinput="changeValueMainData" value="{{searchKeyword}}" cursor-spacing="10"></input>
+        <image class="search" src="{{DataURL}}/images/search.png"></image>
+      </view>
+    </view>
+    
+    
+    <view class="fcton-t-o" style="border:solid #000 2rpx;padding:10rpx;">
+      <input disabled="true" disabled="true" placeholder="{{selAgentUserCompanyName==''?'选择公司':selAgentUserCompanyName}}" bindtap="onChangeCompanyList"></input>
+      <image bindtap="onChangeCompanyList" class="searche {{trmue? 'zhuandong':''}}" src="{{DataURL}}/images/xiala.png"></image>
+      <view wx:if="{{isShowCompanyList}}" class="xialaw2">
+        <block wx:for="{{agentUserCompanyList}}" wx:for-item="item" wx:for-index="index" wx:key="id">
+        <view catchtap="selCompanyList" data-item="{{item}}">{{item.companyName}}</view> 
+        </block>
+      </view>
+    </view>
+    
+    
+    
+    <view  class="fcton-body">
+      <view class="fcton-body-dw">
+        <view  class="fcton-body-f">
+          <view class="font">累计佣金</view>
+          <view class="font-o">￥<text>{{totalCommission}}</text></view>
+        </view>
+        <!-- <view  class="fcton-body-f">
+          <view class="font">可提现佣金</view>
+          <view class="font-o">￥<text>5865.45</text></view>
+          <view style="font-size: 32rpx;text-decoration: underline;">提现</view>
+        </view> -->
+      </view>
+      <image class="gimage" src="{{DataURL}}/images/statistics-bg.png">
+      </image>
+    </view>
+    <view class="fcton-title" style="color:#9C9C9C;">
+      <view style="width:40%;">投放场地</view>
+      <view class="fcton-title" style="color:#9C9C9C;border:none;width:100%">
+        <view>设备编号</view>
+        <view>用时<text style="font-size:22rpx">(min)</text></view>
+        <view>比例</view>
+        <view>金额<text style="font-size:22rpx">(元)</text></view>
+      </view>
+    </view>
+    <block wx:for="{{dataArray}}" wx:for-item="articles" wx:for-index="dataArrayIndex" wx:key="key">
+      <block wx:for="{{articles}}" wx:for-item="item" wx:key="id" wx:for-index="index" data-index='index'>
+        <view class="fcton-title padd">
+          <view class="chaochu" style="width:40%;text-algin:left;">{{item.putAddress}}</view>
+          <view class="fcton-title" style="border:none;width:100%">
+              <view>{{item.deviceNumber}}</view>
+              <view>{{item.minutes}}</view>
+              <view>{{item.percentage>0?item.percentage+'%':''}}</view>
+              <view style="color:#ff3333">+{{item.amount}}</view>
+          </view>
+        </view>
+      </block>
+    </block>
+  </view>
+
+  <view id = "bottom"></view>
+</scroll-view>

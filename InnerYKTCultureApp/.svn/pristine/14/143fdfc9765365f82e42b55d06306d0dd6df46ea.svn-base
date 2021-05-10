@@ -1,0 +1,111 @@
+<!--pages/historyitem/historyitem.wxml-->
+<view class="Top">
+  <view class="Top-z">
+    <view class="TopItem">
+      <input placeholder="请输入订单号或号牌" value="{{key}}" bindinput="getInput"></input>
+      <image src="{{SMDataURL}}/images/search.png" catchtap="queryOrders"></image>
+    </view>
+    <view class="TopRight" catchtap="onChangedivtype" data-tag="0">
+      <view class="buft">{{status[selectStatusIndex].name}}</view>
+      <image src="{{SMDataURL}}/images/xiala.png">
+      </image>
+      <view class="xiala" wx:if="{{isShowStatus}}">
+        <block wx:for="{{status}}" wx:key="key">
+          <view catchtap="selectStatus" data-index="{{index}}">{{item.name}}</view>
+        </block>
+      </view>
+    </view>
+  </view>
+  <view class="Top-z">
+    <view class="TopItem" catchtap="onChangedivtype" data-tag="1">
+      <view class="ykzn">{{CompanydataList[selectHotelIndex].companyName}}</view>
+      <image src="{{SMDataURL}}/images/xiala.png"></image>
+      <view class="xiala" wx:if="{{isShowHotel}}">
+        <block wx:for="{{CompanydataList}}" wx:key="key">
+          <view catchtap="selectHotel" data-index="{{index}}">{{item.companyName}}</view>
+        </block>
+      </view>
+    </view>
+    <view class="TopRight" hidden="{{user_roleId!=2}}" catchtap="onChangedivtype" data-tag="2">
+      <input placeholder="暂无员工" disabled value="{{userList[selectUserIndex].userName}}"></input>
+      <image src="{{SMDataURL}}/images/xiala.png">
+      </image>
+      <view class="xiala" wx:if="{{isShowUser}}">
+        <block wx:for="{{userList}}" wx:key="key">
+          <view catchtap="selectUser" data-index="{{index}}">{{item.userName}}</view>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <view class="datatoday">
+    <view class="datatoday-s">
+      <view class="datatoday-s-o">
+        <picker mode="date" value="{{startDate}}" data-tag="0" end="{{endDate}}" bindchange="bindDateChange"
+          style="width:100%;">
+          <text>{{startDate}}</text>
+          <image class="picker" src="{{SMDataURL}}/images/amy-rq.png">
+          </image>
+        </picker>
+      </view>
+      <text>-</text>
+      <view class="datatoday-s-o">
+        <picker mode="date" value="{{endDate}}" start="{{startDate}}" data-tag="1" bindchange="bindDateChange"
+          style="width:100%;">
+          <text>{{endDate}}</text>
+          <image class="picker" src="{{SMDataURL}}/images/amy-rq.png">
+          </image>
+        </picker>
+      </view>
+    </view>
+    <view class="okDate" catchtap="queryOrders">查询</view>
+    <view style="margin-left:10rpx;font-size: 28rpx;color:#666;">共{{cnt}}</view>
+  </view>
+</view>
+<view class="msItem" wx:for="{{orderList}}" wx:key='key'>
+  <view class="Item-z">
+    <view>
+      号牌:{{item.sn}}
+    </view>
+    <view catchtap="goDetail" data-index="{{index}}">
+      订单详情
+    </view>
+  </view>
+  <view class="Item-o">
+    <view>
+      预约送达：{{item.deliverytime}}
+    </view>
+    <view>
+    </view>
+  </view>
+  <view class="Item-o">
+    <view wx:if="{{item.status==2}}">
+      实际送达：{{item.update_date}}
+    </view>
+    <!-- <view>
+      <image src="{{SMDataURL}}/images/patchit.png"></image>
+      59:59
+    </view> -->
+  </view>
+  <view class="Item-t">
+    <view>
+      <text>地址:</text>
+      {{item.addr}}
+    </view>
+    <view catchtap="goToMapRoute" data-index="{{index}}">
+      <image src="{{SMDataURL}}/images/patchdr.png"></image>
+    </view>
+  </view>
+  <block wx:if="{{item.status==1}}">
+    <view class="Litie">未接单</view>
+  </block>
+  <block wx:else>
+    <view class="Item-s">
+      <view>员工:{{item.dcontact!=null?item.dcontact:''}}</view>
+      <view> {{item.status==2?'已送达':'配送中'}}</view>
+      <view catchtap="phonecallevent" data-index="{{index}}">
+        <image src="{{SMDataURL}}/images/patchlx.png"></image>联系
+      </view>
+    </view>
+  </block>
+</view>

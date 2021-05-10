@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "我的积分",
+  "usingComponents": {
+    "mylist-c": "/components/protocol/protocol"
+  }
+}

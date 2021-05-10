@@ -1,0 +1,282 @@
+/* pages/doorway/doorway.wxss */
+page{
+  width: 100%;
+  padding: 20rpx;
+  box-sizing: border-box;
+  padding-bottom: 190rpx;
+  background-color: #f6f6f6;
+}
+.fairm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #086;
+  color: #fff;
+  font-size: 32rpx;
+  height: 60rpx;
+  margin: 0 auto;
+  border-radius: 8rpx;
+  padding: 0 100rpx;
+}
+.mten{
+  display: flex;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  bottom: 0;
+  left: 0;
+}
+/*轮播图*/
+.slide-image {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper {
+  width: 100%;
+  height: 240rpx;
+  border-radius: 10rpx;
+}
+
+.swiperimage {
+  width: 100%;
+  height: 100%;
+}
+/*外卖 点餐*/
+.note{
+  margin-top: 30rpx;
+  display: flex;
+  justify-content: space-between;
+}
+.note-eat{
+  width: 48%;
+  height: 230rpx;
+opacity: 1;
+/* background: linear-gradient(-45deg,#7ac95b 0%, #23b549 100%); */
+background: linear-gradient(-45deg,#f69c6b 0%, #fd6d6d 100%);
+border-radius: 10px;
+box-shadow: 2px 2px 7px 0px rgba(216,216,226,0.35); 
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.note-eat image{
+  width: 66rpx;
+  height: 57rpx;
+  transform: scale(1.3);
+}
+.note-eat text{
+  font-size: 32rpx;
+  color: #ffffff;
+  transform: scale(1.3);
+  margin-left: 40rpx;
+}
+/*热门拼团css*/
+.Hot-title{
+  margin-top: 30rpx;
+font-size: 36rpx;
+font-weight: bold;
+color: #333333;
+}
+.Hot-classify{
+  display: flex;
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: 8rpx;
+  flex-wrap: wrap;
+}
+.Hot-classify .sify:nth-of-type(1){
+margin-left: 0rpx;
+}
+.sify{
+  width: 160rpx;
+  flex: 0 0 auto;
+  height: 160rpx;
+  opacity: 1;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 2px 2px 7px 0px rgba(216,216,226,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  float: left;
+  margin-right:22rpx;
+  margin-top: 20rpx;
+  font-size: 28rpx;
+}
+.sify image{
+  width: 80rpx;
+  height: 63rpx;
+}
+.Hot-bgty{
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.bgty{
+  height: 330rpx;
+  width: 216rpx;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 2px 2px 7px 0px rgba(216,216,226,0.35); 
+  float: left;
+  margin-right: 30rpx;
+  margin-top: 20rpx;
+}
+.bgty image{
+  width: 100%;
+  height: 200rpx;
+  border-radius: 10px 10px 0px 0px;
+}
+.bgty-font{
+  padding: 10rpx;
+  height: 124rpx;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  box-sizing: border-box;
+  justify-content: center;
+}
+.bgty-font .bgty-font-0{
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 26rpx;
+  text-align: center;
+}
+.bgtyfoz{
+font-size: 23rpx;
+font-weight: bold;
+color: #fff;
+display: flex;
+background: #f84c4c;
+border-radius: 4rpx;
+width: 100%;
+margin-top: 10rpx;
+height: 30rpx;
+font-size: 20rpx;
+
+}
+.mlu{
+  width: 30%;
+  text-align: center;
+  font-size: 20rpx;
+}
+.mcont{
+  width: 70%;
+  border-left: #fff dotted 2rpx;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.qiu1{
+  position: absolute;
+  left: -4rpx;
+  top: -4rpx;
+  width: 8rpx;
+  height: 8rpx;
+  border-radius: 50%;
+  background: #fff;
+}
+.qiu2{
+  position: absolute;
+  left: -4rpx;
+  bottom: -4rpx;
+  width: 8rpx;
+  height: 8rpx;
+  border-radius: 50%;
+  background: #fff;
+}
+/*阴影css*/
+.windowBackgroud {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(7, 7, 7, 0.6);
+  z-index: 10000;
+}
+/*签到弹窗*/
+.productTypedetail{
+  position: fixed;
+  bottom: 50%;
+  left: 50%;
+  transform: translate(-50%,50%);
+  z-index: 10001;
+  border-radius: 20rpx;
+  padding: 30rpx 20rpx;
+  width: 86%;
+  box-sizing: border-box;
+  font-size: 34rpx;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.fonts{
+  background-repeat: no-repeat;background-size: 100% 100%;
+  width: 544rpx;
+height: 702rpx;
+}
+.fotle{
+font-size: 30rpx;
+text-align: center;
+color: #333333;
+line-height: 32rpx;
+margin-top: 277rpx;
+}
+.fotle text{
+  font-size: 48rpx;
+  font-family: DIN;
+}
+.fotbnt{
+  width: 276rpx;
+height: 66rpx;
+opacity: 1;
+margin: auto;
+margin-top: 274rpx;
+background: linear-gradient(0deg,#feb71f 0%, #fcdb70 100%);
+border-radius: 32rpx;
+box-shadow: 0rpx 0rpx 10rpx 0rpx rgba(107, 7, 7, 0.4); 
+display: flex;
+align-items: center;
+justify-content: center;
+color: #d31112;
+line-height: 29rpx;
+font-size: 30rpx;
+font-weight: bold;
+}
+.mon image{
+  width: 53rpx;
+height: 53rpx;
+margin-top:48rpx;
+}
+/*悬浮球样式*/
+movable-area{
+  pointer-events:none;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+} 
+movable-view{
+  pointer-events:auto;
+  position: absolute;
+  z-index: 1400;
+  width: 86rpx;
+  height: 89rpx;
+}
+.mlrtpy image{
+  width: 86rpx;
+  height: 89rpx;
+}

@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "v-cheirapsisAlert": "/components/cheirapsisAlert/cheirapsisAlert",
+    "v-folat": "/components/floatinball/floatinball"
+  },
+   "navigationBarTitleText": "云客茶语"
+}

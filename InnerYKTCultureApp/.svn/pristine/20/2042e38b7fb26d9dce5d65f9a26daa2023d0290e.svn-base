@@ -1,0 +1,43 @@
+<!--packageVP/pages/callServe/callServe.wxml-->
+<view class="messetop" catchtap="showout">
+  <view class="plit">
+    <image src="{{DataURL}}/images/chayu-laba.png"></image><text>如果您遇到以下问题解决不了时，请呼叫店员前来帮助您</text>
+  </view>
+</view>
+<!--当前位置css-->
+<view class="loadView">
+  <veiw class="spruView">
+    <text>当前位置：</text>
+    <input type="number" placeholder="输入座位号" focus="{{isSetSitePosition}}" value="{{agentPutAddress}}" data-cid='agentPutAddress' bindinput="changeValueMainData" cursor-spacing="10" />
+    <text>号位</text>
+  </veiw>
+  <image src="{{DataURL}}/images/PV-pd-dpery.png" catchtap="scanSitePosition"></image>
+</view>
+<!--设备问题-->
+<view class="bgdr">
+  <block wx:for="{{normalQuestionList}}" wx:for-item="item" wx:key="id" wx:for-index="index">
+    <view class="model">
+      <view>{{item.mainType}}</view>
+      <view class="selectCup">
+        <block wx:for="{{item.questionList}}" wx:for-item="questionItem" wx:key="id" wx:for-index="qindex">
+          <view class="seucces {{questionItem.checked?'selectSucces':''}}" data-mindex="{{index}}" data-dindex="{{qindex}}" catchtap="selsectNormalQuestion">{{questionItem.content}}</view>
+        </block>
+      </view>
+    </view>
+  </block>
+  
+  <view class="model">
+    <view>其他问题</view>
+    <textarea value="{{otherQuestion}}" data-cid='oquestion' bindinput="changeValueMainData" cursor-spacing="10"></textarea>
+    <view style="text-align:right;color:rgb(77, 122, 182);width:100%;">
+      <tetx style="text-decoration: underline; " data-pagetype="0" data-package="packageVP" data-page="callwww" catchtap="gotoCommonPage">我要留言</tetx>
+    </view>
+  </view>
+  <view class="selectCup Cupup">
+    <view class="close-botton {{isDelayEnable?'':'close-botton2'}} " catchtap="submitMyQuestion">呼叫店员{{!isDelayEnable && lastSecond>0?"("+lastSecond+")":""}}</view>
+    <!-- <view class="close-botton " data-pagetype="0" data-package="packageVP" data-page="callwww" catchtap="gotoCommonPage">我要留言</view> -->
+  </view>
+</view>
+<!-- <view wx:if="{{true}}">
+  <web-view src="https://bjy.51yunkeyi.com/tea/leaveanote/index.html"></web-view>
+</view> -->

@@ -1,0 +1,109 @@
+<!-- 商品列表：商品分类+单列商品 -->
+<template name="storeProduct2">
+  <!-- <view class="width100 storelist {{selShowType==0?'show':'hide'}}"> -->
+  <scroll-view class="scrollleft" scroll-y="true">
+    <view class="width100">
+      <block wx:for="{{selProcuctTypeList}}" wx:key="key">
+        <view class="{{item.id == selProductTypeIDParam ? 'scrollcurrent':''}} scrollleftview" data-index="{{index}}"
+          bindtap="selectCatalog">{{item.name}}</view>
+      </block>
+    </view>
+  </scroll-view>
+  <!-- <scroll-view class="scrollright" style = "height:100%;" scroll-y="true" bindscrolltolower="bindDownLoad" bindscrolltoupper="bindTopLoad" scroll-with-animation = "true"> -->
+  <!-- </view> -->
+  <view class="scrollright hard">
+    <view id="top"></view>
+    <view class="width100">
+      <swiper class="swiper" indicator-dots="{{false}}" autoplay="{{true}}" interval="5000" duration="1000">
+        <swiper-item wx:for="{{1}}" wx:key="key">
+          <view class="swiperimage">
+            <image src="{{DataURL}}/images/xiejiaoba_banner_1.png?{{randomNum}}" class="slide-image" />
+          </view>
+        </swiper-item>
+      </swiper>
+      <block wx:for="{{dataArray}}" wx:for-item="articles" wx:for-index="dataArrayIndex" wx:key="key">
+        <block wx:for="{{articles}}" wx:for-item="item" wx:key="id" wx:for-index="index" data-index='index'>
+          <view class="canfe" style="width:100%;" data-id="{{item.pid}}" data-companyid="{{item.companyId}}"
+            catchtap='viewProductDetail'>
+            <view class="fleft commodityimg" style="margin-right:20rpx;width: 260rpx;height: 200rpx;">
+              <image class='product product_img{{index}}' mode="widthFix" src="{{item.photos+'?'+randomNum}}"></image>
+              <block wx:if="{{item.groupmold==8}}">
+                <image class="iconpin" hidden="{{item.isHideGroup}}" src="{{DataURL}}/images/iconpin.png"></image>
+              </block>
+            </view>
+            <view class="fright commodityinfor">
+              <view class='commodity-name' style="text-align: left;">{{item.productName}}</view>
+              <view class="commodity-activity">
+                <!-- 优惠券可用信息 -->
+                <block wx:for="{{item.couponsList}}" wx:for-item="couponItem" wx:key="id" wx:for-index="couponIndex">
+                  <block wx:if="{{couponItem.mold == 0 && couponItem.discount>0}}">
+                    <text class="activity1">满￥{{couponItem.full}}减{{couponItem.discount}}满减券</text>
+                  </block>
+                  <block wx:if="{{couponItem.mold == 1 && couponItem.discount>0}}">
+                    <text class="activity1">￥{{couponItem.discount}}抵扣券</text>
+                  </block>
+                  <block wx:if="{{couponItem.discount==0}}">
+                    <text class="activity1">{{couponItem.name}}</text>
+                  </block>
+                </block>
+                <!-- 预售判断 -->
+                <text class="activity2" style="{{item.presellstatus==0?'display:none':''}}">预售中...</text>
+              </view>
+              <!-- 赠品信息 -->
+              <block wx:if="{{item.isHaveGift}}">
+                <view class="commodity-gift">
+                  <text style="color:#ff1f1f;">赠品</text>{{item.giftName}}</view>
+              </block>
+
+              <view class="commodity-price">
+                <!-- 有优惠价 -->
+                <!-- <block
+                  wx:if="{{item.sourcePrice!=item.minstatusprice && item.sourcePrice>item.minstatusprice && item.minstatusprice>0.00}}">
+                  <view class="price3">现价<text>¥ {{item.minstatusprice}}</text></view>
+                  <view class="price2">原价<text>¥ {{item.sourcePrice}}</text></view>
+                </block> -->
+
+                <block wx:if="{{item.isShowPrice2}}">
+                  <view class="price1">{{item.discountType==0?'特惠':'套装'}}价
+                    <text>¥ {{item.discountPrice}}</text>
+                  </view>
+                  <view class="price2">原价
+                    <text>¥ {{item.sourcePrice}}</text>
+                  </view>
+                </block>
+                <block wx:elif="{{item.isShowPrice1}}">
+                  <view class="price1">劵后价
+                    <text>¥ {{item.couponPrice}}</text>
+                  </view>
+                  <view class="price2">原价
+                    <text>¥ {{item.sourcePrice}}</text>
+                  </view>
+                </block>
+
+                <!-- 无优惠价 -->
+                <block wx:else>
+                  <view class="price3">
+                    <text>¥ {{item.sourcePrice}}</text>
+                  </view>
+                </block>
+
+                <view class='sotrename' style="text-align: left;">
+                  <text style="{{item.shopType!=''?'':'display:none'}}">{{item.shopType}}</text>{{item.shopName}}
+                </view>
+                <!-- 2020-05-09 之前的价格显示方式 -->
+                <!-- <block wx:if="{{item.isShowPrice2}}">
+                <view class="price1">{{item.discountType==0?'特惠':'套装'}}价<text>¥ {{item.discountPrice}}</text></view>
+                <view class="price2">原价<text>¥ {{item.sourcePrice}}</text></view>
+              </block>
+              <block wx:else>
+                <view class="price1"><text>¥ {{item.sourcePrice}}</text></view>
+              </block> -->
+              </view>
+            </view>
+          </view>
+        </block>
+      </block>
+    </view>
+    <view id="bottom"></view>
+  </view>
+</template>

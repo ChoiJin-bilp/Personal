@@ -1,0 +1,152 @@
+<import src="QPPrudtRemarkImgItem.wxml"/>
+<template name = "productDetail">
+  <view class="userule" wx:if="{{showModalcompany}}" catchtouchmove="ture">
+    <view class="bgopcity"></view>
+    <view class="textrule-pd" style='width:96%'>
+      <scroll-view scroll-y class="pop-box-pd">
+        <view class='pop-list'>
+          <text class='fleft'><text class='required-pd'>*</text>产品名称：</text>
+          <input disabled='{{disabled}}' minlength="0" maxlength="{{max_name}}" class='fleft' data-cid='name' bindinput='changeValueMainProductData' focus='{{!disabled}}' value='{{proData.name}}' cursor-spacing="10"></input>
+        </view>
+        <view class='pop-list'>
+          <text class='fleft'>产品编号：</text>
+          <input disabled='{{disabled}}' minlength="0" maxlength="{{max_no}}" class='fleft' data-cid='productno' bindblur='changeValueMainProductData' value='{{proData.productNo}}' cursor-spacing="10"></input>
+        </view>
+        <view class='pop-list hide'>
+          <text class='fleft'>代理商：</text>
+          <input disabled='{{disabled}}' class='fleft' data-cid='agent' bindinput='changeValueMainProductData' value='{{proData.agent}}' cursor-spacing="10"></input>
+        </view>
+        <view class="default-pd">
+          <text class='default-text fleft'>产品图片：</text>
+          <view class="pop-array">
+            <block wx:for="{{rbImgArray}}" wx:for-item="item" wx:for-index="index">
+              <template is = "QPPrudtRemarkImgItem" data='{{item:item,index:index,DataURL:DataURL,disabled:disabled}}'/>
+            </block>
+            <image class="upload-pd upload1-pd {{disabled || rbImgCnt>=6?'hide':'show'}}" src='{{DataURL}}/images/upload.png' data-type="3" catchtap="uploadImg"></image>
+          </view>
+        </view>
+        <view class='pop-list' style="height: 160rpx; padding-top: 20rpx;" >
+          <text class='fleft'>产品描述：</text>
+          <view class="introduction-pd">
+            <!-- <text class="{{pageStat==0?'show':'hide'}} currentWordNumber">{{currentWordNumber|0}}/{{max}}</text>   -->
+            <textarea disabled='{{disabled}}' class="areas-pd {{showPDRemark?'show':'hide'}}" focus='{{showPDRemark}}' fixed minlength="{{min}}" maxlength="{{max}}" bindinput="changeValueMainProductData" data-cid='remark' value='{{proData.remark}}' bindblur="outRemark"> 
+            </textarea>
+            <view class="areas-pd {{showPDRemark?'hide':'show'}}" style="white-space:pre-line;word-break:break-all;" catchtap='enterRemark'><text style='width:100%;text-align:left;display:inline-block' space="nbsp">{{proData.remark}}</text></view>
+            <!-- <text>{{proData.remark}}</text> -->
+          </view> 
+          <!-- <view class='row' id="textareawrap" catchtap="onFocus">
+            <textarea fixed="true" class='text' focus='{{focus}}' name="content" placeholder="需要给对方留言吗？请再此输入" placeholder-style='font-size:0.7rem' minlength="{{min}}" maxlength="{{max}}" bindinput="changeValueMainProductData" data-cid='remark' value='{{proData.remark}}' cursor-spacing="10" />
+          </view> -->
+        </view>
+        
+        
+        <view class='pop-list'>
+          <text class='fleft'>包装规格：</text>
+          <input disabled='{{disabled}}' minlength="0" maxlength="{{max_spec}}" class='fleft' data-cid='packing' bindinput='changeValueMainProductData' value='{{proData.packing}}' cursor-spacing="10"></input>
+        </view>
+        
+        
+        <view class="moredata-top fright" data-cid='productother' data-item='{{showOtherProductItems}}' bindtap="onChangeShowProItemDetailState">
+          <text>{{showOtherProductItems?'-':'+'}} 更多</text>
+        </view>
+        <view class="width100 {{showOtherProductItems?'show':'hide'}}">
+          <view class="alert-pd {{curUserId==proData.userId && !disabled?'show':'hide'}}" style='clear:both;'><text style='font-weight:bold'>注：</text>以下信息主要备注给自己参考。如您选择发给对方，请点击（<image mode='aspectFit' class='showImg' style='width: 60rpx;height: 40rpx;margin-top:8rpx;' src="{{DataURL + '/images/hide-num.png' }}"></image>）让对方可见。
+          </view>
+          <view class='pop-list'>
+            <text class='fleft'>产品库存：</text>
+            <input disabled='{{disabled}}' type='number' class='fleft' data-cid='stock' bindblur='changeValueMainProductData' value='{{proData.stock}}' cursor-spacing="10"></input>
+          </view>
+          <view class='pop-list'>
+            <text class='fleft'>市场价：</text>
+            <input disabled='{{disabled}}' type='digit' class='fleft password' style='width:40%' password='{{isAdmin?false:!proData.showMarkPrice}}' data-cid='markprice' bindblur='changeValueMainProductData' value='{{proData.markPrice}}' cursor-spacing="10"></input>
+            <view class="unit fleft">(元)</view>
+            <view class="shtag" data-cid='showmarkprice' bindtap='changeValueMainProductData'>
+              <image mode='aspectFit' disabled='{{disabled}}' class='showImg' src="{{!proData.showMarkPrice ? DataURL + '/images/hide-num.png' : DataURL + '/images/show-num.png' }}"></image>
+            </view>
+          </view>
+          <view class='pop-list'>
+            <text class='fleft'>出厂价：</text>
+            <input disabled='{{disabled}}' type='digit' class='fleft password' style='width:40%' password='{{isAdmin?false:!proData.showFactoryPrice}}' data-cid='factoryprice' bindblur='changeValueMainProductData' value='{{proData.factoryPrice}}' cursor-spacing="10"></input>
+            <view class="unit">(元)</view>
+            <view class="shtag" data-cid='showfactoryprice' bindtap='changeValueMainProductData'>
+              <image mode='aspectFit' disabled='{{disabled}}' class='showImg' src="{{!proData.showFactoryPrice ? DataURL + '/images/hide-num.png' : DataURL + '/images/show-num.png' }}"></image>
+            </view>
+          </view>
+          <view class='pop-list'>
+            <text class='fleft'>代理价：</text>
+            <input disabled='{{disabled}}' type='digit' class='fleft password' style='width:40%' password='{{isAdmin?false:!proData.showAgentPrice}}' data-cid='agentprice' bindblur='changeValueMainProductData' value='{{proData.agentPrice}}' cursor-spacing="10"></input>
+            <view class="unit">(元)</view>
+            <view class="shtag" data-cid='showagentprice' bindtap='changeValueMainProductData'>
+              <image mode='aspectFit' disabled='{{disabled}}' class='showImg' src="{{!proData.showAgentPrice ? DataURL + '/images/hide-num.png' : DataURL + '/images/show-num.png' }}"></image>
+            </view>
+          </view>
+          <view class='pop-list'>
+            <text class='fleft'>批发价：</text>
+            <input disabled='{{disabled}}' type='digit' class='fleft password' style='width:40%' password='{{isAdmin?false:!proData.showWholesalePrice}}' data-cid='wholesalepice' bindblur='changeValueMainProductData' value='{{proData.wholesalePice}}' cursor-spacing="10"></input>
+            <view class="unit">(元)</view>
+            <view class="shtag" data-cid='showwholesaleprice' bindtap='changeValueMainProductData'>
+              <image mode='aspectFit' disabled='{{disabled}}' class='showImg' src="{{!proData.showWholesalePrice ? DataURL + '/images/hide-num.png' : DataURL + '/images/show-num.png' }}"></image>
+            </view>
+          </view>
+          <view class='pop-list'>
+            <text class='fleft'>经销价：</text>
+            <input disabled='{{disabled}}' type='digit' class='fleft password' style='width:40%' password='{{isAdmin?false:!proData.showSellPrice}}' data-cid='sellprice' bindblur='changeValueMainProductData' value='{{proData.sellPrice}}' cursor-spacing="10"></input>
+            <view class="unit">(元)</view>
+            <view class="shtag" data-cid='showsellprice' bindtap='changeValueMainProductData'>
+              <image mode='aspectFit' disabled='{{disabled}}' class='showImg' src="{{!proData.showSellPrice ? DataURL + '/images/hide-num.png' : DataURL + '/images/show-num.png' }}"></image>
+            </view>
+          </view>
+          <!-- 名片信息 -->
+          <view class="operator-pd">
+            <view class="print1-pd">
+              <text class='fleft'>附件名片：</text>
+              <image bindtap="showSelMyCardPop" class="uploadimages fleft {{disabled?'hide':'show'}}" src='{{DataURL}}/images/upimg.png'></image>
+            </view>
+            <block wx:for="{{proData.vCardList}}" wx:for-item="item" wx:key="{{item.id}}" wx:for-index="index">
+              <view class="chose-txt1" style='border: solid 2rpx #e5e5e5;'>
+                <!-- <image class='qrcard fright'src='{{DataURL}}/images/QR.png' data-index="{{index}}" data-qrsrc='{{item.qrSrc}}' data-item='{{item}}' bindtap="showProductQRCard"></image> -->
+                <image catchtap="delVCard" class="del-img {{disabled?'hide':'show'}}" src='{{DataURL}}/images/image-del.png'></image>
+                <image mode='aspectFill' class='fleft cardimage' src='{{item.headerImg}}' data-suserid='{{proData.userId}}' data-item='{{item}}' catchtap='viewPrdCardDetail'></image>
+                <view class='card-nav1 fleft' data-suserid='{{proData.userId}}' data-item='{{item}}' catchtap='viewPrdCardDetail'>
+                  <view class='card-cardname'>{{item.name}}</view>
+                  <view class='card-job'>{{item.job}}</view>
+                  <view class='card-company'>{{item.company}}</view>
+                </view>
+              </view>
+            </block>
+          </view>
+        </view>
+        
+        
+        
+      </scroll-view>
+      <!-- 管理 -->
+      <view class="width100 pop-foot-pd {{pageStat==0?'show':'hide'}}">
+        <button class="btn-enable" bindtap="hideModalcomp">取消</button>
+        <button disabled='{{!disabled}}' class="{{disabled?'btn-enable':'btn-disable'}}" bindtap="editProduct">编辑</button>
+        <button disabled='{{disabled}}' class="{{disabled?'btn-disable':'btn-enable'}}" bindtap="submitProduct">保存</button>
+        <button disabled='{{!disabled}}' class="{{disabled?'btn-enable':'btn-disable'}}" bindtap="shareSingle">发送</button>
+      </view>
+      <!-- 选择 -->
+      <view class="width100 pop-foot-pd {{pageStat==3?'show':'hide'}}">
+        <button class="btn-enable" bindtap="hideModalcomp">取消</button>
+        <button disabled='{{!disabled}}' class="{{disabled?'btn-enable':'btn-disable'}}" bindtap="editProduct">编辑</button>
+        <button disabled='{{disabled}}' class="{{disabled?'btn-disable':'btn-enable'}}" bindtap="submitProduct">保存</button>
+        <button class="btn-enable" bindtap="selectCurProduct">选择</button>
+      </view>
+      <!-- 只读 -->
+      <view class="width92 pop-foot-pd {{pageStat==1?'show':'hide'}}">
+        <button class="{{isAdmin?'hide':(pageStat==2?'hide':'show')}} btn-enable" bindtap="ImportCurProduct" style='width:220rpx'>导入产品库</button>
+        <button class="{{showPDSelect?'show':'hide'}} btn-enable" bindtap="selectCurProduct" style='width:185rpx'>单选产品</button>
+        <button class="btn-enable" style="float:right;" bindtap="hideModalcomp">返回</button>
+      </view>
+      <!-- 报价 -->
+      <view class="width100 pop-foot-pd {{pageStat==2?'show':'hide'}}">
+        <button class="{{!qpDisabled && curUserId==proData.userId?'show':'hide'}} btn-enable" bindtap="hideModalcomp">取消</button>
+        <button disabled='{{!disabled}}' class="{{!qpDisabled && curUserId==proData.userId?'show':'hide'}} {{disabled?'btn-enable':'btn-disable'}}" bindtap="editProduct">编辑</button>
+        <button disabled='{{disabled}}' class="{{!qpDisabled && curUserId==proData.userId?'show':'hide'}} {{disabled?'btn-disable':'btn-enable'}}" bindtap="submitProduct">保存</button>
+        <button class="btn-enable" style="float:right;margin-right:10rpx" bindtap="hideModalcomp">返回</button>
+      </view>
+    </view>
+  </view>
+</template>

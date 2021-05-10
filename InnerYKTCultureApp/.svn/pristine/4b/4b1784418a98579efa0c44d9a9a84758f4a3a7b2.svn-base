@@ -1,0 +1,50 @@
+<!--pages/myspelling/myspelling.wxml-->
+<view class="choiceclass">
+  <view class="choice" data-status="0" catchtap="exchangeStatList"><view class="{{gwStatus==0?'chiocess':''}}">拼团中</view></view>
+  <view class="choice" data-status="2" catchtap="exchangeStatList"><view class="{{gwStatus==2?'chiocess':''}}">已完成</view></view>
+</view>
+<view class="itembhke">
+  <block wx:for="{{orderItemList}}" wx:for-item="item" wx:for-index="index" wx:key="id">
+    <view class="bhkez">
+      <view class="width100" data-item="{{item}}" catchtap="gotoGWDetailPage">
+        <view class="rzz-z">
+          <view style="background-image: url('{{SMDataURL}}/images/product-zui.png'); background-repeat: no-repeat;background-size: 100% 100%;">{{item.totalNum}} 人团</view>
+          <view style="width:4%;"></view>
+          <view class="bunt">
+            <block wx:if="{{item.isFull}}">
+              拼团已结束
+            </block>
+            <block wx:else>
+              截止：{{item.endDateStr}}
+            </block>
+          </view>
+          <view>第：{{item.periods}}期</view>
+        </view>
+        <view  class="rzz-o">
+          <image mode="aspectFill" src="{{item.photo+'?'+randomNum}}"></image>
+          <view class="zzo-z">
+            <view class="puctName">{{item.productName}}</view>
+            <view class="dutiao">
+              <view class="bena">
+                <view class="bena-in" style="width: {{item.percentage}}%;"></view>
+              </view>
+              <view class="benb">{{item.cnt}}/{{item.totalNum}}</view>
+            </view>
+            <view class="ductprice">
+                <view>拼团价<text>￥{{item.spellGroupPrice}}</text></view>
+                <view>￥{{item.price}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      
+      <view class="detail-z">
+        <view class="Tcyrs" data-item="{{item}}" catchtap="gotoGWDetailPage">
+          {{item.orderId}}
+        </view>
+        <view class="pmh" data-item="{{item}}" catchtap="gotoGWOrderPage">订单详情<image src="https://e.amjhome.com/baojiayou/tts_upload/images/amy-demtdusk.png"></image></view>
+      </view>
+    </view>
+  </block>
+  
+</view>

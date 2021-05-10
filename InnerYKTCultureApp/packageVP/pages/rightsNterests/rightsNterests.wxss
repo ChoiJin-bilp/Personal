@@ -1,0 +1,204 @@
+/* packageVP/pages/rightsNterests/rightsNterests.wxss */
+page{
+  background-color: #F6F6F6;
+  padding: 10rpx 20rpx;
+  box-sizing: border-box;
+}
+.metbg{
+  width: 100%;
+background-repeat: no-repeat;background-size: 100% 100%;
+position: relative;
+padding: 40rpx 50rpx;
+box-sizing: border-box;
+}
+.Nterestsimg{
+position: absolute;
+  width: 112rpx;
+height: 120rpx;
+top: 12%;
+right: 7%;
+}
+.Level{
+  font-size: 42rpx;
+font-weight: bold;
+color: #ffffff;
+line-height: 42rpx;
+}
+.levse{
+  font-size: 28rpx;
+color: #999999;
+line-height: 42rpx;
+margin-top: 10rpx;
+margin-bottom: 40rpx;
+}
+.context{
+  font-size: 28rpx;
+color: #e5e5e5;
+}
+/*读条*/
+.spoer{
+  margin-top:12rpx;
+  margin-bottom:6rpx;
+  position: relative;
+}
+.speed{
+  height: 6rpx;
+  background: #ffffff;
+border: 2rpx solid #e6e3d8;
+border-radius: 6rpx;
+z-index: 2;
+position: relative;
+}
+.speedon{
+height: 6rpx;
+opacity: 1;
+background: linear-gradient(to right, #deb985, #9d6a44);
+border-radius: 4rpx;
+box-shadow: 0rpx 2rpx 24rpx 0rpx rgba(157,106,68,0.30); 
+position: absolute;
+top: 0;
+left: 0;
+z-index: 1;
+}
+.spg{
+  position: absolute;
+  width: 18rpx;
+  height: 18rpx;
+  border-radius: 50%;
+  z-index: 2;
+  top: -6rpx;
+}
+.spgz{
+  left: -6rpx;
+}
+.spgo{
+  left: 28%;
+}
+.spgt{
+  left: 58%;
+}
+.spgs{
+  left: 88%;
+}
+
+.spf{
+  position: absolute;
+  width: 18rpx;
+  height: 18rpx;
+  background: #ffffff;
+  border: 2rpx solid #e6e3d8;
+  border-radius: 50%;
+  z-index: 0;
+  top: -6rpx;
+}
+/*小圆*/
+.spgzz{
+  left: -6rpx;
+}
+.spgoo{
+  left: 28%;
+}
+.spgtt{
+  left: 57.6%;
+}
+.spgst{
+  left: 87.6%;
+}
+/*级别*/
+.leve{
+  display: flex;
+font-size: 26rpx;
+color: #ccc;
+position: relative;
+height: 38rpx;
+}
+.leve view{
+  position: absolute;
+  top: 0rpx;
+}
+.leve view:nth-of-type(1){
+  left: -6rpx;
+
+}
+.leve view:nth-of-type(2){
+  left: 26%;
+}
+.leve view:nth-of-type(3){
+  left: 54%;
+
+}
+.leve view:nth-of-type(4){
+  left: 84%;
+}
+/*特权介绍*/
+.privilege{
+  height: 810rpx;
+  opacity: 1;
+  background: #ffffff;
+  border-radius: 10rpx;
+  margin-top: 10rpx;
+  padding: 40rpx 30rpx;
+  box-sizing: border-box;
+}
+.boper{
+  width: 560rpx;
+  border-bottom: solid 4rpx #e5e5e5;
+  margin: auto;
+  position: relative;
+}
+.mkjfont{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 34rpx;
+color: #333333;
+line-height: 42rpx;
+background-color: #fff;
+width: 200rpx;
+text-align: center;
+font-weight: bold;
+}
+/*正六边形*/
+.hgusert{
+  float: left;
+  width: 196rpx;
+  height: 158rpx;
+  background-repeat: no-repeat;background-size: 100% 100%;
+  background-image:url('https://e.amjhome.com/baojiayou/tts_upload/images/yunke-duob.png');
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+color: #666666;
+margin-top: 30rpx;
+margin-left: 20rpx;
+}
+.hgusert2{
+  background-image:url('https://e.amjhome.com/baojiayou/tts_upload/images/yunke-duob2.png');
+  color: #CC9966;
+}
+.lihu{margin-top: 20rpx;}
+.dlop{
+  margin-top: 20rpx;
+  padding-left: 10rpx;
+}
+.dlop view{
+  font-size: 28rpx;
+  margin-top: 30rpx;
+  color: #666666;
+  line-height: 36rpx;
+  
+}
+.port9{
+  width: 114rpx;
+  text-align: center;
+}
+.Level .portfont{
+  font-size: 28rpx;
+  text-decoration: underline;
+  color: #959595;
+  line-height: 36rpx;
+}

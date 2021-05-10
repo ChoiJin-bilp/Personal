@@ -1,0 +1,88 @@
+<!--pages/doorway/doorway.wxml-->
+<swiper class="swiper" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}"
+  duration="{{duration}}">
+  <swiper-item>
+    <view class="swiperimage">
+      <image src="{{SMDataURL}}/images/xiejiaoba_banner_2.png?{{randomNum}}" mode="aspectFill" class="slide-image" />
+    </view>
+  </swiper-item>
+</swiper>
+<!--<view class="note">
+  <view class="note-eat" bindtap="submitDataInfo" catchtap="gotopage" data-pagetype="0">
+    <image src="{{SMDataURL}}/images/dinein.png"></image>
+    <text>点餐</text>
+  </view>
+  <view bindtap="submitDataInfo" catchtap="gotopage" data-pagetype="1" class="note-eat"
+    style="background: linear-gradient(-45deg,#eabe8b 0%, #edbc6e 100%);">
+    <image src="{{SMDataURL}}/images/take-out.png"></image>
+    <text>外卖</text>
+  </view>
+</view>-->
+<view>
+  <block wx:if="{{gwItemList.length>0}}">
+    <view class="Hot-title">热门拼团</view>
+    <view class="Hot-classify">
+      <block wx:for="{{gwItemList}}" wx:for-item="item" wx:key="xvHao" wx:for-index="index">
+        <block wx:if="{{index<=2}}">
+        </block>
+        <view class="sify" style="{{(index+1)%4==0?'margin-right: 0;':''}}" data-item="{{item}}" catchtap="gotoGWListPage">
+          <image src="{{SMDataURL}}/images/{{item.picName}}.png?{{randomNum}}"></image>
+          <view>{{item.name}}</view>
+        </view>
+      </block>
+      <view class="sify" style="{{(gwItemList.length+1)%4==0?'margin-right: 0;':''}}" catchtap="gotoGWCouponListPage">
+        <image src="{{SMDataURL}}/images/puctpaihang.png"></image>
+        <view>返券排行</view>
+      </view>
+    </view>
+  </block>
+  <block wx:if="{{gwProductList.length>0}}">
+    <view class="Hot-bgty">
+      <block wx:for="{{gwProductList}}" wx:for-item="item" wx:key="pid" wx:for-index="index">
+        <view class="bgty" data-item="{{item}}" catchtap="gotoGWProductPage" style="{{(index+1)%3==0?'margin-right: 0;':''}}">
+          <image mode="aspectFill" src="{{item.photo+'?'+randomNum}}">
+          </image>
+          <view class="bgty-font">
+            <view class="bgty-font-0">{{item.name}}</view>
+            <view class="bgtyfoz">
+              <view class="mlu">补贴</view>
+              <view class="mcont">
+                <view class="qiu1"></view>
+                <view class="qiu2"></view>
+                {{item.couponMoney}}消费券</view> 
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </block>
+
+</view>
+<!-- <view class="mten">
+  <view class="fairm" bindtap="submitDataInfo" catchtap="gotopage" data-pagetype="0">
+    点餐
+  </view>
+  <view class="fairm" bindtap="submitDataInfo" catchtap="gotopage" data-pagetype="1">
+    外卖
+  </view>
+</view> -->
+<!--弹窗-->
+<block wx:if="{{productType}}">
+  <view class="windowBackgroud" catchtouchmove="{{false}}" catchtap="emptyType"></view>
+</block>
+<view class="productTypedetail" wx:if="{{productType}}">
+  <view class="fonts" style="background-image:url('{{SMDataURL}}/images/chayu-signin.png');">
+    <view class="fotle">签到就领<text> 30 </text>元现金红包</view>
+    <view class="fotbnt" catchtap="goSignin">马上参与</view>
+  </view>
+  <view class="mon">
+    <image src="{{SMDataURL}}/images/cleardel.png" catchtap="showout"></image>
+  </view>
+</view>
+<movable-area style="height:{{ballheight}}rpx;">
+  <movable-view bind:touchend="changeba" x="{{scrollX}}" y="{{scrollY}}" direction="all" out-of-bounds="{{false}}">
+    <view class="mlrtpy">
+      <image catchtap="goSignin" src="{{SMDataURL}}/images/yunke-qiandao.png"></image>
+    </view>
+  </movable-view>
+</movable-area>

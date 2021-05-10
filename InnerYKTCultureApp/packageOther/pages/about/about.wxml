@@ -1,0 +1,90 @@
+<!-- pages/about/about.wxml 关于-->
+<!-- <view class="container">
+  <view class='Company-logo'>
+    <image mode='aspectFit' class='logo' src="{{DataURL}}/images/logo.png"></image>
+    <image mode='aspectFit' class='logo-image' src="{{sysLogoUrl}}"></image>
+    <view class="edition">{{sysName}}<text bindtap="showrecordbox">V {{PublishVersion}}</text></view>
+  </view>
+  <view class="comp-title">
+    <text class="comp-title-name">关于微官网</text>
+    <text class="comp-title-english">About offer better</text>
+  </view>
+  <text class="introduce">微官网是一款面向中小企业用户的微信官网和微信商城。</text>
+  <text class="introduce">其中私有商城，可以提高品牌辨识度，不存在和对手比价竞争；货款直达商家账户，无中间分成；低成本快速开始微信电商；客户粉丝沉淀；方便微信收藏、转发商品图片并产生销售。</text>
+  <text class="introduce">而微信版官网包含企业动态、公司信息、产品信息、联系方式等功能模块，是企业在微信的门户，十亿用户直达；提升品牌形象；方便微信收藏及转发。</text>
+  <view class="comp-title">
+    <text class="comp-title-name">关于小程序官网定制</text>
+    <text class="comp-title-english">About the small program for quoting better</text>
+  </view>
+  <text class="introduce">天天上公司承接企业小程序官网及微信商务工具定制业务。通过小程序官网，可以让10亿微信用户轻松找到你，从而让企业和客户更方便、更快捷地建立联系和商业合作。企业定制版不仅可以展现企业的标志、商标及企业名称等信息，而且还能满足企业如微信小程序网上商城等常见的各种商务功能诉求。</text>
+  <view class="comp-title">
+    <text class="comp-title-name">公司简介</text>
+    <text class="comp-title-english">Company Introduction</text>
+  </view>
+  <text class="introduce">深圳市天天上网络科技有限公司，是一家以互联网、物联网技术研发为主的软件研发企业，拥有一支优秀的具有丰富经验的大中型软件研发和管理团队，研发实力雄厚，具有智能家居、新零售平台，企业应用软件等技术和产品研发经验积累。现致力于企业微信生态链的打造和运营，提供"微官网"、"微商城"、"微商务"等企业平台服务。</text>
+  <view class="comp-title">
+    <text class="comp-title-name">联系方式</text>
+    <text class="comp-title-english">Contact</text>
+  </view>
+  <view class="Contact">
+    <text class="Contact-way">深圳天天上网络科技有限公司</text>
+    <text class="Contact-way">电话：0755-82779639</text>
+    <text class="Contact-way">邮箱：info@51tts.com</text>
+    <text class="Contact-way">网址：www.baojiayou.com</text>
+    <text class="Contact-way">地址：深圳市南山区深南大道10128号</text>
+    <view class="qrcode">
+      <image src='{{DataURL}}/images/aboutqrcode.jpg?{{randomNum}}' data-src='{{DataURL}}/images/aboutqrcode.jpg?{{randomNum}}' catchtap="viewImg"></image>
+      <text>合作联系</text>
+    </view>
+  </view>
+</view>
+
+<view class="userule" wx:if="{{showrecordbox}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="recordbox">
+      <scroll-view scroll-y class='record borderpoptext'>
+        <view class="versions">
+          <view class="update">1.0.13版本<text class='versondate'>(2020.07.06)</text></view>
+          <view class="update-nav"><text></text>设备操控通讯方式变更</view>
+        </view>
+        <view class="versions">
+          <view class="update">1.0.0版本<text class='versondate'>(2020.06.24)</text></view>
+          <view class="update-nav"><text></text>相关功能优化</view>
+        </view>
+      </scroll-view>
+      <view class="delete-box">
+        <image class='del-record' bindtap="hiderecordbox" src='{{DataURL}}/images/clearpop.png?213'></image>
+      </view>
+    </view>
+</view> -->
+ <view class="bus">
+  <!-- <view class="aboutlogo">  -->
+    <image class="logo-img" src="{{DataURL}}/images/logo-ykcy4.png"></image>
+    <!-- <view></view>
+  </view> -->
+  <view>
+    <view class="abogo">
+      <!-- <view class="aboutcompany">
+      深圳{{sysName}}公司成立于2016年，总部位于深圳科技园。2020年5月，{{sysName}}共享4D包裹式足底按摩器上线，全包裹仿真按摩，按摩体验佳，适用于中高端酒店、饮品店、景点或者步行街等投放场景。多种合作模式，0投入加盟，{{sysName}}免费投放，为顾客解除疲劳，提供舒适体验的按摩服务，同时为合作方引流，带来收入。
+      </view> -->
+      <!-- <view class="aboutcompany">
+云客茶语是深圳市云客信息技术有限公司以互联网+物联网技术创新打造的新餐饮品牌。门店通过共享扫码4D智能按摩器提供足底按摩,从而使进店客户在享受美味奶茶的同时，身心更加愉悦、放松、享受。</view>
+      <view class="aboutcompany">
+        深圳市云客技术有限公司拥有强大的技术力量和多年的技术积累，提供完整的互联网+物联网超级门店解决方案，为客户带来更多、更好的全新体验。
+      </view>
+      <view class="aboutcompany">
+        云客茶语愿和感兴趣的投资者合作，提供超级门店托管服务,从而使投资者项目实施变得简单、快速，无技术难度。
+      </view> -->
+      <view class="aboutcompany">
+        云客茶语是由深圳市云客信息技术有限公司用互联网技术和物联网技术打造的新一代超级茶饮门店品牌。云客茶语综合运用信息技术和智能科技给传统门店赋能，打造全新的门店场景，满足人们的情感、社交和精神享受的需求，致力于给消费者带来全新的消费体验。</view>
+      <view class="aboutcompany">
+        云客茶语海岸城店计划将于4月前后开业，门引入4D包裹式智能足底按摩器，清新宜人的装修环境,精心优选的饮品,给上班劳累、逛街辛苦的都市人提供一个放松身心,受时光的超级空间，门店多种创新元素,将给大家目一新的体验和享受。
+      </view>
+      <!-- <view class="website">官方网站：www.baojiayou.com</view> -->
+      <view class="website">客服电话：0755-8277-9639</view>
+    </view>
+    <view class="version"> 版本号：{{PublishVersion}} </view>
+  </view>
+</view>
+
+

@@ -1,0 +1,54 @@
+/* pages/testaddress/testaddress.wxss */
+.view_buttonall{
+  height: 80rpx;
+  background: #fff;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  margin-top: 20rpx;
+}
+.view_button{
+  height: 80rpx;
+  width: 30%;
+  box-sizing: border-box;
+  border: #ccc solid 2rpx;
+  border-radius: 38rpx;
+  margin: auto;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30rpx;
+}
+.view_version{
+  height: 50rpx;
+  background: #fff;
+  display: flex;
+  justify-content:center;
+  font-size: 30rpx;
+  margin-top: 20rpx;
+}
+.view_time{
+  height: 80rpx;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: #ccc solid 2rpx;
+  border-radius: 38rpx;
+  background: #fff;
+  margin: 20rpx;
+  font-size: 30rpx;
+}
+.view_line{
+  width: 92%;
+  height: 1px;
+  border-top: solid #ccc 1px;
+  margin-left: 30rpx;
+}
+.pointout{
+  font-size: 25rpx;
+  color: #ccc;
+  margin-left: 30rpx;
+}

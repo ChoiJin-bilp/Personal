@@ -1,0 +1,177 @@
+<!--packageVP/pages/orderPrintImg/orderPrintImg.wxml-->
+<view class="burdening burdeningout">
+  <!--打印图片：1、系统创作库-->
+  <!-- <block wx:if="{{pSysImgList.length>0}}"> -->
+  <block wx:if="{{true}}">
+    <view class="typeTitle">选择图片
+      <text class="luitex">（您可以从图案库中选择一款你喜欢的图案）</text>
+      <view class="bster" data-est="1" data-otherparams="stype=0" data-pagetype="0" data-package="packageVP" data-page="CYmapdepot" catchtap="gotoCommonPage">
+        更多 <image src="{{SMDataURL}}/images/cy-alitgd.png"></image>
+      </view>
+    </view>
+    <view class="selectCup">
+      <view class="Cup-list2">
+        <!-- 已选中项 -->
+        <block wx:if="{{selPImgItem && selImgType==0 && !isSelInList}}">
+          <view class="Cup-z2 Cup-z2Succ" data-self="1" data-stype="0" catchtap="selectCustomizeImg">
+            <view class="Cup-text2">{{selPImgItem.name}}</view>
+            <!--隐藏未有的ID号-->
+            <block wx:if="{{false}}">
+              <view class="Cup-text2" style="color: #747474;">ID:5493465</view>
+            </block>
+            <image  data-self="1" data-stype="0" data-isprev="1" catchtap="selectCustomizeImg" src="{{selPImgItem.path}}"></image>
+            <!--隐藏未有的点击数-->
+            <block wx:if="{{selPImgItem.print_num>0}}">
+              <view class="numbop">
+                <image src="{{SMDataURL}}/images/cy-alitxzl.png"></image><text>{{selPImgItem.print_num}}</text>
+              </view>
+            </block>
+          </view>
+        </block>
+        
+        <view class="Cup-z2 {{selSysImgIndex==imageindex && selImgType==0?'Cup-z2Succ':''}}" wx:for="{{pSysImgList}}"
+          wx:key='key' wx:for-item="imageitem" wx:for-index="imageindex" data-stype="0" catchtap="selectCustomizeImg"
+          data-index="{{imageindex}}">
+          <!-- <view class="{{selSysImgIndex==imageindex?'Cup-text selectSucces':'Cup-text'}}"> -->
+          <view class="Cup-text2">{{imageitem.name}}</view>
+          <!--隐藏未有的ID号-->
+          <block wx:if="{{false}}">
+            <view class="Cup-text2" style="color: #747474;">ID:5493465</view>
+          </block>
+          <image data-tag="0" data-index="{{imageindex}}" data-stype="0" data-isprev="1" catchtap="selectCustomizeImg" src="{{imageitem.path}}"></image>
+          <!--隐藏未有的点击数-->
+          <block wx:if="{{imageitem.print_num>0}}">
+            <view class="numbop">
+              <image src="{{SMDataURL}}/images/cy-alitxzl.png"></image><text>{{imageitem.print_num}}</text>
+            </view>
+          </block>
+        </view>
+      </view>
+      <!--自定义图案-->
+      <block wx:if="{{cycyVersion==1}}">
+        <view class="{{selSysImgIndex<0?'seucces2 selectSucces':'seucces2 '}}"
+          catchtap="selectCustomizeImg" data-index="-1">自定义图案
+          <text>￥{{customizeImgPrice}}</text>
+          <text class="buskl">（您可以上传自己的图片）</text>
+        </view>
+        <view class="bnkol">
+          <view class="bnkol-z">
+            <view class="potueimg">
+              <block wx:if="{{selUploadImgUrl==''}}">
+                <view class="addimg-img"  data-type="0" catchtap="uploadImg">
+                  <image mode="aspectFit" src="{{SMDataURL}}/images/amy-kaobei.png" ></image>
+                </view>
+              </block>
+              <block wx:else>
+                <image mode="aspectFit" src="{{selUploadImgUrl}}" data-tag="1" data-index="-1" data-isprev="1"
+                  catchtap="preUploadPrintImage"></image>
+              </block>
+            </view>
+            <block wx:if="{{selUploadImgUrl!=''}}">
+              <view class='bttbshy' data-type="0" catchtap="uploadImg">重新上传</view>
+            </block>
+          </view>
+        </view>
+      </block>
+    </view>
+  </block>
+
+  <!-- 如果为第二版本 -->
+  <block wx:if="{{cycyVersion==2}}">
+    <!--打印图片：2、茶友创作库-->
+    <block wx:if="{{pOtherImgList.length>0}}">
+      <!--茶友创作库-->
+      <view class="typeTitle" style="margin-top:20rpx;">茶友创作库
+        <view class="bster" data-est="1" data-otherparams="stype=1" data-pagetype="0" data-package="packageVP" data-page="CYmapdepot" catchtap="gotoCommonPage">
+          更多 <image src="{{SMDataURL}}/images/cy-alitgd.png"></image>
+        </view>
+      </view>
+      <view class="Cup-list2">
+        <!-- 已选中项 -->
+        <block wx:if="{{selPImgItem && selImgType==1 && !isSelInList}}">
+          <view class="Cup-z2 Cup-z2Succ" data-self="1" data-stype="1" catchtap="selectCustomizeImg">
+            <view class="Cup-text2">{{selPImgItem.name}}</view>
+            <!--隐藏未有的ID号-->
+            <block wx:if="{{false}}">
+              <view class="Cup-text2" style="color: #747474;">ID:5493465</view>
+            </block>
+            <image  data-self="1" data-stype="1" data-isprev="1" catchtap="selectCustomizeImg" src="{{selPImgItem.path}}"></image>
+            <!--隐藏未有的点击数-->
+            <block wx:if="{{selPImgItem.print_num>0}}">
+              <view class="numbop">
+                <image src="{{SMDataURL}}/images/cy-alitxzl.png"></image><text>{{selPImgItem.print_num}}</text>
+              </view>
+            </block>
+          </view>
+        </block>
+
+        <view class="Cup-z2 {{selSysImgIndex==imageindex && selImgType==1?'Cup-z2Succ':''}}" wx:for="{{pOtherImgList}}"
+          wx:key='key' wx:for-item="imageitem" wx:for-index="imageindex" data-stype="1" catchtap="selectCustomizeImg"
+          data-index="{{imageindex}}">
+          <view class="Cup-text2">{{imageitem.name}}</view>
+          <!-- <view class="Cup-text2" style="color: #747474;">ID:5493465</view> -->
+          <image data-tag="0" data-index="{{imageindex}}" data-stype="1" data-isprev="1" catchtap="selectCustomizeImg" src="{{imageitem.path}}"></image>
+          <block wx:if="{{imageitem.print_num>0}}">
+            <view class="numbop">
+              <image src="{{SMDataURL}}/images/cy-alitxzl.png"></image><text>{{imageitem.print_num}}</text>
+            </view>
+          </block>               
+        </view>
+      </view>
+      
+    </block>
+    <!--打印图片：3、我的创作库-->
+    
+    <view class="typeTitle" style="margin-top:20rpx;">我的创作
+      <view class="bster" data-est="1" data-otherparams="stype=2" data-pagetype="0" data-package="packageVP" data-page="CYmapdepot" catchtap="gotoCommonPage">
+        更多 <image src="{{SMDataURL}}/images/cy-alitgd.png"></image>
+      </view>
+    </view>
+    <view class="Cup-list2">
+      <view class="Cup-z2" data-otherparams="stype=2&act=1" data-pagetype="0" data-package="packageVP" data-page="CYmapdepot" catchtap="gotoCommonPage">
+        <view class="Cup-text2but">新创作</view>
+        <view class="omfhesimg">
+          <image src="{{SMDataURL}}/images/cy-alitbj.png"></image>
+        </view>
+        <view class="numbop">
+        </view>
+      </view>
+
+      <!-- 已选中项 -->
+      <block wx:if="{{selPImgItem && selImgType==2 && !isSelInList}}">
+        <view class="Cup-z2 Cup-z2Succ" data-self="1" data-stype="2" catchtap="selectCustomizeImg">
+          <view class="Cup-text2">{{selPImgItem.name}}</view>
+          <!--隐藏未有的ID号-->
+          <block wx:if="{{false}}">
+            <view class="Cup-text2" style="color: #747474;">ID:5493465</view>
+          </block>
+          <image  data-self="1" data-stype="2" data-isprev="1" catchtap="selectCustomizeImg" src="{{selPImgItem.path}}"></image>
+          <!--隐藏未有的点击数-->
+          <block wx:if="{{selPImgItem.print_num>0}}">
+            <view class="numbop">
+              <image src="{{SMDataURL}}/images/cy-alitxzl.png"></image><text>{{selPImgItem.print_num}}</text>
+            </view>
+          </block>
+        </view>
+      </block>
+
+      <view class="Cup-z2 {{selSysImgIndex==imageindex && selImgType==2?'Cup-z2Succ':''}}" wx:for="{{pMyImgList}}"
+        wx:key='key' wx:for-item="imageitem" wx:for-index="imageindex" data-stype="2" catchtap="selectCustomizeImg"
+        data-index="{{imageindex}}" wx:if="{{imageindex != 3}}">
+        <view class="Cup-text2">{{imageitem.name}}</view>
+        <!-- <view class="Cup-text2" style="color: #747474;">ID:5493465</view> -->
+        <image data-tag="0" data-index="{{imageindex}}" data-stype="2" data-isprev="1" catchtap="selectCustomizeImg" src="{{imageitem.path}}"></image>
+        <block wx:if="{{imageitem.print_num>0}}">
+          <view class="numbop">
+            <image src="{{SMDataURL}}/images/cy-alitxzl.png"></image><text>{{imageitem.print_num}}</text>
+          </view>
+        </block> 
+      </view>
+      
+    </view>
+  </block>
+
+  <view class="butTure" catchtap="selectOK">选好了</view>
+</view>
+
+

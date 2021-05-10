@@ -1,0 +1,73 @@
+<!--packageVP/pages/Yanteasort/Yanteasort.wxml-->
+<swiper bindchange="moveServerProSwiper" class="swiper" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" current="{{swiperIndex}}" interval="{{interval}}"
+  duration="{{duration}}" previous-margin="30px" next-margin="30px">
+  <block wx:for="{{sysLevelList}}" wx:for-item="item" wx:key="id" wx:for-index="index">
+    <swiper-item>
+      <view class="swiperimage"  style="{{curLevelId==item.id? 'transform: scale(1.04);':'' }}">
+        <view style="position:relative;">
+          <image src="{{item.photos}}" class="slide-image" />
+          <view class="otutit">{{item.name}}</view>
+          <view class="odown">被使总次数：<text>{{item.num}}</text> </view>
+          <view class="bure" wx:if="{{curLevelId==item.id}}">当前</view>
+        </view>
+        <view class="portq">
+          <view class="titleTop">获得方法：</view>
+          <view class="titem">人人都是文创大师，快来秀─秀吧</view>
+          <view class="business-item-tw"></view>
+          <view class="titleTop">获得奖励：</view>
+          <view class="titem">个人图案每被成功使用一次，平台奖励{{item.money}}元</view>
+        </view>
+      </view>
+    </swiper-item>
+  </block>
+  
+</swiper>
+<view class="forImcs" style="height:100%;">
+  <view class="yoew">本月前20名和新晋级文创大师的名字</view>
+  <view class="forImcs-Title">
+    <view class="mopert">
+      <view>排名</view>
+      <view>文创大师</view>
+    </view>
+    <view class="nkfdh">下载次数<image src="{{SMDataURL}}/images/xiala.png"></image></view>
+  </view>
+  <!-- 返劵排行列表 -->
+  <view class="width100" style="height:90%;position: relative;" scroll-y="true" bindscrolltolower="bindDownLoad" bindscrolltoupper="bindTopLoad" upper-threshold="10" lower-threshold="10" scroll-with-animation="true">
+    <view id="top"></view>
+    <view class="list">
+      <!-- <block wx:for="{{dataArray}}" wx:for-item="articles" wx:for-index="dataArrayIndex" wx:key="key"> -->
+        <!-- <block wx:for="{{articles}}" wx:for-item="item" wx:key="userId" wx:for-index="index" data-index='index'> -->
+        <block wx:for="{{rankingList}}" wx:for-item="item" wx:key="id" wx:for-index="index" data-index='index'>
+          <view class="Pingsc">
+            <view class="Pingsc-left">
+              <view class="minci">
+                <block wx:if="{{index==0}}">
+                  <image class="lfimgz" src="{{SMDataURL}}/images/product-jinpai.png"></image>
+                </block>
+                <block wx:elif="{{index==1}}">
+                  <image class="lfimgz" src="{{SMDataURL}}/images/product-yinpai.png"></image>
+                </block>        
+                <block wx:elif="{{index==2}}">
+                  <image class="lfimgz" src="{{SMDataURL}}/images/product-tongpai.png"></image>
+                </block>
+                <block wx:else>
+                  <view>{{index+1}}</view>
+                </block>
+              </view>
+              <view class="mince">
+                <!-- <image mode="aspectFill" class="lfimgo"  src="{{item.headerImg}}"></image> -->
+                <image mode="aspectFill" class="lfimgo"  src="{{item.photos!=''?item.photos:SMDataURL+'/images/PV-Tea-level1.png'}}"></image>
+              </view>
+              <view class="mone">{{item.name}}({{item.userId}})</view>
+            </view>
+            <view class="Pingsc-right">{{item.count}}</view>
+          </view>
+        </block>
+      <!-- </block> -->
+    </view>
+    <view id="bottom"></view>
+  </view>
+  <view class="morelist">
+    查看更多<image src="{{SMDataURL}}/images/xiala.png"></image>
+  </view>
+</view>

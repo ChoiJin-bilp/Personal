@@ -1,0 +1,31 @@
+<!--pages/hotelintroduce/hotelintroduce.wxml-->
+<!-- 轮播图片 -->
+<view class="width94 banner {{companyDataInfo.photoList.length>0?'show':'hide'}}">
+  <swiper class="swiper1" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+    <block wx:for="{{companyDataInfo.photoList}}" wx:for-item="item" wx:for-index="index" wx:key="item">
+      <swiper-item>
+        <image src="{{item.isShow? item.src+'?'+randomNum : ''}}" class="slide-image tbannerimg{{index}}" width="345" mode="aspectFit" height="130" data-url='{{item.url}}' data-src='{{item.src}}' catchtap="viewImg"/>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+<view class="introduce">
+  <!-- <image class="introduceimg" mode="widthFix" src="../../images/banner1.png"></image> -->
+  <text class="introducetext">{{companyDataInfo.describe}}</text>
+  <!-- <view class="cellme">
+    <text>电话：{{companyDataInfo.telephone}}</text>
+    <text>地址：{{companyDataInfo.address}}</text><image class="Navigation" src="{{DataURL}}/images/region.png" data-addr="{{cardDataInfo.addr}}" catchtap="navigateTo"></image>
+  </view> -->
+  <view class='moredetails'>
+    <view class='more-input'>
+      <view class="fleft more-input-type">电话：</view>
+      <text class="fleft more-input-infor" selectable='true'>{{companyDataInfo.telephone}}</text>
+    </view>
+    <view class='more-input2 relative'  selectable="true" scroll-y="true" >
+      <view class="fleft more-input-type2">地址：</view>
+      <text class="fleft more-input-infor2"  style="width:72%"  selectable='true'>{{companyDataInfo.address}}</text>
+      <image class="Navigation" src="{{DataURL}}/images/region.png" data-addr="{{companyDataInfo}}" catchtap="navigateTo"></image>
+    </view>
+  </view>
+  <view class="clearfix"></view>
+</view>

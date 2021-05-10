@@ -1,0 +1,64 @@
+<!--packageVP/pages/CYmapdepot/CYmapdepot.wxml-->
+<!--云客图库-->
+<block wx:if="{{false}}">
+  <view class="viewforTop">
+  <view class="viewforTop2">
+    <view class="viewfor {{index==0?'viewforhu':''}}" wx:for="{{List}}">{{item.name}}</view>
+  </view>
+</view>
+<view class="pltur">
+  <view class="selectCup">
+    <view class="Cup-list2">
+      <!-- <view class="Cup-z2 {{selectCustomizeImgIndex==imageindex?'Cup-z2Succ':''}}" 
+      wx:for="{{printImgList}}" wx:key='key' wx:for-item="imageitem" wx:for-index="imageindex" 
+      catchtap="selectCustomizeImg" data-index="{{imageindex}}" > -->
+      <view class="Cup-z2 {{selectCustomizeImgIndex==imageindex?'Cup-z2Succ':''}}" 
+      wx:for="{{6}}"  >
+        <!-- <view class="Cup-text2">{{imageitem.name}}</view> -->
+        <view class="Cup-text2">我是图片名字</view>
+          <view class="Cup-text2" style="color: #747474;">ID:5493465</view>
+        <!-- <image data-tag="0" data-index="{{imageindex}}" catchtap="chType" src="{{imageitem.path}}"></image> -->
+        <image data-tag="0" data-index="{{imageindex}}" catchtap="chType" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1364732857,1665216971&fm=26&gp=0.jpg"></image>
+        <view class="numbop"> <image src="{{SMDataURL}}/images/cy-alitxzl.png"></image><text>56375</text></view>
+      </view>
+    </view>
+  </view>
+</view>
+</block>
+<!--我的创作库-->
+<view class="viewforTop">
+  <view class="viewforTop2">
+    <view class="viewfor {{index==0?'viewforhu':''}}" wx:for="{{List}}">{{item.name}}</view>
+  </view>
+<view style="display:flex;justify-content: space-between;">
+  <view class="viewfor"> <image src="{{SMDataURL}}/images/PV-time.png"></image> 我使用过的图案</view>
+   <view class="viewfor">编辑</view>
+</view>
+</view>
+<view class="pltur" style="margin-top: 100rpx;">
+  <view class="selectCup">
+    <view class="Cup-list2">
+      <!-- <view class="Cup-z2 {{selectCustomizeImgIndex==imageindex?'Cup-z2Succ':''}}" 
+      wx:for="{{printImgList}}" wx:key='key' wx:for-item="imageitem" wx:for-index="imageindex" 
+      catchtap="selectCustomizeImg" data-index="{{imageindex}}" > -->
+      <view class="Cup-z2" 
+      wx:for="{{6}}"  >
+        <!-- <view class="Cup-text2">{{imageitem.name}}</view> -->
+        <view class="lfrpimg">
+          <image src="{{SMDataURL}}/images/PV-depot.png"></image>
+          <image src="{{SMDataURL}}/images/PV-deppry.png"></image>
+        </view>
+        <view class="Cup-text2">我是图片名字</view>
+        <input class="Cup-text2input" placeholder="修改名字"></input>
+          <view class="Cup-text2" style="color: #747474;">ID:5493465</view>
+        <!-- <image data-tag="0" data-index="{{imageindex}}" catchtap="chType" src="{{imageitem.path}}"></image> -->
+        <view class="plfyurt">
+          <image data-tag="0" data-index="{{imageindex}}" catchtap="chType" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1364732857,1665216971&fm=26&gp=0.jpg"></image>
+        </view>
+        <view class="numbop"> <image src="{{SMDataURL}}/images/cy-alitxzl.png"></image><text>56375</text></view>
+      </view>
+    </view>
+  </view>
+</view>
+
+

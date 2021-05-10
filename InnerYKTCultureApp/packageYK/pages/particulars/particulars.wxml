@@ -1,0 +1,135 @@
+<!--pages/particulars/particulars.wxml-->
+<view class="cular-z">
+  <image class="larz-img" src="{{SMDataURL}}/images/product-bj.png"></image>
+  <block wx:if="{{isOpenPrize}}">
+    <!--拼团已结束-->
+    <image class="larz-img2" src="{{SMDataURL}}/images/product-endstatus.png"></image>
+  </block>
+  <block wx:else>
+    <!--正在疯抢中-->
+    <image class="larz-img2" src="{{SMDataURL}}/images/product-fqz.png"></image>
+  </block>
+   
+  <view class="larz-z">
+    <view class="rzz-z">
+      <view style="background-image: url('{{SMDataURL}}/images/product-zui.png'); background-repeat: no-repeat;background-size: 100% 100%;">{{proDataInfo.totalNum}} 人团</view>
+      <view style="width:22%;"></view>
+      <view class="bunt">
+        {{isOpenPrize?'拼团已结束':'仅剩：' + remainTimeHours + '小时' + remainTimeMinutes + '分钟'}}
+      </view>
+      <view>第:{{curPeriods>0?curPeriods:proDataInfo.periods}}期</view>
+    </view>
+    <view class="rzz-o">
+      <image mode="aspectFill" src="{{proDataInfo.photo}}"></image>
+      <view class="zzo-z">
+        <view class="puctName">{{proDataInfo.productName}}</view>
+        <view class="dutiao">
+          <view class="bena">
+            <view class="bena-in" style="width: {{percentage}}%;"></view>
+          </view>
+          <view class="benb">{{orderItemList.length}}/{{proDataInfo.totalNum}}</view>
+        </view>
+        <view class="ductprice">
+            <view>拼团价￥<text>{{proDataInfo.spellGroupPrice}}</text></view>
+            <view>￥{{proDataInfo.price}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<!--拼团进行中-->
+<block wx:if="{{!isOpenPrize}}">
+  <view class="cular-o">
+    <image class="nomml" src="{{SMDataURL}}/images/zfcg.png"></image>
+    <view class="cmslTitle">参团成功第{{curPeriods}}期</view>
+    <view class="bianhao">
+      <view>{{mySnList}}</view>
+      <view>我的参团编号：</view>
+    </view>
+    <block wx:if="{{curLeavecnt>0}}">
+      <view class="cmslTitle">还差 <text class="mut">{{curLeavecnt}}</text> 份成团，请前往<text class="mutte" catchtap="gotoOrderPage">订单查看</text>吧！</view>
+    </block>
+    <block wx:else>
+      <view class="cmslTitle">已经成团，请前往<text class="mutte" catchtap="gotoOrderPage">订单查看</text>吧！</view>
+    </block>
+    
+    <view class="ularo-o">
+      <!-- 已参与份数 -->
+      <block wx:for="{{orderItemList}}" wx:for-item="item" wx:for-index="index" wx:key="id">
+        <view class="mobust" style="background-image: url('{{item.headerImg}}');"><view class="liopu">{{item.sn}}</view></view>    
+      </block>
+      <!-- 剩余份数 -->
+      <block wx:for="{{curLeavecnt}}" wx:for-item="item" wx:for-index="index" wx:key="key">
+        <view class="wenhao">?</view> 
+      </block>
+      <view class="clear"></view>
+    </view>
+    <view class="guize" catchtap="onchangedetailType">拼团规则<image src="{{SMDataURL}}/images/prodetail-js.png"></image></view>
+    <view class="clear"></view>
+    <button open-type="share" class="crae">立即分享</button>
+    <button class="crae2" catchtap="gotoBackGWHome">返回首页</button>
+  </view>
+</block>
+<!--拼团已结束-->
+<block wx:else>
+  <view class="cular-o">
+    <view class="bianhao">
+      <view>{{mySnList}}</view>
+      <view>我的参团编号：</view>
+    </view>
+    <view class="cmslTitle" style="margin:20rpx 0;">
+      {{isOpenPrize?'拼团已结算':'拼团将于' + remainTimeHours + '小时' + remainTimeMinutes + '分钟 后强制结算'}}
+    </view>
+    <view class="ularo-o" style="{{maxhei!=0?'height:'+maxhei+'rpx':''}}">
+      <block wx:for="{{orderItemList}}" wx:for-item="item" wx:for-index="index" wx:key="id">
+        <view class="mobust2" style="top:{{item.top}}rpx;left:{{item.left}}rpx;background-image: url('{{item.headerImg}}');">
+          <view class="liopu">{{item.sn}}</view>
+          <view class="lpl" wx:if="{{item.win!=1 && isOpenPrize && !chiocetype}}"></view>
+        </view>
+        <view hidden="{{!isOpenPrize || chiocetype}}" class="prize"style="top:{{item.top+120}}rpx;left:{{item.left+10}}rpx;{{item.win!=1?'color: #999999;':''}}">{{item.win==1?"已拼中":"未拼中"}}</view>
+      </block>
+      <!-- 未查看结果则蒙版显示 -->
+      <block wx:if="{{!isChecked}}">
+        <view class="noaccess" hidden="{{mlisttype}}"></view> 
+        <view class="ommite"hidden="{{mlisttype}}"  catchtap="viewGWResult">点我看结果</view>
+      </block>
+      
+    </view>
+    <view class="guize" catchtap="onchangedetailType">拼团规则<image src="{{SMDataURL}}/images/prodetail-js.png"></image></view>
+    <view class="clear"></view>
+    <!-- 如果结果情况 -->
+    <block wx:if="{{isWin}}">
+      <button open-type="share" class="crae3">
+        <view>您已拼中!分享给好友，晒晒你的商品吧!</view>
+      </button>
+    </block>
+    <block wx:else>
+      <button open-type="share" class="crae3">
+        <view>您未拼中!别灰心，下次—定中，晒晒您的消费券吧！</view>
+      </button>
+    </block>
+    
+    
+    <button class="crae2" style="margin-top:28rpx;width:660rpx;" catchtap="gotoBackGWHome">返回首页</button>
+  </view>
+</block>
+
+
+
+<view class="cular-o" style="padding:45rpx 30rpx;">
+  <image class="guze" src="{{SMDataURL}}/images/product-liucheng.png"></image>
+</view>
+<block wx:if="{{detailType}}">
+<view class="windowBackgroud" catchtouchmove="{{false}}" catchtap="emptyType"></view>
+</block>
+<!--饮品介绍弹窗-->
+<view class="commoditydetail {{detailType?'commoditydetailout':''}}">
+  <view class="commod-z">
+    <view class="commd-title">拼团规则</view>
+    <view class="commd-font">1、本次拼团结束后，任意—拼团成员点击查看即产生拼团结果，拼团结果才会发放，若有用户—直未查看，系统将会在拼团成功的2小时后，按照实际拼团结果强制结算；</view>
+ <view class="commd-font">2、三日内拼团不成功时，付的款将于3个工作日内退回到您的付款账户中；</view>
+ <view class="commd-font">3、本次活动解释权归云客茶语公司所有；</view>
+ <view class="commd-font">4、如您对此活动或对本公司有任何意见或建议,欢迎致电:0755-8277-9639</view>
+ <view class="bpoisk" catchtap="onchangedetailType"> 好的</view>
+  </view>
+</view>

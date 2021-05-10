@@ -1,0 +1,73 @@
+<!--pages/delivery/delivery.wxml-->
+<view class='width94'>
+  <view class="main" >
+    <view wx:if="{{orderList}}" wx:for="{{orderList}}"  wx:key="id" wx:for-item="order" wx:for-index="index" >
+        <view class="cart-box">
+          <text>　订单编号:{{order.id}}</text>
+          <view class="cart-list" wx:for="{{order.detail}}"  wx:key="id" wx:for-item="item" wx:for-itemIndex="itemIndex">
+              <image class="cart-thumb" mode="scaleToFill" src="{{item.productPhotos}}"></image>
+              <view class='cart-infor'>
+                <text class="cart-pro-name">{{item.productName}}</text>
+                <view class='cart-norms'>{{item.attributeOne +' '+  item.attributeTwo}}</view>
+                <view class='cart-moeny'>
+                  <view class='cart-pro-price'>￥<text >{{item.amount}}</text></view>
+                  <view class="cart-count-box">
+                      <!-- <text class="cart-count-down" bindtap="minusCount" data-obj="{{obj}}" data-index="{{index}}">-</text> -->
+                      <text>{{item.number}}</text>
+                      <!-- <text class="cart-count-add" bindtap="addCount" data-index="{{index}}">+</text> -->
+                  </view>
+                </view>
+              </view>
+          </view>
+        </view>
+        <view class='width100 orderdetails'>
+          <text>{{order.create_date}}</text>
+          <view class="order-btn">
+            <text wx:if="{{order.status == -1 && status == 0}}" data-index="{{index}}"> 已失效</text> 
+
+            <!-- 待收货 -->
+            <block wx:if="{{status == 1}}">
+            <button catchtap="updateOrderStatus" data-status="2" data-index="{{index}}">确认收货</button>
+            <button catchtap="showlogistics" data-index="{{index}}">查看物流</button>  
+            </block>
+            <!-- 待支付  -->
+            <block wx:if="{{status == 0}}">
+            <button catchtap="updateOrderStatus" data-status="3" data-index="{{index}}">取消订单</button>
+            <button wx:if="{{order.status == 0}}" catchtap="toDelivery" data-index="{{index}}">继续支付</button>
+              </block>
+            <!-- 已完成订单 -->
+            <button  wx:if="{{status == 2}}" catchtap="updateOrderStatus" data-status="5" data-index="{{index}}">删除记录</button> 
+          </view>
+        </view>
+    </view>
+    <view wx:if="{{orderList.length ==0}}">
+        <view class="cart-no-data">没有订单哦~</view>
+    </view>
+  </view>
+</view>
+
+<view class="userule" wx:if="{{logistics}}" catchtouchmove="ture" catchtap="hidelogistics">
+  <view class="bgopcity"></view>
+  <view class='savebox1' >
+    <scroll-view class="pop-array1">
+      <view class='SP-infor'><text>物流公司：</text><text>{{orderList[orderIndex].expressName}}</text></view>
+      <view class='SP-infor'><text>物流单号：</text><text>{{orderList[orderIndex].expressNo}}</text>
+      <!-- <view>复制单号</view> -->
+      </view>
+    </scroll-view> 
+    <view class='delete-box' style='text-align: center;'>
+      <image class='del-record' catchtap="hidelogistics" src='{{DataURL}}/images/clearpop.png'></image>
+    </view>  
+  </view>
+</view>
+
+<view class="userule" wx:if="{{exitlogin}}" catchtouchmove="ture">
+  <view class="bgopcity"></view>
+  <view class="savebox">
+    <text class='exitlogin'>您是否退出登录？</text>
+    <view class='guidancepop-btn'>
+      <button catchtap="hideexitlogin">取消</button>
+      <button catchtap=''>确定</button>
+    </view>  
+  </view>
+</view>

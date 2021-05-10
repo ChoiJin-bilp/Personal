@@ -1,0 +1,81 @@
+<!--packageVP/pages/verification/verification.wxml-->
+<scroll-view scroll-y="true" style = "height:100%;position: relative;padding-top:0rpx;" bindscrolltolower="bindDownLoad" bindscrolltoupper="bindTopLoad" scroll-with-animation = "true">
+  <view id = "top"></view>
+  <view class="Top">
+  <view class="Top-z">
+      <view class="TopItem">
+        <input placeholder="请输入充值单号/会员手机号/核销人" value="{{searchKeyword}}" data-cid='keyword' bindinput="changeValueMainData" cursor-spacing="10"></input>
+        <image src="{{SMDataURL}}/images/search.png" catchtap="loadInitData"></image>
+      </view>
+    </view>
+    <view class="datatoday">
+      <view class="datatoday-s">
+        <view class="datatoday-s-o" data-tag="0" catchtap="chooseDateTime">
+          <text>{{sStartDate}}</text>
+          <image class="picker" src="{{SMDataURL}}/images/amy-rq.png"></image>
+        </view>
+        <text>-</text>
+        <view class="datatoday-s-o" data-tag="1" catchtap="chooseDateTime">
+          <text>{{sEndDate}}</text>
+          <image class="picker" src="{{SMDataURL}}/images/amy-rq.png"></image>
+        </view>
+      </view>
+      <!-- 选择公司 -->
+      <block wx:if="{{agentUserCompanyList.length>0}}">
+        <view class="TopRight" catchtap="showAGCompanyListPop" data-tag="0">
+          <view class="buft">{{agentUserCompanyList[selAgentCIndex].companyName}}</view>
+          <image src="{{SMDataURL}}/images/xiala.png">
+          </image>
+          <view class="xiala" wx:if="{{isShowAGCompanyList}}">
+            <block wx:for="{{agentUserCompanyList}}" wx:key="key">
+              <view catchtap="selectAGCompanyList" data-index="{{index}}">{{item.companyName}}</view>
+            </block>
+          </view>
+        </view>
+      </block>
+      
+    </view>
+    <view class="histroy">
+      历史记录
+    </view>
+
+    <view class="itemFor">
+
+      <block wx:for="{{dataArray}}" wx:for-item="articles" wx:for-index="dataArrayIndex">
+        <block wx:for="{{articles}}" wx:for-item="item" wx:key="id" wx:for-index="index">
+          <view class="itemFor-item">
+            <view class="putro">
+              <view class="fpsye">充值单号</view>
+              <view class="contexts">{{item.tradeNo}}</view>
+            </view>
+            <view class="putro">
+              <view class="fpsye">核销地址</view>
+              <view class="contexts">{{item.verify_addr}}</view>
+            </view>
+            <view class="putro">
+              <view class="fpsye">用户ID</view>
+              <view class="contexts">{{item.userId}}</view>
+            </view>
+            <view class="putro">
+              <view class="fpsye">核销人</view>
+              <view class="contexts">{{item.verify_admin}}</view>
+            </view>
+            <view class="putro">
+              <view class="fpsye">核销人ID</view>
+              <view class="contexts">{{item.verify_adminUId}}</view>
+            </view>
+            <view class="putro">
+              <view class="fpsye">核销时间</view>
+              <view class="contexts">{{item.updateDateStr}}</view>
+              <view class="mlpbut" data-item="{{item}}" catchtap="gotoViewDetailPage">
+                详情
+              </view>
+            </view>
+          </view>
+        </block>
+      </block>
+        
+    </view>
+  </view>
+  <view id = "bottom"></view>
+</scroll-view>

@@ -1,0 +1,7 @@
+<!--packageSMall/pages/exchannge/exchannge.wxml-->
+<view class="motise">
+  <image src="{{DataURL}}/images/yhj-exchange.png"></image>
+</view>
+<view class="title">兑换成功</view>
+<view class="fontsize" style="margin-top:50rpx;">您已收到￥{{money}}消费券的现金兑换</view>
+<view class="fontsize">请前往<text catchtap="goWallet">我的钱包</text>中进行提现吧</view>

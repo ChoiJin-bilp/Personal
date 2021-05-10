@@ -1,0 +1,71 @@
+<!--packageVP/pages/rightsNterests/rightsNterests.wxml-->
+<block wx:for="{{memberLevelList}}" wx:for-item="item" wx:key="{{item.id}}" wx:for-index="index">
+  <block wx:if="{{item.sort==curMemSort}}">
+    <view class="metbg" style="background-image:url('{{SMDataURL}}/images/{{item.logoimg}}');">
+      <image class="Nterestsimg" src="{{SMDataURL}}/images/yunke-tpai.png"></image>
+      <view class="Level" style="{{item.fontColorArray[0]!=''?'color:'+item.fontColorArray[0]:''}}">{{item.name}} <text class="portfont" data-otherparams="&type=1" data-pagetype="0" data-package="packageVP" data-page="Myintegral" catchtap="gotoCommonPage">会员积分</text></view>
+      <view class="levse" style="{{item.fontColorArray[1]!=''?'color:'+item.fontColorArray[1]:''}}">当前等级</view>
+      <view class="context" style="{{item.fontColorArray[2]!=''?'color:'+item.fontColorArray[2]:''}}">当前{{curMemIntegrals}}积分,</view>
+      <view class="context" style="{{item.fontColorArray[2]!=''?'color:'+item.fontColorArray[2]:''}}">距离升级下一级别会员还需{{curNextSortMemIntegrals}}</view>
+      <view class="spoer">
+        <view class="spf spgzz"></view>
+        <view class="spf spgoo"></view>
+        <view class="spf spgtt"></view>
+        <view class="spf spgst"></view>
+        <!--基础-->
+        <view class="speed">
+          <view class="speedon" style="width: {{item.width}}%;">
+          </view>
+          <view class="spg spgz" style="background: {{item.bgcolorArray[0]}};"></view>
+          <view class="spg spgo" style="background: {{item.bgcolorArray[1]}};"></view>
+          <view class="spg spgt" style="background: {{item.bgcolorArray[2]}};"></view>
+          <view class="spg spgs" style="background: {{item.bgcolorArray[3]}};"></view>
+        </view>
+      </view>
+      <view class="leve" style="{{item.fontColorArray[3]!=''?'color:'+item.fontColorArray[3]:''}}">
+        <view>基础</view>
+        <view>白银</view>
+        <view>黄金</view>
+        <view>钻石</view>
+      </view>
+    </view>
+  </block>
+</block>
+<!--特权介绍-->
+<view class="privilege">
+  <view class="boper">
+    <view class="mkjfont">等级特权</view>
+  </view>
+  <view class="lihu">
+    <block wx:for="{{memberLevelList}}" wx:for-item="item" wx:key="{{item.id}}" wx:for-index="index">
+      <block wx:if='{{(index%3)==0}}'>
+        <view class="hgusert {{item.sort<=curMemSort?'hgusert2':''}}" style="margin-left: 0rpx;">
+          <view>{{item.sname}}</view>
+          <view class="port9">{{item.content}}</view>
+          <!-- <view style="margin-bottom: 14rpx;">按摩时长</view> -->
+        </view>
+      </block>
+      <block wx:else>
+        <view class="hgusert {{item.sort<=curMemSort?'hgusert2':''}}">
+          <view>{{item.sname}}</view>
+          <view  class="port9">{{item.content}}</view>
+          <!-- <view style="margin-bottom: 14rpx;">按摩时长</view> -->
+        </view>
+      </block>
+      
+    </block>
+    <view class="hgusert">
+      <view>更多权益 </view>
+      <view>待解锁</view>
+    </view>
+    <view style="clear:both;"></view>
+  </view>
+  <view class="boper" style="margin-top:60rpx;">
+    <view class="mkjfont">更多介绍</view>
+  </view>
+  <view class="dlop">
+    <view>充值即送积分，充值1元=1会员积分+1可用积分。</view>
+  <view>会员积分：用来累计解锁更多特权及服务。</view>
+  <view>可用积分:可用积分后陆续更新一些用户感兴趣的礼品，用户可根据需要自行兑换。</view>
+  </view>
+</view>

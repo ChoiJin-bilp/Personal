@@ -1,0 +1,116 @@
+<!--pages/shopadd/shopadd.wxml-->
+<view class="main">
+  <view >
+      <view class="cart-header">
+      <block wx:if="{{scene == 0}}">
+          <icon wx:if="{{selectAllStatus}}" type="success_circle" color="#666" class="total-select" catchtap="selectAll"/>
+          <icon wx:else type="circle" color="#666" class="total-select" catchtap="selectAll"/>
+          <text>全选</text>
+          </block>
+          <view class='butbox'>
+            <button catchtap="shownewaddress">新建</button>
+            <button catchtap="showEditAddress">编辑</button> 
+            <button wx:if="{{scene==0}}" catchtap="delAddress">删除</button> 
+          </view>
+          
+      </view>
+      <view class="cart-box">
+        <view class="cart-list" wx:for="{{carts}}" wx:key="{{index}}" wx:for-index="index">
+            <icon wx:if="{{item.choice}}" type="success" color="#0066eb" data-index="{{index}}"  class="cart-pro-select" catchtap="selectList"/>
+            <icon wx:else type="circle" class="cart-pro-select" data-index="{{index}}" catchtap="selectList"/>
+            <view class='cart-infor'>
+              <view class='use-order'>{{item.name}}<text>{{item.mobile}}</text></view>
+              <!-- 联系人方式外更多信息 -->
+              <block wx:if="{{templateType==0}}">
+                <view class='use-address'>{{item.area[0]}}-{{item.area[1]}}-{{item.area[2]}}-{{item.address}}</view>
+              </block>
+            </view>
+            <view wx:if='{{item.selected}}' class="BGdefault" data-index="{{index}}" >默认</view>
+            <view wx:else class="default" catchtap="defaultAddress" data-index="{{index}}">默认</view>
+        </view>
+      </view>
+  </view>
+  <view wx:if="{{carts.length == 0}}">
+      <view class="cart-no-data">暂无{{mainTitle}}赶快添加吧~</view>
+  </view>
+</view>
+
+<view class="userule" wx:if="{{newaddress}}">
+  <view class="bgopcity"></view>
+  <view class="recordbox">
+    <text class='tilte'>新建{{mainTitle}}</text>
+    <view class='ListBoxItem'>
+      <text class='List-name'>联系人</text>
+       <input bindinput='getInputContent' data-type='1' maxlength='10' data-field='addAddressData.name'/>
+    </view>
+    <view class='ListBoxItem'>
+      <text class='List-name'>联系电话</text>
+      <input bindinput='getInputContent' type='number' data-type='2' maxlength='11' data-field='addAddressData.mobile'/>
+    </view>
+    <!-- 联系人方式外更多信息 -->
+    <block wx:if="{{templateType==0}}">
+      <view class='ListBoxItem'>
+        <text class='List-name'>所在地区</text>
+        <picker mode="region" data-type='1' bindchange="bindRegionChange"  custom-item="{{customItem}}">
+          <view class="picker">
+            {{addAddressData.area[0]}}-{{addAddressData.area[1]}}-{{addAddressData.area[2]}}
+          </view>
+        <image class="xiala" src='{{DataURL}}/images/xiala.png'></image>
+        </picker>
+        
+      </view>
+      <view class='ListBoxItem'>
+        <text class='List-name'>详细地址</text>
+        <input bindinput='getInputContent' data-type='3' maxlength='50' data-field='addAddressData.address'/>
+      </view>
+      <view class='ListBoxItem'>
+        <text class='List-name'>邮政编码</text>
+        <input bindinput='getInputContent' type='number' data-type='4' data-field='addAddressData.postalCode' maxlength='6'/>
+      </view>
+    </block>
+    
+    <view class='guidancepop-btn'>
+      <button catchtap="hidenewaddress">取消</button>
+      <button catchtap='confirmAddress'>确定</button>
+    </view>  
+  </view>
+</view>
+<view class="userule" wx:if="{{editAddressStat}}">
+  <view class="bgopcity"></view>
+  <view class="recordbox">
+    <text class='tilte'>编辑{{mainTitle}}</text>
+    <view class='ListBoxItem'>
+      <text class='List-name'>联系人</text>
+       <input bindinput='getUpInputContent' maxlength='10' value='{{carts[editIndex].name}}' data-field='upAddressData.name'/>
+    </view>
+    <view class='ListBoxItem'>
+      <text class='List-name'>联系电话</text>
+      <input bindinput='getUpInputContent'  maxlength='11' value='{{carts[editIndex].mobile}}' data-field='upAddressData.mobile'/>
+    </view>
+    <!-- 联系人方式外更多信息 -->
+    <block wx:if="{{templateType==0}}">
+      <view class='ListBoxItem'>
+        <text class='List-name'>所在地区</text>
+        <picker mode="region" data-type='2' bindchange="bindRegionChange"  custom-item="{{customItem}}">
+          <view class="picker">
+            {{carts[editIndex].area[0]}}-{{carts[editIndex].area[1]}}-{{carts[editIndex].area[2]}}
+          </view>
+        </picker>
+        <image class="xiala" src='{{DataURL}}/images/xiala.png'></image>
+      </view>
+      <view class='ListBoxItem'>
+        <text class='List-name'>详细地址</text>
+        <input bindinput='getUpInputContent'  maxlength='50' value='{{carts[editIndex].address}}' data-field='upAddressData.address'/>
+      </view>
+      <view class='ListBoxItem'>
+        <text class='List-name'>邮政编码</text>
+        <input bindinput='getUpInputContent' type='number'  value='{{carts[editIndex].postalCode}}' data-field='upAddressData.postalCode' maxlength='6'/>
+      </view>
+    </block>
+    
+    <view class='guidancepop-btn'>
+      <button catchtap="hideEditAddress">取消</button>
+      <button catchtap='confirmUpAddress'>确定</button>
+    </view>  
+  </view>
+</view>

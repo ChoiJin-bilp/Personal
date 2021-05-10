@@ -1,0 +1,62 @@
+<!--pages/dispatching/dispatching.wxml-->
+<view class="Top">
+  <view class="{{sendStatus==0?'btTop choie':'btTop'}}" catchtap="switchStatus" data-tag="0">
+    <text>当日订单</text>
+    <text wx:if="{{curCnt!=0}}">{{curCnt}}</text>
+  </view>
+  <view class="{{sendStatus==1?'btTop choie':'btTop'}}" catchtap="switchStatus" data-tag="1">
+    <text>次日订单</text>
+    <text wx:if="{{secCnt!=0}}">{{secCnt}}</text>
+  </view>
+  <view class="{{sendStatus==2?'btTop choie':'btTop'}}" catchtap="switchStatus" data-tag="2">
+    <text>配送中</text>
+    <text wx:if="{{sendCnt!=0}}">{{sendCnt}}</text>
+  </view>
+  <view class="btTop" catchtap="gotoPage">
+    <text>更多</text>
+    <text></text>
+  </view>
+</view>
+
+<view class="msItem" wx:for="{{orderList}}" wx:key='key'>
+  <view class="Item-z">
+    <view>
+      号牌:{{item.sn}}
+    </view>
+    <view catchtap="goDetail" data-index="{{index}}">
+      订单详情
+    </view>
+  </view>
+  <view class="Item-o">
+    <view>
+      预约送达：{{item.deliverytime}}
+    </view>
+    <view wx:if="{{sendStatus!=1}}">
+      <image src="{{SMDataURL}}/images/patchit.png"></image>
+      {{item.countDown}}
+    </view>
+  </view>
+  <view class="Item-t">
+    <view>
+      <text>地址:</text>
+      {{item.addr}}
+    </view>
+    <view catchtap="goToMapRoute" data-index="{{index}}">
+      <image src="{{SMDataURL}}/images/patchdr.png"></image>
+    </view>
+  </view>
+  <block wx:if="{{sendStatus!=1}}">
+    <block wx:if="{{item.status==1}}">
+      <view class="Litie" catchtap="updateOrder" data-index="{{index}}" data-tag="0">立即接单</view>
+    </block>
+    <block wx:else>
+      <view class="Item-s">
+        <view>员工:{{item.dcontact!=null?item.dcontact:''}}</view>
+        <view class="Litie" catchtap="updateOrder" data-index="{{index}}" data-tag="1">确认送达</view>
+        <view catchtap="phonecallevent" data-index="{{index}}">
+          <image src="{{SMDataURL}}/images/patchlx.png"></image>联系
+        </view>
+      </view>
+    </block>
+  </block>
+</view>

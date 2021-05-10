@@ -1,0 +1,196 @@
+<!--pages/detailsgood/detailsgood.wxml-->
+<!-- 支付方式选择弹窗 -->
+<v-payModeChosePop id="payPop" pageName="luckdraw" bind:exePageMethod="onExePageMethod" />
+
+<swiper class="swiper  {{proDataInfo.isHavePhoto?'show':'hide'}}" indicator-dots="{{indicatorDots}}"
+  duration="{{duration}}">
+  <block wx:for="{{proDataInfo.videoList}}" wx:for-item="item" wx:for-index="index" wx:key="item">
+    <swiper-item>
+      <view class='course-pannle-item'>
+        <view class='video-item'>
+          <video id="myVideo" src="{{item.src}}" poster="{{item.poster}}" controls autoplay='{{false}}'
+            show-center-play-btn="true"></video>
+        </view>
+      </view>
+    </swiper-item>
+  </block>
+  <block wx:for="{{proDataInfo.photos}}" wx:for-item="item" wx:for-index="index" wx:key="item">
+    <swiper-item>
+      <view class="swiperimage">
+        <image mode="aspectFit" src="{{item+'?'+randomNum}}" mode="aspectFill" class="slide-image" />
+      </view>
+    </swiper-item>
+  </block>
+</swiper>
+
+<view class="messItem">
+  <view class="meton">
+    <view class="memo">
+      <view class="memo-z"> 
+        <view class="memoprice">拼团价￥<text>{{proDataInfo.spellGroupPrice}}</text></view>
+        <view class="ktprice">原价￥{{proDataInfo.price}}</view>
+      </view>
+      <view class="memo-z">
+        <view class="peonum">{{proDataInfo.totalNum}}人团</view>
+        <block wx:if="{{!proDataInfo.isFull}}">
+          <block wx:if="{{proDataInfo.cnt>0}}">
+            <view class="agtime">仅剩:{{remainTimeHours}}小时{{remainTimeMinutes}}分钟</view>
+          </block>
+          <view class="nowtime">第:{{proDataInfo.periods}} 期</view>
+        </block>
+      </view>
+    </view>
+    <view class="memt">
+      <image src="{{SMDataURL}}/images/prodetail-bk.png"></image>
+      <view class="ment-z">
+        <view>消费券补贴</view>
+        <view>￥{{proDataInfo.couponMoney}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="productName">{{proDataInfo.productName}}</view>
+  <view class="pation">
+    <view class="tion-z">
+      <image src="{{SMDataURL}}/images/prodetail-tgnum.png"></image>
+      <view>参与拼团</view>
+      <view>{{proDataInfo.totalNum}}人成团</view>
+    </view>
+    <view class="tion-z">
+      <image src="{{SMDataURL}}/images/prodetail-zjnum.png"></image>
+      <view>{{proDataInfo.successNum}}人拼中以拼团价购买</view>
+      <view>{{proDataInfo.totalNum - proDataInfo.successNum}}人未拼中退还预付金</view>
+    </view>
+    <view class="tion-z">
+      <image src="{{SMDataURL}}/images/prodetail-fh.png"></image>
+      <view>未拼中获得奖励</view>
+      <view>￥{{proDataInfo.couponMoney}}元消费券</view>
+    </view>
+  </view>
+  <view class="Ctdetail">
+    <view class="detail-z">
+      <view>{{proDataInfo.cnt}}人正在拼团，可直接参与</view>
+      <view class="bute" data-sid="{{proDataInfo.sid}}" data-pid="{{proDataInfo.id}}" catchtap="gotoGWOrderListPage">查看拼团成员 <image src="https://e.amjhome.com/baojiayou/tts_upload/images/amy-demtdusk.png"></image></view>
+    </view>
+    <view class="detail-z" style="margin-top:6rpx;padding-top:6rpx;border-top:solid 2rpx #f6f6f6;">
+      <view class="Tcyrs">
+        <block wx:for="{{orderItemList}}" wx:for-item="item" wx:for-index="index" wx:key="id" >
+          <image  mode="aspectFill" class="cyrs" style="left:{{60*index}}rpx" wx:key="index" src="{{item.headerImg}}"></image>
+        </block>
+        
+      </view>
+      <view>还差<text style="color:#FF1F1F;"> {{proDataInfo.leavecnt}} </text>人成团</view>
+    </view>
+  </view>
+  <view class="bot">
+    <view class="bot-z">
+      <view>购买须知</view>
+      <view catchtap="onchangedetailType">拼团规则<image src="{{SMDataURL}}/images/prodetail-js.png"></image></view>
+    </view>
+    <view class="jsfont">划线价格：商品的专柜价、吊牌价、销售价、厂商指导价或该商品曾经展示过的销售价等，并非原价，仅供参考。拿货价云客茶语用户在云客商城内购买时显示的实时标价。</view>
+    <block wx:if="{{proDataInfo.introductionImgs.length>0}}">
+      <view class="bot-z">商品详情</view>
+      <block wx:for="{{proDataInfo.introductionImgs}}" wx:for-item="item" wx:for-index="index" wx:key="item">
+        <image class="minty" mode="widthFix"
+          src="{{item+'?'+randomNum}}"></image>
+      </block>
+    </block>
+    
+  </view>
+</view>
+
+
+<view class="jieSuan">
+  <view style="display:flex;">
+    <botton>
+      <image src="{{SMDataURL}}/images/prodetail-kf.png"></image>
+      <view>客服</view>
+    </botton>
+    <block wx:if="{{proDataInfo.psid>0}}">
+      <view class="sybt" data-sid="{{proDataInfo.psid}}" data-pid="{{proDataInfo.id}}" catchtap="gotoGWOrderListPage">
+        <image src="{{SMDataURL}}/images/prodetail-syq.png"></image>
+        <view>上一期</view>
+      </view>
+    </block>
+    
+  </view>
+  <!-- <button catchtap="kkk" >弹窗支付</button> -->
+  <block wx:if="{{proDataInfo.cnt<proDataInfo.totalNum && proDataInfo.pstatus!=2}}">
+    <view class="commite" catchtap="showout">
+      参与拼团（ 省{{proDataInfo.disparityPrice}}元 ）
+    </view>
+  </block>
+  <block wx:else>
+    <view class="commite2">
+      本期已满（ 省{{proDataInfo.disparityPrice}}元 ）
+    </view>
+  </block>
+  
+</view>
+<block wx:if="{{detailType||productType||payType}}">
+<view class="windowBackgroud" catchtouchmove="{{false}}" catchtap="emptyType"></view>
+</block>
+<!--饮品介绍弹窗-->
+<view class="commoditydetail {{detailType?'commoditydetailout':''}}">
+  <view class="commod-z">
+    <view class="commd-title">拼团规则</view>
+    <view class="commd-font">1、本次拼团结束后，任意—拼团成员点击查看即产生拼团结果，拼团结果才会发放，若有用户—直未查看，系统将会在拼团成功的2小时后，按照实际拼团结果强制结算；</view>
+ <view class="commd-font">2、三日内拼团不成功时，付的款将于3个工作日内退回到您的付款账户中；</view>
+ <view class="commd-font">3、本次活动解释权归云客茶语公司所有；</view>
+ <view class="commd-font">4、如您对此活动或对本公司有任何意见或建议,欢迎致电:0755-8277-9639</view>
+ <view class="bpoisk" catchtap="onchangedetailType"> 好的</view>
+  </view>
+</view>
+
+<!--规格弹窗-->
+<view class="productdetail {{productType?'productTdetailout':''}}">
+  <view class="tdeta-z">
+    <block wx:if="{{productType && !isDrinkProduct && proDataInfo.productDetailList.length>0}}">
+      <image src="{{proDataInfo.productDetailList[selDIndex].photo+'?'+randomNum}}"></image>
+    </block>
+    
+    <view class="dtaz">
+       <view class="dtazprice">￥{{selSpellGroupPrice}}</view>
+       <view class="dtaztitle">商品规格</view>
+       <!-- 【1】饮品商品 -->
+       <block wx:if="{{isDrinkProduct}}">
+        <view class="dtazgg">
+         <block wx:for="{{proDataInfo.productDetailList}}" wx:for-item="item" wx:for-index="index" wx:key="item">
+          <view class="typeTitle" style="{{index==1?'margin-top:10rpx;':''}}">{{item.attribute}}</view>
+          <view class="selectCup">
+            <block wx:for="{{item.labels}}" wx:for-item="labelitem" wx:for-index="labelindex" wx:key="id">
+              <view class="seucces {{labelitem.checked? 'selectSucces':''}}"
+                catchtap="selectProductLabels" data-index="{{index}}"
+                data-labelindex="{{labelindex}}">{{labelitem.lblname}}<text wx:if="{{labelitem.lblsingle==0}}">￥{{labelitem.lblprice}}</text>
+              </view>
+            </block>
+          </view>
+         </block>
+        </view>
+       </block>
+       <!-- 【2】非饮品商品 -->
+       <block wx:else>
+        <view class="dtazgg">
+         <block wx:for="{{proDataInfo.productDetailList}}" wx:for-item="item" wx:for-index="index" wx:key="item">
+          <view class="datem {{index==selDIndex?'datchoice':''}}" data-index="{{index}}" catchtap="exchangeDetail">{{item.specs}}</view>
+         </block>
+        </view>
+       </block>
+       
+       <view class="dtaztitle">商品数量</view>
+       <view class="pronum">
+         <view class="numdel" data-tag='-' catchtap='computeItemCount'>
+           <view></view>
+         </view>
+         <view >{{buyNum}}</view>
+         <view class="numadd" data-tag='+' catchtap='computeItemCount'>
+           <view></view>
+           <view></view>
+         </view>
+       </view>
+       <view class="total">总计：<text>￥{{buyAmount}}</text></view>
+    </view>
+    <view class="muback">
+      <view catchtap='addOrderEvent'>确定</view>
+    </view>
+  </view>
+</view>

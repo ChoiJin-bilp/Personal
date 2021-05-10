@@ -1,0 +1,71 @@
+<!--packageSMall/pages/merchant/merchant.wxml-->
+<view class='pages'>
+  <!-- 下拉框 -->
+  <view class='top-selected' bindtap='bindShowMsg'>
+    <text>{{grade_name}}</text>
+    <image src='{{DataURL}}/images/xiala.png'></image>
+  </view>
+  <!-- 下拉需要显示的列表 -->
+  <view class="select_box" wx:if="{{select}}">
+    <view wx:for="{{grades}}" wx:key="unique">
+      <view class="select_one" bindtap="mySelect" data-name="{{item}}" data-index="{{index}}">{{item}}</view>
+    </view>
+  </view>
+  <view class="add-phone">
+    <input class="search" placeholder-style='color:#999; font-size:28rpx;' placeholder="请输入姓名、手机或商品名称" value="{{smKey}}" data-cid='smkey' bindinput="changeValueMainData" cursor-spacing="10" />
+    <image src="{{DataURL}}/images/search.png" catchtap='gotoSMallPage'></image>
+  </view>
+</view>
+<view class="main-shop" wx:for="{{orderList}}" wx:key="index" wx:for-item="orders" data-item="{{orders}}" catchtap="servicedetail">
+  <view class="cart-box">
+    <view class="cart-list">
+      <view class="storenumber">订单编号：{{orders.orderId}}</view>
+      <view class="useinfor">
+        <view class="storeicon">收件人信息：</view>
+        <text>{{orders.contact}}</text>
+        <text>{{orders.phone}}</text>
+      </view>
+      <block wx:for="{{orders.detail}}" wx:key="id" wx:for-item="item" wx:for-index="itemindex">
+        <!-- <view class="ashopname">
+          <image class="storelogo" src="{{item.companyLogo}}"></image>
+          <text class="storename">{{item.companyName}}</text>
+          <view class="storeicon">{{item.LevelName}}</view>
+        </view> -->
+        <view class="astoredetails">
+          <image class="cart-thumb-one" mode="scaleToFill" src="{{item.detailPhotos}}"></image>
+          <view class='cart-infor-one'>
+            <view class="cart-pro-name">{{item.productName}}</view>
+            <view class='cart-norms'>{{item.attributeOne +' '+ item.attributeTwo}}</view>
+            <view class='cart-moeny-one'>
+              <view wx:if="{{orders.linkNo == 1}}" class='cart-pro-price-one'>
+                <text>{{item.price}} 积分</text>
+              </view>
+              <view wx:else class='cart-pro-price-one'>￥
+                <text>{{item.price}}</text>
+              </view>
+              <view class="cart-count-box-one">
+                <text>x{{item.number}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+      <!-- 多个商品合计 -->
+      <view class="heji">合计：
+        <text>￥{{orders.amount}}</text>
+      </view>
+      <view class='width100 orderdetails'>
+        <text class="width100">{{orders.create_date}}</text>
+        <view class="order-btn">
+          <text wx:if="{{orders.servicestatus==0}}" class="order-btn1">待审核</text>
+          <text wx:if="{{orders.servicestatus==1}}" class="order-btn2">已同意，退款成功</text>
+          <text wx:if="{{orders.servicestatus==2}}" class="order-btn1">已拒绝</text>
+          <text wx:if="{{orders.servicestatus==-1}}" class="order-btn1">已删除</text>
+          <!-- <button catchtap="servicedetail">查看详情</button> -->
+          <!-- 删 除 -->
+          <button catchtap="removeService" data-item="{{orders}}">删除</button>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

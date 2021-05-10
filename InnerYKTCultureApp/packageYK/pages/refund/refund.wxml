@@ -1,0 +1,37 @@
+<!--pages/refund/refund.wxml-->
+<view class="listnum">
+  <view class="num-title">订单编号</view>
+  <view class="num-item">{{id}}</view>
+</view>
+<view class="story">
+  <view class="ry-o">故障原因</view>
+  <textarea disabled="{{!isEdit}}" bindinput="getInput" data-tag="0" value="{{remark}}"></textarea>
+</view>
+<view class="story">
+  <view class="ry-o">故障图片</view>
+  <view class="addimg">
+    <block>
+      <view class="addimg-imgt" wx:for="{{rbImgArray}}" wx:key="key">
+        <image mode='aspectFill' class="skt " src='{{item}}' data-src='{{item}}' catchtap="viewImg"></image>
+        <block wx:if="{{isEdit}}">
+          <image class="del" src="{{DataURL}}/images/amy-delete.png" data-tag="1" data-index='{{index}}'
+            catchtap='delrbImgList'></image>
+        </block>
+      </view>
+    </block>
+    <!-- 新增 -->
+    <block hidden="{{!isEdit}}">
+      <view class="addimg-img" catchtap="uploadImg" data-type="1">
+        <image src="{{DataURL}}/images/amy-kaobei.png"></image>
+      </view>
+    </block>
+  </view>
+</view>
+<view class="story">
+  <view class="ry-o">联系方式</view>
+  <input class="intuition" type="number" disabled="{{!isEdit}}" maxlength="20" bindinput="getInput" data-tag="1" value="{{mobile}}"></input>
+</view>
+<view class="hint">注：<view>客服人员收到申请后，会在3个工作日内处理此次事故。</view>
+</view>
+
+<view class="konbut konbuttoo" hidden="{{!isEdit}}" catchtap="getUserLotteryRecordt">提交申请</view>

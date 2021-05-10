@@ -1,0 +1,155 @@
+<!--packageYK/pages/applyAccountList/applyAccountList.wxml-->
+<scroll-view class="width100" style="height:100%;position: relative;" scroll-y="true" bindscrolltolower="bindDownLoad" bindscrolltoupper="bindTopLoad" scroll-with-animation="true">
+	<view id="top"></view>
+  <view class="Share">
+    <view class="Share-top" >
+      <view wx:for="{{statTypeList}}" class="{{curStatId==item.id? 'pitch':''}}" wx:key="index" data-id="{{item.id}}" catchtap="selectStatType">
+        {{item.name}}
+      </view>
+    </view>
+
+    <block wx:for="{{dataArray}}" wx:for-item="articles" wx:for-index="dataArrayIndex" wx:key="key">
+      <block wx:for="{{articles}}" wx:for-item="item" wx:key="id" wx:for-index="index" data-index='index'>
+        <!--待审核-->
+        <view wx:if="{{curStatId == 0}}" class="Share-Item">
+          <view class="Share-Item-v">
+            <text class="Share-c">酒店名称</text>
+            <text>{{item.hotelName}}</text>
+          </view>
+          <view class="Share-Item-v">
+            <text class="Share-c">设备购买方</text>
+            <text>{{item.equipmentAcquirerName}}</text>
+          </view>
+          <view class="Share-Item-v">
+            <text class="Share-c">投放地址</text>
+            <text>{{item.addr}}</text>
+          </view>
+          <view class="Share-Item-v">
+            <text class="Share-c">酒店联系人</text>
+            <text>{{item.contact}}</text>
+          </view>
+          <view class="Share-Item-v">
+            <text class="Share-c">联系人手机号</text>
+            <text>{{item.mobile}}</text>
+          </view>
+          <view class="Share-Item-v">
+            <text class="Share-c">申请人</text>
+            <text>{{item.proposer}}</text>
+          </view>
+          <view class="Share-Item-v flex">
+            <view>
+              <block wx:if="{{item.status==0}}">
+                <text class="Share-c">申请时间</text>
+                <text>{{item.createDate}}</text>
+              </block>
+              <block wx:else>
+                <text class="Share-c">审核时间</text>
+                <text>{{item.updateDate}}</text>
+              </block>
+            </view>
+            <view style="color:#0C74FE">
+              {{item.status==0?"待审核":(item.status==1?"已通过":(item.status==2?"已拒绝":""))}}
+            </view>
+            <view style="color:#0C74FE" data-id="{{item.id}}" catchtap="viewDetail">
+              查看
+            </view>
+          </view>
+        </view>
+
+        <!--已通过-->
+        <view wx:if="{{curStatId == 1}}" class="Share-Item">
+          <view class="Share-Item-v">
+            <text class="Share-c">酒店名称</text>
+            <text>{{item.hotelName}}</text>
+          </view>
+          <view class="Share-Item-v">
+            <text class="Share-c">设备购买方</text>
+            <text>{{item.equipmentAcquirerName}}</text>
+          </view>
+          <view class="Share-Item-v">
+            <text class="Share-c">投放地址</text>
+            <text>{{item.addr}}</text>
+          </view>
+          <view class="Share-Item-v">
+            <text class="Share-c">酒店联系人</text>
+            <text>{{item.contact}}</text>
+          </view>
+          <view class="Share-Item-v">
+            <text class="Share-c">联系人手机号</text>
+            <text>{{item.mobile}}</text>
+          </view>
+          <view class="Share-Item-v">
+            <text class="Share-c">申请人</text>
+            <text>{{item.proposer}}</text>
+          </view>
+          <view class="Share-Item-v flex">
+            <view>
+              <block wx:if="{{item.status==0}}">
+                <text class="Share-c">申请时间</text>
+                <text>{{item.createDate}}</text>
+              </block>
+              <block wx:else>
+                <text class="Share-c">审核时间</text>
+                <text>{{item.updateDate}}</text>
+              </block>
+            </view>
+            <view style="color:#0C74FE">
+              {{item.status==0?"待审核":(item.status==1?"已通过":(item.status==2?"已拒绝":""))}}
+            </view>
+            <view style="color:#0C74FE" data-id="{{item.id}}" catchtap="viewDetail">
+              查看
+            </view>
+          </view>
+        </view>
+
+        <!--已拒绝-->
+        <view wx:if="{{curStatId == 2}}" class="Share-Item">
+          <view class="Share-Item-v">
+            <text class="Share-c">酒店名称</text>
+            <text>{{item.hotelName}}</text>
+          </view>
+          <view class="Share-Item-v">
+            <text class="Share-c">设备购买方</text>
+            <text>{{item.equipmentAcquirerName}}</text>
+          </view>
+          <view class="Share-Item-v">
+            <text class="Share-c">投放地址</text>
+            <text>{{item.addr}}</text>
+          </view>
+          <view class="Share-Item-v">
+            <text class="Share-c">酒店联系人</text>
+            <text>{{item.contact}}</text>
+          </view>
+          <view class="Share-Item-v">
+            <text class="Share-c">联系人手机号</text>
+            <text>{{item.mobile}}</text>
+          </view>
+          <view class="Share-Item-v">
+            <text class="Share-c">申请人</text>
+            <text>{{item.proposer}}</text>
+          </view>
+          <view class="Share-Item-v flex">
+            <view>
+              <block wx:if="{{item.status==0}}">
+                <text class="Share-c">申请时间</text>
+                <text>{{item.createDate}}</text>
+              </block>
+              <block wx:else>
+                <text class="Share-c">审核时间</text>
+                <text>{{item.updateDate}}</text>
+              </block>
+            </view>
+            <view style="color:#0C74FE">
+              {{item.status==0?"待审核":(item.status==1?"已通过":(item.status==2?"已拒绝":""))}}
+            </view>
+            <view style="color:#0C74FE" data-id="{{item.id}}" catchtap="viewDetail">
+              查看
+            </view>
+          </view>
+        </view>
+      </block>
+    </block>
+  </view>
+	<view id="bottom"></view>
+</scroll-view>
+

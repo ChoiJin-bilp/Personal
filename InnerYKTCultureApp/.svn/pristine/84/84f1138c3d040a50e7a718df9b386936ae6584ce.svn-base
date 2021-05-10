@@ -1,0 +1,138 @@
+<!--pages/Gammon/Gammon.wxml-->
+<view class="Gammon">
+  <view class="Gammon-o">
+    <view class="Gammon-input">
+      <text>房间名称</text>
+      <input class="Gammon-i-i" placeholder="请输入房间名称" value="{{proDataInfo.productName}}" bindinput="getInput"
+        data-tag="0"></input>
+    </view>
+    <view class="Gammon-input">
+      <text>商品排序</text>
+      <input class="Gammon-i-i" bindinput="getInput" data-tag="1" placeholder="请输入商品排序"
+        value="{{proDataInfo.sort}}"></input>
+    </view>
+    <view class="room">
+      <view>房间图片</view>
+      <view class="upload">
+        <view class="addimg">
+          <block wx:for="{{proDataInfo.photos}}" wx:key="key" wx:for-item="item" wx:for-index="index">
+            <view class="addimg-imgt">
+              <image class="skt" mode='aspectFill' src='{{item}}' data-src='{{item}}' catchtap="viewImg">
+              </image>
+              <image class="delimg" src='{{DataURL}}/images/image-del.png' data-tag="1" data-index='{{index}}'
+                catchtap='delrbImgList'></image>
+            </view>
+          </block>
+          <view class="addimg-img {{proDataInfo.photos.length>=maxIntImgCnt?'hide':'show'}}"
+            catchtap="{{disabled?'':'uploadImg'}}" data-type="1">
+            <image src='{{SMDataURL}}/images/amy-kaobei.png'></image>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="room">
+      <view>设施介绍</view>
+      <view class="room-o">
+        <view class="introduc">
+          <image src="{{SMDataURL}}/images/amy-mianji.png"></image>
+          <input placeholder="面积:如20-25㎡" bindinput="getInput" data-tag="2" value="{{proDataInfo.area}}"></input>
+        </view>
+        <view class="introduc">
+          <image src="{{SMDataURL}}/images/amy-chuanghu.png"></image>
+          <input placeholder="有/无窗户" bindinput="getInput" data-tag="3" value="{{proDataInfo.window}}"></input>
+        </view>
+        <view class="introduc">
+          <image src="{{SMDataURL}}/images/amy-chuang.png"></image>
+          <input placeholder="床:如1.5米单人床" bindinput="getInput" data-tag="4" value="{{proDataInfo.bed}}"></input>
+        </view>
+        <view class="introduc">
+          <image src="{{SMDataURL}}/images/amy-wifi.png"></image>
+          <input placeholder="有/无WIFI" bindinput="getInput" data-tag="5" value="{{proDataInfo.wifi}}"></input>
+        </view>
+      </view>
+    </view>
+    <view class="Gammon-input">
+      <text>费用政策</text>
+      <input class="Gammon-i-i" placeholder="如：加床；该房型不可加床" bindinput="getInput" data-tag="6"
+        value="{{proDataInfo.cast}}"></input>
+    </view>
+    <view class="Gammon-input">
+      <text>便利设施</text>
+      <input class="Gammon-i-i" placeholder="如：一次性拖鞋，遮光窗帘" bindinput="getInput" data-tag="7"
+        value="{{proDataInfo.conveniences}}"></input>
+    </view>
+    <view class="Gammon-input">
+      <text>浴室配套</text>
+      <input class="Gammon-i-i" placeholder="如：淋浴、24小时热水，洗漱用品，吹风机" bindinput="getInput" data-tag="8"
+        value="{{proDataInfo.bathroom}}"></input>
+    </view>
+    <view class="Gammon-input">
+      <text>媒体科技</text>
+      <input class="Gammon-i-i" placeholder="如：电话，液晶电视机" bindinput="getInput" data-tag="9"
+        value="{{proDataInfo.media}}"></input>
+    </view>
+    <view class="Gammon-input">
+      <text>食品饮品</text>
+      <input class="Gammon-i-i" placeholder="如：电热水壶，瓶装水免费" bindinput="getInput" data-tag="10"
+        value="{{proDataInfo.foodAndDrink}}"></input>
+    </view>
+
+    <view class="Gammon-input" style="align-items: flex-start;">
+      <text>使用规则</text>
+      <block wx:if="{{!showModalserve}}">
+
+        <textarea class="Gammon-i-i" placeholder="如：直接消费,携带所有入住人的有效身份证办理入住请在14:00之后入住,并于次日12:00前退房；如需提前入住或延迟退房，请咨询商家"
+          bindinput="getInput" data-tag="11" value="{{proDataInfo.rulesOfuse}}"></textarea>
+      </block>
+      <block wx:else>
+        <text class="Gammon-i-i"></text>
+      </block>
+    </view>
+    <view class="Gammon-input">
+      <text>售价</text>
+      <input class="Gammon-i-i" placeholder="请输入售价" bindinput="getInput" data-tag="12" type='digit'
+        value="{{proDataInfo.price}}"></input>
+    </view>
+    <view class="Gammon-input">
+      <text>选择酒店</text>
+      <view class="section">
+        <picker disabled='{{disabled}}' bindchange="bindPickerCompanyChange" value="{{selCompanydataIndex}}"
+          range="{{CompanydataList}}" range-key="companyName">
+          <view class="picker relative">
+            {{CompanydataList[selCompanydataIndex].companyName}}
+            <image class="xiala" src='{{DataURL}}/images/xiala.png' catchtap=''></image>
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class="Gammon-state">
+      <text class="Gammon-state-o">状态</text>
+      <view class="choice" catchtap="onChangealltypef">
+        <view class="diot  {{!alltype?'all':''}}">
+          <view></view>
+        </view>
+        <text style="font-family: 'DIN';">上架</text>
+      </view>
+      <view class="choice" catchtap="onChangealltype">
+        <view class="diot {{alltype?'all':''}}">
+          <view></view>
+        </view>
+        <text>下架</text>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="fix">
+  <view class="fix-o">
+    <label class="font-sized" catchtap="clickCheckbox">
+      <checkbox class="cd" />我阅读并同意
+      <text style="width:70%; color:#60A1FF;" bindtap="hideModalserve">《平台用户服务协议》</text>
+    </label>
+    <view class="but-an">
+      <view class="but-shape" bindtap="commitSH">立即提交</view>
+    </view>
+  </view>
+</view>
+
+<!-- 云客智能协议 -->
+<mylist-c bindmyevent="onMyEvent" wx:if="{{showModalserve}}" catchtouchmove="true"></mylist-c>

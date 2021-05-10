@@ -1,0 +1,392 @@
+<import src="../../../pages/template/loginPop.wxml"/>
+<template is = "loginPop" data='{{showModallogin:showModallogin,Password:Password}}'/>
+<import src="../../../pages/template/authorizationPop.wxml"/>
+<!-- 注册授权弹窗 -->
+<template is = "authorizationPop" data='{{isShowAuthor:isShowAuthor,sysName:sysName,sysLogoUrl:sysLogoUrl}}'/>
+<view class="container">
+  <!-- 名片背景图加载完毕再显示名片顶部相关信息 -->
+  <block>
+    <!-- 名片顶部相关信息 -->
+    <view class="card-image {{isShowCardTopPart?'show':'hide'}}">
+      <view class="card-img">
+        <image wx:if="{{queryStatus==0}}" class='card-bg-img' bindload="finishLoadCardBKImg" src='{{cardDataInfo.picture}}'></image>
+        <image wx:if="{{queryStatus!=0}}" class='card-bg-img' bindload="finishLoadCardBKImg" src='{{cardDataInfo.cardTemp.picture}}'></image>
+        <!-- 添加名片头像 -->
+        <view class='cardphoto'>
+          <!-- 头像图片 -->
+          <image wx:if='{{cardDataInfo.headerImg}}' class='myphoto' mode='aspectFit' src='{{cardDataInfo.headerImg}}' data-src='{{cardDataInfo.headerImg}}'  catchtap="viewImg"></image>
+          <image wx:if='{{!cardDataInfo.headerImg}}' class='myphoto' mode='aspectFit' src='{{DataURL}}/images/head.jpg' data-src='{{DataURL}}/images/head.jpg' catchtap="viewImg"></image>
+        </view>
+        <view class='infor-name'>
+          <view class="card-name">{{cardDataInfo.contact}}</view>
+          <view class="card-job">{{cardDataInfo.job}}</view>
+          <view class="card-store">{{cardDataInfo.company}}</view>
+        </view>
+        <view class='infor-other'>
+          <view class="card-phone">
+            <text class="fleft iconfont icon-shoujihaoma"></text>
+            <input class='fleft card-other-nav' value='{{cardDataInfo.mobile}}' disabled='true'  password='{{cardDataInfo.showMobile}}' />
+          </view>
+          <view class="card-email">
+            <text class=" fleft iconfont icon-youxiang "></text>
+            <input class='fleft card-other-nav' value='{{cardDataInfo.email}}'  disabled='true'  password='{{cardDataInfo.showEmail}}' />
+          </view>
+          <view class="card-site">
+            <text class=" fleft iconfont icon-dizhi "></text>
+            <text class='fleft card-other-nav' style='font-size: 0.6rem;'>{{cardDataInfo.addr}}</text>
+          </view>
+        </view>
+        <!-- 添加名片头像 -->
+        <view class='cardphoto'>
+          <!-- 头像图片 -->
+          <image wx:if='{{cardDataInfo.headerImg}}' class='myphoto' mode='scaleToFill' src='{{cardDataInfo.headerImg}}' data-src='{{cardDataInfo.headerImg}}'  catchtap="viewImg"></image>
+          <image wx:if='{{!cardDataInfo.headerImg}}' class='myphoto' mode='scaleToFill' src='{{DataURL}}/images/head.jpg' data-src='{{DataURL}}/images/head.jpg' catchtap="viewImg"></image>
+        </view>
+      </view>
+    </view>
+    <!-- 名片的公司资料、留言板 -->
+    <view class="width100 comp-btn {{isShowCardTopPart?'show':'hide'}}">
+      <button wx:if="{{cardDataInfo.companyInfo}}" class='check-comp' bindtap='companyDetails'><image src='{{DataURL}}/images/card-company.png'></image><text>公司资料</text></button>
+      <button wx:if="{{collectionStat && !myCardStat}}" class='check-comp post-r' bindtap='requestQueryCardMsg'>
+      <view class="{{cardDataInfo.messageStatus == 1? 'weidu' :''}}"></view><image src='{{DataURL}}/images/card-information.png'></image><text>留言板</text></button>
+    </view>
+  </block>
+  
+  <view class='moredetails'>
+    <view class='title-more'>详细资料</view>
+    <view class='more-input'>
+      <view class="fleft more-input-type">姓名</view>
+      <text class="fleft more-input-infor" selectable='true'>{{cardDataInfo.contact}}</text>
+    </view>
+    <view class='more-input'>
+      <view class="fleft more-input-type">职务</view>
+      <text class="fleft more-input-infor" selectable='true'>{{cardDataInfo.job}}</text>
+    </view>
+    <view class='more-input'>
+      <view class="fleft more-input-type">公司</view>
+      <text class="fleft more-input-infor" selectable='true'>{{cardDataInfo.company}}</text>
+    </view>
+    <view class='more-input2 relative'  selectable="true" scroll-y="true" >
+      <view class="fleft more-input-type2">地址</view>
+      <text class="fleft more-input-infor2"  style="width:72%"  selectable='true'>{{cardDataInfo.addr}}</text>
+      <image class="Navigation" src="{{DataURL}}/images/region.png" data-addr="{{cardDataInfo.addr}}" catchtap="navigateTo"></image>
+    </view>
+    <view class='more-input'>
+      <view class="fleft more-input-type">手机</view>
+      <input class='fleft more-input-infor' style='width:50%' value='{{cardDataInfo.mobile}}'  password='{{cardDataInfo.showMobile}}' 
+      disabled='true'></input>
+      <image wx:if="{{!cardDataInfo.showMobile}}" class="copy" src='{{DataURL}}/images/call.png' catchtap="phonecallevent"></image>
+      <image wx:if="{{!cardDataInfo.showMobile}}" class="copy" src='{{DataURL}}/images/copy.png' catchtap="phoneCopy"></image>
+      <image wx:if="{{!cardDataInfo.showMobile}}" class="copy" src='{{DataURL}}/images/macall.png' catchtap="addPhone"></image>
+    </view>
+      <view class='more-input'>
+      <view class="fleft more-input-type">电话</view>
+       <input class='fleft more-input-infor' value='{{cardDataInfo.tel}}' password='{{cardDataInfo.showTel}}' disabled='true'></input>
+    </view>
+    <view class='more-input'>
+      <view class="fleft more-input-type">邮箱</view>
+      <input class='fleft more-input-infor' value='{{cardDataInfo.email}}' password='{{cardDataInfo.showEmail}}' disabled='true'></input>
+    </view>
+  
+    <view class='more-input' >
+      <view class="fleft more-input-type">微信</view>
+      <text class="fleft more-input-infor" selectable='true'>{{cardDataInfo.wxnumber}}</text>
+    </view>
+    <view class='more-input' >
+      <view class="fleft more-input-type">毕业院校</view>
+      <text class="fleft more-input-infor">{{cardDataInfo.school}}</text>
+    </view>
+    <view class='more-input'>
+      <view class="fleft more-input-type">家乡</view>
+      <text class="fleft more-input-infor">{{cardDataInfo.hometown}}</text>
+    </view>
+    <view class='more-input1 relative'>
+      <view class="fleft more-input-type">所在行业</view>
+      <view class='attention'>
+        <checkbox-group name="checkbox" class="check" >
+          <label disabled='{{disabled}}'  wx:for="{{cardDataInfo.personalTrade}}" wx:for-index="index" wx:for-item="data" data-index="{{index}}" class='{{is_checked}}'>
+            <view> {{data}}</view> 
+          </label>
+        </checkbox-group>
+      </view> 
+    </view>
+    <view class='more-input1'>
+      <view class="fleft more-input-type">主要产品</view>
+      <text class="fleft more-input-infor" selectable='true'>{{cardDataInfo.productInfo}}</text>
+    </view>
+    <view class='more-input1'>
+      <view class="fleft more-input-type">提供服务</view>
+      <text class="fleft more-input-infor" selectable='true'>{{cardDataInfo.personalClass}}</text>
+    </view>
+    
+  </view>
+  <view class='otherdetails'>
+    <view class='other-input'>
+      <view class="other-input-type">简介</view>
+       <view class="more-text-infor" selectable='true'>{{cardDataInfo.personIntro}}</view>
+    </view>
+    <view class='otherdetails' style='margin-bottom: 20rpx;'>
+    <view class='other-input'>
+      <view class="other-input-type">微信名片二维码</view>
+      <view class="other-input-image1">
+        <image wx:if="{{!cardDataInfo.wxCodeImg}}" class='qrcardimg' src='{{DataURL}}/images/idcardimages.png'></image>
+        <view class='image-qrcard'>
+          <image class='qrcardimg' mode='scaleToFill' src='{{cardDataInfo.wxCodeImg}}' data-src='{{cardDataInfo.wxCodeImg}}' catchtap="viewImg">{{cardDataInfo}}</image>
+        </view>
+        
+      </view>
+      <view style=" clear: both;"></view>
+    </view>
+  </view>
+    <view class='other-input'>
+      <view class="other-input-type">名片相册</view>
+      <view class="other-input-image" wx:if="{{cardDataInfo.cPhotoArray}}" wx:for="{{cardDataInfo.cPhotoArray}}" wx:for-item="item" wx:for-index="index" wx:key="id">
+         <image  mode='aspectFill' class="img_cardPhoto{{index}}" src="{{item.isShow? item.src+'?'+randomNum : ''}}" data-src='{{item.src}}' catchtap="viewImg"></image>
+      </view>
+      <view style=" clear: both;"></view>
+    </view>
+  </view>
+</view>
+
+<view wx:if="{{showCollButt==3}}"  class="width100 pop-foot">
+  <button wx:if="{{!cardDataInfo.isCardFriend && !myCardStat && cardDataInfo.ckexist != 1}}" class="cancel" catchtap='collection'  >保存名片</button>
+   <button  wx:if="{{cardDataInfo.isCardFriend && !myCardStat && cardDataInfo.ckexist == 1}}" class="cancel" disabled='true'>已保存</button>
+    <button class="cancel" catchtap="showSendCardPop" >发送</button>
+</view> 
+<view wx:if="{{showCollButt==1}}"  class="width100 pop-foot">
+  <button class="cancel" catchtap='hideModalDele'>删除</button>
+    <button class="cancel " catchtap="showSendCardPop" >发送</button>
+    <button class="cancel" catchtap="createQRADImage">生成图片</button>
+</view> 
+
+<view wx:if="{{showCollButt==0}}" class="pop-footer">
+  <button wx:if="{{contactUserId}}"  class="footer-add" catchtap='JumpPage'>主页</button>
+  <button  wx:if="{{othersUserId!=''  && !replyStatus && !myCardStat}}"  class="footer-hui"  catchtap='returnCard'>回Ta名片</button>
+  <button  wx:if="{{othersUserId!='' && replyStatus && !myCardStat}}"  class="footer-add-gary"  catchtap='returnCard'>名片已回</button>
+  <button wx:if="{{!collectionStat && !myCardStat}}" class="footer-add" catchtap='collection'  >保存</button>
+  <button  wx:elif="{{collectionStat && !myCardStat}}" class="footer-add-gary">已存</button>
+  <button class="footer-add" catchtap='createNameCard'  >创建名片</button>
+</view>
+
+<!-- 我的名片列表选择弹窗 -->
+<view class="userule" wx:if="{{showModaltips}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="tipsbox borderpop" wx:if="{{array}}">
+    <scroll-view  scroll-y class="pop-array" style="{{arraynum > 4 ? 'height:800rpx' : ''}}">
+      <block wx:for="{{array}}">
+        <view class="chose-txt" data-id="{{index}}" catchtap="choseTxtColor" style="{{index == arrayIndex?' border:2rpx solid #0066eb; ':'border:2rpx solid #e5e5e5;'}}">
+          <text class='label'>{{item.remark}}</text>
+          <image wx:if="{{item.headerImg}}" class="fleft cardimage" src="{{item.headerImg}}"></image>
+                <image wx:if="{{item.headerImg == ''}}" class="fleft cardimage" src="{{DataURL}}/images/head.jpg"></image>
+          <view class='card-nav1 fleft'>
+            <view class='cardname'>{{item.contact}}</view>
+            <view class='cardjob'>{{item.job}}</view>
+            <view class='company'>{{item.company}}</view>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+    <view class='pop-btns' >
+        <button  class="btn-qx" catchtap="hideModaltip">取消</button>
+        <button class="btn-qd" catchtap='requestSendingCard'>确定</button>
+      </view>  
+  </view>
+  <view wx:if="{{!array}}" class="tipsbox borderpop" style='width:90%;'>
+    <view class='nocard' >您目前没有名片，请立即新建名片回Ta吧！</view>
+    <view class='pop-btns'>
+        <button  class="btn-qx" catchtap="hideModaltip">取消</button>
+        <button class="btn-qd" catchtap='newcard'>确定</button>
+      </view>  
+  </view>
+</view>
+
+<!-- 发送名片弹窗 -->
+<view class="userule" wx:if="{{isShowSendCardPop}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="save-image borderpop">
+    <view class="boxhongbao">
+      <text class='save-title'>主标题文字</text>
+      <view  class="pop-save">
+        <input wx:if="{{showSendImg}}" class="save-text" placeholder='{{cardDataInfo.contact}}的名片!' placeholder-style="font-size:0.8rem;color:#999" value='{{shareTitle}}'  bindinput="changeWXSSAlert" cursor-spacing="10"></input>
+        <input wx:if="{{!showSendImg}}" class="save-text" placeholder="{{selectedArticles.name ?selectedArticles.name :'{{cardDataInfo.contact}}的名片' }}" value='{{shareTitle}}' placeholder-style="font-size:0.8rem;color:#999"  bindinput="changeWXSSAlert" cursor-spacing="10"></input>
+      </view>
+      <view class='save-title'>
+        <radio-group class="radio-group" bindchange="radioChange">
+          <label class="radio" >
+            <radio  checked="{{showSendImg}}" />
+            发送图片
+          </label>
+          <label class="radio" >
+            <radio  checked="{{!showSendImg}}" />
+            发送文章
+          </label>
+        </radio-group>
+      </view>
+      <!-- 发送图片 -->
+      <view class="pop-saveimg" wx:if="{{showSendImg}}">
+        <image mode='aspectFit' class="mr-image fleft" src='{{shareWXImg}}' data-src='{{shareWXImg}}' catchtap="viewImg"></image>
+        <view class="change-image fleft" data-type="2" catchtap="uploadImage">更换图片></view>
+      </view>
+
+      <!-- 发送文章 -->
+      <scroll-view scroll-y class="pop-text" wx:if="{{!showSendImg}}">
+        <view wx:if="{{!showMyArticleList}}" class='no-text'>您还没有准备好文章，请到“传输助手—我的文章”里创建文章</view>
+        <block wx:if="{{showMyArticleList}}" wx:for="{{myArticleList}}" wx:for-index="index" wx:key="id">
+          <view class="chose-maytext" data-index="{{index}}" catchtap="choseText" style="{{item.check ?' border:2rpx solid #0066eb; ':'border:2rpx solid #e5e5e5;'}}">
+            {{item.name}}
+          </view>
+        </block>
+      </scroll-view> 
+
+      <view class="reply">
+          <view class="othername" data-cid='clientother' data-cid='qpother' data-item='{{showOtherItems}}' bindtap="onChangeShowItemDetailState">
+            <text>发红包</text>
+          </view>
+        </view>
+      
+      <view wx:if="{{showOtherItems}}" class="otherbox">
+        <view class='put-redback' style='margin-top: 20rpx;'>
+          <input type='digit' value='{{redEnvelPrice}}'  placeholder='请输入红包金额' bindblur='getRedEnvelPriceEnd' bindinput='getRedEnvelPrice'  placeholder-style='color: #999;font-size: 0.8rem;' />元
+        </view>
+        <view class='put-redback'>
+          <input type='number' value='{{redEnvelNum}}'  placeholder='请输入红包个数'  bindinput='getRedEnvelNum'  placeholder-style='color: #999;font-size: 0.8rem;' />个
+        </view>
+        <view wx:if='{{showRechargeTips}}' catchtap="payment" class='Please-topup'>您的零钱还差{{rechargeMoney}}元，<text>请充值</text></view>
+      <view wx:if="{{redEnvelNum > 0 &&( redEnvelPrice == 0 || redEnvelPrice == '' ) }}" class='Please-topup'>请输入红包金额</view>
+      <view wx:if="{{redEnvelPrice > 0 &&( redEnvelNum == 0 || redEnvelNum == '' ) }}" class='Please-topup'>请输入红包数量</view>
+      <view wx:if="{{priceLimitationTips && redEnvelPrice > 0 && redEnvelNum > 0 }}" class='Please-topup'>每人收到红包最少0.01元</view>
+        <radio-group class="radio-group" bindchange="radioChange2">
+          <label class="radio">
+            <radio  checked="{{showReceiveType}}" />
+            随机领取
+          </label>
+          <label class="radio">
+            <radio  checked="{{!showReceiveType}}" />
+            平均领取
+          </label>
+        </radio-group>
+       <view wx:if='{{!sharedisabled && redEnvelNum > 0 && redEnvelPrice > 0}}'  class="redbacktips">请点击“确定”分享给好友，如确定后未发红包，红包金额将在24小时内退回到“我的零钱”里并可提现。</view>
+      </view> 
+    </view> 
+    <view class='width100 btn-operation' style='position: absolute;left: 0;bottom: 0; background: #fff; height:100rpx;'>
+      <button catchtap='cancelWXSend'>取消</button>
+      <button disabled='{{sharedisabled}}' open-type='share'>确定</button>
+    </view>
+  </view>
+</view>
+
+<!-- 查看留言板弹窗 -->
+<view class="userule" wx:if="{{showcheckmsg}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="check-msg borderpop" >
+    <view class="dialogbox">
+      <view class='width94 record'>
+        <scroll-view scroll-y class='record-nav' style="height:89%;" scroll-top='{{heig}}'>
+          <view  wx:if="{{msgList}}" wx:for="{{msgList}}" wx:for-index="index" wx:key="id">
+            <view class="msg-chat {{item.sendUserId == userId ? 't-a-r oneself' :'t-a-l'}}" >
+              <view class="me-msg "><image  src="{{item.sendUserId == userId ? myHead : hisHead}}"/><text>{{item.sendUserId == userId ? '我' : item.sendLoginName}}</text>{{item.createTime}}</view>
+              <view class='nav-msg'>{{item.message}}</view>
+            </view>
+          </view>
+        </scroll-view>
+         <button class="btn-msg clear" bindtap="removeMessage">清空记录</button>
+      </view>
+      <view class='absolute-btn'>
+        <textarea class='msg-textarea' fixed='true' value="{{message}}" placeholder="需要给对方留言吗？请在此输入" bindinput="changeGetMsg" />
+      </view>
+      <button class="btn-msg save " style="float:left" catchtap="hidecheckmsg" data-index="index">关闭</button>
+      <button class="btn-msg save" bindtap="confirmmessage">发送</button>
+    </view>
+  </view>
+</view>
+
+<!-- 收藏文件夹列表弹窗 -->
+<view class="userule" wx:if="{{showModalfolder}}" catchtouchmove="true">
+  <view class="bgopcity" bindtap="hideModalfolder"></view>
+  <view class="tipsbox1">
+    <scroll-view scroll-y style="{{folderList.length > 8 ? 'height:840rpx' : ''}}">
+      <view class="pop-array1">
+        <block wx:if="{{folderList}}" wx:for="{{folderList}}"  wx:for-index="index" wx:key="id">
+          <view class="chose-txt1" bindtap="submitCollection" data-index="{{index}}">
+              <view class='folder'>{{item.name}}</view>
+          </view>
+        </block>
+      </view>
+    </scroll-view>
+    <view class='pop-btn-wj'>
+      <image class='del-record' bindtap="hideModalfolder" src='{{DataURL}}/images/clearpop.png'></image>
+    </view>  
+  </view>
+</view>
+
+<!-- 红包弹窗 -->
+<view class="userule" wx:if="{{showRedEnvelPop}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class='redbackok'>
+    <!-- 已领取状态 -->
+    <view class='hb-succeed'  wx:if="{{successfulRedEnvel}}">
+      <image class='bgimageshongbao' src='{{DataURL}}/images/redback-BG.png'></image>
+      <view class='redbackmuchs'>
+        <text class='moneynub'>￥</text>
+        <text class='iconmoney'>{{cardRedInfo.getMoney}}</text>
+      </view>
+      <view class='redbacktipss'>您已成功领取现金红包</view>
+      <view class='redbackgets'>可在“我的零钱”提现</view>
+    </view>
+    <!-- 其他状态 -->
+    <view class='hb-number' wx:if="{{!successfulRedEnvel}}">
+      <image class='bgimagesredback' src='{{DataURL}}/images/hb-top.png'></image>
+     <block wx:if='{{redInfoCode == 0}}'>
+      <view  class='redbackmuch'>发现一个红包！</view>
+      <image class='redbackbtn' src='{{DataURL}}/images/hb-btn.png' bindtap='requestReceiveRedEnvel'></image>
+    </block>
+      <view wx:if='{{redInfoCode == 1}}' class='redbackmuch'>红包已被领完！</view>
+      <view wx:if='{{redInfoCode == 3}}' class='redbackmuch'>红包已过期，不可领取！</view>
+    </view>
+    
+    <view wx:if="{{!receivingRecords}}" class='openrecord' bindtap='showReceivingRecords'>查看红包领取记录 ></view>
+    <view wx:if="{{receivingRecords}}">
+    <view class='closerecord' >
+      <text class='fleft'>领取记录(<text>{{cardRedInfo.expendNumber}}/{{cardRedInfo.totalNumber}}个</text> {{cardRedInfo.expendMoney}}/{{cardRedInfo.totalMoney}}元)</text>
+      <text class='fright' bindtap='clickReceivingRecords'>收起</text>
+    </view>
+    <!-- 红包领取记录列表 -->
+    <scroll-view class="pop-record" scroll-y style="{{recordnum > 5 ? 'height:530rpx' : ''}}">
+      <view wx:if="{{cardRedInfo.data.length == 0}}" class='unclaimed'>无</view>
+      <block wx:if="{{cardRedInfo.data.length > 0}}" wx:for="{{cardRedInfo.data}}" wx:for-index="index" wx:key="id">
+        <view class="userinfor">
+          <image wx:if='{{item.headerImg}}' class='fleft userimage' src='{{item.headerImg}}'></image>
+          <image wx:if='{{!item.headerImg}}' class='fleft userimage' src='{{DataURL}}/images/head.jpg'></image>
+          <view class='usename fleft'>
+            <view wx:if='{{item.contact}}' class='username'>{{item.contact}}</view>
+             <text wx:if='{{!item.contact}}' class='username'>未注册用户</text>
+            <view class='usertime'>{{item.createTime}}</view>
+          </view>
+          <view class='usermeony fright'>{{item.getMoney}}</view>
+        </view>
+      </block>
+    </scroll-view>
+
+    </view>
+    <view style='width: 100%;height:20rpx;'></view> 
+    <view class='del-images'>
+      <image class='delrecord' src='{{DataURL}}/images/del-pop.png' bindtap='closeReceiveRedEnvel'></image>
+    </view>
+  </view>
+</view>
+
+<!-- 生成图片显示弹窗 -->
+<view class="userule"  wx:if="{{qrcardimages}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="qrimages">
+    <view class="imagesbox">
+      <view class="imgtop">
+        <image class='logo-image' src="{{cardImgUrl}}"></image>
+      </view>
+    </view>
+    <view class='width100 btn-operation' style='height:100rpx;'>
+      <button catchtap='hideqrcardimages'>取消</button>
+      <button catchtap="viewImage">确定</button>
+    </view>
+  </view>
+</view>

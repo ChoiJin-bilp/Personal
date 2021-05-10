@@ -1,0 +1,263 @@
+/* pages/business/business.wxss */
+page{
+  font-size: 32rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
+  font-weight: normal;  
+}
+
+
+/* 头部金额*/
+.moneny{
+  width: 100%;
+  position: relative;
+  height: 250rpx;
+}
+.moneny-o{
+  z-index: 3;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+}
+.moneny-x{
+  width: 50%;
+  padding-top: 10rpx;
+}
+.moneny-x view{
+  color: #fff;
+  margin-top: 30rpx;
+  width: 100%;
+  text-align: center;
+}
+.moneny-x view:nth-of-type(2){
+    font-size: 34rpx;
+    font-weight: bold;
+}
+.moneny-x view:nth-of-type(1){
+    font-size: 30rpx;
+}
+
+
+
+
+
+
+/*用户的使用*/
+.moneny-z{
+  width: 100%;
+  padding-top: 10rpx;
+}
+.moneny-z view{
+  color: #fff;
+  margin-top: 30rpx;
+  width: 100%;
+  text-align: center;
+}
+.moneny-z view:nth-of-type(2){
+    font-size: 34rpx;
+    font-weight: bold;
+}
+.moneny-z view:nth-of-type(1){
+    font-size: 30rpx;
+}
+
+
+
+
+
+
+
+
+
+
+
+.moneny image{
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+
+
+/*搜索/合作/分成统计类型等选择*/
+.business-tit{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20rpx;
+  padding-bottom:20rpx; 
+  position: relative;
+  border-bottom: 2rpx #999 solid;
+}
+.business-tit-v{
+  border: #ccc solid 2rpx;
+  box-sizing: border-box;
+  border-radius: 10rpx;
+}
+.business-tit .business-tit-v input{
+  padding-left:10rpx; 
+  font-size: 28rpx;
+  height: 50rpx;
+  color: #999;
+}
+.business-tit .business-tit-v:nth-of-type(1){
+  position: relative;
+  width: 35%;
+}
+.business-tit .business-tit-v:nth-of-type(2){
+  position: relative;
+  width: 35%;
+}
+.business-tit .business-tit-v:nth-of-type(3){
+  width: 20%;
+}
+.business-tit .business-tit-v:nth-of-type(3) image{
+  z-index: 60;
+  width: 35rpx;
+  height: 35rpx;
+  top: 10rpx; 
+  right: 10rpx;
+}
+.business-tit-v image{
+  position: absolute;
+  top: 16rpx;
+  right: 16rpx;
+  width: 30rpx;
+  height: 20rpx;
+  transition: transform 0.5s;
+}
+.zhuandong{
+  transform:rotate(180deg);
+}
+/* 下拉样式*/
+.xiala{
+  z-index: 20;
+  font-size:28rpx;
+  color: #999;
+  padding: 0 10rpx;
+  box-sizing: border-box;
+  position: absolute;
+  border: #ccc solid 2rpx;
+  background: #fff;
+  top: 50rpx;
+  left: -1rpx;
+  width: 101%;
+  height: 200rpx;
+  border-radius:10rpx; 
+  text-align: center;
+  line-height: 50rpx;
+  overflow-y: auto;
+}
+.xiala view{
+  border-bottom: #ccc solid 2rpx;
+  height: 25%；
+}
+/* 搜索拉长 */
+.position{
+  z-index: 50;
+  background: #fff;
+  position: absolute;
+  top: 0rpx;
+  left: 0rpx;
+  padding-right: 40rpx;
+}
+
+/*主题内容渲染css*/
+.business-item{
+  display: flex;
+  font-size: 28rpx;
+  padding: 20rpx 0;
+  box-sizing: border-box;
+  border-bottom:2rpx #999 solid;  
+  white-space: nowrap;
+}
+.business-item-v{
+  width: 60%;
+  overflow: hidden;
+}
+.business-item-v-v{
+  display: flex;
+  align-items: center;
+  height: 60rpx;
+}
+.business-item-v-v text:nth-of-type(1){
+  display: inline-block;
+  color: #999;
+  width: 33%;
+}
+.business-item-b{
+  width: 40%;
+}
+.business-item-b-v{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60rpx;
+}
+.business-item-b-v text:nth-of-type(1){
+  display: inline-block;
+  color: #999;
+}
+
+
+/*使用率板块*/
+.usage{
+  
+}
+.usage-o{
+  width: 100%;
+  display: flex;
+  font-size: 28rpx;
+  line-height: 80rpx;
+  border-bottom:2rpx #ccc solid; 
+}
+.usage-o text:nth-of-type(1){
+  width: 32%;
+}
+.usage-o text:nth-of-type(2){
+  width: 24%;
+}
+.usage-o text:nth-of-type(3){
+  width: 22%;
+  display: inline-block;
+  text-align: center;
+}
+.usage-o text:nth-of-type(4){
+  width: 22%;
+  display: inline-block;
+  text-align: center;
+  box-sizing: border-box;
+}
+.usage-o view:nth-of-type(1){
+  position: relative;
+  width: 22%;
+  text-align: center;
+}
+.usage-o view:nth-of-type(1) image{
+  position:absolute;
+  right: 12rpx;
+  top: 24rpx;
+  width: 20rpx;
+  height: 20rpx;
+}
+.usage-o view:nth-of-type(2){
+  position:relative;
+  width: 22%;
+  text-align: center;
+}
+.usage-o view:nth-of-type(2) image{
+  position:absolute;
+  right: 12rpx;
+  top: 24rpx;
+  width: 20rpx;
+  height: 20rpx;
+}

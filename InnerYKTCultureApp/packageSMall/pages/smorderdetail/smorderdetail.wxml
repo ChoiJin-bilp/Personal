@@ -1,0 +1,67 @@
+<!--packageSMall/pages/smorderdetail/smorderdetail.wxml-->
+<!--pages/conversionorder/conversionorder.wxml-->
+<view class="main">
+  <view wx:if="{{isHaveData}}">
+    <view wx:if="{{showAddess}}" class="cart-header" catchtap='navigateAddress'>
+      <image class='fleft' src='{{DataURL}}/images/location.png'></image>
+      <view class='recipients'>
+        <view class='use-order'>{{carts.name}}
+          <text>{{carts.mobile}}</text>
+        </view>
+        <view class='use-address'>{{carts.area[0]}}-{{carts.area[1]}}-{{carts.area[2]}}-{{carts.address}}</view>
+      </view>
+      <image class='fright' src='{{DataURL}}/images/jump.png'></image>
+    </view>
+    <view wx:if="{{!showAddess}}" catchtap='navigateNewAddress'>
+      <view class="cart-no-data">暂无收货地址赶快添加吧~</view>
+    </view>
+    <view class="cart-box">
+      <view class="cart-list">
+        <view class="storenumber">订单编号:{{orderList.orderId}}</view>
+        <block wx:for="{{goodsList}}" wx:key="{{index}}">
+          <view class="ashopname">
+            <image class="storelogo" mode="aspectFit" src="{{item.companyLogo}}"></image>
+            <text  class="storename">{{item.companyName}}</text>
+            <view  class="storeicon">{{item.LevelName}}</view>
+          </view>
+          <image class="cart-thumb" mode="scaleToFill" src="{{item.productPhotos}}"></image>
+          <view class='cart-infor'>
+            <text class="cart-pro-name">{{item.productName}}</text>
+            <view class='cart-norms'>{{item.attributeOne +' '+ item.attributeTwo}}</view>
+            <view class="cart-moeny {{otype==1?'show':'hide'}}">
+              <view class='cart-pro-price'>
+                <text>{{item.price}}</text>
+                <text style='color:#000;font-weight:normal'> 积分</text>
+              </view>
+              <view class="cart-count-box">
+                <view>
+                  <text>x</text>{{item.number}}</view>
+              </view>
+            </view>
+            <view class="cart-moeny {{otype==2?'show':'hide'}}">
+              <view class="cart-count-box">
+                <view>
+                  <text>x</text>{{item.number}}</view>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <view class="cart-footer {{otype==1?'show':'hide'}}">
+      <view class='shoppay'>
+        <view class='total'>合计：
+          <text class='total-text'>{{orderList.amount}}<text>积分</text></text>
+        </view>
+      </view>
+      <view class='now-pay fright' catchtap='updateOrderInfo'>确定兑换</view>
+    </view>
+    <view class="cart-footer {{otype==2?'show':'hide'}}">
+      <view class='now-pay fright' catchtap='updateOrderInfo'>确定领奖</view>
+    </view>
+  </view>
+  <view wx:else>
+    <view class="cart-no-data"></view>
+  </view>
+</view>

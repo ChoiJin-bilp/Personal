@@ -1,0 +1,138 @@
+<!--pages/perfect/perfect.wxml 完善信息-->
+<import src="../../../pages/template/loginPop.wxml"/>
+<template is = "loginPop" data='{{showModallogin:showModallogin,Password:Password}}'/>
+<import src="../../../pages/template/authorizationPop.wxml"/>
+<!-- 注册授权弹窗 -->
+<template is = "authorizationPop" data='{{isShowAuthor:isShowAuthor,sysName:sysName,sysLogoUrl:sysLogoUrl}}'/>
+<!-- 无公司信息 显示 -->
+<block wx:if="{{vtype == 3 && companyInfo.length==0}}">
+  <view class='nocompany'>
+    <view>目前没有公司资料</view>
+    <button catchtap='newPerfect'>创 建</button>
+  </view>
+</block>
+<!-- 有公司信息 显示 -->
+<block wx:else>
+<view class="container" style='padding-top:30rpx;'>
+  <view wx:if="{{vtype == 3}}" class='perfect-list' style='position: relative;'>
+    <text class='fleft'>公司选择</text>
+    <view class="section">
+      <picker bindchange="bindPickerChange" value="{{index}}" range="{{companyInfo}}" range-key="{{'company'}}">
+        <view class="picker">{{companyData.company==''? '请选择公司':companyData.company}}</view>
+      </picker>
+    </view>
+     <image class="xiala" data-index='{{index}}' src='{{DataURL}}/images/xiala.png'></image>
+  </view>
+  <view wx:if="{{vtype == 6}}" class='foot-company'>
+    <view class='width100 use-data'>
+      <text>发送人：{{companyData.sendUser}}</text>
+      <text>手机号：{{companyData.sendMobile}}</text>
+    </view>
+    <view class='width100 use-company'>公司：</view>
+  </view>
+  <view class='perfect-list' wx:if="{{vtype!= 4 && vtype != 5&& vtype != 6&& vtype != 7}}">
+    <text class='fleft'>标注</text>
+    <input disabled='{{disabled}}' class="fleft" minlength="0" maxlength='20' data-value='label' bindinput='changeValueMainData' value='{{companyData.label}}' cursor-spacing="10"></input>
+  </view>
+  <view class='perfect-list'>
+    <text class='fleft'>公司名称</text>
+    <input disabled='{{disabled}}' class="fleft" minlength="0" maxlength='20' data-value='company' bindinput='changeValueMainData' value='{{companyData.company}}' cursor-spacing="10"></input>
+  </view>
+  <view class='perfect-list'>
+    <text class='fleft'>公司地址</text>
+    <input disabled='{{disabled}}' class='fleft' minlength="0" maxlength="66" data-value='addr' bindinput='changeValueMainData' value='{{companyData.addr}}' cursor-spacing="10"></input>
+  </view>
+  <view class='perfect-list'>
+    <text class='fleft'>公司网址</text>
+    <input disabled='{{disabled}}' class='fleft' minlength="0" maxlength="66" data-value='companyWebSite' bindinput='changeValueMainData' value='{{companyData.companyWebSite}}' cursor-spacing="10"></input>
+  </view>
+  <view class='perfect-list'>
+    <text class='fleft'>负 责 人</text>
+    <input disabled='{{disabled}}' class='fleft' minlength="0" maxlength="6" data-value='legal' bindinput='changeValueMainData' value='{{companyData.legal}}' cursor-spacing="10"></input>
+  </view>
+  <view class='perfect-list'>
+    <text class='fleft'>手 机</text>
+    <input disabled='{{disabled}}' class='fleft' minlength="0" maxlength="12" data-value='mobile' bindinput='changeValueMainData' value='{{companyData.mobile}}' cursor-spacing="10"></input>
+  </view>
+  <view class='perfect-list'>
+    <text class='fleft'>邮 箱</text>
+    <input disabled='{{disabled}}' class='fleft' minlength="0" maxlength="25" data-value='email' bindinput='changeValueMainData' value='{{companyData.email}}' cursor-spacing="10"></input>
+  </view>
+  <view class='perfect-list'>
+    <text class='fleft'>Logo</text>
+    <view class="up-image">
+      <view class='image-box'>
+          <image class='add-image'  wx:if="{{companyData.logo}}"   mode='aspectFit' src='{{companyData.logo}}' data-src='{{companyData.logo}}' data-type="0" catchtap="{{disabled?'viewImg':'uploadImg'}}"></image>
+          <image wx:if="{{!companyData.logo && !disabled}}" class='add-image' src='{{DataURL}}/images/icon_2x.png'  data-value="1" data-type="0" catchtap="uploadImg"></image>
+          <image wx:if="{{companyData.logo && !disabled}}" class='del-img' data-index="{{index}}" catchtap="showModaltip" src='{{DataURL}}/images/image-del.png'></image>
+      </view>
+    </view>
+    
+  </view>
+  <view class='perfect-list' style='clear: both;'>
+    <text class='fleft'>公司简介</text>
+    <textarea disabled='{{disabled}}' class='fleft introduction' auto-height placeholder="{{disabled?'':'请输入公司简介'}}" placeholder-style="color:#666; font-size:0.7rem;" minlength="0" maxlength="500" data-value='intro' bindinput='changeValueMainData' value='{{companyData.intro}}' cursor-spacing="10"/>
+  </view>
+  <view class='perfect-list'>
+      <text class='fleft'>公司相册</text>
+      <view class="other-input-image">
+        <view class='comp-image'>
+          <view class='image-box-comp' wx:if="{{companyData.companyFileList.length>0}}" wx:for="{{companyData.companyFileList}}" wx:key="{{index}}" wx:for-item="item" wx:for-index="index" data-index="{{index}}" >
+            <image class='photo' mode='aspectFill' src='{{item}}' data-src='{{item}}' catchtap="viewImg">{{item}}</image>
+            <image wx:if="{{!disabled}}" class='del-img' data-index="{{index}}" catchtap="showModaltip2" src='{{DataURL}}/images/image-del.png'></image>
+          </view>
+          <!-- <image wx:if="{{companyData.companyFileList.length < 6 && !disabled}}" class='add-image-comp' src='{{DataURL}}/images/icon_2x.png' data-value="2" catchtap="uploadImage"></image> -->
+          <image wx:if="{{companyData.companyFileList.length < 6 && !disabled}}" class='add-image-comp' src='{{DataURL}}/images/icon_2x.png' data-value="2" data-type="1" catchtap="uploadImg"></image>
+        </view>
+       
+      </view>
+      <view class='clearfix'></view>
+  </view>
+  <!-- <view  wx:if="{{vtype == 3}}"  class="checkbox-box">
+    <checkbox-group bindchange="checkboxChange">
+      <checkbox color='#0066eb'  checked="{{companyData.showCompanyInfo}}" disabled='{{disabled}}' catchtap="returnCard" />发送名片时附带公司资料
+    </checkbox-group>
+  </view> -->
+ </view>
+  <!-- MyCompany 发送页面显示 -->
+  <view wx:if="{{vtype == 7}}" class='perfect-list'>
+    <text class='fleft'>发送时间：</text>
+    <text>{{companyData.sendTime}}</text>
+  </view>
+  <!-- MyCompany 接收页面显示 -->
+  <view wx:if="{{vtype == 6}}" class='perfect-list'>
+    <text class='fleft'>收到时间：</text>
+    <text>{{companyData.sendTime}}</text>
+  </view>
+  <view wx:if="{{vtype == 2  && (userRelVersion != 2)}}" class='perfect-list '>
+    <!-- <button class="default" catchtap='setDefaultcompany'>设为默认公司</button> -->
+    <view class="body-view">
+        <switch checked='{{companyData.defaultType == 2 ? true : false}}' disabled='{{disabled}}' bindchange="switch1Change" >名片默认公司</switch>
+    </view>
+  </view>
+  <view wx:elif="{{vtype == 5}}" class='perfect-list '>
+    <button class="default" catchtap='JumpPage'>进入主页</button>
+  </view>
+
+<!-- <view class="save">
+  <button wx:if="{{vtype == 2}}" disabled='{{!disabled}}' class="btn-foot {{disabled?'btn-enable':'btn-disable'}}" catchtap="editDataInfo">编 辑</button>
+  <button  wx:if="{{vtype == 2}}" disabled='{{disabled}}' class="btn-foot {{!disabled?'btn-enable':'btn-disable'}}" catchtap="submitDataInfo">保 存</button>
+  <button  wx:if="{{vtype == 1}}" disabled='{{infoDisabled}}' class="btn-foot1 {{!infoDisabled?'btn-enable':'btn-disable'}}" catchtap="submitDataInfo">保 存</button>
+</view> -->
+
+<view class="btn-box" wx:if = "{vtype!= 3 || vtype != 4}">
+  <view class="btn-center">
+    <block wx:if='{{userRelVersion != 2}}'>
+      <button class="btn-foot" wx:if="{{vtype == 2 || vtype == 6 || vtype == 7}}" disabled='{{!disabled}}' catchtap="deleteDataInfo">删除</button>
+
+      <block wx:if="{{vtype == 1 || vtype == 2 || vtype == 3 || vtype == 7}}">
+        <button wx:if="{{disabled && vtype !=1 && companyData}}" class="btn-foot {{disabled?'btn-enable':'btn-disable'}}"  disabled='{{!disabled}}' catchtap="editDataInfo">编辑</button>
+        <button wx:if="{{!disabled}}"  class="btn-foot {{!disabled?'btn-enable':'btn-disable'}}" disabled='{{disabled}}' catchtap="submitDataInfo">保存</button>
+      </block>
+    </block>
+
+    <button wx:if="{{vtype == 2 || (vtype == 3 && companyData.length >0)  || vtype == 7}}" class="btn-foot" open-type='share'>发送</button>
+  </view>
+</view>
+
+</block>

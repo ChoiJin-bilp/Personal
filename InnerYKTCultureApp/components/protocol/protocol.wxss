@@ -1,0 +1,152 @@
+/* components/protocol/protocol.wxss */
+/*协议*/
+.serveprotocol {
+width: 100%;
+height: 100%;
+position: fixed;
+left: 0;
+top: 0;
+z-index: 9998;
+}
+
+.bgopcity{
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0.4;
+  position: absolute;
+  left: 0; top: 0;
+  z-index: 1050;
+}
+.yqtext {
+width: 96%;
+margin: 0 auto;
+text-align: left;
+overflow: hidden;
+overflow-y: scroll;
+
+}
+.YQrule {
+position: absolute;
+left: 3%;
+top: 2%;
+width: 94%;
+height: 90%;
+margin: 0 auto;
+border-radius: 8px;
+text-align: center;
+overflow-y: scroll;
+}
+.topname {
+width: 100%;
+height: 60rpx;
+font-size: 0.9rem;
+font-weight: 500;
+text-align: center;
+padding: 4px 0;
+}
+.tittext {
+width: 100%;
+clear: both;
+}
+.clearserver {
+position: absolute;
+right: 34%;
+bottom: 1%;
+width: 200rpx;
+height: 56rpx;
+background: #0066eb;
+display: flex;
+align-items: center;
+justify-content: center;
+color: #fff;
+font-size: 0.7rem;
+}
+.servetext {
+width: 90%;
+height: 84%;
+position: fixed;
+left: 5%;
+top: 4%;
+background: #f5f5f5;
+z-index: 9999;
+border-radius: 8px;
+color: #999;
+
+}
+.bgopcity {
+width: 100%;
+height: 100%;
+background: #000;
+opacity: 0.4;
+position: absolute;
+left: 0;
+top: 0;
+z-index: 1050;
+}
+.save-btn {
+width: 100%;
+padding: 10rpx 0;
+text-align: center;
+position: fixed;
+left: 0;
+bottom: 0;
+height: 140rpx;
+background: #fff;
+z-index: 90;
+
+}
+.width100 {
+width: 100%;
+
+}
+
+.title-article {
+width: 100%;
+line-height: 56rpx;
+font-size: 32rpx;
+font-weight: bold;
+height: 60rpx;
+margin: 20rpx auto 20rpx auto;
+text-align: center;
+color: #333;
+border: solid 2rpx #e5e5e5;
+border-radius: 16rpx;
+
+}
+.namebox {
+width: 100%;
+font-size: 28rpx;
+text-align: justify;
+}
+.tittext text {
+display: block;
+width: 100%;
+margin: 4px auto;
+font-size: 0.68rem;
+color: #999;
+text-align: justify;
+
+}
+.tittext view {
+width: 100%;
+margin: 4px auto;
+font-size: 28rpx;
+color: #666;
+
+}
+button::after {
+content: " ";
+width: 200%;
+height: 200%;
+position: absolute;
+top: 0;
+left: 0;
+-webkit-transform: scale(.5);
+transform: scale(.5);
+-webkit-transform-origin: 0 0;
+transform-origin: 0 0;
+box-sizing: border-box;
+border-radius: 10px;
+border: none;
+}

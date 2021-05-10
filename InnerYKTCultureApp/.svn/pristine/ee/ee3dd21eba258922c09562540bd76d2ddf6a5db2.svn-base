@@ -1,0 +1,359 @@
+/* pages/mine/coupon/coupon.wxss */
+page{
+  height:100%;
+  background: #f6f6f6;
+  padding-bottom: 100rpx;
+}
+/*新版*/
+.tabbox{
+  width: 25%;
+  height: 70rpx;
+  line-height: 70rpx;
+  text-align: center;
+  float: left;
+}
+.tab {
+  display: inline-block;
+  height: 70rpx;
+  line-height: 70rpx;
+  box-sizing: border-box;
+  
+}
+
+.tab:last-child {
+  border-right: 0;
+}
+
+.topTabSwiper {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+  background: #eee;
+  height: 72rpx;
+  line-height: 72rpx;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+.topTabSwiper:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+.tabBorer{
+  border-bottom: 2px solid #0066eb;
+  color: #0066eb;
+  box-sizing: border-box;
+}
+.swiper {
+  width: 100%;
+  position: relative;
+  top: 72rpx;
+}
+swiper-item {
+  overflow-y: scroll;
+}
+
+.userule{
+  position: fixed;
+  left: 0;top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+.bgopcity{
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0.4;
+  position: absolute;
+  left: 0; top: 0;
+  z-index: 1050;
+}
+.textrule{
+  width: 80%;height: 80%;
+  position: absolute;
+  left: 10%;
+  top: 10%;
+  background: #fff;
+  z-index: 9999;
+  border-radius:8px;
+  color: #999;
+  font-size: 28rpx; 
+  overflow-y: scroll;
+}
+.textrule text{
+  display: block;
+  width: 96%;
+  line-height: 20px;
+  margin: 4px auto;
+  text-align: justify;
+}
+.textrule view{
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  color: #333;
+  font-size: 32rpx;
+  text-align: center;
+  font-weight: 400;
+}
+
+/*优惠劵*/
+.Acoupon{
+  position: relative;
+  width: 690rpx;
+  height: 242rpx;
+  margin: 0 auto;
+  margin-top: 30rpx;
+  box-shadow:0px 4rpx 6rpx rgba(221, 221, 226, 0.6);
+  border-radius: 12rpx;
+  overflow: hidden;
+}
+.shadow{
+  width: 690rpx;
+  height: 244rpx;
+  background: #000;
+  opacity: 0;
+  position: absolute;
+  left: 0;top: 0;
+  z-index: 105;
+}
+.shadow1{
+  width: 690rpx;
+  height: 244rpx;
+  background: #000;
+  opacity: 0.3;
+  position: absolute;
+  left: 0;top: 0;
+  z-index: 105;
+}
+.leftradius{
+   position: absolute;
+  width: 28rpx;
+  height: 28rpx;
+  background: #f6f6f6;
+  left: -14rpx;
+  top: 150rpx;
+  z-index: 110;
+  border-radius: 50%;
+}
+.rightradius{
+   position: absolute;
+  width: 28rpx;
+  height: 28rpx;
+  background: #f6f6f6;
+  right: -14rpx;
+  top: 150rpx;
+  z-index: 110;
+  border-radius: 50%;
+}
+.Acoupon image{
+  position: absolute;
+  left: 0; top: 0;
+  width: 690rpx;
+  height: 242rpx;
+  z-index: 99;
+}
+.Acouponinfor{
+  position: absolute;
+  left: 4%; top: 0;
+  width: 92%;
+  height: 160rpx;
+  z-index: 100;
+}
+.white{
+  color: white;
+}
+.facevalue{
+  width: 100%;
+  height: 100rpx;
+  line-height:100rpx;
+  font-size: 32rpx;
+}
+.facevalue-price text{
+  font-size: 46rpx;
+}
+.condition{
+  width: 100%;
+  height: 40rpx;
+  line-height: 40rpx;
+  font-size: 28rpx;
+}
+.facevalue-data{
+  clear: both;
+}
+.Acoupon .Acouponuser{
+  position: absolute;
+  left: 4%; bottom: 0;
+  width: 92%;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+  z-index: 100;
+}
+.Acoupon .Acouponuser .fright{
+  background: #fff;
+  height:52rpx;
+  color: #ff4141;
+  padding: 0 32rpx;
+  margin-top: 16rpx;
+  line-height: 52rpx;
+  border-radius: 52rpx;
+}
+.usable{
+  color: #fff;
+}
+.expired{
+  color: #ccc;
+}
+/*优惠劵*/
+.conponflex{
+  width: 180rpx;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+}
+/*可提现*/
+.bot{
+  padding: 18rpx;
+  background: #ffffff;
+border-radius: 10rpx;
+  box-sizing: border-box;
+  margin-top:20rpx;
+  font-size: 32rpx;
+}
+.bot-z{
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 100rpx;
+  width: 690rpx;
+}
+.bot-z view:nth-of-type(1){
+  color: #333333;
+  padding-right: 20rpx;
+}
+.bot-z view:nth-of-type(2){
+  color: #999999;
+  padding-left: 20rpx;
+  display: flex;
+  align-items: center;
+}
+.bot-z view:nth-of-type(2) image{
+  width: 28rpx;
+height: 28rpx;
+margin-left: 10rpx;
+}
+/*阴影css*/
+.windowBackgroud {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(7, 7, 7, 0.6);
+  z-index: 20;
+}
+/*拼团规则css*/
+.commoditydetail {
+  position: fixed;
+  bottom: -1000rpx;
+  left: 0;
+  z-index: 30;
+  background: #f6f8fa;
+  transition: bottom 0.4s;
+  width: 100%;
+  height: 760rpx;
+background: #ffffff;
+border-radius: 20rpx;
+}
+
+.commoditydetailout {
+  bottom: 0;
+}
+.commod-z{
+  position: relative;
+  padding: 60rpx;
+  box-sizing: border-box;
+}
+.commd-title{
+font-size: 34rpx;
+font-family: PingFang SC, PingFang SC-Medium;
+font-weight: 500;
+text-align: left;
+color: #333333;
+display: flex;
+justify-content: space-around;
+margin-bottom: 40rpx;
+}
+.commd-font{
+font-size: 30rpx;
+font-family: PingFang SC, PingFang SC-Regular;
+color: #666666;
+line-height: 42rpx;
+margin-top: 20rpx;
+}
+.bpoisk{
+  width: 454rpx;
+height: 83rpx;
+background: #ffffff;
+border: 2rpx solid #666666;
+border-radius: 22rpx;
+display: flex;
+justify-content: center;
+align-items: center;
+color: #333333;
+font-size: 30rpx;
+margin: auto;
+margin-top: 40rpx;
+}
+/*文字弹窗*/
+.productTypedetail{
+  position: fixed;
+  bottom: 50%;
+  left: 50%;
+  transform: translate(-50%,50%);
+  z-index: 30;
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 30rpx 40rpx;
+  width: 86%;
+  box-sizing: border-box;
+  font-size: 34rpx;
+  color: #333;
+}
+.fotitle{
+  text-align: center;
+  font-weight: bold;
+}
+.foitem{
+  font-size: 28rpx;
+  margin-top: 20rpx;
+}
+.foitem text{
+  color: #ff3333;
+}
+.foitebut{
+  display: flex;
+  font-size: 32rpx;
+  align-items: center;
+  justify-content: space-around;
+}
+.foitebut view{
+  border-radius: 10rpx;
+  margin-top: 26rpx;
+  padding: 10rpx 20rpx;
+  width: 200rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.foitebut view:nth-of-type(1){
+  border: #999 solid 2rpx;
+
+}
+.foitebut view:nth-of-type(2){
+  background: #66B1FF;
+  color: #fff;
+}

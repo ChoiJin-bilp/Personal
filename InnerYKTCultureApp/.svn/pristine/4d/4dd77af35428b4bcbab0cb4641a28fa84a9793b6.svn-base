@@ -1,0 +1,86 @@
+<!--packageVP/pages/Yantea/Yantea.wxml-->
+<view class="lisewek">
+  <view class="lisewek-z">
+    <!--级别一-->
+    <view class="ewekz-z"><image src="{{SMDataURL}}/images/PV-Tea-level1.png"></image></view>
+    <!--级别二-->
+    <!-- <view class="ewekz-z"><image src="{{SMDataURL}}/images/PV-Tea-level2.png"></image></view> -->
+    <!--级别三-->
+    <!-- <view class="ewekz-z"><image src="{{SMDataURL}}/images/PV-Tea-level3.png"></image></view> -->
+    <!--级别四-->
+    <!-- <view class="ewekz-z"><image src="{{SMDataURL}}/images/PV-Tea-level4.png"></image></view> -->
+    <view class="ewekz-o"  data-pagetype="0" data-package="0" data-page="Yanteasort" catchtap="gotoPage" >文创大师 <!--级别一‘初级文创大师’ 级别二‘中级文创大师’ 级别三‘特级文创大师’ 级别四‘超级文创大师’ --><image src="{{SMDataURL}}/images/PV-Tea-mkh.png"></image></view>
+  </view>
+  <view class="lisewek-o">
+    <view class="eweko-o"><image src="{{SMDataURL}}/images/PV-Myself.png"></image>我的作品库</view>
+    <view class="lpry">
+      <view class="eweko-z">返利总金额：<text>8548元</text></view>
+      <view class="eweko-t">去提现</view>
+    </view>
+  </view>
+</view>
+<view class="timeSelect">
+  <view>日期</view>
+  <view class="datatoday-s-o">
+    <picker mode="date" value="{{startDate}}" data-tag="0" end="{{endDate}}" bindchange="bindDateChange"
+      style="width:100%;">
+      <text>{{startDate}}</text>
+      <image class="picker" src="{{SMDataURL}}/images/xiala.png">
+      </image>
+    </picker>
+  </view>
+  <view>-</view>
+  <view class="datatoday-s-o">
+    <picker mode="date" value="{{endDate}}" data-tag="1" start="{{startDate}}" bindchange="bindDateChange"
+      style="width:100%;">
+      <text>{{endDate}}</text>
+      <image class="picker" src="{{SMDataURL}}/images/xiala.png">
+      </image>
+    </picker>
+  </view>
+  <view class="eweko-t" style="width: 100rpx;margin-bottom:0;">确定</view>
+</view>
+<view class="pwert">
+  <view>共2条记录</view>
+  <view>返利<text class="pwetx">564</text>元</view>
+</view>
+<view class="business-item" wx:for="{{3}}" wx:key="key"
+      style="{{index==0? 'margin-top:10rpx;':''}}">
+      <view class="business-item-o business-item-z">
+        <text>订单号</text>
+        <text>DFKJDS2020001</text>
+      </view>
+      <view class="moptu">
+        <view class="moptu-o">
+          <view class="business-item-o">
+            <text>使用时间</text>
+            <text>2021 - 01 - 11</text>
+          </view>
+          <view class="business-item-o">
+            <text>用户ID</text>
+            <text>545455454</text>
+          </view>
+          <view class="business-item-o">
+            <text>图片ID</text>
+            <text>123548</text>
+          </view>
+          <view class="business-item-o">
+            <text>商品名称</text>
+            <text>菊花茶</text>
+          </view>
+          <view class="business-item-o">
+            <text>返利金额</text>
+            <text>5元</text>
+          </view>
+        </view>
+        <view class="moptu-z">
+          <view class="Cup-z2 {{selectCustomizeImgIndex==imageindex?'Cup-z2Succ':''}}">
+        <!-- <view class="Cup-text2">{{imageitem.name}}</view> -->
+        <view class="Cup-text2">我是图片名字</view>
+          <view class="Cup-text2" style="color: #747474;">ID:5493465</view>
+        <image data-tag="0" data-index="{{imageindex}}" catchtap="chType" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1364732857,1665216971&fm=26&gp=0.jpg"></image>
+      </view>
+        </view>
+      </view>
+      <!-- <view class="business-item-tw"></view> -->
+    </view>

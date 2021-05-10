@@ -1,0 +1,117 @@
+<!--packageYK/pages/deviceSrvOrder/deviceSrvOrder.wxml-->
+<view class="key">
+  <view class="device-i-c" hidden="{{CompanydataList.length<=0}}">
+    <view class="title">选择公司</view>
+    <input bindtap="showSelectCompanyList" disabled="{{true}}"
+      value="{{CompanydataList[selCompanydataIndex].companyName}}"></input>
+    <image bindtap="showSelectCompanyList" class="xia" src='{{DataURL}}/images/xiala.png'></image>
+    <view class="xia-v" wx:if="{{isShowSelectCompanyList}}">
+      <block wx:for="{{CompanydataList}}" wx:key="key">
+        <view data-index="{{index}}" data-tag="0" catchtap="bindPickerCompanyChange">{{item.companyName}}</view>
+      </block>
+    </view>
+  </view>
+  <view hidden="{{CompanydataList.length>0}}"></view>
+  <view class="message">
+    <image data-pagetype="0" data-page="feedback" catchtap="goFeedbackPage" src="{{DataURL}}/images/amq-xinxi.png">
+    </image>
+    <view hidden="true">{{cnt}}</view>
+  </view>
+</view>
+<view class="timeSelect">
+  <view>时间</view>
+  <view class="datatoday-s-o">
+    <picker mode="date" value="{{startDate}}" data-tag="0" end="{{endDate}}" bindchange="bindDateChange"
+      style="width:100%;">
+      <text>{{startDate}}</text>
+      <image class="picker" src="{{DataURL}}/images/xiala.png">
+      </image>
+    </picker>
+  </view>
+  <view>至</view>
+  <view class="datatoday-s-o">
+    <picker mode="date" value="{{endDate}}" data-tag="1" start="{{startDate}}" bindchange="bindDateChange"
+      style="width:100%;">
+      <text>{{endDate}}</text>
+      <image class="picker" src="{{DataURL}}/images/xiala.png">
+      </image>
+    </picker>
+  </view>
+  <image src="{{DataURL}}/images/search.png" style="width:44rpx;height:44rpx;" catchtap="bindTopLoad"></image>
+</view>
+<scroll-view class="width100" style="height: 82%;;position: relative;" scroll-y="true" bindscrolltolower="bindDownLoad"
+  bindscrolltoupper="bindTopLoad" upper-threshold="10" lower-threshold="10" scroll-with-animation="true">
+  <block wx:for="{{dataArray}}" wx:for-item="articles" wx:for-index="dataArrayIndex" wx:key="key">
+    <block wx:for="{{articles}}" wx:for-item="item" wx:key="id" wx:for-index="index" data-index='index'>
+      <view class="business-item" style="{{index==0? 'margin-top:10rpx;':''}}">
+        <block wx:if="{{item.isUse==1}}">
+          <image class="usetype" src="{{DataURL}}/images/amy-unuse.png"></image>
+        </block>
+        <block wx:else>
+          <image class="usetype" src="{{DataURL}}/images/amy-onuse.png"></image>
+        </block>
+        <view class="business-item-o">
+          <text>交易单号：</text>
+          <text>{{item.zfno}}</text>
+        </view>
+        <block wx:if="{{item.isUse==1}}">
+          <view class="business-item-o">
+            <text>投放地址:</text>
+            <text>{{item.putAddress}}</text>
+          </view>
+          <view class="business-item-o">
+            <text>设备编号：</text>
+            <text>{{item.deviceNumber}}</text>
+          </view>
+          <view class="business-item-o">
+            <text>设备地址：</text>
+            <text>{{item.deviceAddress}}</text>
+          </view>
+        </block>
+        <view class="business-item-o">
+          <text>按摩时长：</text>
+          <text>{{item.minutes}}分钟</text>
+        </view>
+        <view class="business-item-t">
+          <view>{{item.createDate}}</view>
+          <block wx:if="{{item.lotteryProduct==1}}">
+            <view wx:if="{{item.payStatus==2}}" data-pagetype="0" data-id="{{item.id}}" catchtap="goMessDetailPage">
+              退款申请中
+            </view>
+            <view wx:if="{{item.payStatus==3}}" data-pagetype="0" data-id="{{item.id}}" catchtap="">
+              拒绝退款
+            </view>
+            <view wx:if="{{item.payStatus==4}}" data-pagetype="0" data-id="{{item.id}}" catchtap="">
+              已退款
+            </view>
+            <view wx:if="{{item.payStatus==5}}" data-pagetype="0" data-id="{{item.id}}" catchtap="">
+              退款失败
+            </view>
+            <view wx:if="{{item.payStatus==1&&item.buyDay<=7}}" class="but" data-pagetype="0" data-id="{{item.id}}"
+              catchtap="gotoPage">
+              故障退款
+            </view>
+            <view wx:if="{{item.payStatus==0}}" class="but" data-pagetype="0" data-id="{{item.id}}" catchtap="">
+              未支付
+            </view>
+          </block>
+        </view>
+        <view class="business-item-o">
+
+        </view>
+        <view class="business-item-tw"></view>
+        <block wx:if="{{item.lotteryProduct==1}}">
+          <view class="business-item-t">
+            <view>{{item.isUse==1?'消费':'订单'}}金额</view>
+            <view style="color: #FF3333;">￥{{item.amount}}</view>
+          </view>
+        </block>
+        <block wx:else>
+          <view class="business-item-t">
+            <!-- <view>抽奖按摩劵</view> -->
+          </view>
+        </block>
+      </view>
+    </block>
+  </block>
+</scroll-view>

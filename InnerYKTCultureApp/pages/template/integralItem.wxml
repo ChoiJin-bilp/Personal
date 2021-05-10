@@ -1,0 +1,58 @@
+<template name = "integralItem">
+  <view class="rang-list">
+    <block wx:if="{{item.sort==1}}">
+      <view class="fleft serial-number">
+        <image src='{{DataURL}}/images/first.png'></image>
+        <view>1</view>
+      </view>
+    </block>
+    <block wx:if="{{item.sort==2}}">
+      <view class="fleft serial-number">
+        <image src='{{DataURL}}/images/thirdly.png'></image>
+        <view>2</view>
+      </view>
+    </block>
+    <block wx:if="{{item.sort==3}}">
+      <view class="fleft serial-number">
+        <image src='{{DataURL}}/images/second.png'></image>
+        <view>3</view>
+      </view>
+    </block>
+    <block wx:if="{{item.sort>3}}">
+      <view class="fleft serial-number">
+        <text></text>
+        <view>{{item.sort}}</view>
+      </view>
+    </block>
+
+    <view class="fleft winner-account">
+        <image mode='aspectFit' class='fleft' src='{{item.headerImg}}' data-src='{{item.headerImg}}' catchtap="viewImg"></image>
+        <view  class='fright'>{{item.contact}}</view>
+    </view>
+    <block wx:if="{{item.sort==1}}">
+      <view class="fright rank-integral">
+        <image src='{{DataURL}}/images/gold.png'></image>
+        <view>{{item.totalIntegral}}</view> 
+      </view>
+    </block>
+    <block wx:if="{{item.sort==2}}">
+      <view class="fright rank-integral">
+        <image src='{{DataURL}}/images/silver.png'></image>
+        <view>{{item.totalIntegral}}</view> 
+      </view>
+    </block>
+    <block wx:if="{{item.sort==3}}">
+      <view class="fright rank-integral">
+        <image src='{{DataURL}}/images/copper.png'></image>
+        <view>{{item.totalIntegral}}</view> 
+      </view>
+    </block>
+    <block wx:if="{{item.sort>3}}">
+      <view class="fright rank-integral">
+        <image src='{{DataURL}}/images/icon_JF.png'></image>
+        <view>{{item.totalIntegral}}</view> 
+      </view>
+    </block>
+    
+  </view>
+</template>

@@ -1,0 +1,290 @@
+<!--pages/group/group.wxml-->
+
+  <view class='crowdinform'>
+    <view   catchtap="queryGroupNotifi">群通知</view>
+    <view   catchtap="groupInfoDeatil">群信息</view>
+    <view   data-type ="1" catchtap="openCheckmsg">群交流</view>
+     <image src='{{DataURL}}/images/operation.png' catchtap='crowdOperation'></image>
+  </view>
+  <scroll-view scroll-y="true" class='crowd'>
+    <view  wx:for="{{cardList}}"  wx:key="id" wx:for-index="index" wx:for-item="card"  class=" group-box" >
+      <view class="use-name">
+        <view class="choose">
+          <view catchtap="checkCard"  data-index="{{index}}" class="selectall fleft">
+            <icon wx:if="{{card.checked}}" data-type="success_circle" type="success_circle" size="20"   data-index="{{index}}"  color="#0066eb"/>
+            <icon wx:else data-type="circle" type="circle" size="20"   data-index="{{index}}"  />
+        </view>
+        </view>
+        <view class='cardname'  data-index="{{index}}" catchtap='folderCarddetails' data-type="1">{{card.contact}}</view>
+        <!-- 群主图标显示 -->
+        <image wx:if="{{card.contactId == cardgroupData.shareQunContactUserId}}" class='admin-icon' src='{{DataURL}}/images/admin.png'></image>
+        <!-- 群助理图标显示 -->
+        <image wx:if="{{card.contactId == cardgroupData.assistantContactUserId}}" class='admin-icon' src='{{DataURL}}/images/assistant.png'></image>
+      </view>
+      <view class='width100 use-infor'>
+        <image wx:if="{{card.headerImg}}" class="user-avatar-img" src="{{card.headerImg}}"  data-index="{{index}}" catchtap='folderCarddetails' data-type="1"></image>
+      <image wx:if="{{card.headerImg == ''}}" class="user-avatar-img" src="{{DataURL}}/images/head.jpg"  data-index="{{index}}" catchtap='folderCarddetails' data-type="1"></image>
+        <view class='fright card-nav'>
+          <view class='cardjob'   data-index="{{index}}" catchtap='folderCarddetails' data-type="1">{{card.job}}</view>
+          <view class='company'  data-index="{{index}}" catchtap='folderCarddetails' data-type="1">{{card.company}}</view>
+        </view>
+      </view>
+      <view class='width100' style='height:6rpx; clear:both;'></view>
+      <view wx:if="{{!card.qunRemark && userInfo.userId == item.shareQunUserId}}" class='cardbeizhu'>
+        <view>备注：</view><text class='beizhutext'  data-index='{{index}}' catchtap="crowinform2">点击输入</text>
+      </view>
+      <view wx:if="{{card.qunRemark && userInfo.userId == item.shareQunUserId}}"  class='cardbeizhu'>
+        <view>备注：</view><text class='beizhutext'  data-index='{{index}}' catchtap="crowinform2">{{card.qunRemark}}</text>
+      </view>
+    </view>
+  </scroll-view>
+ 
+ <!-- 人脉群多功能操作 -->
+<view class="userule" wx:if="{{crowdOperation}}" catchtouchmove="true">
+  <view class="bgopcity" catchtap="hidecrowdOperation"></view>
+  <view class="operation">
+      <!-- 群主显示 -->
+      <block wx:if="{{identity == 1 ||identity == 2}}">
+      <view  wx:if="{{identity == 1}}" class='A-operation' catchtap="crowdAddGroupmembers">添加成员</view>
+      <view class='A-operation' catchtap="showCrowinform">发布通知</view>
+      <button class="A-operation" catchtap='showModalsave'>分享人脉群</button>
+      <view wx:if="{{identity == 1}}" class='A-operation' catchtap="crowdclear">移出人脉群</view>
+      <view wx:if="{{identity == 1}}" class='A-operation' catchtap="showTransferGroup">转让群主</view>
+      <view wx:if="{{identity == 1}}"  class='A-operation' catchtap="adminSetting">设置群助理</view>
+      <view wx:if="{{identity == 1}}" class="A-operation" catchtap="crowdset">人脉群设置</view>
+      <view  wx:if="{{identity == 1}}"class="A-operation" catchtap="exitGroup">删除人脉群</view>
+      </block>
+      <!-- 群成员显示 -->
+      <block wx:if="{{identity == 0}}">
+      <button class="A-operation" catchtap='showModalsave'>分享人脉群</button>
+      <view class="A-operation" catchtap="exitGroup">退出人脉群</view>
+      </block>
+  </view>
+</view>
+
+<!-- 人脉群 设置管理员提示 -->
+<view class="userule" wx:if="{{crowdTransfer2}}" catchtouchmove="true">
+  <view class="bgopcity" catchtap="hideModalfolder"></view>
+  <view class="cardcrowd" style='width:84%;padding-top:40rpx;'>
+    <view class='subtitle1'>您确定要设置“{{transferName}}”为群助理吗？</view>
+    <view class='guidancepop-btn'>
+      <button catchtap="hidecrowdTransfer2">取消</button>
+      <button catchtap='transferGroupOwner2'>确定</button>
+    </view>  
+  </view>
+</view>
+<!-- 人脉群 转让群提示 -->
+<view class="userule" wx:if="{{crowdTransfer}}" catchtouchmove="true">
+  <view class="bgopcity" catchtap="hideModalfolder"></view>
+  <view class="cardcrowd" style='width:84%;padding-top:40rpx;'>
+    <view class='subtitle1'>您确定把群主转让给“{{transferName}}”吗？</view>
+    <view class='guidancepop-btn'>
+      <button catchtap="hidecrowdTransfer">取消</button>
+      <button catchtap='transferGroupOwner'>确定</button>
+    </view>  
+  </view>
+</view>
+
+<!-- 人脉群 移出群提示 -->
+<view class="userule" wx:if="{{crowdclear}}" catchtouchmove="true">
+  <view class="bgopcity" catchtap="hideModalfolder"></view>
+  <view class="cardcrowd" style='width:84%;padding-top:40rpx;'>
+    <view class='subtitle1'>您确定把“{{delFolderCardNames}}”移出“{{cardgroupData.name}}”？</view>
+    <view class='guidancepop-btn'>
+      <button catchtap="hidecrowdclear">取消</button>
+      <button data-type='1' catchtap='requestDelFolderCard'>确定</button>
+    </view>  
+  </view>
+</view>
+
+<!-- 人脉群 删除人脉群提示 -->
+<view class="userule" wx:if="{{crowddelete}}" catchtouchmove="true">
+  <view class="bgopcity" catchtap="hideModalfolder"></view>
+  <view class="cardcrowd" style='width:84%;padding-top:40rpx;'>
+    <view wx:if="{{userInfo.userId == cardgroupData.shareQunUserId}}" class='subtitle1'>您确定删除“{{cardgroupData.name}}”吗？</view>
+    <view wx:if="{{userInfo.userId != cardgroupData.shareQunUserId}}" class='subtitle1'>您确定退出“{{cardgroupData.name}}”吗？</view>
+    <view class='guidancepop-btn'>
+      <button catchtap="hidecrowddelete">取消</button>
+      <button wx:if="{{userInfo.userId == cardgroupData.shareQunUserId}}" catchtap='requestDelFolder'>确定</button>
+      <button wx:if="{{userInfo.userId != cardgroupData.shareQunUserId}}" catchtap='requestDelFolderCard'>确定</button>
+    </view>  
+  </view>
+</view>
+
+<!-- 人脉群 群设置提示 -->
+<view class="userule" wx:if="{{crowdset}}" catchtouchmove="true">
+  <view class="bgopcity" catchtap="hideModalfolder"></view>
+  <view class="cardcrowd" style='width:84%;'>
+    <text class='title-pop tac'>群设置</text>
+    <view class='subtitle1'>是否允许群成员查看其它成员的名片详情？</view>
+    <view class=''>
+      <radio-group class="radio-group" bindchange="radioChange">
+        <label class="radio" wx:for="{{cardgroupViewSett}}">
+          <radio checked="{{item.checked}}"/>{{item.value}}
+        </label>
+      </radio-group>
+    </view>
+    <view class='guidancepop-btn'>
+      <button catchtap="hidecrowdset">取消</button>
+      <button catchtap='updateShareLookCard'>发布</button>
+    </view>  
+  </view>
+</view>
+
+<!-- 人脉群名片备注 -->
+<view class="userule" wx:if="{{cardbeizhu}}" catchtouchmove="true">
+  <view class="bgopcity" catchtap="hideModalfolder"></view>
+  <view class="cardcrowd" style='width:90%'>
+    <textarea class='inform' placeholder='请输入名片备注' placeholder-class='placeholder' bindinput='changeInputRemark' value='{{cardgroupRemark}}'></textarea>
+    <!-- 文本输入后 显示下面view 隐藏 textarea -->
+    <view class='guidancepop-btn'>
+      <button catchtap="hidecardbeizhu">取消</button>
+      <button catchtap='updateShareQunReamrk'>确认</button>
+    </view>  
+  </view>
+</view>
+
+<!-- 添加群成员 -->
+<view class="userule" wx:if="{{addGroupmembers}}" catchtouchmove="true">
+  <view class="bgopcity" catchtap="hideModalfolder"></view>
+  <view class="addcrowd">
+    <text class='title-pop tac'>添加群成员</text>
+    <view class="search">
+      <input class='fleft' placeholder='请输入名字、手机号码、公司名称等' placeholder-style='color: #ccc;font-size: 24rpx;' data-cid='keyword' bindinput="searchAddCard" value="{{searchKeyword}}" cursor-spacing="10"></input>
+      <image class='fright' src='{{DataURL}}/images/search1.png'></image>
+    </view>
+    <scroll-view  scroll-y class='mycardscroll' style="{{uncollectedCards.length > 3? 'height:750rpx' : ''}}">
+      <view class='mycard1' wx:for="{{uncollectedCards}}" wx:key="id" wx:for-index='index' data-index="{{index}}" >
+        <view class='width100' data-index="{{index}}">
+         <view class="use-name">
+                <view class="choose">
+                  <view catchtap="checkCardcardIds" data-type="0"  data-index="{{index}}" class="selectall fleft">
+                    <icon wx:if="{{item.checked}}" data-type="success_circle" type="success_circle" size="20"   data-index="{{index}}"  color="#0066eb"/>
+                    <icon wx:else data-type="circle" type="circle" size="20" data-index="{{index}}"  />
+                </view>
+                </view>
+                <view class='cardname' data-index="{{index}}" catchtap='folderCarddetails' data-type="2">{{item.contact}}</view>
+              </view>
+              <view class='width100 use-infor'>
+                <image wx:if="{{item.headerImg}}" class="user-avatar-img" src="{{item.headerImg}}"></image>
+                <image wx:if="{{item.headerImg == ''}}" class="user-avatar-img" src="{{DataURL}}/images/head.jpg"></image>
+                <view class='fright card-nav'>
+                  <view class='cardjob'  data-index="{{index}}" catchtap='folderCarddetails' data-type="2">{{item.job}}</view>
+                  <view class='company'  data-index="{{index}}" catchtap='folderCarddetails' data-type="2">{{item.company}}</view>
+                </view>
+              </view>
+        </view>
+
+      </view>
+      
+    </scroll-view>
+    <scroll-view wx:if="{{showModelAdd == 1}}" scroll-y class='mycardscroll' style="{{searchDataAdd.length > 3? 'height:750rpx' : ''}}">
+      <view class='mycard1' wx:for="{{searchDataAdd}}" wx:key="id" wx:for-index='index' data-index="{{index}}" >
+        <view class='width100' data-index="{{index}}">
+         <view class="use-name">
+                <view class="choose">
+                  <view catchtap="checkCardcardIds" data-type="1"  data-cardIndex="{{cardindex}}" data-index="{{index}}" class="selectall fleft">
+                    <icon wx:if="{{item.checked}}" data-type="success_circle" type="success_circle" size="20"  data-cardIndex="{{cardindex}}" data-index="{{index}}"  color="#0066eb"/>
+                    <icon wx:else data-type="circle" type="circle" size="20"  data-cardIndex="{{cardindex}}" data-index="{{index}}"  />
+                </view>
+                </view>
+                <view class='cardname'  data-cardIndex="{{cardindex}}" data-index="{{index}}"  >{{item.contact}}</view>
+              </view>
+              <view class='width100 use-infor'>
+                <image wx:if="{{item.headerImg}}" class="user-avatar-img" src="{{item.headerImg}}"  data-cardIndex="{{cardindex}}" data-index="{{index}}"  data-type="2"></image>
+                <image wx:if="{{item.headerImg == ''}}" class="user-avatar-img" src="{{DataURL}}/images/head.jpg"  data-cardIndex="{{cardindex}}" data-index="{{index}}"  data-type="2"></image>
+
+                <view class='fright card-nav'>
+                  <view class='cardjob'  data-cardIndex="{{cardindex}}" data-index="{{index}}" >{{item.job}}</view>
+                  <view class='company'  data-cardIndex="{{cardindex}}" data-index="{{index}}" >{{item.company}}</view>
+                </view>
+              </view>
+        </view>
+
+      </view>
+      
+    </scroll-view>
+    
+    <view class='guidancepop-btn1'>
+      <button catchtap="hideaddmembers">取消</button>
+      <button catchtap='requestMoveFolderCard' disabled='{{disabled}}'>确定</button>
+    </view>  
+  </view>
+</view>
+
+<!-- 查看留言 -->
+<view class="userule" wx:if="{{showcheckmsg}}" catchtouchmove="false">
+  <view class="bgopcity"></view>
+  <view class="check-msg" >
+    <view class="dialogbox">
+      <view class='width94 groupname'>
+        <image class="crowd" src='{{DataURL}}/images/crowd.png'></image>
+        <text>{{cardgroupData.name}}</text>
+      </view>
+      <view class='width94 record1'>
+        <scroll-view scroll-y class='record-nav'  bindscrolltoupper='threshold' style="height:89%;" scroll-top='{{heig}}' catchtap='hideLongTap'>
+          <view  wx:if="{{msgData}}" wx:for="{{msgData}}" wx:for-index="index" wx:key="id">
+            <view class="msg-chat {{item.sendUserId == userInfo.userId ? 't-a-r oneself' :'t-a-l'}}"  >
+              <view class="me-msg "><image src="{{item.sendHeaderImg}}"/><text>{{item.sendUserId == userInfo.userId ? '我' : item.sendLoginName}}</text>{{item.createTime}}</view>
+              <view wx:if='{{item.message}}' class='nav-msg' data-type='1' bindlongpress="longTap" data-index='{{index}}'>{{item.message}}</view>
+              <image wx:else class='qunimage' src='{{item.userFile}}' data-src='{{item.userFile}}' catchtap="viewImg" bindlongtap="longTap" data-index='{{index}}'></image>
+              <view wx:if='{{showWithdraw && index == cardgroupChatIndex}}' class='revocation'>
+                <view class='u-tri' data-index='{{index}}' catchtap='saveGroupChat'>撤回</view>
+              </view>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+      <view class='width94 groupname'>
+         <image class='upimages' catchtap='showsaveimage' src='{{DataURL}}/images/upimages.png'></image>
+      </view>
+     
+      <view class='absolute-btn'>
+        <textarea class='msg-textarea' fixed='true' value="{{message}}" placeholder="需要给对方留言吗？请在此输入" placeholder-class='placeholder' bindinput="changeGetMsg" />
+      </view>
+      <button class="btn-msg save " style="float:left" catchtap="hidecheckmsg" data-index="index">关闭</button>
+      <button class="btn-msg save" data-type='1' catchtap="confirmmessage">发送</button>
+    </view>
+  </view>
+</view>
+<!-- 人脉群分享 -->
+<view class="userule" wx:if="{{showModalsave}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="save-image">
+    <view class="boxhongbao">
+      <text class='save-title'>发送文字</text>
+      <view  class="pop-save">
+        <input class="save-text" placeholder='{{shareTitle}}' placeholder-class='placeholder'  cursor-spacing="10" value='{{shareTitle}}' bindinput="changeWXSSAlert" cursor-spacing="10" maxlength='30'></input>
+      </view>
+      <text class='save-title'>发送图片</text>
+      <!-- 发送图片 -->
+      <view class="pop-saveimg">
+        <image mode='aspectFit' class="mr-image fleft" src='{{shareWXImg}}' data-src='{{shareWXImg}}' catchtap="viewImg"></image>
+        <view class="change-image fleft" data-type="2" catchtap="uploadImage">更换图片></view>
+      </view>
+
+    </view> 
+    <view class='width100 btn-operation' style='position: absolute;left: 0;bottom: 0; background: #fff; height:100rpx;'>
+      <button catchtap='hideModalsave'>取消</button>
+      <button disabled='{{sharedisabled}}' open-type='share'>确定</button>
+    </view>
+  </view>
+</view>
+<!-- 群聊发送图片 -->
+<view class="userule" wx:if="{{saveimage}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="save-image" style='width:100%;'>
+    <view class="title-row">发送图片</view>
+    <view class="width100">
+      <view class='image-box' wx:if="{{sendImgMsgArr}}" wx:for="{{sendImgMsgArr}}" wx:key="{{index}}" wx:for-item="item" wx:for-index="index" data-index="{{index}}" >
+        <image class='photo' mode='aspectFill' src='{{item}}' data-src='{{item}}' catchtap="viewImg">{{item}}</image>
+        <image class='del-img' data-index="{{index}}" catchtap="showModaltip" src='{{DataURL}}/images/image-del.png'></image>
+      </view>
+      <image wx:if='{{sendImgMsgArr.length < 6}}'  class='add-image' src='{{DataURL}}/images/icon_2x.png'  data-type="0" catchtap="uploadSendImage"></image>
+    </view>
+    <view class='width100 btn-operation' style='position: absolute;left: 0;bottom: 0; background: #fff; height:100rpx;'>
+      <button catchtap='hidesaveimage'>取消</button>
+      <button disabled='{{sharedisabled}}'  catchtap='imageMsgSend'>发送</button>
+    </view>
+  </view>
+</view>

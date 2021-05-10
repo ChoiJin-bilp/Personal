@@ -1,0 +1,13 @@
+<template name = "regAlertPop">
+<!-- 注册提示 -->
+<view class="userule" wx:if="{{isShowRegGuider}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class="maintipsbox-zc tac borderpop">
+    <view class="tipstext-zc" style='padding:30rpx 0;'>{{regGuiderMsg}}</view>
+    <view class="width100 pop-foot-zc">
+      <text class="cancel-zc" bindtap="hideRegisterAlertPop">取消</text>
+      <text class="submit-zc" catchtap="registerUserInfo">注册</text>
+    </view>
+  </view>
+</view>
+</template>

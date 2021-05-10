@@ -1,0 +1,66 @@
+<!--packageOther/pages/succeed/succeed.wxml-->
+<view>
+  <view class="width100 succeed">
+    <image src="{{DataURL}}/images/zfcg.png"></image>
+    <text>支付成功</text>
+    <text wx:if="{{num>0}}" style="margin-top:60rpx;">确认戴好脚套后请点击下方“开始按摩”</text>
+  </view>
+  <view wx:if="{{couponData.length>0}}" class="tips-coupon tac">恭喜您获得一张优惠劵</view>
+  <view class="Acoupon white" wx:for="{{couponData}}" wx:key="key">
+    <image src='{{DataURL}}/images/coupon.png'></image>
+    <view class="shadow"></view>
+    <view class="Acouponinfor">
+      <view class="facevalue">
+        <view class="facevalue-price fleft">￥
+          <text>{{item.discount}}</text>
+        </view>
+        <view class="facevalue-name fright" wx:if='{{item.mold == 0}}'>满减券</view>
+        <view class="facevalue-name fright" wx:if='{{item.mold == 1}}'>抵扣券</view>
+      </view>
+      <view class="condition">
+        <view class="facevalue-data fleft">领取后有效期 {{item.validday}} 天</view>
+        <view wx:if='{{item.mold == 0}}' class="facevalue-uses fright">满{{item.full}}可用</view>
+      </view>
+    </view>
+    <view class="Acouponuser">
+      <view class='fleft'>{{item.productNames.length>0?item.productNames:item.typename}}</view>
+      <!-- <view catchtap="hideModaluserule" class='fright'>立即用劵</view> -->
+    </view>
+  </view>
+  <view class="getbut" hidden="true">
+    <button catchtap="getbut">确定</button>
+  </view>
+</view>
+
+<block wx:if="{{roomSellType==1 && linkNo==7}}">
+  <view class="paycode">
+    <!-- <view class="sjinformation">
+      <view class="sjname fleft">
+        <image src="{{DataURL}}/images/sjicon.png"></image>
+        <text>天天上大酒店</text>
+      </view>
+      <view class="sjdeatils fright">
+        <text>查看订单详情</text>
+        <image src="{{DataURL}}/images/sjupload.png"></image>
+      </view>
+    </view> -->
+    <view class="codeimage" src="">
+      <image src="{{qrImgUrl}}"></image>
+    </view>
+    <view class="tipstext">{{gqQRCodeMessage}}</view>
+  </view>
+</block>
+
+
+<view class='Lotterypop' wx:if="{{num>0}}">
+  <!-- <view class='Lotterypop' wx:if="{{true}}"> -->
+  <view class="titleview1">恭喜您获得<text>{{num}}</text>张足底按摩劵</view>
+
+  <!-- <block wx:for="{{1}}" wx:key="key"> -->
+  <view class="mywinview">免费足底按摩
+    <!-- <view wx:if="{{true}}" class="mywinview">免费足底按摩 -->
+    <text>{{duration}}</text>分钟
+  </view>
+  <view class="tipsview tip" style="margin-top: 20rpx;">如未使用，后续可以在“我的奖品”记录中开启使用</view>
+  <view class="nowaway" catchtap="useMyAward">开始按摩</view>
+</view>

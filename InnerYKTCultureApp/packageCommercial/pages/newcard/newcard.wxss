@@ -1,0 +1,289 @@
+page{
+  padding-bottom: 140rpx;
+}
+.moredetails,.otherdetails{
+  width: 100%;
+}
+.title-more{
+  width: 94%;
+  padding: 0 3%;
+  height: 58rpx;
+  line-height: 48rpx;
+  text-align: left;
+  font-size: 28rpx;
+  font-weight: bold;
+  box-shadow: 0px 2px 2px #ddd;
+  color: #2e2e2e;
+}
+.more-input{
+  width: 92%;
+  clear: both;
+  padding: 0 4%;
+  line-height: 76rpx;
+  border-top: solid 2rpx #f5f5f5;
+}
+.more-input:first-child{
+  border-top: none;
+}
+.more-input-type{
+  width: 20%;
+  text-align: left;
+  height: 76rpx;
+  font-size: 28rpx;
+  line-height: 76rpx;
+  color: #0066e9;
+}
+.more-input-infor{
+  width: 80%;
+  text-align: left;
+  font-size: 28rpx;
+  color: #2e2e2e;
+  height: 76rpx;
+  line-height: 76rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.other-input{
+  width: 92%;
+  padding: 0 4%;
+  border-bottom: solid 2rpx #f5f5f5;
+}
+.other-input-type{
+  font-size:28rpx;
+  color: #0066e9;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+.other-input-infor{
+  width: 100%;
+  padding: 10rpx 0; 
+  font-size:28rpx;
+  color: #2e2e2e;
+}
+.other-input-image{
+  width: 100%;
+}
+/* .other-input-image image{
+  display: block;
+  float: left;
+  width: 160rpx;
+  height: 90rpx;
+  margin-right: 20rpx;
+  border-radius: 8rpx;
+} */
+.collect{
+  position: fixed;
+  bottom: 40rpx;
+  right: 4%;
+  width: 126rpx;
+  height: 126rpx;
+  z-index: 200;
+}
+
+.pop-foot{
+  position: fixed;
+  height: 100rpx;
+  background: #fff;
+  left: 0;
+  bottom: 0;
+  z-index: 99;
+}
+.pop-foot text{
+  display: block;
+  width: 28%;
+  height:60rpx;
+  line-height: 56rpx;
+  margin: 20rpx auto;
+  text-align: center;
+  border-radius: 60rpx;
+}
+.image-box{
+  float: left;
+  width: 200rpx;
+  height: 140rpx;
+  border-radius: 8rpx;
+  position: relative;
+  margin-right: 30rpx;
+  margin-bottom: 20rpx;
+}
+.add-image{
+  float: left;
+  width: 160rpx;
+  height: 90rpx;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
+.image-qrcard{
+  float: left;
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 8rpx;
+  position: relative;
+  margin-bottom: 20rpx;
+}
+.photo-qrcard{
+  position: absolute;
+  width: 140rpx;
+  height: 140rpx;
+  left: 0;
+  top: 0;
+  border-radius: 8rpx;
+}
+.qrcardimg{
+  height: 140rpx;
+  width: 140rpx;
+}
+.idcardtext{
+  float:left;
+  width: 72%;
+  height: 100rpx;
+  font-size: 26rpx;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  color: #999;
+  overflow: hidden;
+  margin-left: 20rpx;
+}
+.idcardtext text{
+  display: block;
+  width: 100%;height: 50rpx; line-height: 50rpx;
+}
+.photo{
+  position: absolute;
+  width: 200rpx;
+  height: 140rpx;
+  left: 0;
+  top: 0;
+  /* border: solid 2rpx #f5f5f5; */
+  border-radius: 8rpx;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.del-img{
+  width: 36rpx;
+  height: 36rpx;
+  position: absolute;
+  right: -18rpx;
+  top: -18rpx;
+  z-index: 100;
+}
+
+/* .cancel{
+  background: #fff;
+  border: solid 2rpx #999;
+  box-sizing: border-box;
+  color: #333;
+} */
+.submit{
+  border: solid 2rpx #0066e9;
+  color: #0066e9;
+  box-sizing: border-box;
+}
+.section textarea{
+  width: 100%;
+  margin: 0 auto;
+  height: 120rpx;
+  background: #f9f9f9;
+  border-radius: 16rpx;
+  line-height: 40rpx;
+  border: solid 2rpx #e5e5e5;
+}
+/* 可滑动表单 */
+.scroll-header{
+  width: 94%;
+  margin: 0 auto;
+  display: flex;
+  white-space: nowrap; 
+  height: 120rpx;
+  padding: 20rpx 0;
+}
+.image-scroll{
+  display: inline-block;
+  width: 220rpx;
+  height: 120rpx;
+  margin-right: 6rpx;
+  border-radius: 16rpx;
+  overflow: hidden;
+  position: relative;
+}
+.BG-image{
+  position: absolute;
+  width: 220rpx;
+  height: 120rpx;
+  left: 0;
+  top: 0;
+  z-index: 3;
+}
+.opacity{
+  position: absolute;
+  width: 220rpx;
+  height: 120rpx;
+  left: 0;
+  top: 0;
+  background: #000;
+  opacity: 0.4;
+  z-index: 4;
+}
+.pitch{
+  position: absolute;
+  width: 80rpx;
+  height: 80rpx;
+  left: 70rpx;
+  top: 20rpx;
+  z-index: 5;
+}
+.comp-btn{
+  clear: both;
+  width: 94%;
+  padding: 0 3%;
+}
+.check-comp{
+  display: inline-block;
+  width: 48%;
+  height: 60px;
+  background: #f0f0f3;
+  border-radius: 10rpx;
+  float: left;
+  margin-left:4%;
+  position: relative;
+}
+.check-comp image{
+  display: inline-block;
+  vertical-align: middle;
+  width: 80rpx;
+  height: 80rpx;
+  margin-top: -0rpx;
+  margin-right: 20rpx;
+}
+.check-comp text{
+  display: inline-block;
+  height: 120rpx;
+  line-height: 110rpx;
+  margin: 0;padding: 0;
+  color: #333;
+  font-size:28rpx;
+}
+.check-comp:first-child{
+  margin-left:0;
+}
+.picker{
+  font-size:28rpx;
+}
+
+.hangye{
+  color: #ccc;
+  font-size: 28rpx;
+  width: 80%;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+/*弹窗*/
+.userule{
+  position: fixed;
+  left: 0;top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}

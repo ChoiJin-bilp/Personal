@@ -1,0 +1,22 @@
+<!--pages/testaddress/testaddress.wxml-->
+<view class="view_buttonall">
+  <button class="view_button" bindtap="checkAddress">接收设备地址</button>
+  <button class="view_button" bindtap="cleanAddress">清空设备地址</button>
+</view>
+
+<view class="view_version">
+ <text>款式：</text>
+ <text>{{version}}</text> 
+</view>
+
+<view class="view_time">
+<text>{{upDataTime}}</text>
+<text>{{deviceAddress}}</text>
+</view>
+
+<view class="view_line">
+</view>
+<text class="pointout">*请在设备停机状态下点击开关按钮,再点击页面接收设备地址按钮</text>
+
+
+

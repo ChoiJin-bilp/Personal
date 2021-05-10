@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "幸运大转盘",
+  "usingComponents": {
+    "zhuanpan": "/components/zhuanpan/zhuanpan",
+    "v-scanCode": "/components/scanCode/scanCode"
+  }
+}

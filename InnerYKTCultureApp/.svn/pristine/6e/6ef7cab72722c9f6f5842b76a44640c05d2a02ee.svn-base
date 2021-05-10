@@ -1,0 +1,428 @@
+<!--packageYK/pages/Myprize/Myprize.wxml-->
+<!-- <button catchtap="gokkk">go to kkk</button> -->
+<view class="topTabSwiper">
+  <view class="tabbox">
+    <text class='tab  {{currentData == 0 ? "tabBorer" : ""}} ' data-current="0" catchtap='selectTabIndex'>未使用</text>
+  </view>
+  <view class="tabbox">
+    <text class='tab  {{currentData == 1 ? "tabBorer" : ""}}' data-current="1" catchtap='selectTabIndex'>已失效</text>
+  </view>
+  <view class="tabbox">
+    <text class='tab  {{currentData == 2 ? "tabBorer" : ""}}' data-current="2" catchtap='selectTabIndex'>待赠送</text>
+  </view>
+  <view class="tabbox">
+    <text class='tab  {{currentData == 3 ? "tabBorer" : ""}}' data-current="3" catchtap='selectTabIndex'>已赠送</text>
+  </view>
+</view>
+<!-- 原优惠券 提现规则 -->
+<!-- <view class="bot-z" wx:if="{{currentData==0}}">
+  <view></view>
+  <view catchtap="onchangedetailType">提现规则<image src="{{DataURL}}/images/prodetail-js.png"></image>
+  </view>
+</view> -->
+<!-- 原按摩劵列表 -->
+<block wx:if="{{drawAwardRecordList.length>0}}">
+  <view class="massageSecurities">
+    <view class="massgelist" wx:for="{{drawAwardRecordList}}" wx:for-item="item" wx:for-index="index" wx:key="id" style="{{index==0?'':'margin-top:20rpx;'}}">
+      <!-- 1、未使用 -->
+      <block wx:if="{{currentData == 0}}">
+        <!-- 【1.1】未使用组合劵 css样式一 -->
+        <block wx:if="{{item.lotteryProduct==5}}">
+          <image src="{{DataURL}}/images/amy-onuse3.png"></image>
+          <view class="mainmessage">
+            <view class="massageOne">
+              <view class="useTime">
+                <view class="TimeFont2">{{item.synCouponPrice}}</view>
+                <view class="Timeunit">
+                  <view>元</view>
+                  <view class="outfont">特惠</view>
+                </view>
+              </view>
+              <view class="TimeAM2">{{item.synCouponName}}</view>
+              <view class="moptdata">领劵日期：{{item.receiveDate}}</view>
+              <view class="moptdata"> <view  class="moptloe" >有效日期：{{item.endTime}}</view></view>
+            </view>
+            <view class="massageSecond">
+              <!-- 组合劵可以按摩条件为状态为“0” -->
+              <block wx:if="{{item.status==0}}">
+                <view class="startAM2" data-item="{{item}}" catchtap="useMyAward">开始按摩</view>
+              </block>
+              <!-- 组合劵可以使用（购买商品）条件为状态为“1” -->
+              <block wx:else>
+                <view class="startAM2" data-item="{{item}}" catchtap="useSynCoupon">开始使用</view>
+                <block wx:if="{{item.isCancelShare==0 && item.lotteryProduct!=0}}">
+                  <button open-type="share" class="startAM2" style="margin: 0;" data-index="{{index}}" data-item="{{item}}">转赠朋友</button>
+                </block>
+              </block>
+            </view>
+          </view>
+        </block>
+        <!-- 【1.2】未使用普通按摩劵 -->
+        <block wx:if="{{item.lotteryProduct!=5}}">
+          <image src="{{DataURL}}/images/amy-onuse2.png"></image>
+          <view class="mainmessage">
+            <view class="massageOne">
+              <view class="useTime">
+                <view class="TimeFont">{{item.duration}}</view>
+                <view class="Timeunit">
+
+                  <view>分钟</view>
+                  <view>{{item.lotteryProduct==0?'按摩劵':(item.lotteryProduct==1?'按摩劵':(item.lotteryProduct==2?'按摩劵':''))}}</view>
+                </view>
+              </view>
+              <block wx:if="{{item.lotteryProduct==4 || item.lotteryProduct==5}}">
+                <view class="TimeAM">{{item.synCouponName}}</view>
+              </block>
+              <view style="font-size: 26rpx; color:#FFECDF;">领劵日期：{{item.createDate}}</view>
+              <view style="font-size: 26rpx; color:#FFECDF;">有效日期：{{item.endTime}}</view>
+            </view>
+            <view class="massageSecond">
+              <block wx:if="{{currentData==0}}">
+                <block wx:if="{{item.shareUserId==item.userId}}">
+                  <view class="startAM2 startAM1" data-item="{{item}}" >仅供分享</view>
+                </block>
+                <block wx:else>
+                  <view class="startAM2" data-tag="0" data-item="{{item}}" catchtap="useMyAward">开始按摩</view>
+                  <block wx:if="{{item.isCancelShare==0 && item.lotteryProduct!=0}}">
+                    <button open-type="share"  class="startAM2" data-index="{{index}}" data-item="{{item}}">转赠朋友</button>
+                  </block>
+                  <!-- <view class="startAM2" data-tag="1" data-item="{{item}}" catchtap="useMyAward">换一台按摩器</view> -->
+                </block>
+              </block>
+              <block wx:if="{{currentData==2}}">
+                <view class="startAM2" data-item="{{item}}">未领取</view>
+                <view data-index="{{index}}" data-tag="-1" data-item="{{item}}" catchtap="setCurrentItem" class="startAM2" style="color:#FEFEFE">取消赠送</view>
+              </block>
+              <block wx:if="{{currentData==3}}">
+                <view class="startAM2" data-item="{{item}}">未使用</view>
+              </block>
+            </view>
+          </view>
+        </block>
+      </block>
+      <!-- 2、已使用 -->
+      <block wx:if="{{currentData == 1}}">
+        <!-- 【2.1】已使用组合劵 -->
+        <block wx:if="{{item.lotteryProduct==5}}">
+          <image src="{{DataURL}}/images/amy-useout.png"></image>
+          <view class="mainmessage">
+            <view class="massageOne">
+              <view class="useTime">
+                <view class="TimeFont">{{item.synCouponPrice}}</view>
+                <view class="Timeunit">
+                  <view>元</view>
+                </view>
+              </view>
+              <view class="TimeAM">{{item.synCouponName}}</view>
+              <block wx:if="{{item.isUse==1}}">
+                <view style="font-size: 26rpx;">使用日期：{{item.useTime}}</view>
+              </block>
+              <block wx:if="{{item.isTimeOut}}">
+                <view style="font-size: 26rpx;">使用日期：{{item.endTime}}</view>
+              </block>
+            </view>
+            <view class="massageSecond">
+              <view class="startAM">{{item.isUse==1?'已使用':(item.isTimeOut?'已失效':(item.status==1?'状态失效':'已失效'))}}</view>
+            </view>
+          </view>
+        </block>
+        <!-- 【1.2】已使用普通按摩劵 -->
+        <block wx:if="{{item.lotteryProduct!=5}}">
+          <image src="{{DataURL}}/images/amy-useout.png"></image>
+          <view class="mainmessage">
+            <view class="massageOne">
+              <view class="useTime">
+                <view class="TimeFont">{{item.duration}}</view>
+                <view class="Timeunit">
+                  <view>分钟</view>
+                </view>
+              </view>
+              <view class="TimeAM">按摩时长</view>
+              <block wx:if="{{item.isUse==1}}">
+                <view style="font-size: 26rpx;">使用日期：{{item.useTime}}</view>
+              </block>
+              <block wx:if="{{item.isTimeOut}}">
+                <view style="font-size: 26rpx;">使用日期：{{item.endTime}}</view>
+              </block>
+            </view>
+            <view class="massageSecond">
+              <view class="startAM">{{item.isUse==1?'已使用':(item.isTimeOut?'已失效':(item.status==1?'状态失效':'已失效'))}}</view>
+            </view>
+          </view>
+        </block>
+      </block>
+      <!-- 3、待赠送 -->
+      <block wx:if="{{currentData == 2}}">
+        <!-- 【3.1】待赠送组合劵 css样式一 -->
+        <block wx:if="{{item.lotteryProduct==5}}">
+          <image src="{{DataURL}}/images/amy-onuse3.png"></image>
+          <view class="mainmessage">
+            <view class="massageOne">
+              <view class="useTime">
+                <view class="TimeFont2">{{item.synCouponPrice}}</view>
+                <view class="Timeunit">
+                  <view>元</view>
+                  <view class="outfont">特惠</view>
+                </view>
+              </view>
+              <view class="TimeAM2">{{item.synCouponName}}</view>
+              <view class="moptdata">领劵日期：{{item.createDate}}</view>
+              <view class="moptdata"> <view class="moptloe">有效日期：{{item.endTime}}</view></view>
+            </view>
+            <view class="massageSecond">
+              <view class="startAM2 " data-item="{{item}}">未领取</view>
+              <view class="startAM2" data-index="{{index}}" data-tag="-1" data-item="{{item}}" catchtap="setCurrentItem">取消赠送</view>
+            </view>
+          </view>
+        </block>
+        <!-- 【3.2】待赠送普通按摩劵 -->
+        <block wx:if="{{item.lotteryProduct!=5}}">
+          <image src="{{DataURL}}/images/amy-onuse2.png"></image>
+          <view class="mainmessage">
+            <view class="massageOne">
+              <view class="useTime">
+                <view class="TimeFont">{{item.duration}}</view>
+                <view class="Timeunit">
+
+                  <view>分钟</view>
+                  <view>{{item.lotteryProduct==0?'按摩劵':(item.lotteryProduct==1?'按摩劵':(item.lotteryProduct==2?'按摩劵':''))}}</view>
+                </view>
+              </view>
+              <block wx:if="{{item.lotteryProduct==4 || item.lotteryProduct==5}}">
+                <view class="TimeAM">{{item.synCouponName}}</view>
+              </block>
+              <view style="font-size: 26rpx; color:#FFECDF;">领劵日期：{{item.createDate}}</view>
+              <view style="font-size: 26rpx; color:#FFECDF;">有效日期：{{item.endTime}}</view>
+            </view>
+            <view class="massageSecond">
+              <view class="startAM2" data-item="{{item}}">未领取</view>
+              <view data-index="{{index}}" data-tag="-1" data-item="{{item}}" catchtap="setCurrentItem" class="startAM2" style="color:#FEFEFE">取消赠送</view>
+            </view>
+          </view>
+        </block>
+      </block>
+      <!-- 4、已赠送 -->
+      <block wx:if="{{currentData == 3}}">
+        <!-- 【4.1】已赠送组合劵 -->
+        <block wx:if="{{item.lotteryProduct==5}}">
+          <image src="{{DataURL}}/images/amy-onuse3.png"></image>
+          <view class="mainmessage">
+            <view class="massageOne">
+              <view class="useTime">
+                <view class="TimeFont2">{{item.synCouponPrice}}</view>
+                <view class="Timeunit">
+                  <view>元</view>
+                  <view class="outfont">特惠</view>
+                </view>
+              </view>
+              <view class="TimeAM2">{{item.synCouponName}}</view>
+              <view class="moptdata">领劵日期：{{item.endTime}}</view>
+              <view class="moptdata"><view class="moptloe">有效日期：{{item.endTime}}</view></view>
+            </view>
+            <view class="massageSecond">
+              <view class="startAM2" data-item="{{item}}">未使用</view>
+            </view>
+          </view>
+        </block>
+        <!-- 【4.2】已赠送普通按摩劵 -->
+        <block wx:if="{{item.lotteryProduct!=5}}">
+          <image src="{{DataURL}}/images/amy-onuse2.png"></image>
+          <view class="mainmessage">
+            <view class="massageOne">
+              <view class="useTime">
+                <view class="TimeFont">{{item.duration}}</view>
+                <view class="Timeunit">
+
+                  <view>分钟</view>
+                  <view>{{item.lotteryProduct==0?'按摩劵':(item.lotteryProduct==1?'按摩劵':(item.lotteryProduct==2?'按摩劵':''))}}</view>
+                </view>
+              </view>
+              <block wx:if="{{item.lotteryProduct==4 || item.lotteryProduct==5}}">
+                <view class="TimeAM">{{item.synCouponName}}</view>
+              </block>
+              <view style="font-size: 26rpx; color:#FFECDF;">有效日期：{{item.endTime}}</view>
+            </view>
+            <view class="massageSecond">
+              <view class="startAM2" data-item="{{item}}">未使用</view>
+            </view>
+          </view>
+        </block>
+      </block>
+    </view>
+  </view>
+</block>
+<!-- 原优惠券列表 -->
+<block wx:if="{{couponDataLen>0}}">
+  <!-- 1、未使用 -->
+  <block wx:if="{{currentData == 0}}">
+    <view class="Acoupon white" wx:for="{{couponData}}" wx:for-item="item" wx:key="id" wx:for-index="index"
+      bindlongtap="deleteCoupons" data-index="{{index}}">
+      <!-- 【1.1】可提现优惠券 -->
+      <block wx:if="{{item.avmold==12}}">
+        <image src='{{DataURL}}/images/coupon.png'></image>
+        <view class='shadow' wx:if="{{detailType}}"></view>
+        <view class="leftradius"></view>
+        <view class="rightradius"></view>
+        <view class="Acouponinfor">
+          <view class="facevalue">
+            <view class="facevalue-price fleft"  style="display:flex;align-items: flex-end;">￥
+              <text>{{item.discount}}</text>
+              <block wx:if="{{item.mold==3 && item.vDtStartTimeStr!='' && item.vDtEndTimeStr!=''}}">
+                <view class="potroue">(限时 {{item.vDtStartTimeStr+"~"+item.vDtEndTimeStr}})</view>
+              </block>
+              
+            </view>
+            <view class="facevalue-name fright">现金券</view>
+          </view>
+          <view class="condition">
+            <view class="facevalue-data fleft">有效期至 {{item.valid_date}}</view>
+            <view wx:if='{{item.mold == 0}}' class="facevalue-uses fright">满{{item.full}}可用</view>
+          </view>
+        </view>
+        <view class="Acouponuser">
+          <view class='fleft' style="width: 60%;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">
+            {{item.productNames.length>0?item.productNames:item.typename}}</view>
+          <view class='fright' catchtap="nowWithdraw" data-index="{{index}}">立即提现</view>
+        </view>
+      </block>
+      <!-- 【1.2】非可提现优惠券 -->
+      <block wx:else>
+        <image src='{{DataURL}}/images/coupon.png'></image>
+        <view class='shadow' wx:if="{{detailType}}"></view>
+        <view class="leftradius"></view>
+        <view class="rightradius"></view>
+        <view class="Acouponinfor">
+          <view class="facevalue">
+
+            <view class="facevalue-price fleft" style="display:flex;align-items: flex-end;">
+              {{item.mold == 2?"":"￥"}}<text>{{item.mold == 2?'0元免单':item.discount}}</text>
+              <block wx:if="{{item.mold==3 && item.vDtStartTimeStr!='' && item.vDtEndTimeStr!=''}}">
+                <view class="potroue">(限时 {{item.vDtStartTimeStr+"~"+item.vDtEndTimeStr}})</view>
+              </block>
+            </view>
+            <view class="facevalue-name fright" wx:if='{{item.mold == 0}}'>满减券</view>
+            <view class="facevalue-name fright" wx:if='{{item.mold == 1}}'>抵扣券</view>
+            <view class="facevalue-name fright" wx:if='{{item.mold == 2}}'>免单券</view>
+          </view>
+          <view class="condition">
+            <view class="facevalue-data fleft">有效期至 {{item.valid_date}}</view>
+            <view wx:if='{{item.mold == 0}}' class="facevalue-uses fright">满{{item.full}}可用</view>
+          </view>
+        </view>
+        <view class="Acouponuser">
+          <view class='fleft' class='fleft'
+            style="width: 60%;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">
+            {{item.productNames.length>0?item.productNames:item.typename}}</view>
+          <view class='fright' data-item="{{item}}" data-index="{{index}}" catchtap="goUseCoupon">立即用券</view>
+        </view>
+      </block>
+    </view>
+
+  </block>
+  <block wx:if="{{currentData == 1}}">
+    <view class="Acoupon white" wx:for="{{couponData}}" wx:for-item="item" wx:key="id" wx:for-index="index">
+      <image src='{{DataURL}}/images/coupon.png'></image>
+      <view class='shadow1'></view>
+      <view class="leftradius"></view>
+      <view class="rightradius"></view>
+      <view class="Acouponinfor">
+        <view class="facevalue">
+          <view class="facevalue-price fleft">
+            {{item.mold == 2?"":"￥"}}<text>{{item.mold == 2?'0元免单':item.discount}}</text>
+          </view>
+          <view class="facevalue-name fright" wx:if='{{item.mold == 0}}'>满减券</view>
+          <view class="facevalue-name fright" wx:if='{{item.mold == 1}}'>抵扣券</view>
+          <view class="facevalue-name fright" wx:if='{{item.mold == 2}}'>免单券</view>
+        </view>
+        <view class="condition">
+          <view class="facevalue-data fleft">有效期至 {{item.valid_date}}</view>
+          <view class="facevalue-uses fright"
+            style="width: 35%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{item.content}}</view>
+        </view>
+      </view>
+      <view class="Acouponuser">
+        <view class='fleft'>{{item.typename}}</view>
+      </view>
+    </view>
+  </block>
+</block>
+
+
+<block wx:if="{{drinkType || detailType || productType}}">
+  <view class="windowBackgroud" catchtouchmove="{{false}}" catchtap="emptyType"></view>
+</block>
+
+
+
+<view class="windowitem" wx:if="{{drinkType}}">
+  <view class="window">
+    <view class="payTitle">请选择你需要的饮品</view>
+    <scroll-view scroll-y="true" class="productItem" catchtouchmove="{{false}}">
+      <view class="choice" wx:for="{{2}}">
+        <view class="diot  {{index==1?'all':''}}">
+          <view></view>
+        </view>
+        <view class="chioceTime {{index==1? 'chioceBorder':''}}" style="{{index!=0? 'margin-top:20rpx;':''}}">
+          <image src="{{DataURL}}/images/{{index==1? 'amj-tea.png':'amj-coffee.png'}}"></image>
+          <view class="{{index==1? 'chioceFont':''}}">茶</view>
+        </view>
+      </view>
+    </scroll-view>
+    <view class="annotation">
+     <view>
+     注：
+     </view>
+      <view>1.请先带好脚套，使用成功后，设备将会开始运行</view>
+      <view>2.工作人员稍后会将你点饮品送来</view>
+    </view>
+    <view class="payBut"><text>￥9.9</text><text>立即支付</text></view>
+    <!--删除弹窗的图片-->
+    <view class='Lotterydel' catchtap="changeDrink">
+      <image src="{{DataURL}}/images/cleardel.png" bindtap="hideLotterymywin"></image>
+    </view>
+  </view>
+</view>
+
+
+
+<!-- 原优惠券相关弹窗 -->
+<view class="userule" wx:if="{{showModaluserule}}">
+  <view class="bgopcity" bindtap="hideModaluse"></view>
+  <view class="textrule" bindtap="hideModaluse">
+    <view>优惠券使用规则</view>
+    <text>1.优惠券必须在有效期内使用，过期自动作废，不能延期使用；</text>
+    <text>2.优惠券只能在指定小区的智能柜使用；</text>
+    <text>3.优惠券只能抵扣商品金额，不设找零，不可兑换抵扣；</text>
+    <text>4.每笔订单只能使用一张；</text>
+    <text>5.每张优惠券都有规则限制，同时满足各项条件才可使用；</text>
+    <text>6.使用通过不正当手段获得的优惠券，如经发现并证实的，该优惠券将予以作废处理；</text>
+    <text>7.优惠券抵扣部分将不计入积分累积；</text>
+    <text>8.使用优惠券的订单，若取消订单，则返还订单所使用的优惠券。若用户已支付，发生退款退货，优惠券部分不予退还；</text>
+    <text>9.本优惠券规则由爱美家e栈制定，并在法律允许范围内保留所有解释权和修改权；</text>
+  </view>
+</view>
+<!--提现规则-->
+<view class="commoditydetail {{detailType?'commoditydetailout':''}}">
+  <view class="commod-z">
+    <view class="commd-title">提现规则</view>
+    <view class="commd-font">1.提现办理时间:每日9:00-18:00</view>
+    <view class="commd-font">2.提现到账时间:提现成功后一般将在1-3个工作日到账， 周末顺延。如逾期未到账，请查询出入账明细或在我的钱包查询余额是否有退回。</view>
+    <view class="commd-font">3.提现功能必须关联本人微信账气号。</view>
+    <view class="commd-font">4、如您对此活动或对本公司有任何意见或建议,欢迎致电:0755-8277-9639</view>
+    <view class="commd-font">5.所有解释权归云客茶语公司所有。</view>
+    <view class="bpoisk" catchtap="onchangedetailType"> 好的</view>
+  </view>
+</view>
+
+<view class="productTypedetail" wx:if="{{productType}}">
+  <view class="fonts">
+    <view class="fotitle">提示</view>
+    <view class="foitem">
+      是否将此消费券兑换成{{currentCoupon.discount}}元现金，兑换成功后，可在<text>"我的钱包"中提现到微信</text>，同时此券会变更为已使用，且不能撤回，是否继续兑换
+    </view>
+    <view class="foitebut">
+      <view catchtap="showout">取消</view>
+      <view catchtap="startWithdraw">兑换</view>
+    </view>
+  </view>
+</view>

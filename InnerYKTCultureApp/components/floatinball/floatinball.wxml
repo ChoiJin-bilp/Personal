@@ -1,0 +1,10 @@
+<!--components/floatinball/floatinball.wxml-->
+<block wx:if="{{isDeviceMyUsing}}">
+  <movable-area style="height:{{ballheight}}rpx;">
+    <movable-view bind:touchstart="changeball" bind:touchend="changeba" style="{{ball?'opacity:0.8':''}}" wx:if="{{true}}" x="{{scrollX}}" y="{{scrollY}}" direction="all">
+      <view data-pagetype="0" data-package="" data-page="scanCode" catchtap="returnCheirapsisPage">
+        返回按摩
+      </view>
+    </movable-view>
+  </movable-area>
+</block>

@@ -1,0 +1,104 @@
+/* packageOther/pages/fxdata/fxdata.wxss */
+page{
+  background: #f6f6f6;
+  height:100%;
+}
+.main{
+  width: 94%;
+  height:100%;
+  overflow-y: scroll;
+  position: absolute;
+  top: 100rpx;left:3%;
+  background: #fff;
+  border-radius:10rpx;
+  z-index: 9;
+}
+.FX-rank{
+  width: 100%;
+  height: 80rpx;
+  background: #fff;
+  position: fixed;
+  left: 0;top: 0;
+   z-index: 10;
+}
+.FX-rank .ranktype{
+  float: left;
+  margin-left: 3%;
+  /* padding: 0 30rpx; */
+  margin-top: 6rpx;
+  height: 68rpx;
+  line-height: 68rpx;
+}
+.FX-rank .ranktype:last-child{
+  margin-left: 5%;
+}
+.FX-rank .ranktype image{
+  width: 28rpx;
+  height: 24rpx;
+  vertical-align: middle;
+  margin-left: 12rpx;
+  margin-top: -4rpx;
+}
+.FX-rank .ranktype text{
+  display: inline-block;
+}
+.FX-rank .ranktype picker{
+  display: inline-block;
+  width:180rpx;
+  padding: 0 10rpx;
+  height: 68rpx;
+  line-height: 68rpx;
+  margin-left: 12rpx;
+  border-radius: 10rpx;
+  border: solid 1rpx #e5e5e5;
+  position: relative;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+.FX-rank .ranktype picker .xiala{
+  position: absolute;
+  right: 10rpx;
+  top: 28rpx;
+  width: 28rpx;
+  height: 16rpx;
+}
+.chose-txt{
+  width: 96%;
+  height: 80rpx;
+  line-height: 80rpx;
+  margin: 0 auto;
+  overflow: hidden;
+  border-bottom: solid 2rpx #e5e5e5;
+  clear: both;
+}
+.fx-brokerage,.fx-number{
+  color: #333;
+  font-size: 28rpx;
+  font-family: "DIN1"
+}
+.fx-name{
+  height: 80rpx;
+  line-height: 80rpx;
+  overflow: hidden;
+  /* display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  margin-top: 4rpx; */
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  font-size: 28rpx;
+  color: #333;
+  vertical-align: middle;
+}
+.firstdata{
+  width: 96%;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-bottom: solid 1rpx #e5e5e5;
+  margin: 0 auto;
+}
+.firstdata view.fleft{
+  font-size: 28rpx;
+  color: #999;
+}

@@ -1,0 +1,309 @@
+// packageYK/pages/beverageList/beverageList.js
+const app = getApp();
+
+var MD5JS = require('../../../utils/md5.js');
+var Utils = require('../../../utils/util.js');
+var WxParse = require('../../../wxParse/wxParse.js');
+var SMURL = app.getUrlAndKey.smurl,
+  URL = app.getUrlAndKey.smurl,
+  KEY = app.getUrlAndKey.key,
+  DataURL = app.getUrlAndKey.mdataUrl,
+  SMDataURL = app.getUrlAndKey.dataUrl;
+var appUserInfo = app.globalData.userInfo;
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    DataURL: DataURL,
+    SMDataURL: SMDataURL,
+    pIndex: 1,
+    pSize: 5,
+    currentData: 5,
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.queryOrderDetail();
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    //按摩进行时，当界面显示立即同步时间（处理微信小程序锁屏导致定时器延时问题）
+    app.data.isOnShowQueryCheirapsisTime=app.data.isDeviceMyUsing?true:false;
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+    this.setData({
+      pIndex: 1,
+      orderList: [],
+    })
+    console.log("加载第" + this.data.pIndex + "页")
+    this.queryOrderDetail();
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+    this.setData({
+      pIndex: ++this.data.pIndex
+    })
+    console.log("加载第" + this.data.pIndex + "页")
+    this.queryOrderDetail();
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  },
+
+  /**
+   * 查询订单 如linkNo软件服务5, 0:未支付1:已支付下单2:商家接单 3:定制中 4:定制完成
+   */
+  queryOrderDetail: function () {
+    var that = this;
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    var timestamp = Date.parse(new Date());
+    timestamp = timestamp / 1000;
+    var userId = app.globalData.userTotalInfo.id
+    // userId = 13140
+    var urlParam = "cls=product_order&action=QueryOrders&appId=" + app.data.appid + "&timestamp=" + timestamp + "&userId=" + userId + "&orderId=";
+    console.log('sign:', urlParam + "&key=" + KEY)
+    var sign = MD5JS.hexMD5(urlParam + "&key=" + KEY);
+    // 订单状态 订单状态0:未支付1:待发货（已购买）2:已完成 3:已取消 4:退货5:团购中6待收货7团购失败 12已支付定金
+    var status = 0;
+    // 一般0,兑换1,领取2,团购3预售4软件定制5软件代理6酒店7,饮品8
+    var linkNo = "8,9"
+    switch (that.data.currentData) {
+      case 0:
+        status = 0;
+        break;
+      case 1:
+        status = 1;
+        break;
+      case 2:
+        status = 6;
+        break;
+      case 3:
+        status = 2;
+        break;
+      case 4:
+        status = 5;
+        break;
+      case 5:
+        status = "1, 2, 6";
+        break;
+      default:
+        linkNo = ""
+        break
+    }
+    let s = status == 0 ? ' 0,12' : status;
+    urlParam = urlParam + "&status=" + s + "&pIndex=" + that.data.pIndex + "&pSize=" + that.data.pSize + "&sField=" + "id" + "&sOrder=" + "desc" + "&sign=" + sign + "&linkNo=" + linkNo;
+    if (status == 0) {
+      urlParam = urlParam + "&isGroup=1";
+    }
+    console.log('查询订单详情:', URL + urlParam)
+    wx.request({
+      url: URL + urlParam,
+      success: function (res) {
+        wx.hideLoading()
+        console.log('查询订单:', res)
+        if (res.data.rspCode == 0) {
+          var data = res.data.data,
+            imagesArray = null,
+            detailDataItem = null;
+
+          if (data.length > 0 && status == 0) {
+
+            for (let i = 0; i < data.length; i++) {
+              var orders = data[i].orders;
+              // 多个商品合计
+              data[i].amount = 0;
+
+              // 处理多件商品待付款订单
+              if (data[i].cnt == 1) {
+                data[i].orderId = orders[0].orderId;
+              } else {
+                data[i].detailPhotos = [];
+              }
+              for (let k = 0; k < orders.length; k++) {
+                var order = orders[k];
+                // 订单状态
+                data[i].state = order.status;
+                //规格列表处理
+                var detail = order.detail
+
+                for (let j = 0; j < detail.length; j++) {
+                  detailDataItem = null;
+                  detailDataItem = detail[j];
+                  if (detailDataItem.linkNo == 4 && detailDataItem.orderstatus == 12) {
+                    // 算出总尾款
+                    data[i].amount = data[i].amount + (detailDataItem.productprice - detailDataItem.deposit) * detailDataItem.number;
+                  } else {
+                    data[i].amount = data[i].amount + detailDataItem.amount;
+                  }
+                  // 团拼超时 订单失效
+                  if (!Utils.isNull(detailDataItem.groupDay) &&
+                    nowTimestamp > create_date + ((24 * 60 * 60 * 1000) * detailDataItem.groupDay)) {
+                    data[i].status = -1 //团拼超时 失败
+                    console.log('团拼超时 订单失效')
+                  }
+                  //图片处理
+                  if (detailDataItem.detailPhotos != null && detailDataItem.detailPhotos != undefined) {
+                    imagesArray = null;
+                    imagesArray = detailDataItem.detailPhotos.split(",");
+                    if (data[i].cnt == 1) {
+                      detail[j].detailPhotos = imagesArray != null && imagesArray.length > 0 ? imagesArray[0] : defaultItemImgSrc;
+                    } else {
+                      if (data[i].detailPhotos.length < 3) {
+                        data[i].detailPhotos[k] = imagesArray != null && imagesArray.length > 0 ? imagesArray[0] : defaultItemImgSrc;
+                      }
+                    }
+                  }
+
+                  if (Utils.isNull(detailDataItem.attributeOne)) {
+                    detailDataItem.attributeOne = ""
+                  }
+                  if (Utils.isNull(detailDataItem.attributeTwo)) {
+                    detailDataItem.attributeTwo = ""
+                  }
+                }
+                order.detail = detail;
+                try {
+                  order.linkNo = parseInt(order.linkNo);
+                } catch (e) {}
+                console.log(' order.linkNo:', order.linkNo)
+                var create_date = order.create_date;
+                data[i].create_date = order.create_date;
+                data[i].linkNo = order.linkNo;
+                create_date = Date.parse(new Date(create_date.replace(/\-/g, '/')));
+                var nowTimestamp = Date.parse(new Date());
+                // 已付定金
+                if (order.linkNo == 4 && order.status == 12) {
+                  for (let l = 0; l < order.detail.length; l++) {
+                    // 0=尾款支付没开始
+                    if (order.detail[l].finalStartExpire == 0) {
+                      data[i].status = -2 //尾款未开始
+                    }
+                    // // 售定金到期状态presellstatus和预售尾款到期状态finalPaystatu，为1没到期，0为未开始或已到期
+                    else if (order.detail[l].finalPaystatus == 0) {
+                      // 没支付尾款过期了
+                      data[i].status = -3 //已取消
+                      break;
+                    }
+                  }
+                } else if (nowTimestamp > create_date + (30 * 60 * 1000)) {
+                  data[i].status = -1 //已失效
+                  continue
+                }
+              }
+            }
+          } else if (data.length > 0 && status == 5) {
+            for (let i = 0; i < data.length; i++) {
+              var create_date = data[i].create_date;
+              create_date = Date.parse(new Date(create_date.replace(/\-/g, '/')));
+              var nowTimestamp = Date.parse(new Date());
+
+              //规格列表处理
+              var detail = data[i].detail
+              for (let j = 0; j < detail.length; j++) {
+                detailDataItem = null;
+                detailDataItem = detail[j];
+                if (nowTimestamp > create_date + ((24 * 60 * 60 * 1000) * detailDataItem.groupDay)) {
+                  data[i].status = -1 //团拼超时  失败
+                }
+              }
+              data[i].detail = detail;
+            }
+          }
+          //除订单分组数据(status != 0)  统一处理数据集
+          if (data.length > 0 && status != 0) {
+            for (let i = 0; i < data.length; i++) {
+              //规格列表处理
+              var detail = data[i].detail
+              for (let j = 0; j < detail.length; j++) {
+                detailDataItem = null;
+                detailDataItem = detail[j];
+                //图片处理
+                if (!Utils.isNull(detailDataItem.detailPhotos)) {
+                  imagesArray = null;
+                  imagesArray = detailDataItem.detailPhotos.split(",");
+                  detail[j].detailPhotos = imagesArray != null && imagesArray.length > 0 ? imagesArray[0] : defaultItemImgSrc;
+                }
+
+                if (Utils.isNull(detailDataItem.attributeOne)) {
+                  detailDataItem.attributeOne = ""
+                }
+                if (Utils.isNull(detailDataItem.attributeTwo)) {
+                  detailDataItem.attributeTwo = ""
+                }
+                // data[i].mold = detailDataItem.isSofe
+              }
+              data[i].detail = detail;
+            }
+          }
+
+          console.log("订单数据集——")
+          console.log(data)
+          if (that.data.pIndex > 1) {
+            if (data.length > 0) {
+              data = that.data.orderList.concat(data);
+              that.setData({
+                orderList: data,
+              })
+            } else {
+              that.setData({
+                pIndex: that.data.pIndex - 1,
+              })
+            }
+            console.log('pIndex', that.data.pIndex)
+            return;
+          }
+          that.setData({
+            orderList: data,
+          })
+          console.log('处理完数据', data)
+        } else {
+          wx.hideLoading()
+          app.setErrorMsg2(that, "查询订单！错误信息：" + JSON.stringify(res), URL + urlParam, false);
+          wx.showToast({
+            title: res.data.rspMsg,
+            icon: 'none',
+            duration: 1500
+          })
+        }
+      },
+      fail: function (err) {
+        wx.hideLoading()
+        wx.showToast({
+          title: '网络错误',
+          icon: 'none',
+          duration: 1500
+        })
+        console.log("接口失败：" + err)
+      },
+    })
+  },
+  goDetail(e) {
+    var item = e.currentTarget.dataset.item
+    console.log(item)
+    var url = '../../../packageOther/pages/successDetailspa/successDetailspa?lp=1&linkNo=' + item.linkNo + "&mold=20&oid=" + item.orderId + "&anmocouponnum=&anmotime=&anmocouponid=&companyId=" + item.companyId + "&isUse="
+    wx.navigateTo({
+      url: url,
+    })
+  },
+})

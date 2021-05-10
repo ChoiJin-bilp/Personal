@@ -1,0 +1,94 @@
+/* pages/selectStore/selectStore.wxss */
+
+.nut{
+  padding: 30rpx;
+  box-sizing: border-box;
+    border-bottom: solid #F0F1F2 2rpx;
+}
+.addtitle{
+ background-color: #F0F1F2;
+  display: flex;
+  align-items: center;
+  padding: 10rpx 20rpx;
+  justify-content: space-between;
+  font-size: 30rpx;
+  color: #333;
+}
+.addtitle image{
+  width: 35rpx;
+  height: 35rpx;
+}
+.addtitle input{
+  width: 100%;
+  margin-left: 20rpx;
+}
+.fistItem{
+  display: flex;
+  border-bottom: solid #F0F1F2 2rpx;
+  padding: 20rpx 30rpx;
+  box-sizing: border-box;
+  width: 100%;
+  justify-content: space-between;
+}
+.titleName{
+ width: 80%;
+ display: flex;
+ align-items: center;
+}
+.titleName image{
+  width: 30rpx;
+  height:20rpx;
+}
+.titleName view{
+  width: 100%;
+    overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.budress{
+  display: flex;
+  align-items: center;
+  font-size: 28rpx;
+  color: #666;
+}
+.budress image{
+  width: 34rpx;
+  height: 34rpx;
+  margin-right: 14rpx;
+}
+.pinjia{
+  display: flex;
+  width: 150rpx;
+  justify-content: space-between;
+  margin-bottom: 10rpx;
+  
+}
+.pinjia image{
+  width: 26rpx;
+  height: 26rpx;
+}
+.buthunt{
+  padding: 20rpx;
+  box-sizing: border-box;
+  border-bottom: solid #F0F1F2 2rpx;
+
+}
+.buthunttop{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10rpx;
+}
+.buthunttop view:nth-of-type(1){
+  font-size: 32rpx;
+  color: #333;
+  font-weight: bold;
+}
+.buthunttop view:nth-of-type(2){
+  font-size: 24rpx;
+  color: #999;
+}
+.bot{
+  font-size: 26rpx;
+  color: #999;
+}

@@ -1,0 +1,641 @@
+<!--pages/luckdraw/luckdraw.wxml-->
+<v-folat id="myComponent"/>
+<block wx:if="{{isShowNDid || (!isShowNDid && agentDeviceStatus==0)}}">
+<block wx:if="{{false}}">
+  <!-- 轮播图片 -->
+  <view class="width100 banner {{imgUrlsCnt>0?'show':'hide'}}">
+    <!-- <view class="width100 banner"> -->
+    <swiper class="swiper" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <block wx:for="{{imgUrls}}" wx:for-item="item" wx:for-index="index" wx:key="item">
+        <swiper-item>
+          <image mode='aspectFill' src="{{item.isShow? item.src+'?'+randomNum : ''}}" class="slide-image tbannerimg{{index}}" data-url='{{item.url}}' data-src='{{item.src}}' />
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <view class="rush" catchtap="showESPricePop" wx:if="{{remainTime>0}}">
+    <view>活动仅剩时长</view>
+    <view class="onsale">
+      <view class="oskty skty">{{remainTimeHours}}:</view>
+      <view class="oskty skty">{{remainTimeMinutes}}:</view>
+      <view class="oskty skty">{{remainTimeSeconds}}</view>
+    </view>
+  </view>
+</block>
+  <!-- 新九宫格抽奖方式 -->
+  <view class="without">
+    <block wx:if="{{false}}">
+  <!--九块九活动-->
+    <block wx:if="{{syn9910DataList.length>0}}">
+      <view class="ninehuodong">
+        <block wx:for="{{syn9910DataList}}" wx:for-item="item" wx:key="id" wx:for-index="index" data-index='index'>
+          <image src="{{DataURL}}/images/nineyuan.png" data-item="{{item}}" catchtap="gotoCouponDetailPage"></image>
+        </block>
+        
+      </view>
+    </block>
+     
+    <!--顶部优惠选项-->
+    <block wx:if="{{payCheirapsisProductList.length>0 || isSetFreeCheirapsis==1}}">
+      <view style="display:flex;">
+        <!-- 相应公司是否已设置免费按摩 -->
+        <block wx:if="{{isSetFreeCheirapsis==1}}">
+          <view class="mortgagePrice">
+            <view class="useTime" catchtap="gotoFreeCheirapsis">免费按摩</view>
+          </view>
+        </block>
+        
+        <block wx:for="{{payCheirapsisProductList}}" wx:for-item="item" wx:key="id" wx:for-index="index" data-index='index'>
+          <view class="zh-o {{isSetFreeCheirapsis==1?'':'freeconpon'}}" data-item="{{item}}" catchtap="payforCheirapsis">
+            <image class="zh-img" src="{{DataURL}}/images/amq-haskd.png"></image>
+            <block wx:if="{{item.priceType==2}}">
+              <view class="zh-s">仅限{{item.promotionstart}}~{{item.promotionend}}</view>
+            </block>
+            <block wx:if="{{item.priceType==3}}">
+              <view class="zh-s">每日{{item.promotionstart}}~{{item.promotionend}}</view>
+            </block>
+
+            <view class="zh-x">
+              <view class="zh-t">
+                <block wx:if="{{item.priceType==2}}">
+                  <view class="h-t-t">推广期</view>
+                </block>
+                <block wx:if="{{item.priceType==3}}">
+                  <view class="h-t-t">限时</view>
+                </block>
+                <view class="h-t-o">{{item.priceType==2 || item.priceType==3?'特惠价':'优惠价'}}</view>
+              </view>
+              <view class="zh-f" style="{{isSetFreeCheirapsis==1?'':'width:70%;'}}">
+                <view class="h-f-o">
+                  <text>￥</text>
+                  <text class="f-o-t">{{item.price}}</text>
+                  <block wx:if="{{item.actprice>item.price}}">
+                    <text class="f-o-s">￥{{item.actprice}}</text>
+                  </block>
+                </view>
+                <view class="h-f-t">时长：{{item.duration}}分钟</view>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </block>
+  </block>
+    <image class="unsample" src="{{DataURL}}/images/amy-draw.png"></image>
+    <!-- 抽奖部分 -->
+    <block wx:if="{{isViewAward==0 && sourceDataList.length>0}}">
+
+      <!-- <view class="width100" catchtap="startkkk">开始抽奖</view> -->
+      <view class="container-out">
+        <image class="contages" src="{{DataURL}}/images/amy-bj.png">
+        </image>
+        <!-- 装饰星星效果 -->
+        <view class="circle" wx:for="{{starRingList}}" wx:key="index" style="top:{{item.topCircle}}rpx;left:{{item.leftCircle}}rpx;background-color: {{(index%2==0)?colorCircleFirst:colorCircleSecond}}"></view>
+        <view class='frame_view'>
+          <view class='frame_row'>
+            <view class='frame_item' style='opacity:{{color[ringItems.item0.position]}}'>
+              <image class="istye" src="{{DataURL}}/images/amy-bk.png"></image>
+              <block wx:if="{{ringItems.item0.duration>0}}">
+                <view class="sttu sttu-v">
+                  <view class="boxline" style="font-size:36rpx;font-weight:bold;width: 130%;text-align: center;">{{ringItems.item0.name}}</view>
+                  <!-- 副标题 -->
+                  <block wx:if="{{ringItems.item0.remark!=''}}">
+                    <view class="pelma">{{ringItems.item0.remark}}</view>
+                  </block>
+                  
+                  <block wx:if="{{ringItems.item0.price>0}}">
+                    <view class="pelma" style="color: red;">+{{ringItems.item0.price}}红包</view>
+                  </block>
+                </view>
+              </block>
+              <block wx:else>
+                <image class="istyet" src="{{ringItems.item0.imgSrc}}"></image>
+                <view class="sttu">
+                  <view class="boxline" style="font-size:26rpx;width: 130%;text-align: center;">{{ringItems.item0.name}}</view>        
+                </view>
+              </block>
+            </view>
+
+            <view class='frame_item' style='opacity:{{color[ringItems.item1.position]}}'>
+              <image class="istye" src="{{DataURL}}/images/amy-bk.png"></image>
+              <block wx:if="{{true}}">
+                <view class="sttu sttu-v">
+                  <view style="font-size:36rpx;font-weight:bold;width: 130%;text-align: center;">{{ringItems.item1.name}}</view>
+                  <!-- 副标题 -->
+                  <block wx:if="{{ringItems.item1.remark!=''}}">
+                    <view class="pelma">{{ringItems.item1.remark}}</view>
+                  </block>
+                  <block wx:if="{{ringItems.item1.price>0}}">
+                    <view class="pelma" style="color: red;">+{{ringItems.item1.price}}红包</view>
+                  </block>
+                </view>
+              </block>
+              <block wx:else>
+                <image class="istyet" src="{{ringItems.item1.imgSrc}}"></image>
+                <view class="sttu">
+                  <view class="boxline" style="font-size:26rpx;">{{ringItems.item1.name}}</view>
+                </view>
+              </block>
+            </view>
+
+            <view class='frame_item' style='opacity:{{color[ringItems.item2.position]}}'>
+              <image class="istye" src="{{DataURL}}/images/amy-bk.png"></image>
+              <block wx:if="{{true}}">
+                <view class="sttu sttu-v">
+                  <view style="font-size:36rpx;font-weight:bold;width: 130%;text-align: center;">{{ringItems.item2.name}}</view>
+                  <!-- 副标题 -->
+                  <block wx:if="{{ringItems.item2.remark!=''}}">
+                    <view class="pelma">{{ringItems.item2.remark}}</view>
+                  </block>
+                  <block wx:if="{{ringItems.item2.price>0}}">
+                    <view class="pelma" style="color: red;">+{{ringItems.item2.price}}红包</view>
+                  </block>
+                </view>
+              </block>
+              <block wx:else>
+                <image class="istyet" src="{{ringItems.item2.imgSrc}}"></image>
+                <view class="sttu">
+                  <view class="boxline" style="font-size:26rpx;width: 130%;text-align: center;">{{ringItems.item2.name}}</view>
+                </view>
+              </block>
+            </view>
+          </view>
+          <view class='frame_row'>
+            <view class='frame_item' style='opacity:{{color[ringItems.item7.position]}}'>
+              <image class="istye" src="{{DataURL}}/images/amy-bk.png"></image>
+              <block wx:if="{{true}}">
+                <view class="sttu sttu-v">
+                  <view style="font-size:36rpx;font-weight:bold;width: 130%;text-align: center;">{{ringItems.item7.name}}</view>
+                  <!-- 副标题 -->
+                  <block wx:if="{{ringItems.item7.remark!=''}}">
+                    <view class="pelma">{{ringItems.item7.remark}}</view>
+                  </block>
+                  <block wx:if="{{ringItems.item7.price>0}}">
+                    <view class="pelma" style="color: red;">+{{ringItems.item7.price}}红包</view>
+                  </block>
+                </view>
+              </block>
+              <block wx:else>
+                <image class="istyet" src="{{ringItems.item7.imgSrc}}"></image>
+                <view class="sttu">
+                  <view class="boxline" style="font-size:26rpx;width: 130%;text-align: center;">{{ringItems.item7.name}}</view>
+                </view>
+              </block>
+            </view>
+
+            <view class='frame_item shanshuo' style="background:linear-gradient(to bottom, #FDE401,#FEF6A6,#FDE401);" bindtap="startLotteryDraw">
+              <!-- <image class="istye" src="{{DataURL}}/images/amy-center.png"></image> -->
+              <view class="sttu">
+                <view class="img">
+                  <image style="{{chanceTimes<=0? 'margin:0;':''}}" src="{{btnconfirm}}"></image>
+                </view>
+                <view style="color:#9A914D;font-size:26rpx;width: 130%;text-align: center;">
+                  <block wx:if="{{chanceTimes>0}}">
+                    剩余
+                    <text class="sttu-v" style="font-size:36rpx;">{{chanceTimes}}</text>次
+                  </block>
+                  <block wx:if="{{chanceTimes<=0 && isPayforLotteryDraw}}">
+                    <text class="sttu-v" style="font-size:26rpx;">支付抽奖</text>
+                  </block>
+                </view>
+              </view>
+            </view>
+
+            <view class='frame_item' style='opacity:{{color[ringItems.item3.position]}}'>
+              <image class="istye" src="{{DataURL}}/images/amy-bk.png"></image>
+              <block wx:if="{{true}}">
+                <view class="sttu sttu-v">
+                  <view style="font-size:36rpx;font-weight:bold;width: 130%;text-align: center;">{{ringItems.item3.name}}</view>
+                  <!-- 副标题 -->
+                  <block wx:if="{{ringItems.item3.remark!=''}}">
+                    <view class="pelma">{{ringItems.item3.remark}}</view>
+                  </block>
+                  <block wx:if="{{ringItems.item3.price>0}}">
+                    <view class="pelma" style="color: red;">+{{ringItems.item3.price}}红包</view>
+                  </block>
+                </view>
+              </block>
+              <block wx:else>
+                <image class="istyet" src="{{ringItems.item3.imgSrc}}"></image>
+                <view class="sttu">
+                  <view class="boxline" style="font-size:26rpx;width: 130%;text-align: center;">{{ringItems.item3.name}}</view>
+                </view>
+              </block>
+            </view>
+          </view>
+          <view class='frame_row'>
+            <view class='frame_item' style='opacity:{{color[ringItems.item6.position]}}'>
+              <image class="istye" src="{{DataURL}}/images/amy-bk.png"></image>
+              <block wx:if="{{true}}">
+                <view class="sttu sttu-v">
+                  <view style="font-size:36rpx;font-weight:bold;width: 130%;text-align: center;">{{ringItems.item6.name}}</view>
+                  <!-- 副标题 -->
+                  <block wx:if="{{ringItems.item6.remark!=''}}">
+                    <view class="pelma">{{ringItems.item6.remark}}</view>
+                  </block>
+                  <block wx:if="{{ringItems.item6.price>0}}">
+                    <view class="pelma" style="color: red;">+{{ringItems.item6.price}}红包</view>
+                  </block>
+                </view>
+              </block>
+              <block wx:else>
+                <image class="istyet" src="{{ringItems.item6.imgSrc}}"></image>
+                <view class="sttu">
+                  <view class="boxline" style="font-size:26rpx;width: 130%;text-align: center;">{{ringItems.item6.name}}</view>
+                </view>
+              </block>
+            </view>
+
+            <view class='frame_item' style='opacity:{{color[ringItems.item5.position]}}'>
+              <image class="istye" src="{{DataURL}}/images/amy-bk.png"></image>
+              <block wx:if="{{true}}">
+                <view class="sttu sttu-v">
+                  <view style="font-size:36rpx;font-weight:bold;width: 130%;text-align: center;">{{ringItems.item5.name}}</view>
+                  <!-- 副标题 -->
+                  <block wx:if="{{ringItems.item5.remark!=''}}">
+                    <view class="pelma">{{ringItems.item5.remark}}</view>
+                  </block>
+                  <block wx:if="{{ringItems.item5.price>0}}">
+                    <view class="pelma" style="color: red;">+{{ringItems.item5.price}}红包</view>
+                  </block>
+                </view>
+              </block>
+              <block wx:else>
+                <image class="istyet" src="{{ringItems.item5.imgSrc}}"></image>
+                <view class="sttu">
+                  <view class="boxline" style="font-size:26rpx;width: 130%;text-align: center;">{{ringItems.item5.name}}</view>
+                </view>
+              </block>
+            </view>
+
+            <view class='frame_item' style='opacity:{{color[ringItems.item4.position]}}'>
+              <image class="istye" src="{{DataURL}}/images/amy-bk.png"></image>
+              <view class="sttu">
+                <view>
+                  <image class="imgt" src="{{DataURL}}/images/amy-hg.png"></image>
+                </view>
+                <view class="boxline" style="color:#000;font-size:26rpx;width: 130%;text-align: center;">{{ringItems.item4.name}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+
+
+    <block wx:if="{{false}}">
+    <!--按摩器介绍-->
+      <view class="introduce">
+      <view data-pagetype="0" data-package="" data-page="massageIntroduced" catchtap="gotoPage">
+        <image src="{{DataURL}}/images/amy-introduce.png" class="osize"></image>
+        <text>按摩介绍</text>
+      </view>
+      <view catchtap="onchangeExplain">
+        <image src="{{DataURL}}/images/amy-explain.png" class="osize"></image>
+        <text>使用说明</text>
+      </view>
+      <view catchtap="onchangeroof">
+        <image src="{{DataURL}}/images/amy-declare.png" class="osize"></image>
+        <text>注意事项</text>
+      </view>
+    </view>
+    </block>
+
+    <!--抽奖规则-->
+    <view class="ticket">
+      <view class="ticket-v">
+        <view>抽奖规则</view>
+        <view catchtap="showLotterymywin">我的奖品></view>
+      </view>
+      <view class="ticket-o">
+        <view>1.本活动限注册用户参与。</view>
+        <view>2.用户每天可免费抽奖一次。</view>
+        <view>3.获得的奖品可在"优惠劵/我的按摩劵"中查看。</view>
+        <view>4.本次活动最终解释权归{{sysName}}所有。</view>
+      </view>
+    </view>
+  </view>
+</block>
+<block wx:else>
+  <view class="width100">
+    <!--   <v-scanCode DataURL="{{DataURL}}" deviceNo='{{deviceNo}}' loginMode="{{loginMode}}" roleStatus="{{roleStatus}}" osTag="{{osTag}}" bind:scanOnIndex='onScanOnIndex' /> -->
+  </view>
+</block>
+
+<!-- 活动规则弹窗 -->
+<view class="Lotterypopview" wx:if="{{Lotteryrule}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class='Lotterypop'>
+    <view class="titleview">抽奖规则</view>
+    <scroll-view class="Lotteryscrollview" scroll-y="true">
+      <block wx:for="{{rule}}" wx:key="id">
+        <view class="ruleview">{{item.rule}}</view>
+      </block>
+      <view class="clearfix"></view>
+    </scroll-view>
+    <view class='Lotterydel'>
+      <image src="{{DataURL}}/images/cleardel.png" bindtap="hideLotteryrule"></image>
+    </view>
+  </view>
+</view>
+
+<!-- 抽奖记录弹窗 -->
+<view class="Lotterypopview" wx:if="{{Lotterymywin}}" catchtouchmove="true">
+  <view class="bgopcity"></view>
+  <view class='Lotterypop'>
+    <view class="titleview">{{drawAwardRecordList.length
+      <=0? '暂无奖品': '我的奖品'}}</view>
+        <scroll-view class="Lotteryscrollview" scroll-y="true">
+          <block wx:for="{{drawAwardRecordList}}" wx:key="id">
+            <view class="Lotterybox">
+              <view class="title" style="margin:0;color:#333;text-align: left;">{{item.productName}}{{item.type==1 && item.duration>0?'【按摩'+item.duration+'分钟】':item.premark}}</view>
+              <view class="leftview fleft">
+                <view class="time">{{item.createDate}}</view>
+                <view class="time">{{item.endTime}}</view>
+              </view>
+              <view class="rightview fright">
+                <block wx:if="{{(item.type==4 || item.duration>0) && item.isUse==0}}">
+                  <button data-item="{{item}}" catchtap="useMyAward">立即使用</button>
+                </block>
+                <block wx:if="{{(item.type==4 || item.duration>0) && item.isUse!=0}}">
+                  <button data-item="{{item}}">已使用</button>
+                </block>
+              </view>
+              <view class='clearfix'></view>
+            </view>
+          </block>
+          <view class="clearfix"></view>
+        </scroll-view>
+        <view class='Lotterydel'>
+          <image src="{{DataURL}}/images/cleardel.png" bindtap="hideLotterymywin"></image>
+        </view>
+    </view>
+  </view>
+
+  <!--中奖弹窗-->
+  <view class="Lotterypopview" wx:if="{{showModalwinning}}" catchtouchmove="true">
+    <view class="bgopcity"></view>
+    <view class='Lotterypop'  style="background: linear-gradient(to bottom, #ed6a32, #db2528);" >
+      <view class="titleview1">恭喜您获得{{curItem.single_num}}张</view>
+      <!-- 按摩劵奖品类型 -->
+      <block wx:if="{{curItem.duration>0}}">
+        <view class="mywinview">
+          <view>
+            免费足底按摩
+            <text>{{curItem.duration}}</text>分钟
+          </view> 
+          <block wx:if="{{curItem.price>0.00}}">
+            <view style="font-size:26rpx;margin-top:30rpx;">体验结束将会获得
+              <text>{{curItem.price}}</text>元现金红包，可直接提现</view>
+          </block>
+        </view>
+        <button class="nowaway" data-item="{{curItem}}" catchtap="useMyAward">立即使用</button>
+        <view class="tipsview tip" style="margin-top: 20rpx;">注：按摩券只能在活动有效期内使用</view>
+        <view class="tipsview tip">如未使用，后续可以在“我的按摩劵”记录中开启使用</view>
+      </block>
+      <!-- 除按摩劵其他奖品类型 -->
+      <block wx:else>
+        <view class="mywinview">
+          <text>{{curItem.productName}} {{curItem.premark}}</text>
+          <block wx:if="{{curItem.price>0.00}}">
+            <view style="font-size:26rpx;margin-top:30rpx;">体验结束将会获得
+              <text>{{curItem.price}}</text>元现金红包，可直接提现</view>
+          </block>
+        </view>
+      </block>
+      <view class='Lotterydel'>
+        <image src="{{DataURL}}/images/cleardel.png" bindtap="hideAwardsPop"></image>
+      </view>
+    </view>
+  </view>
+  <!--使用说明弹窗-->
+  <block wx:if="{{explaintype}}">
+    <view catchtouchmove="true">
+      <view class="tanChuan" catchtap="onchangeExplain">
+        <view class="close">
+          <view style="width:100%;height:100%;position: relative;" catchtap="onchangeExplain">
+            <view class="close-o"></view>
+            <view class="close-t"></view>
+          </view>
+        </view>
+      </view>
+      <view style="background:#FACD91;" class="tanChuan-v">
+        <scroll-view class="tanChuan-v-t" scroll-y="true">
+          <view class="struction">
+            <view class="title" style="font-size:30rpx;">
+              使用说明
+            </view>
+            <view>
+              <view class="content">1、详细阅读“{{sysName}}”使用注意事项、了解产品的使用要求。</view>
+              <view class="content roof">2、检查产品的电源、电路有无破损，确保使用安全。</view>
+              <view class="content roof">3、准备按摩前请务必佩戴脚套，讲究卫生。</view>
+              <view class="content roof">4、首页每天都赠送一次免费抽奖机会，多种免费按摩时长等你来拿，千万不要错过。</view>
+              <view class="content roof">5、购买按摩时间、或使用按摩劵，点击“开始”按钮后，按摩器开始运行。注：当按摩器开始运作倒计时的时候，如您在倒计时过程中点击暂停，设备会停止，但是倒计时依旧会继续，直到体验分钟数结束为止。</view>
+              <view class="content roof">6、当按摩器启动时，默认为“正转”模式，除此之外，您还可以根据需要来切换“反转”和“捂脚”模式。</view>
+              <view class="content roof">7、按摩器共有五档，启动时强度默认为三挡，您可根据按摩的力度大小进行调节。（1挡为最弱，5挡为最强）</view>
+              <view class="content roof">8、按摩器启动时，默认为“加热”模式，您可根据需要来调节成“不加热”。</view>
+              <view class="content roof">9、保持舒适的体态，开始足部按摩。</view>
+              <view class="content roof">10、按摩结束后，请将按摩器放置到安全的位置，以免造成绊倒，和方便二次使用。</view>
+            </view>
+            <view class="content roof">按摩可以放松我们的身体，双脚作为我们平时行走站立的关键部位，每天都承担着大量的工作，久而久之十分疲累，所以我们也应在每天对双脚进行按摩放松，这样有益我们的健康，长此以往，还能增加我们的寿命。</view>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+  </block>
+  <!-- 充值弹窗 -->
+  <view class="userule" wx:if="{{ReChargePop}}" catchtouchmove="true">
+    <view class="bgopcity"></view>
+    <view class="tipsbox tac">
+      <view class="timeview">{{rechargeAlert}}</view>
+      <!-- <view class="priceview">￥{{rechargeSum}}</view> -->
+      <view class="width100 pop-foot">
+        <button class="btn-pop" bindtap="hideReChargePop">取消</button>
+        <button class="btn-pop" data-amount="{{rechargeSum}}" bindtap='submitPayInfo'>微信支付</button>
+      </view>
+    </view>
+  </view>
+  <!--使用注意事项-->
+  <block wx:if="{{roof}}">
+    <view height="1500rpx" width="100%" catchtouchmove="true">
+      <view class="tanChuan" catchtap="onchangeroof">
+        <view class="close">
+          <view style="width:100%;height:100%;position: relative;" catchtap="onchangeroof">
+            <view class="close-o"></view>
+            <view class="close-t"></view>
+          </view>
+        </view>
+      </view>
+      <view style="background:#FACD91;" class="tanChuan-v">
+        <scroll-view class="tanChuan-v-t" scroll-y="true">
+          <!--新板块内容-->
+          <view class="struction">
+            <view class="title" style="font-size:30rpx;">
+              重要安全事项说明
+            </view>
+            <view>
+              <view class="content">●为确保安全及正确使用产品，使用前请务必详细参阅操作手册。</view>
+              <view class="content roof">●请务必依照本操作手册内的产品用途使用本产品。</view>
+              <view class="content roof">●使用完毕后或清洁产品前，请将电源插头从插座中拔除。</view>
+              <view class="content roof">●请务必谨慎使用温热功能，避免灼伤。</view>
+              <view class="content roof">●请勿用于感觉迟钝和过于敏感的皮肤，血液循环不良的部位，切勿让儿童或者身心功能障碍者自行使用温热功能，操作不当可能存在危险。</view>
+              <view class="content roof">●为避免因过热而导致走火、触电、或造成伤害，请勿将产品在枕头或毯子下操作。</view>
+              <view class="content roof">●请勿覆盖使用，以免造成马达温度过高而导致故障或损坏。</view>
+              <view class="content roof">●若儿童，身心功能障碍与伤残者使用该产品，需要有旁人指导且能负责其安全。</view>
+              <view class="content roof">●如在按摩进行中感到不适，请立即停止按摩。</view>
+              <view class="content roof">●如果电源线破损时，请立即停止使用，关闭电源开关，将电源线拔离插座，必须到制造商、代理商处修理或更换，以避免危险。</view>
+              <view class="content roof"> ●为确保安全及正确使用产品，使用前请务必详细参阅操作手册。</view>
+              <view class="content roof">●请勿使用非制造商所推荐的零部件。</view>
+              <view class="content roof">●若想切断电源，请将所有的操作控制关闭后，将电源插头由插座中拔除。</view>
+              <view class="content roof">●本产品不能作为自我诊断或治疗之用，如需要诊断或治疗，应由专业医疗人员处理。</view>
+              <view class="content roof">●器具表面发热，对热不敏感的人，使用时必须注意。</view>
+            </view>
+            <view class="title" style="font-size:30rpx;">
+              使用环境
+            </view>
+            <view>
+              <view class="content">●请勿在潮湿或过多灰尘的环境下使用产品，以免产品发生故障。</view>
+              <view class="content roof">●请勿在室温高于40℃的环境下使用本产品。</view>
+              <view class="content roof">●请勿将产品放置户外。</view>
+              <view class="content roof">●请勿将产品置放于电热器旁、炉具附近或者阳光直射处。</view>
+            </view>
+            <view class="title" style="font-size:30rpx;">
+              不适应本产品的人士
+            </view>
+            <view>
+              <view style="color: #666;line-height: 48rpx;font-size:30rpx;">如果您有以下情形，使用前请先咨询医生。</view>
+              <view class="content">●正在接受医生治疗者或身体感觉不适者。</view>
+              <view class="content roof">●高血压、心脏病、脑动脉硬化、脑血栓患者。</view>
+              <view class="content roof">●患有恶性肿瘤者。</view>
+              <view class="content roof">●患有骨骼疏松症。</view>
+              <view class="content roof">●孕妇及月经期妇女。</view>
+              <view class="content roof">●正在使用心脏起搏器或者植入医疗器者。</view>
+              <view class="content roof">●患有急性疾病者。</view>
+              <view class="content roof">●未成年人。</view>
+            </view>
+          </view>
+          <view class="title" style="font-size:30rpx;">
+            开关注意事项
+          </view>
+          <view>
+            <view class="content">●请勿用湿手操作控制开关。</view>
+            <view class="content roof">●请勿让控制开关接触水等液体。</view>
+          </view>
+          <view class="title" style="font-size:30rpx;">
+            注意！
+          </view>
+          <view>
+            <view class="content">●请勿在产品操作时入睡。</view>
+            <view class="content roof">●请勿在酒醉或身体不适时使用本产品。</view>
+            <view class="content roof">●请勿直接将按摩头贴近手部、手肘关节、膝盖、胸部或腹部。</view>
+            <view class="content roof">●连续使用本产品时间请勿超过三十分钟。</view>
+            <view class="content roof">●若产品的布套已经破损，请勿使用。</view>
+            <view class="content roof">●请勿在进食前后一小时使用，以免造成反效果。</view>
+            <view class="content roof">●在偏低室温中使用产品时，切勿骤然使用温热功能，建议将温度逐渐调至正常范围后再使用。</view>
+            <view class="content roof">●若是将产品由低温储存处移至温暖环境使用时，可能会因为机件内水汽聚集而影响产品的正常运作，甚至造成机件故障。建议移动后，先将产品在正常室温放置一小时后再开机使用。</view>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+  </block>
+
+
+
+  <!--倒计时弹窗-->
+  <view class="Lotterypopview" wx:if="{{remainTime>0 && isShowESPricePop}}" catchtouchmove="true">
+    <block wx:for="{{payCheirapsisProductList}}" wx:for-item="item" wx:key="id" wx:for-index="index" data-index='index'>
+      <view class="bgopcity"></view>
+      <view class='Lotterypop' style="width:668rpx;height:720rpx;background:transparent;">
+        <image class="dialog" src="{{DataURL}}/images/amq-hastime.png"></image>
+        <!-- <block wx:if="{{curItem.duration>0}}"> -->
+        <block wx:if="{{true}}">
+          <block wx:if="{{item.priceType==2}}">
+            <view class="tipsview">本酒店和{{sysName}}公司为感谢广大用户的支持，暂定
+              <text class="datetime">{{item.promotionstart}}</text>至
+              <text class="datetime">{{item.promotionend}}</text>日为特惠时段，所有用户在此时间段可以体验到最低价格，超长时间的按摩服务。</view>
+          </block>
+          <block wx:if="{{item.priceType==3}}">
+            <view class="tipsview">{{sysName}}公司为了感谢广大用户的支持，暂定每日
+              <text class="datetime">{{item.promotionstart}}</text>~
+              <text class="datetime">{{item.promotionend}}</text>为特惠时间，所有用户在此时间段可以体验到超低价格，超长时间的按摩服务。</view>
+          </block>
+          <view style="width:100%;margin-top:30rpx;" class="zh-o">
+            <image class="zh-img" src="{{DataURL}}/images/amq-haskd.png"></image>
+            <block wx:if="{{item.priceType==2}}">
+              <view class="zh-s">仅限{{item.promotionstart}}~{{item.promotionend}}</view>
+            </block>
+            <block wx:if="{{item.priceType==3}}">
+              <view class="zh-s">每日{{item.promotionstart}}~{{item.promotionend}}</view>
+            </block>
+            <view class="zh-x">
+              <view class="zh-t">
+                <block wx:if="{{item.priceType==2}}">
+                  <view class="h-t-t">推广期</view>
+                </block>
+                <block wx:if="{{item.priceType==3}}">
+                  <view class="h-t-t">限时</view>
+                </block>
+                <view class="h-t-o">{{item.priceType==2 || item.priceType==3?'特惠价':'优惠价'}}</view>
+              </view>
+              <view class="zh-f">
+                <view class="h-f-o">
+                  <text>￥</text>
+                  <text class="f-o-t" style="font-size:46rpx;">{{item.price}}</text>
+                  <block wx:if="{{item.actprice>item.price}}">
+                    <text class="f-o-s" style="font-size:20rpx;">￥{{item.actprice}}</text>
+                  </block>
+                </view>
+                <view class="h-f-t" style="font-size:20rpx;">按摩时长：{{item.duration}}分钟</view>
+              </view>
+            </view>
+          </view>
+          <view class="ter"></view>
+          <view class="onsale">剩余时间:
+            <block wx:if="{{item.priceType==2}}">
+              <view class="oskty">{{remainTimeDays}}</view>
+              <text class="huao">天</text>
+              <view class="oskty">{{remainTimeDayHours}}</view>
+              <text class="huao">时</text>
+            </block>
+            <block wx:if="{{item.priceType==3}}">
+              <view class="oskty">{{remainTimeHours}}</view>
+              <text class="huao">时</text>
+            </block>
+
+            <view class="oskty">{{remainTimeMinutes}}</view>
+            <text class="huao">分</text>
+            <view class="oskty">{{remainTimeSeconds}}</view>
+            <text class="huao">秒</text>
+          </view>
+          <view class="tipsview tishi">活动须知：够买特价按摩劵必须在规定时间内使用</view>
+        </block>
+        <image class="dele-tejia" src="{{DataURL}}/images/cleardel.png" bindtap="hideESPricePop"></image>
+        <view class='Lotterybad' data-item="{{item}}" catchtap="payforCheirapsis">
+          <view class="bodheave">
+            购买体验
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <view class="width100">
+    <v-cheirapsisAlert id="chsAlert" pageName="luckdraw" />
+  </view>
+<!--提示弹窗-->
+<block wx:if="{{isShowPayAlertPop}}">
+  <view class="windowBackgroud" catchtouchmove="{{false}}" catchtap="emptyType"></view>
+</block>
+
+<view class="windowitem" wx:if="{{isShowPayAlertPop}}">
+  <view class="window">
+    <view class="payTitle">提示</view>
+    <view class="annotation">
+        您还有可使用的按摩劵(“我的”-<text catchtap="gotoMyPrize">“我的按摩劵”</text>中使用),是否需要继续支付？
+    </view>
+  </view>
+  <view class="mategTitle">
+    <view catchtap="cancelShowPayAlertPop">取消</view>
+    <view catchtap="submitShowPayAlertPop">确定</view>
+  </view>
+</view>
