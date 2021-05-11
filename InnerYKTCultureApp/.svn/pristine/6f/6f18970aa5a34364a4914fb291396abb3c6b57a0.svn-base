@@ -316,7 +316,7 @@
 
 .tomcar {
   position: fixed;
-  bottom: 0px;
+  bottom: 52px;
   left: 0;
   height: 100rpx;
   width: 100%;
@@ -1071,9 +1071,9 @@ margin-left: 10rpx;
       position: relative;
     }
     .mlistdusk .sss1{
-      height: 660rpx;
-      width: 660rpx;
-      }
+      height: 590rpx;
+      width: 590rpx;
+    }
     /* .mlistdusk .sss2{
       width: 356rpx;
       height: 200rpx;
@@ -1085,15 +1085,15 @@ margin-left: 10rpx;
       width: 50rpx;
       height: 50rpx;
       position: absolute;
-      right: -20rpx;
+      right: -28rpx;
       top: 12rpx;
     }
     .topComponent{
-      width: 620rpx;
-      height: 620rpx;
+      width: 550rpx;
+      height: 554rpx;
       position: absolute;
-      left: 40rpx;
-      top: 40rpx;
+      left: 42rpx;
+      top: 36rpx;
       background: #fadcb6;
       border-radius: 50%;
       overflow: hidden;
