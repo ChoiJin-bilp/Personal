@@ -309,7 +309,7 @@
 					 	type:"success",
 					 	duration:3000
 					 })
-					 that.openFullScreen2()
+					 // that.openFullScreen2()
 					 var ids = res.data.data.orderId,
 					   payNo = res.data.data.payNo,
 					   idsList = [];

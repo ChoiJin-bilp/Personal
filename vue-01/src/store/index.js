@@ -15,6 +15,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   plugins: [createLogger()],
   state: {//状态
+    websk:'ws://192.168.1.23:80/websocket'
   },
   mutations: {//使用 mutation ，修改状态值， 做同步操作
   },

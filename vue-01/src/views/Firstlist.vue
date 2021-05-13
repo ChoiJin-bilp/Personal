@@ -37,7 +37,7 @@
 							<img class="imhty" :src="SMDataURL+'/images/alittleZezhi.png'"></img>
 						</span>
 						<el-dropdown-menu slot="dropdown">
-							<el-dropdown-item command="send3">标签</el-dropdown-item>
+							<el-dropdown-item command="send3">商标</el-dropdown-item>
 							<el-dropdown-item command="send4">关闭</el-dropdown-item>
 						</el-dropdown-menu>
 					</el-dropdown>
@@ -59,8 +59,8 @@
 				<div class="LeftTop">
 					<div class="yuew">
 						<div class="lpoi" v-for="(item,index) in selProcuctTypeListont" :key="index">
-							<div :style="index==0?'padding-left:0;':''" class='unselect link' v-if="item.name!='团购'&&item.name!='智能按摩'"
-							 @click.stop="selectCatalog(index)">
+							<div :style="index==0?'padding-left:0;':''" class='unselect link' v-if="item.name!='智能按摩'"
+							  @click.stop="selectCat(item.name,index)">
 								<a :class="index == item.type ?'selectFenlei':''">{{item.name}}</a>
 							</div>
 						</div>
@@ -74,7 +74,11 @@
 					<div class="naichaItem link" v-if="item.productTypeName!='智能按摩'" v-for="(item,index) in dataArray" :key="index"
 					 @click="addProcuctnum(index)" :style="index==0?'margin-left:0;':''">
 						<img class="naichaimg" :src="item.photo" />
-						<a class="naichaprice">￥{{item.showprice}}</a>
+						<a class="naichaprice">￥{{item.showprice}}
+							<template v-if="item.showprice<item.showSrcPrice">
+							<a class="freefontpay">￥{{item.showSrcPrice}}</a>
+							</template>   
+						</a>
 						<div class="naichaname">{{item.productName}}</div>
 						<template v-if="item.num>0">
 							<div class="naichanum">{{item.num}}</div>
@@ -109,7 +113,7 @@
 										</template>
 									</a>
 									<div id="">
-										￥{{item.amount}}
+										￥{{item.amount+(item.synimage_price*(item.num-1))}}
 									</div>
 								</div>
 							</div>
@@ -256,7 +260,9 @@
 				</div>
 			</div>
 		</template>
-		
+		<template>
+            <el-button ref='webclose' type="text" @click="webclose"></el-button>
+        </template>
 	</div>
 </template>
 
@@ -372,8 +378,10 @@
 				printImgList:[],
 				//呼叫未解决数量
 				Arraynum:0,
-				path:"ws://192.168.1.23:80/websocket",
-                socket:""
+				path:"",
+                socket:"",
+				//copyArray数组
+				CopydataArray:[]
 			}
 		},
 		beforeRouteLeave(to, from, next) {
@@ -399,6 +407,7 @@
 			},3000)
 		},
 		mounted: function() {
+			this.path=this.$store.state.websk
 			this.getShopCar()
 			//获取图片 叶志球
 			// this.getDefImgPriceList()
@@ -500,6 +509,43 @@
 		watch: {
 		},
 		methods: {
+			//webscoket断开提示
+			webclose() {
+                this.$alert('连接已断开', '', {
+				confirmButtonText: '确定',
+				callback: action => {
+				this.$message({
+					type: 'info',
+					message: `action: ${ action }`
+				});
+				}
+			});
+			},
+			//selectCat获取分类信息
+			selectCat(name,index){
+				var that= this, CopydataArray = that.CopydataArray,Arry=[],selProcuctTypeList=that.selProcuctTypeList;
+				that.selProductTypeIndex = index;
+				//判断是否是获取全部信息还是分类信息
+				if(name!="全部"){
+					for(var i=0;i<CopydataArray.length;i++){
+						//判断获取是否是
+						var type = CopydataArray[i].productTypeName == name
+						if(type){
+							Arry.push(CopydataArray[i])
+						}
+					}
+					that.dataArray = Arry
+				}else{
+					that.dataArray = CopydataArray
+				}
+				//判断是否显示无物品状态
+				if(Arry.length==0&&name!="全部"){
+					that.Mistletype = true
+				}else{
+					that.Mistletype = false
+				}
+			},
+			//WebSocket初始化 
 			init: function () {
             if(typeof(WebSocket) === "undefined"){
                 alert("您的浏览器不支持socket")
@@ -507,18 +553,20 @@
                 // 实例化socket
                 this.socket = new WebSocket(this.path)
                 // 监听socket连接
-                this.socket.onopen = this.open
+                this.socket.onopen = this.openo
                 // 监听socket错误信息
                 this.socket.onerror = this.error
                 // 监听socket消息
                 this.socket.onmessage = this.getMessage
             }
         },
-        open: function () {
+        openo: function () {
             console.log("socket连接成功")
         },
         error: function () {
             console.log("连接错误")
+		    this.$refs.webclose.$emit('click')
+			this.init()
         },
         getMessage: function (msg) {
             console.log(msg.data)
@@ -542,11 +590,20 @@
 					case 'b':
 						break
 					case 'send3':
+						if(this.socket.readyState===1){
+                        this.socket.send("/print3")
+			            }else if(this.socket.readyState===3){
+				        this.init()
 						this.socket.send("/print3")
+			            }
 						break
 					case 'send4':
+						if(this.socket.readyState===1){
+                        this.socket.send("close/all")
+			            }else if(this.socket.readyState===3){
+				        this.init()
 						this.socket.send("close/all")
-						console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+			            }
 						break
 					default:
 						console.log(error)
@@ -619,7 +676,7 @@
 				smallInterfacePart = that.$store.getters.sidebar.smallInterfacePart;
 				var smurl = srvDevTest + smallInterfacePart;
 				var that = this,
-					data = that.dataArray;
+					data = that.CopydataArray;
 				for (let g = 0; g < data.length; g++) {
 					if (data[g].productName == name) {
 						data[g].num = data[g].num - num;
@@ -685,7 +742,7 @@
 						var sumprice = 0
 						// 显示选择了哪些规格
 						var showSelectLabelList = []
-						var details = data.detail
+						var details = data.detail,lblPrice=0.00;
 						// 重新汇总所选择的商品规格
 						for (let i = 0; i < details.length; i++) {
 							const detail = details[i];
@@ -693,12 +750,14 @@
 							for (let i = 0; i < labels.length; i++) {
 								const label = labels[i];
 								if (label.checked) {
-									sumprice = sumprice + label.lblprice
+									lblPrice=label.sellPrice;
+									sumprice = sumprice + lblPrice
 									showSelectLabelList = showSelectLabelList.concat(label.lblname)
 								}
 							}
 						}
 						data.sumprice = sumprice.toFixed(2)
+						console.log('显示价格:'+data.sumprice)
 						data.showSelectLabels = showSelectLabelList.join("/")
 						// }
 						// 		}
@@ -745,6 +804,11 @@
 				this.chilType = !this.chilType;
 				this.selectProductIndex = index;
 				this.detailType = false;
+				this.selectCustomizeImgIndex = 0
+				//判断是否有图片
+				if(this.dataArray[e].photoType == 2){
+					this.collectPrice()
+				}
 			},
 			emptyType() {
 				this.chilType = false;
@@ -860,7 +924,7 @@
 				var labelIdList = []
 				// var detailIdList = []
 
-				var details = data.detail
+				var details = data.detail,lblPrice=0.00;
 				for (let i = 0; i < details.length; i++) {
 					const detail = details[i];
 					var labels = detail.labels
@@ -876,6 +940,7 @@
 						//   label.num++
 						// }
 						if (label.checked) {
+							lblPrice=label.sellPrice;
 							labelIdList = labelIdList.concat(label.id)
 							isHaveSelect = true
 							label.num++
@@ -1056,7 +1121,7 @@
 				var sumprice = 0
 				// 显示选择了哪些规格
 				var showSelectLabelList = []
-				var details = data.detail
+				var details = data.detail,lblPrice=0.00;
 				// 重新汇总所选择的商品规格
 				for (let i = 0; i < details.length; i++) {
 					const detail = details[i];
@@ -1064,7 +1129,8 @@
 					for (let i = 0; i < labels.length; i++) {
 						const label = labels[i];
 						if (label.checked) {
-							sumprice = sumprice + label.lblprice
+							lblPrice=label.sellPrice;
+							sumprice = sumprice + lblPrice
 							showSelectLabelList = showSelectLabelList.concat(label.lblname)
 						}
 					}
@@ -1114,7 +1180,7 @@
 				var sumprice = 0
 				// 显示选择了哪些规格
 				var showSelectLabelList = []
-				var details = data.detail
+				var details = data.detail,lblPrice=0.00;
 				// 重新汇总所选择的商品规格
 				for (let i = 0; i < details.length; i++) {
 					const detail = details[i];
@@ -1122,7 +1188,8 @@
 					for (let i = 0; i < labels.length; i++) {
 						const label = labels[i];
 						if (label.checked) {
-							sumprice = sumprice + label.lblprice
+							lblPrice=label.sellPrice;
+							sumprice = sumprice + lblPrice
 							showSelectLabelList = showSelectLabelList.concat(label.lblname)
 						}
 					}
@@ -1264,10 +1331,6 @@
 				if (data.length > 0) {
 					// 购物车列表的数据
 					var shopCarList = that.shopCarList
-					// 设置标题 获取饮品详情中的公司名
-					// if (1 == currentPage) {
-					//   that.setTitle(data[0].companyName)
-					// }
 					var defaultItemImgSrc = this.$store.getters.sidebar.smurl + "/baojiayou/tts_upload/images/dnewsimg.png"
 					for (let i = 0; i < data.length; i++) {
 						const element = data[i];
@@ -1285,9 +1348,11 @@
 							let dPhotos = element.detailPhotos.split(",");
 							element.dPhotos = dPhotos
 						}
-
 						//显示的最低价
 						element.minprice = 10000
+						// 商品默认显示第一个规格的价格(不管是否有货)
+						element.showprice = 0
+						element.showSrcPrice = 0
 						// 选择的数量
 						element.num = 0
 						// 弹窗显示选择的最终价格
@@ -1309,19 +1374,36 @@
 							
 							for (let k = 0; k < labels.length; k++) {
 								const label = labels[k];
-								if (label.lblprice != 0 && element.minprice > label.lblprice) {
-									element.minprice = label.lblprice
-								}
+								label.discounts_price=Utils.isNotNull(label.discounts_price)?label.discounts_price:0.00;
+								//sellPrice:正常售价——如果优惠价有效且小于正常价则取优惠价，否则取标签正常售价
+								label.sellPrice=label.discounts_price>0 && label.discounts_price<label.lblprice?label.discounts_price:label.lblprice;  
+								// 商品图片默认显示第一个规格的价格
 								if (0 == k && j == 0) {
-								              element.showprice = label.lblprice
+								  element.showprice = label.sellPrice;
+								  element.showSrcPrice=label.lblprice;
 								}
+								if (label.sellPrice != 0 && element.minprice > label.sellPrice) {
+								  element.minprice = label.sellPrice
+								}
+								// if (label.lblprice != 0 && element.minprice > label.lblprice) {
+								// 	element.minprice = label.lblprice
+								// }
+								// if (0 == k && j == 0) {
+								//               element.showprice = label.lblprice
+								// 			  element.showSrcPrice = label.sellPrice;
+								// 			  console.log("原价价格:"+element.showprice)
+								// 			  console.log("现在价格:"+element.showSrcPrice)
+								// }
+								
+								
+								
 								label.checked = false
 								// 选择该规格的数量
 								label.num = 0
 								// 有货 单选默认选中
 								if (label.available > 0 && label.lblsingle == 1 && !isSelect) {
 									label.checked = true
-									element.sumprice = element.sumprice + label.lblprice
+									element.sumprice = element.sumprice + label.sellPrice
 									showSelectLabelList = showSelectLabelList.concat(label.lblname)
 									isSelect = true
 								}
@@ -1354,6 +1436,7 @@
 						that.dataArray = data
 					} else {
 						that.dataArray = that.dataArray.concat(data)
+						that.CopydataArray = data
 						this.concat = false
 					}
 					this.Mistletype = false
@@ -1706,7 +1789,7 @@
 				var sumprice = 0
 				// 显示选择了哪些规格
 				var showSelectLabelList = []
-				var details = data.detail
+				var details = data.detail,lblPrice=0.00;
 				// 重新汇总所选择的商品规格
 				for (let i = 0; i < details.length; i++) {
 					const detail = details[i];
@@ -1714,7 +1797,8 @@
 					for (let i = 0; i < labels.length; i++) {
 						const label = labels[i];
 						if (label.checked) {
-							sumprice = sumprice + label.lblprice
+							  lblPrice=label.sellPrice;
+							  sumprice = sumprice + lblPrice
 							showSelectLabelList = showSelectLabelList.concat(label.lblname)
 						}
 					}
@@ -1740,7 +1824,7 @@
 				var sumprice = 0
 				// 显示选择了哪些规格
 				var showSelectLabelList = []
-				var details = data.detail
+				var details = data.detail,lblPrice=0.00;
 				// 重新汇总所选择的商品规格
 				for (let i = 0; i < details.length; i++) {
 					const detail = details[i];
@@ -1748,7 +1832,8 @@
 					for (let i = 0; i < labels.length; i++) {
 						const label = labels[i];
 						if (label.checked) {
-							sumprice = sumprice + label.lblprice
+							lblPrice=label.sellPrice;
+							sumprice = sumprice + lblPrice
 							showSelectLabelList = showSelectLabelList.concat(label.lblname)
 						}
 					}
@@ -2694,5 +2779,10 @@
 		.huJiao img{
     width: 40px;
     height: 40px;
+		}
+		.freefontpay{
+			text-decoration: line-through;
+			font-size: 12px;
+			color: #666;
 		}
 </style>

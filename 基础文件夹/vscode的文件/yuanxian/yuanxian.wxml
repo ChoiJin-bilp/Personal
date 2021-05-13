@@ -1,0 +1,81 @@
+<!--pages/yuanxian/yuanxian.wxml-->
+<!-- <block wx:if="{{agentDeviceId>0}}"> -->
+<block wx:if="{{true}}">
+  <!-- 轮播图片 -->
+  <view class="width100 banner {{imgUrlsCnt>0?'show':'hide'}}">
+    <swiper class="swiper" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <block wx:for="{{imgUrls}}" wx:for-item="item" wx:for-index="index" wx:key="item">
+        <swiper-item>
+          <image mode='aspectFill' src="{{item.isShow? item.src+'?'+randomNum : ''}}" class="slide-image tbannerimg{{index}}" data-url='{{item.url}}' data-src='{{item.src}}'/>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <!-- <view class="Lotterybanner">
+    <image mode="widthFIX" src="{{DataURL}}/images/Lotterybanner.jpg?{{randomNum}}"></image>
+  </view> -->
+  <view class="Lotterytype">
+    <image class="typebgimages" mode="widthFIX" src="{{DataURL}}/images/Lotterybg01.png?{{randomNum}}" bindtap="viewProductDetail"></image>
+    <block wx:if="{{payCheirapsisProductList.length>0}}">
+      <view class="typeview">
+        <block wx:for="{{payCheirapsisProductList}}" wx:for-item="item" wx:key="id" wx:for-index="index" data-index='index'>
+          <view class="typebox" data-item="{{item}}" catchtap="payforCheirapsis">
+            <view class="time">{{item.duration}}分钟</view>
+            <view class="price">￥{{item.price}}</view>
+            <!-- <view class="go">我要体验</view> -->
+          </view>
+        </block>
+      </view>
+    </block>
+  </view>
+  <!-- 在APP设置商品ID后跳转相应商品界面 -->
+  <!-- <view class="gg">
+    <image class="typeggimages" mode="widthFIX" src="{{DataURL}}/images/Lotterygg.png" bindtap="viewProductDetail"></image>
+  </view> -->
+  <view class="Lotteryregion">
+    <!-- <image class="title" mode="widthFIX" src="{{DataURL}}/images/lotterytitle.png"></image> -->
+    <!-- <image class="typebgimages" mode="widthFIX" src="{{DataURL}}/images/Lotterybg02.png"></image> -->
+    <image class="typebgimages" mode="widthFIX" src="{{DataURL}}/images/dial.png"></image>
+    <view class="container-box">
+      <!-- <view class="containertips">
+        <view class="tips"><text></text>人老脚先衰，按脚能延年;</view>
+        <view class="tips"><text></text>脚底按摩10分钟，改善睡眠一整晚;</view>
+        <view class="tips"><text></text>舒筋活血，恢复疲劳，精力充沛;</view>
+      </view> -->
+      
+      <!--转盘-->
+      <view class='turnplate'>
+        <view style="position: absolute;top:0;left: 0;width:100%;height:100%;margin-top:0rpx;">
+          <!-- myAwards就是当被子组件触发时的函数 size:转盘大小 -->
+          <zhuanpan id='zhuanpan' 
+          bind:myData='getData' 
+          bind:myAwards="getAwards" 
+          bind:startZhuan="startZhuan" 
+          bind:startToZhuan="startToZhuan"
+          bind:resetZhuan="resetZhuan"
+          size='{{size}}' 
+          musicflg='{{musicflg}}' 
+          fastJuedin='{{fastJuedin}}' 
+          repeat='{{repeat}}' 
+          zhuanpanArr='{{xiaojuedingArr}}' 
+          awardsConfig='{{awardsConfig}}'>
+          </zhuanpan>
+        </view>
+      </view>
+      <!--转盘-->
+      <view class="myLottery">
+        <button class="fleft" catchtap="showLotteryrule">抽奖规则</button>
+        <view class="center">
+        剩余<text>{{chanceTimes}}</text>次抽奖
+        </view>
+        <button class="fright" catchtap="showLotterymywin">我的奖品</button>
+      </view>
+    </view>
+
+  </view>
+</block>
+<block wx:else>
+<view class="width100">
+<!--   <v-scanCode DataURL="{{DataURL}}" deviceNo='{{deviceNo}}' loginMode="{{loginMode}}" roleStatus="{{roleStatus}}" osTag="{{osTag}}" bind:scanOnIndex='onScanOnIndex' /> -->
+</view>
+</block>

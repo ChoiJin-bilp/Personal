@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+        background-color: #000000;
+    }
+    .ball-box{
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin: -150px 0 0 -150px;
+        -webkit-perspective-origin: 50% 50%;
+        -moz-perspective-origin: 50% 50%;
+        -ms-perspective-origin: 50% 50%;
+        -o-perspective-origin: 50% 50%;
+        perspective-origin: 50% 50%;
+        -webkit-perspective: 3000px;
+        -moz-perspective: 3000px;
+        -ms-perspective: 3000px;
+        -o-perspective: 3000px;
+        perspective: 3000px;
+    }
+    @-webkit-keyframes rotate3d {
+        0%{
+            -webkit-transform: rotateZ(-30deg) rotateY(0deg);
+            -moz-transform: rotateZ(-30deg) rotateY(0deg);
+            -ms-transform: rotateZ(-30deg) rotateY(0deg);
+            -o-transform: rotateZ(-30deg) rotateY(0deg);
+            transform: rotateZ(-30deg) rotateY(0deg);
+        }
+        100%{
+            -webkit-transform: rotateZ(-30deg) rotateY(360deg);
+            -moz-transform: rotateZ(-30deg) rotateY(360deg);
+            -ms-transform: rotateZ(-30deg) rotateY(360deg);
+            -o-transform: rotateZ(-30deg) rotateY(360deg);
+            transform: rotateZ(-30deg) rotateY(360deg);
+        }
+    }
+    @-moz-keyframes rotate3d {
+        0%{
+            -webkit-transform: rotateZ(-30deg) rotateY(0deg);
+            -moz-transform: rotateZ(-30deg) rotateY(0deg);
+            -ms-transform: rotateZ(-30deg) rotateY(0deg);
+            -o-transform: rotateZ(-30deg) rotateY(0deg);
+            transform: rotateZ(-30deg) rotateY(0deg);
+        }
+        100%{
+            -webkit-transform: rotateZ(-30deg) rotateY(360deg);
+            -moz-transform: rotateZ(-30deg) rotateY(360deg);
+            -ms-transform: rotateZ(-30deg) rotateY(360deg);
+            -o-transform: rotateZ(-30deg) rotateY(360deg);
+            transform: rotateZ(-30deg) rotateY(360deg);
+        }
+    }
+    @-ms-keyframes rotate3d {
+        0%{
+            -webkit-transform: rotateZ(-30deg) rotateY(0deg);
+            -moz-transform: rotateZ(-30deg) rotateY(0deg);
+            -ms-transform: rotateZ(-30deg) rotateY(0deg);
+            -o-transform: rotateZ(-30deg) rotateY(0deg);
+            transform: rotateZ(-30deg) rotateY(0deg);
+        }
+        100%{
+            -webkit-transform: rotateZ(-30deg) rotateY(360deg);
+            -moz-transform: rotateZ(-30deg) rotateY(360deg);
+            -ms-transform: rotateZ(-30deg) rotateY(360deg);
+            -o-transform: rotateZ(-30deg) rotateY(360deg);
+            transform: rotateZ(-30deg) rotateY(360deg);
+        }
+    }
+    @-o-keyframes rotate3d {
+        0%{
+            -webkit-transform: rotateZ(-30deg) rotateY(0deg);
+            -moz-transform: rotateZ(-30deg) rotateY(0deg);
+            -ms-transform: rotateZ(-30deg) rotateY(0deg);
+            -o-transform: rotateZ(-30deg) rotateY(0deg);
+            transform: rotateZ(-30deg) rotateY(0deg);
+        }
+        100%{
+            -webkit-transform: rotateZ(-30deg) rotateY(360deg);
+            -moz-transform: rotateZ(-30deg) rotateY(360deg);
+            -ms-transform: rotateZ(-30deg) rotateY(360deg);
+            -o-transform: rotateZ(-30deg) rotateY(360deg);
+            transform: rotateZ(-30deg) rotateY(360deg);
+        }
+    }
+    @keyframes rotate3d {
+        0%{
+            -webkit-transform: rotateZ(-30deg) rotateY(0deg);
+            -moz-transform: rotateZ(-30deg) rotateY(0deg);
+            -ms-transform: rotateZ(-30deg) rotateY(0deg);
+            -o-transform: rotateZ(-30deg) rotateY(0deg);
+            transform: rotateZ(-30deg) rotateY(0deg);
+        }
+        100%{
+            -webkit-transform: rotateZ(-30deg) rotateY(360deg);
+            -moz-transform: rotateZ(-30deg) rotateY(360deg);
+            -ms-transform: rotateZ(-30deg) rotateY(360deg);
+            -o-transform: rotateZ(-30deg) rotateY(360deg);
+            transform: rotateZ(-30deg) rotateY(360deg);
+        }
+    }
+    .ball{
+        height: 100%;
+        -webkit-transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
+        -ms-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        -webkit-animation: rotate3d 30s linear infinite;
+        -moz-animation: rotate3d 30s linear infinite;
+        -ms-animation: rotate3d 30s linear infinite;
+        -o-animation: rotate3d 30s linear infinite;
+        animation: rotate3d 30s linear infinite;
+        color:#fff;
+    }
+    .ball:after{
+        display: block;
+        content: '';
+        width: 1px;
+        height: 500px;
+        background-color: #ff0;
+        position: absolute;
+        top: -100px;
+        left: 150px;
+    }
+    .ball > div{
+        border: 1px #ffffff solid;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+    }
+    .ball .line1{
+        -webkit-transform: rotateY(0deg);
+        -moz-transform: rotateY(0deg);
+        -ms-transform: rotateY(0deg);
+        -o-transform: rotateY(0deg);
+        transform: rotateY(0deg);
+    }
+    .ball .line2{
+        -webkit-transform: rotateY(36deg);
+        -moz-transform: rotateY(36deg);
+        -ms-transform: rotateY(36deg);
+        -o-transform: rotateY(36deg);
+        transform: rotateY(36deg);
+    }
+    .ball .line3{
+        -webkit-transform: rotateY(72deg);
+        -moz-transform: rotateY(72deg);
+        -ms-transform: rotateY(72deg);
+        -o-transform: rotateY(72deg);
+        transform: rotateY(72deg);
+    }
+    .ball .line4{
+        -webkit-transform: rotateY(108deg);
+        -moz-transform: rotateY(108deg);
+        -ms-transform: rotateY(108deg);
+        -o-transform: rotateY(108deg);
+        transform: rotateY(108deg);
+    }
+    .ball .line1{
+        -webkit-transform: rotateY(144deg);
+        -moz-transform: rotateY(144deg);
+        -ms-transform: rotateY(144deg);
+        -o-transform: rotateY(144deg);
+        transform: rotateY(144deg);
+    }
+    .ball div{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 60px;
+    }
+    .line6{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 60px;
+        height: 100%;
+        -webkit-transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
+        -ms-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        color:#fff;
+        position: absolute;
+        top: 0;
+        left: 50%;;
+        transform: translateX(-50%);
+        z-index: 60;
+    }
+    </style>
+</head>
+<body>
+    <div class="ball-box">
+        <div class="ball">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+            <div class="line4"></div>
+            <div class="line5"></div>
+        </div>
+        <div class="line6">返回按摩</div>
+    </div>
+</body>
+</html>

@@ -42,8 +42,8 @@ export default {
     return {
       videoUpload: {
         progress: false,
-        progressPercent: 0,
-        successPercent: 0,
+        progressPercent:1,
+        successPercent:2,
         music: {
           title: "你好",
           author: "林俊杰",
@@ -69,13 +69,16 @@ export default {
       overtime: "",
       currentVersionType: "A", //接口版本类型：A A套接口；B B套接口
       version: "devtest", // devtest 开发测试版本，online 线上版本
-      path: "ws://192.168.1.23:80/websocket",
-      socket: "",
+      path:"",
+      socket:"",
     };
   },
   mounted() {
+    //初始化websocket
+    this.path=this.$store.state.websk
+    this.init()
     var that = this;
-    var overtime = 3000;
+    var overtime = 5000;
     var overtime2 = 10000;
     that.overtime = overtime;
     that.overtime2 = overtime2;
@@ -90,42 +93,43 @@ export default {
     that.beforeUpload();
     //设置收银机型号
     that.getSet();
-    this.init();
   },
 
   methods: {
+    //websocket
     init: function () {
-      if (typeof WebSocket === "undefined") {
-        alert("您的浏览器不支持socket");
-      } else {
-        // 实例化socket
-        this.socket = new WebSocket(this.path);
-        // 监听socket连接
-        this.socket.onopen = this.open;
-        // 监听socket错误信息
-        this.socket.onerror = this.error;
-        // 监听socket消息
-        this.socket.onmessage = this.getMessage;
-      }
-    },
-    open: function () {
-      console.log("socket连接成功");
-    },
-    error: function () {
-      console.log("连接错误");
-    },
-    getMessage: function (msg) {
-      console.log(msg.data);
-    },
-    // send: function () {
-    //   this.socket.send("B202104290004/print");
-    // },
-    // send2: function () {
-    //   this.socket.send("B202104290004/pay");
-    // },
-    close: function () {
-      console.log("socket已经关闭");
-    },
+            if(typeof(WebSocket) === "undefined"){
+                alert("您的浏览器不支持socket")
+            }else{
+                // 实例化socket
+                this.socket = new WebSocket(this.path)
+                // 监听socket连接
+                this.socket.onopen = this.open
+                // 监听socket错误信息
+                this.socket.onerror = this.error
+                // 监听socket消息
+                this.socket.onmessage = this.getMessage
+            }
+        },
+        open: function () {
+            console.log("socket连接成功")
+        },
+        error: function () {
+            console.log("连接错误")
+            this.init()
+        },
+        getMessage: function (msg) {
+            console.log(msg.data)
+        },
+        // send: function () {
+        //     this.socket.send("B202104290004/print")
+        // },
+        // send2: function () {
+        //     this.socket.send("B202104290004/pay")
+        // },		
+        close: function () {
+            console.log("socket已经关闭")
+        },
     //设置机子型号
     getSet() {
       var integrityurl = window.location.href;
@@ -207,10 +211,12 @@ export default {
       var status = "1,2";
       // 一般0,兑换1,领取2,团购3预售4软件定制5软件代理6酒店7,饮品8
       var linkNo = "8,9,11";
+	  //判断是否打印
+      var printed = 0;
 
       //搜索时间段
       var NowTime = Utils.getDateTimeStr(
-        new Date(new Date() - overtime),
+        new Date(new Date() - (30*60*1000)),
         "-",
         1
       );
@@ -228,33 +234,24 @@ export default {
         "&sign=" +
         sign;
       urlParam =
-        urlParam + "&companyId=" + that.$store.getters.sidebar.CompanyId;
+        urlParam + "&companyId=" + that.$store.getters.sidebar.CompanyId+"&printed=" + printed + '&linkNo='+linkNo ;
       // console.log('查询订单详情:', URL + urlParam);
       axios.get(URL + urlParam).then((res) => {
         // console.log('查询订单:', res.data.list)
         if (res.data.rspCode == 0) {
           var poty = res.data.list;
-          var setGWOrderItemPosition = function () {
-            var aplayer = that.$refs.player;
-            aplayer.play();
-            // that.$message({
-            //   type: "success",
-            //   message: "您有新的订单",
-            // });
-          };
           if (poty.length > 0) {
             var k = 0;
             var satTime = 3000;
-            // var internalPlayAn = setInterval(function() {
-            // 	if (k >= poty.length) {
-            // 		clearInterval(internalPlayAn)
-            // 	} else {
-            // 		setGWOrderItemPosition(k)
-            // 	}
-            // 	k++;
-            // }, satTime)
-            setGWOrderItemPosition();
-            this.socket.send(poty[0].sn + "/pay");
+		    var aplayer2 = that.$refs.player;
+		    aplayer2.play();
+            //发送websockte指令，判断初始化
+            if(this.socket.readyState===1){
+                this.socket.send(poty[0].orderId+"/print")
+			      }else if(this.socket.readyState===3){
+				        this.init()
+                this.socket.send(poty[0].orderId+"/print")
+		        }
             return;
           } else {
             return;
@@ -331,10 +328,10 @@ export default {
         });
     },
   },
-  destroyed() {
-    // 销毁监听
-    this.socket.onclose = this.close;
-  },
+  destroyed () {
+        // 销毁监听
+        this.socket.onclose = this.close
+    }
 };
 </script>
 

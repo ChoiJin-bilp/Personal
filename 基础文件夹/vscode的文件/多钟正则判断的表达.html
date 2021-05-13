@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+
+// 正则表达式（regular expression）是一个描述字符模式的对象。使用JavaScript正则表达式可以进行强大的模式匹配和文本检索与替换功能。
+
+// 手机号码正则表达式验证。
+
+function checkPhone(){ 
+    var phone = document.getElementById('phone').value;
+    if(!(/^1[3456789]\d{9}$/.test(phone))){ 
+        alert("手机号码有误，请重填");  
+        return false; 
+    } 
+}
+或者
+
+function checkPhone(){ 
+    var phone = document.getElementById('phone').value;
+    if(!(/^1(3|4|5|6|7|8|9)\d{9}$/.test(phone))){ 
+        alert("手机号码有误，请重填");  
+        return false; 
+    } 
+}
+// 感谢 丐帮流寇 的提醒，我查了一下了解了“ 小括号就是括号内看成一个整体 ,中括号就是匹配括号内的其中一个”
+
+// 原来正则里面的中括号[]只能匹配其中一个，如果要匹配特定几组字符串的话，那就必须使用小括号()加或|，我还以为在中括号中也能使用或|符号，原来|在中括号里面也是一个字符，并不代表或。[3457]匹配3或者4或者5或者7，而(3457)只匹配3457，若要跟前面一样可以加或(3|4|5|7)。[34|57]匹配3或者4或者|或者5或者7.而(34|57)能匹配34或者57。
+
+// 下面简单的解释一下：
+
+// ^1(3|4|5|7|8)\d{9}$
+
+// 表示以1开头，第二位可能是3/4/5/7/8等的任意一个，在加上后面的\d表示数字[0-9]的9位，总共加起来11位结束。
+
+// 具体请参考这篇文章解说：JS最新手机号码检验正则表达式 （绝对能让你明白）
+
+// 我猜你可能会喜欢关于JavaScript正则的文章：正则
+
+// JavaScript中的正则表达式总结（大量的正则）
+// JavaScript正则表达式（例子）
+// 固定电话号码正则表达式：
+
+ function checkTel(){
+ var tel = document.getElementById('tel').value;
+if(!/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(tel)){
+alert('固定电话有误，请重填');
+return false;
+}
+}
+// 身份证正则：
+
+//身份证正则表达式(15位)
+// isIDCard1=/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/;
+// //身份证正则表达式(18位)
+// isIDCard2=/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{4}$/;
+// 身份证正则合并：(^\d{15}$)|(^\d{17}([0-9]|X)$)
+// 其他
+
+//提取信息中的网络链接:(h|H)(r|R)(e|E)(f|F) *= *('|")?(\w|\\|\/|\.)+('|"| *|>)?
+//提取信息中的邮件地址:\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*
+// 提取信息中的图片链接:(s|S)(r|R)(c|C) *= *('|")?(\w|\\|\/|\.)+('|"| *|>)?
+// 提取信息中的IP地址:(\d+)\.(\d+)\.(\d+)\.(\d+)
+// 提取信息中的中国电话号码（包括移动和固定电话）:(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}
+// 提取信息中的中国邮政编码:[1-9]{1}(\d+){5}
+// 提取信息中的中国身份证号码:\d{18}|\d{15}
+// 提取信息中的整数：\d+
+// 提取信息中的浮点数（即小数）：(-?\d*)\.?\d+
+// 提取信息中的任何数字 ：(-?\d*)(\.\d+)?
+// 提取信息中的中文字符串：[\u4e00-\u9fa5]*
+// 提取信息中的双字节字符串 (汉字)：[^\x00-\xff]*
+// 使用：
+
+//test()方法在字符串中查找是否存在指定的正则表达式，并返回布尔值，如果存在则返回true，否则返回false。
+
+var pattern = new RegExp('Box','i');
+var str = 'box';
+alert(pattern.test(str)); //true
+var pattern = /Box/i;
+var str = 'box';
+alert(pattern.test(str)); //true
+var pattern = /Box/i;
+var str = 'This is a box';
+alert(pattern.test(str)); //true
+</script>
+</html>

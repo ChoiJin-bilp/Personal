@@ -66,11 +66,11 @@
 						<!-- <a  style="color: #ff3333;">(超时99单)</a> -->
 					</div>
 					<div>就餐方式</div>
-					<div>备注</div>
+					<!-- <div>备注</div> -->
 					<div>操作</div>
 				</div>
 				<!--时间搜索界面-->
-				<div class="burdeningout infinite-list-wrapper" :style="'overflow:auto;height:'+itemHeight+'px;width:'+itemWind+'px;'">
+				<div class="burdeningout infinite-list-wrapper" :style="'overflow:auto;height:'+itemHeight+'px;width:'+itemWind+'px;'" ref='gundong'>
 					<ul class="list" v-infinite-scroll="load" infinite-scroll-delay="500" :infinite-scroll-disabled="disabled">
 						<li class="list-item bg-navy" v-for="(item,index) in timeValue" :key="index">
 							<div class="bg-navy-z">{{item.sn}}
@@ -111,20 +111,22 @@
 							</div>
 							<template v-if="item.status == 1">
 								<div class="bg-navy-v">
-									<button class="butback" @click="send(item.sn)">打印</button>
-									<button class="butback" @click="send2(item.sn)">小票</button>
+									<button class="butback" @click="send(item.orderId)">标签</button>
+									<button class="butback" @click="send2(item.orderId)">小票</button>
 									<button class="butback link" @click.stop="updateOrderStatus(item.orderId,item.id)">确认送出</button>
 									<button class="butback" @click.stop="gotoPage(item,item.orderId)">查看详情</button>
 								</div>
 							</template>
 							<template v-if="item.status != 1">
 								<div class="bg-navy-v">
+									<button class="butback" @click="send(item.orderId)">标签</button>
+									<button class="butback" @click="send2(item.orderId)">小票</button>
+									<button class="butback" @click.stop="gotoPage(item,item.orderId)">查看详情</button>
 									<button v-if="item.status == 0" class="butgound">未支付</button>
 									<button v-if="item.status == 2" class="butgound">已完成</button>
 									<button v-if="item.status == 3" class="butgound">已取消</button>
 									<button v-if="item.status == 4" class="butgound">已退款</button>
 									<button v-if="item.status == 9" class="butgound">退款中</button>
-									<button v-if="item.status == 0" class="butback" @click.stop="gotoPage(item,item.orderId)">查看详情</button>
 								</div>
 							</template>
 						</li>
@@ -189,8 +191,9 @@
 				itemHeight:'',
 				//下拉栏的宽度
 				itemWind:'',
-				path:"ws://192.168.1.23:80/websocket",
-                socket:""
+				path:'',
+                socket:"",
+				scroll: "",
 			};
 		},
 		beforeRouteLeave(to, from, next) {
@@ -204,6 +207,12 @@
 			next();
 		},
 		activated() {
+			//监听滚动条
+			if(this.scroll > 0){
+			this.$refs.gundong.scrollTo(0, this.scroll);
+			this.scroll = 0;
+			this.$refs.gundong.addEventListener('scroll', this.handleScroll);
+		    }
 			if (this.$route.meta.isBack) {
 				//重置数据
 				this.SMDataURL = 'https://bjy.51yunkeyi.com/baojiayou/tts_upload'
@@ -233,7 +242,17 @@
 				this.onchanstatus('已支付')
 			}
 		},
+		// created() {
+        //     window.addEventListener('beforeunload', e => {
+        //     window.scrollTo(0,0)
+        //     });
+        // },
 		mounted: function() {
+			//监听滚动条
+			// window.addEventListener('scroll', this.handleScroll)
+			this.$refs.gundong.addEventListener('scroll', this.handleScroll)
+			//websock地址
+			this.path=this.$store.state.websk
 			this.onchanstatus('已支付')
 			//获取高度实现自适应
 			this.nbfHeight()
@@ -359,15 +378,26 @@
         },
         error: function () {
             console.log("连接错误")
+			this.init()
         },
         getMessage: function (msg) {
             console.log(msg.data)
         },
         send: function (orderId) {
-			this.socket.send(orderId+"/print")
+			if(this.socket.readyState===1){
+				this.socket.send(orderId+"/print")
+			}else if(this.socket.readyState===3){
+				this.init()
+				this.socket.send(orderId+"/print")
+			}
         },
         send2: function (orderId) {
-            this.socket.send(orderId+"/print2")
+			if(this.socket.readyState===1){
+				this.socket.send(orderId+"/print2")
+			}else if(this.socket.readyState===3){
+				this.init()
+				this.socket.send(orderId+"/print2")
+			}
         },			
         close: function () {
             console.log("socket已经关闭")
@@ -913,7 +943,17 @@
 					}
 				})
 			},
+			//监听滚动条
+			handleScroll() {
+			let scrolled = this.$refs.gundong.scrollTop
+			// console.log(scrolled)
+			this.scroll=scrolled
 		},
+		},
+		// 滚动条
+		deactivated(){
+            this.$refs.gundong.addEventListener('scroll', this.handleScroll)
+        },
 		destroyed () {
         // 销毁监听
         this.socket.onclose = this.close
@@ -1157,12 +1197,12 @@
 	}
 
 	.ComeItemtitle div:nth-of-type(8) {
-		width: 14%;
+		width: 23%;
 	}
 
-	.ComeItemtitle div:nth-of-type(9) {
+	/* .ComeItemtitle div:nth-of-type(9) {
 		width: 9%;
-	}
+	} */
 
 	/*循环主题内容*/
 	/* .burdeningout {
@@ -1264,28 +1304,30 @@
 		font-size: 20px;
 	}
 
-	.bg-navy-x {
-		width: 14%;
+	/* .bg-navy-x {
+		width: 12%;
 		text-align: center;
-	}
+	} */
 
 	.bg-navy-v {
-		width: 9%;
+		width: 18%;
 		/* text-align: center;
 		padding: 0 10px; */
 		display: flex;
 		flex-wrap: wrap;
 		/* flex-direction: column; */
 		box-sizing: border-box;
+		margin-left: 70px;
+		/* border: 1px solid red; */
 	}
 
 	.bg-navy-v button {
-		width: 95px;
+		width: 80px;
 		height: 40px;
 		border-radius: 4px;
 		color: #fff;
 		border: none;
-		margin: 5px;
+		margin: 8px;
 	}
 
 	/* .bg-navy-v button:nth-of-type(2) {

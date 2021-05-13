@@ -1,0 +1,219 @@
+
+
+悬浮球
+
+js页面
+    //获取缓存
+    var Ballheight = app.globalData.ballheight,ScrollX = app.getCacheValue("suspendballX-" + app.data.version + "-" + app.data.wxAppId),ScrollY = app.getCacheValue("suspendballY-" + app.data.version + "-" + app.data.wxAppId);
+    设置缓存
+    changeba(e) {
+        if (e.changedTouches[0].clientX > 200) {
+        this.setData({
+            ball: !this.data.ball,
+            scrollX: 400,
+            scrollY: e.changedTouches[0].clientY - 45
+        })
+        } else {
+        this.setData({
+            ball: !this.data.ball,
+            scrollX: 0,
+            scrollY: e.changedTouches[0].clientY - 45
+        })
+        }
+        app.setCacheValue("suspendballX-" + app.data.version + "-" + app.data.wxAppId,  this.data.scrollX);
+        app.setCacheValue("suspendballY-" + app.data.version + "-" + app.data.wxAppId, this.data.scrollY);
+    },
+    data数据
+    ballheight: Ballheight, //悬浮球移动范围的高度
+    scrollX: ScrollX, //x位置
+    scrollY: suspendballY,//y位置
+
+    app.js页面
+    let that = this;
+    wx.getSystemInfo({
+      success: function (res) {
+        let clientHeight = res.windowHeight;
+        let clientWidth = res.windowWidth;
+        let ratio = 750 / clientWidth;
+        let height = clientHeight * ratio;
+        that.globalData.ballheight = height - 96;
+      }
+    });
+    globalData：{ballheight: 0, //悬浮球的初使高度}
+
+
+    <!-- 温度变化 -->
+    <view>
+      <view class="steps">
+          <view class="step-active step-li">
+              <view class="{{out==2? 'step-line':out==3?'step-red':'step-grdy'}}" ></view>
+              <view class="step-content"catchtap="{{setHotDegreeObj.isSetHotDegree!=0?'slbindchange':''}}"data-num="1" >
+                  <span class="{{out==1? 'step-numative':'step-num'}}" >
+                    <image src="/images/amy-normal.png"></image>
+                  </span>
+                  <view>微热</view>
+              </view>
+          </view>
+          <view class="step-active step-li">
+              <view  class="{{out==3? 'step-red':'step-grdy'}}">
+              </view>
+              <view class="step-content" catchtap="{{setHotDegreeObj.isSetHotDegree!=0?'slbindchange':''}}" data-num="2">
+                  <span class="{{out==2? 'step-numative':'step-num'}}">
+                    <image src="/images/amy-euthermia.png"></image>
+                  </span>
+                  <view>中温</view>
+              </view>
+          </view>
+          <view class="step-end step-li" style="min-width: 90rpx;">
+              <view class="step-line"></view>
+              <view class="step-content"catchtap="{{setHotDegreeObj.isSetHotDegree!=0?'slbindchange':''}}"data-num="3">
+                  <view class="{{out==3? 'step-numative':'step-num'}}">
+                    <image src="/images/amy-hyperthermia.png"></image>
+                  </view>
+                  <view class="step-text">高温</view>
+              </view>
+          </view>
+      </view>
+  </view>
+  <!-- 温度计 -->
+        view.steps::-webkit-scrollbar { /* chrome 隐藏滚动条*/
+            display: none;
+        }
+        view.steps{
+            list-style: none;
+            display: flex;
+            height: 100rpx;
+            width: 488rpx;
+            justify-content: center;
+            padding-left: 30rpx;
+            box-sizing: border-box;
+        }
+        view.steps:after,view.steps .step-li:after{
+            content: '';
+            display: block;
+            clear: both;
+        }
+        view.steps .step-li{
+            float: left;
+            flex: 1;
+            position: relative;
+            min-width: 120rpx;
+        }
+        view.steps .step-li .step-grdy{
+            height: 14rpx;
+            background-color: #e0e0e0;
+            box-shadow: inset 0 1rpx 1rpx rgba(0,0,0,.2);
+            margin-top: 20rpx;
+        }
+        view.steps .step-li.step-active .step-line{
+            background-color: #dbdf03;box-shadow: inset 0 1px 1px rgba(0,0,0,.2);margin-top: 20rpx;height: 14rpx;
+        }
+        view.steps .step-li.step-active .step-red{
+            /* background-color: #00a854;
+            box-shadow: inset 0 1rpx 1rpx #00a854; */
+            /* background-color: #dbdf03; */
+            /* box-shadow: inset 0 1rpx 1rpx #dbdf03;  */
+            background-color: #f56a0d;box-shadow: inset 0 1px 1px rgba(0,0,0,.2);margin-top: 20rpx;height: 14rpx;
+        }
+        view.steps .step-content{
+            position: absolute;
+            top:0;
+            left:-15rpx ;
+            text-align: center;
+        }
+        view.steps .step-li .step-content .step-num{
+            display: inline-block;
+            height: 50rpx;
+            width: 50rpx;
+            color: #fff;
+            /* background-color: #b9b9b9; */
+            background-color: #fff;
+            line-height: 30rpx;
+            border-radius: 50%;
+            text-align: center;
+            border:2rpx solid rgba(224,224,224,1);
+            position: relative;
+        }
+        view.steps .step-li.step-end{
+            flex: inherit;
+        }
+        view.steps .step-li.step-end .step-line{
+            display: none;
+        }
+        .step-num image{
+            width: 70rpx;
+            height: 50rpx;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+        }        
+        .step-numative image{
+            width: 70rpx;
+            height: 50rpx;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+        }     
+        view.steps .step-li .step-content .step-numative{
+            display: inline-block;
+            height: 60rpx;
+            width: 60rpx;
+            color: #fff;
+            /* background-color: #b9b9b9; */
+          background-color: rgb(45, 219, 241);
+            line-height: 30rpx;
+            border-radius: 50%;
+            text-align: center;
+            border:2rpx solid rgba(224,224,224,1);
+            position: relative;
+        }
+        view.steps .step-li .step-content .step-numad{
+            display: inline-block;
+            height: 50rpx;
+            width: 50rpx;
+            color: #fff;
+            background-color: #b9b9b9;
+            line-height: 30rpx;
+            border-radius: 50%;
+            text-align: center;
+            border:2rpx solid rgba(224,224,224,1);
+            position: relative;
+        }
+        
+    //js页面
+    timeChoices: [
+    { value: 0, name: '单选', checked: 'true' },
+    { value: 1, name: '多选' }
+  ],
+    //饮品新增规格
+    showDrinkPop(){
+      
+    },
+    /*当选次数*/
+    radioChange(e) {
+      console.log('radio发生change事件，携带value值为：', e.detail.value)
+  
+      const timeChoices = this.data.timeChoices
+      for (let i = 0, len = timeChoices.length; i < len; ++i) {
+        timeChoices[i].checked = timeChoices[i].value === e.detail.value
+      }
+      this.setData({
+        timeChoices
+      })
+    },
+    //下拉选择饮品分类
+    onchangeCatetype(){
+      this.setData({
+        catetype: !this.data.catetype
+      })
+    },
+    onchangeCategory(){
+      this.setData({
+        category: !this.data.category
+      })
+    }
+
+
+    {{pagetype==0?'temFont':''}}

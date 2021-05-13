@@ -39,7 +39,7 @@
 					<div style="width: 85%;">
 						<div class="itemconse">
 							<a>{{item.productName}}</a>
-							<a>￥{{item.amount}}</a>
+							<a>￥{{item.amount+(item.synimage_price*item.num)}}</a>
 						</div>
 						<div class="itself">
 							<a>{{item.showLabels}}</a>
@@ -112,6 +112,9 @@
 				payway: false,
 				//支付显示
 				payfont: "微信",
+				path:"",
+                socket:"",
+				aaaa:''
 			}
 		},
 		// 异步加载，先加载出player再使用 
@@ -119,6 +122,8 @@
 			var that = this;
 			this.mainCompanyData = '云客智能'
 			this.getShopCar()
+			this.path=this.$store.state.websk
+			this.init()
 			setTimeout(() => {
 				if (that.shopCarList.length == 0) {
 					that.$router.go(-1);
@@ -137,6 +142,71 @@
 			next();
 		},
 		methods: {
+			init: function () {
+            if(typeof(WebSocket) === "undefined"){
+                alert("您的浏览器不支持socket")
+            }else{
+                // 实例化socket
+                this.socket = new WebSocket(this.path)
+                // 监听socket连接
+                this.socket.onopen = this.open
+                // 监听socket错误信息
+                this.socket.onerror = this.error
+                // 监听socket消息
+                this.socket.onmessage = this.getMessage
+            }
+        },
+        open: function () {
+            console.log("socket连接成功")
+        },
+        error: function () {
+            console.log("连接错误")
+			this.init()
+        },
+        getMessage: function (msg) {
+			// console.log(msg.data)
+			// console.log(JSON.parse(msg.data))
+			var that=this
+			that.aaaa=JSON.parse(msg.data)
+			var mesCode = JSON.parse(msg.data)
+			//获取现在时间戳
+			// var Timeskt = new Date().getTime()
+			
+			console.log("Websoter数据:",mesCode)
+			//判断执行动作 'pay/cancel' 取消支付、'订单号/pay' 支付发起
+			if(mesCode.req == 'pay/cancel'){
+				return
+			}else{
+				if(mesCode.code == -1){
+					that.$message({
+						type: 'error',
+						message: mesCode.msg,
+						duration:2000
+					});
+					// that.delemunse()
+					that.moutetype = false;
+				}else if(mesCode.code == 0){
+					//删除支付弹窗
+					// that.delemunse()
+					that.$message({
+						type: 'success',
+						message: '支付成功!'
+					});
+					that.moutetype = true;
+					that.$router.go(-1);
+				}
+			}
+        },
+        // send: function () {
+        //     this.socket.send("B202104290004/print")
+        // },
+        // send2: function () {
+        //     this.socket.send("B202104290004/pay")
+        // },		
+        close: function () {
+            console.log("socket已经关闭")
+        },
+		
 			//支付方式
 			paywaytype(e) {
 			var that = this
@@ -164,7 +234,17 @@
 			},
 			//取消查询接口
 			buytoCancel() {
-				this.timeoutType = new Date().getTime()
+				//关闭弹窗
+				var that = this
+				// that.delemunse()
+				that.timeoutType = 0;
+				that.moutetype = false;
+				if(this.socket.readyState===1){
+                this.socket.send("pay/cancel");
+			}else if(this.socket.readyState===3){
+				this.init()
+				this.socket.send("pay/cancel");
+			}
 			},
 			//获取订单是否付款接口
 			queryOrders(id) {
@@ -196,16 +276,19 @@
 			},
 			//重新提交方法
 			submitOrder2() {
-				if (this.payway) {
-					this.updateOrderStatus(this.userdId, '现金')
+				var that = this;
+				if (that.payway) {
+					that.updateOrderStatus(that.userdId, '现金')
 					return
 				}
-				this.timeoutType = new Date().getTime() + 120000;
-				// this.timeoutType = new Date().getTime() + 10000;
-				this.openFullScreen2()
-				setTimeout(() => {
-					this.queryOrders(this.userdId);
-				}, 500);
+				that.timeoutType = new Date().getTime() + 60000;
+				// that.openFullScreen2()
+				if(this.socket.readyState===1){
+                that.socket.send(that.userdId+"/pay")
+			}else if(this.socket.readyState===3){
+				this.init()
+				that.socket.send(that.userdId+"/pay")
+			}
 			},
 			//获取生成数据
 			getRuslt: function(data, code, error, tag) {
@@ -224,14 +307,9 @@
 								break
 							case 2:
 								//提交订单后获取订单号
-								if (this.payway) {
-									that.userdId = data.id
-								} else {
-									// that.userdId = data.orderId
-									that.userdId = data.id
-								}
-								console.log(data.orderId)
+								that.userdId = data.id
 								that.getCanCoupons()
+								
 								break
 							case 3:
 								break
@@ -239,37 +317,27 @@
 								var other = ""
 								//查询订单状态
 								that.queryOrders(that.userdId)
-								that.timeoutType = new Date().getTime() + 120000;
+								// that.timeoutType = new Date().getTime() +  60000;
 								// that.timeoutType = new Date().getTime() + 10000;
 								break
 							case 5:
-								var Timeskt = new Date().getTime()
-								//判断是否超时
-								if (that.timeoutType <= Timeskt) {
-									this.delemunse()
-									this.$message({
-										type: 'error',
-										message: '支付失败!请重新支付!'
-									});
-									that.timeoutType = 0;
-									// this.getShopCar()
-									that.moutetype = false;
-									console.log(that.orderDatas)
-								} else {
-									//获取订单状态
-									if (data[0].status == 0) {
-										that.openFullScreen2()
-										that.queryOrders(that.userdId);
-									} else {
-										//删除支付弹窗
-										this.delemunse()
-										this.$message({
-											type: 'success',
-											message: '支付成功!'
-										});
-										that.moutetype = true;
-										this.$router.go(-1);
+								//判断是否为扫码支付
+								if (data[0].status == 0) {
+									if(this.socket.readyState===1){
+										this.socket.send(that.userdId+"/pay")
+									}else if(this.socket.readyState===3){
+										this.init()
+										this.socket.send(that.userdId+"/pay")
 									}
+								} else {
+									//删除支付弹窗
+									// this.delemunse()
+									this.$message({
+										type: 'success',
+										message: '支付成功!'
+									});
+									that.moutetype = true;
+									this.$router.go(-1);
 								}
 								break
 						}
@@ -361,13 +429,11 @@
 				// console.log(this.remarks)
 			},
 			submitOrder() {
-
 				var that = this;
 				if (!Utils.isNull(that.orderId)) {
 					console.log("订单已提交,请勿重复提交")
 					return
 				}
-
 				// 打印图案图片
 				var synimages = []
 				var cashId = that.$store.getters.sidebar.cashId
@@ -428,7 +494,6 @@
 					synimage: synimages,
 				}]
 				that.orderDatas = listItem
-				console.log(listItem)
 				addSMOrderInfo(this, listItem);
 			},
 
@@ -462,12 +527,12 @@
 				if (this.payway) {
 					//现金
 					if (amount == '现金') {
-						var otherParam = "&trade_no="+ payfont +"&status=1" + '&qrUrl=' + qrUrl
+						var otherParam = "&trade_no="+ payfont +"&status=1&payamount=" + that.totalDouble + '&qrUrl=' + qrUrl
 					} else {
 						var otherParam = "&trade_no="+ payfont +"&status=1&payamount=" + amount + '&qrUrl=' + qrUrl
 					}
 				} else {
-					var otherParam = "&store=1&amount=" + amount + '&qrUrl=' + qrUrl
+					var otherParam = '&qrUrl=' + qrUrl
 				}
 				console.log(signParam)
 				doGetData(this, smurl, signParam, otherParam, 2, "更新订单状态")
@@ -488,7 +553,14 @@
 			goback() {
 				this.$router.push('/Itemlist');
 			}
-		}
+		},
+		close(){
+			this.socket.onclose()
+		},
+		destroyed () {
+        // 销毁监听
+        this.socket.onclose = this.close
+    }
 	}
 </script>
 

@@ -1,0 +1,39 @@
+<!DOCTYPE html> 
+<head> 
+<meta charset=utf-8> 
+<title>HTML5</title>
+<!-- <script src="jquery-1.5.1.js"></script> -->
+</head>
+<body>
+<canvas id="xu" width="500" height="200" ></canvas>
+<div id="ds"></div>
+<br>
+<script type="text/javascript">
+  var canvas = document.getElementById("xu");
+  var xx = canvas.getContext("2d");
+  var dir = 100;
+  var width = 500;
+  var height = 200;
+  var exp = 1;//像素移动的位置，正数的时候向下，负数向上
+ 
+function fff(){
+ xx.clearRect(0,0,width,height);
+ xx.fillStyle = "blue";//定义颜色
+ xx.beginPath();//重新开始画，防止冲突重叠
+ xx.arc(dir,100,20,0,Math.PI*2,1);//x,y坐标,半径,圆周率，
+ xx.closePath();//结束画布，防止冲突重叠
+ xx.fill();//渲染结束
+ dir = dir + exp;
+ if(dir == 0 || dir==width){
+  exp = exp * (-1);//掉头位置
+ }
+}
+ 
+ 
+</script>
+ <button οnclick="interval=setInterval(fff,10)">开始</button>
+ <button οnclick="clearInterval(interval)">停止</button>
+</body> 
+</html> 
+ 
+ 

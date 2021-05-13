@@ -10,6 +10,10 @@
 					<img class="Top-img" :src="SMDataURL+'/images/al-rq.png'" />
 					<a class="mesItem-Top-g">订单详情</a>
 				</div>
+				<div class="mesItem-TopThree">
+					<el-button type="primary" v-if="OredrList.status==3">已删除</el-button>
+					<el-button type="primary" v-else @click.stop="kndgr(OredrList.orderId,3,1)"  >删除订单</el-button>
+				</div>
 			</div>
 
 			<div class="mibutlst">
@@ -89,6 +93,7 @@
 						<div class="gray-o">
 							<a>订单状态</a>
 							<a v-if="OredrList.status==2">已完成</a>
+							<a v-if="OredrList.status==3">已删除</a>
 							<a v-if="OredrList.status==1">已支付</a>
 							<a v-if="OredrList.status==4">已退款</a>
 						</div>
@@ -265,9 +270,11 @@
 			console.log('查询订单详情:', URL + urlParam)
 			axios.get(URL + urlParam).then(res => {
 				console.log(res)
+				//全局赋值
 				if (res.data.rspCode == 0) {
 					that.detail = res.data.data
 				}
+				//添加图案
 				that.synimage(that.OredrList.synimage)
 			})
 		},
@@ -314,6 +321,16 @@
 							  	})
 						  });
 			},
+			//删除订单
+			kndgr(a,b,c){
+				this.$confirm('请确认是否删除此订单')
+				          .then(_ => {
+							  this.payCash(a,b,c)
+				          })
+				          .catch(_ => {
+							 return
+						  });
+			},
 			//生成二维码回调函数
 			motepryu(url){
 				var that = this,url= url,type = true;
@@ -334,12 +351,19 @@
 					})
 					return
 				}
+				if(OredrList.status==3){
+					that.$message({
+						message:"此单已删除",
+						type:"success"
+					})
+					return
+				}
 				//判断是否微信支付还是其它支付
 				if(Trade == "现金" || Trade == "验券收款" || Trade == "商家收款"||Trade=="cash"){
 					this.$confirm('请确认是否现金退款')
 					          .then(_ => {
 								  console.log("成功")
-								    that.payCash(orderId)
+								    that.payCash(orderId,4,0)
 					          })
 					          .catch(_ => {
 								  console.log("取消")
@@ -361,7 +385,7 @@
 				that.posyu()
 			},
 			//现金退款
-			payCash(orderId){
+			payCash(orderId,status,tag){
 				var that = this;
 				var timestamp = Date.parse(new Date());
 				timestamp = timestamp / 1000;
@@ -372,8 +396,8 @@
 				var smurl = srvDevTest + smallInterfacePart;
 				let signParam = 'cls=product_order&action=UpdateOrders&appId=' + appid + "&timestamp=" + timestamp + "&orderId=" +
 					orderId;
-				var otherParam = '&status=4'
-				doGetData(this, smurl, signParam, otherParam, 0, "更新订单状态")
+				var otherParam = '&status='+status
+				doGetData(this, smurl, signParam, otherParam, tag, "更新订单状态")
 			},
 			//获取生成数据
 			getRuslt: function(data, code, error, tag) {
@@ -390,6 +414,15 @@
 									type:"success"
 								})
 								that.OredrList.status = 4;
+								that.typew = true;
+								break
+							case 1:
+								console.log("更改訂單状态成功！")
+								that.$message({
+									message:"删除成功",
+									type:"success"
+								})
+								that.OredrList.status = 3;
 								that.typew = true;
 								break
 						}
@@ -655,7 +688,11 @@
 		display: flex;
 		align-items: center;
 	}
-
+	.mesItem-TopThree{
+		position: absolute;
+		right: -2%;
+		transform: translateX(-50%);
+	}
 	/*主题内容*/
 	.mibutlst {
 		padding: 30px;
