@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>test.html</title>	
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="http://apps.bdimg.com/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script> 
+    <script src="js/md5.js" type="text/javascript"></script> 	
+  </head>
+  <body>
+    <h4>接口测试</h4>
+    <fieldset id="fd1" style="width:750px;">
+        <legend><span>测试参数</span></legend>
+        <div class="fieldset-body">
+            <table class="form-table" border="0" cellpadding="1" cellspacing="2">
+                <tr>
+                    <td class="form-label" >测试页面：</td>
+                    <td colspan="3" ><input id="testpage" value="mall.jsp"  style="width:550px;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="form-label" style="width:150px;">包名cls：</td>
+                    <td style="width:200px">
+                        <input id="cname" value="product_order" style="width: 195px; "/>
+                    </td>
+                    <td class="form-label" style="width:60px;">方法名：</td>
+                    <td style="width:150px">
+                        <input id="mname" value="QueryOrders" style="width: 195px; "/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="form-label">appid：</td>
+                    <td >
+                        <input id="appid" value="1" style="width: 195px; "/>
+                    </td>
+                    <td class="form-label">时间戳：</td>
+                    <td >
+                        <input id="timestamp" value="1565579676890" style="width: 195px; "/>
+                    </td>
+                </tr>
+                <tr>
+                <td class="form-label">get参数(签名)：</td>
+                <td colspan="3" ><input id="params" value="&userId=1&orderId=f9b9787f26424f449b6351b693fd2ad4"  style="width:550px;"/>
+                </td>
+                </tr>
+                <tr>
+                <td class="form-label" >get参数(不签名)：</td>
+                <td colspan="3" ><input id="noparams" value=""  style="width:550px;"/>
+                </td>
+                </tr> 
+                <td class="form-label">签名：</td>
+                <td colspan="3" ><input id="sign" value=""  style="width:550px;"/>
+                </td> 
+                </tr>
+                <tr>
+                    <td class="form-label">post参数(json)：</td>
+                    <td colspan="3" >
+                        <input id="remarks" style="width:550px;height:200px;"/>
+                    </td>        
+                </tr>
+                <tr>
+                    <td style="text-align:right;padding-top:5px;padding-right:20px;" colspan="4">
+                        <a class="Update_Button" href="javascript:test();">开始测试</a> 
+                    </td>                
+                </tr>                
+            </table>
+        </div>
+    </fieldset>
+       <script type="text/javascript">      
+        function test() {
+            var appKey = "amj_b5e9sdfd6ws325"; //mall_d1760c199b5d469cccda1959e10555f2
+            var dt = (new Date()).valueOf();
+            $("#timestamp").val(dt);
+            var testpage = $("#testpage").val();
+			var cname = $("#cname").val();
+			var mname = $("#mname").val();
+			var appid = $("#appid").val();
+			var timestamp = $("#timestamp").val();
+			var params = $("#params").val();
+			var noparams = $("#noparams").val();
+			var remarks = $("#remarks").val();
+        	var str = "cls="+cname+"&action="+mname+"&appId="+appid+"&timestamp="+timestamp+params;
+        	$("#remarks").val(str);
+        	var hash = str+"&key=" + appKey;
+        	//alert(hash);
+        	var sign = $.md5(hash);
+            $("#sign").val(sign);
+			//alert(cname+mname+appid+sign+remarks);
+			var testIP= window.location.host; //127.0.0.1:8080
+			//var testPort= window.location.port;
+			//if(testPort!=80)
+			//  testIP = testIP+":"+testPort;
+			var testUrl = "http://"+testIP+"/baojiayou/"+testpage+"?"+str+noparams+"&sign="+sign;
+			//alert(testUrl);
+            //$("#remarks").val(encodeURI(encodeURI("40-43-46-48-49")));
+            $.ajax({
+                type : "POST",
+                timeout : 5000,
+                url: testUrl,
+                data: { data: remarks },
+                success: function (text) {
+                    var res = JSON.stringify(text);
+                    //var k = encodeURI(encodeURI("智能家居,全自动"));//智能家居,全自动,爱美家
+                    $("#remarks").val(res);
+                    //alert(res);
+                },
+                error: function (jqXHR,alert, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                }
+            });
+        }
+    </script>
+  </body>
+</html>
