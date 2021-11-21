@@ -1,0 +1,526 @@
+//html样式重置
+html,
+body,
+a,
+p,
+ul,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+i,
+strong,
+ol {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 16px;
+  font-family: Microsoft YaHei, Microsoft YaHei-Bold;
+  text-decoration: none;
+}
+
+ul,
+li,
+ol {
+  list-style: none;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  min-width: 1366px;
+
+  #app {
+    width: 100%;
+    height: 100%;
+
+    .content {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+// 左侧-内容区滚动插件
+.nstc-aside .el-scrollbar__wrap,
+.nstc-view .el-scrollbar__wrap {
+  overflow-x: hidden;
+
+  .el-scrollbar__view {
+    height: 100%;
+
+    .el-menu {
+      height: 100%;
+    }
+  }
+}
+
+// 侧边栏修改
+.el-menu--vertical {
+  .el-menu--popup-right-start {
+    margin: 0;
+  }
+
+  .el-menu--popup {
+    padding: 0;
+  }
+
+  .nstc-menu-item-right-sub {
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    max-height: 478px;
+    width: 280px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-left: 4px;
+    background: linear-gradient(135deg, #2053fc, #43a7ff) !important;
+    border-radius: 4px;
+    color: #fff;
+    padding: 10px 0 10px 24px;
+  }
+}
+
+// 简单间距
+.ml5 {
+  margin-left: 5px;
+}
+
+.mr5 {
+  margin-right: 5px;
+}
+
+.mt5 {
+  margin-top: 5px;
+}
+
+.mb5 {
+  margin-bottom: 5px;
+}
+
+.pl5 {
+  padding-left: 5px;
+}
+
+.pr5 {
+  padding-right: 5px;
+}
+
+.pt5 {
+  padding-top: 5px;
+}
+
+.pb5 {
+  padding-bottom: 5px;
+}
+
+// 简单间距
+.ml8 {
+  margin-left: 8px;
+}
+
+.mr8 {
+  margin-right: 8px;
+}
+
+.mt8 {
+  margin-top: 8px;
+}
+
+.mb8 {
+  margin-bottom: 8px;
+}
+
+.pl8 {
+  padding-left: 8px;
+}
+
+.pr8 {
+  padding-right: 8px;
+}
+
+.pt8 {
+  padding-top: 8px;
+}
+
+.pb8 {
+  padding-bottom: 8px;
+}
+
+.ml10 {
+  margin-left: 10px;
+}
+
+.mr10 {
+  margin-right: 10px;
+}
+
+.mt10 {
+  margin-top: 10px;
+}
+
+.mb10 {
+  margin-bottom: 10px;
+}
+
+.pl10 {
+  padding-left: 10px;
+}
+
+.pr10 {
+  padding-right: 10px;
+}
+
+.pt10 {
+  padding-top: 10px;
+}
+
+.pb10 {
+  padding-bottom: 10px;
+}
+
+.ml12 {
+  margin-left: 12px;
+}
+
+.mr12 {
+  margin-right: 12px;
+}
+
+.mt12 {
+  margin-top: 12px;
+}
+
+.mb12 {
+  margin-bottom: 12px;
+}
+
+.pl12 {
+  padding-left: 12px;
+}
+
+.pr12 {
+  padding-right: 12px;
+}
+
+.pt12 {
+  padding-top: 12px;
+}
+
+.pb12 {
+  padding-bottom: 12px;
+}
+
+.ml16 {
+  margin-left: 16px;
+}
+
+.mr16 {
+  margin-right: 16px;
+}
+
+.mt16 {
+  margin-top: 16px;
+}
+
+.mb16 {
+  margin-bottom: 16px;
+}
+
+.pl16 {
+  padding-left: 16px;
+}
+
+.pr16 {
+  padding-right: 16px;
+}
+
+.pt16 {
+  padding-top: 16px;
+}
+
+.pb16 {
+  padding-bottom: 16px;
+}
+
+.ml20 {
+  margin-left: 20px;
+}
+
+.mr20 {
+  margin-right: 20px;
+}
+
+.mt20 {
+  margin-top: 20px;
+}
+
+.mb20 {
+  margin-bottom: 20px;
+}
+
+.pl20 {
+  padding-left: 20px;
+}
+
+.pr20 {
+  padding-right: 20px;
+}
+
+.pt20 {
+  padding-top: 20px;
+}
+
+.pb20 {
+  padding-bottom: 20px;
+}
+
+.ml40 {
+  margin-left: 40px;
+}
+
+.mr40 {
+  margin-right: 40px;
+}
+
+.mt40 {
+  margin-top: 40px;
+}
+
+.mb40 {
+  margin-bottom: 40px;
+}
+
+// 宽高
+.w100 {
+  width: 100% !important;
+}
+
+.wauto {
+  width: auto;
+}
+
+.h100 {
+  height: 100% !important;
+}
+
+.w600{
+  width: 600px;
+}
+
+.center {
+  text-align: center;
+}
+.linkClass{
+  font-weight: bold;
+}
+//数字颜色
+.Format-Mount {
+  color: #45b137;
+  font-size: 12px;
+  text-align: right;
+}
+
+.Format-Mount-form {
+  color: #45b137;
+  font-size: 14px;
+}
+
+// 颜色样式
+.is-mark.success {
+  color: #45b137;
+
+  &.dot {
+    &::before {
+      background: #45b137;
+    }
+  }
+}
+
+.is-mark.error {
+  color: #ff4d4f;
+
+  &.dot {
+    &::before {
+      background: #ff4d4f;
+    }
+  }
+}
+
+.is-mark.link {
+  color: #448eff;
+
+  &.dot {
+    &::before {
+      background: #448eff;
+    }
+  }
+}
+
+.is-mark.info {
+  color: #666;
+
+  &.dot {
+    &::before {
+      background: #666;
+    }
+  }
+}
+
+.is-mark.warn {
+  color: #fc7864;
+
+  &.dot {
+    &::before {
+      background: #fc7864;
+    }
+  }
+}
+
+//头部星星样式
+.haveTo {
+  color: #f56c6c;
+  font-size: 14px;
+  margin-left: 4px;
+}
+
+.haveToName {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+//鼠标变手 字体颜色
+.huop-Iocon {
+  color: #448eff;
+  cursor: pointer;
+}
+
+//table 删除按钮统一样式
+.table-allDel {
+  font-size: 12px;
+  font-family: Microsoft YaHei, Microsoft YaHei-Regular;
+  font-weight: 400;
+  color: #fc7864;
+  line-height: 28px;
+}
+
+//鼠标变手
+.hucon {
+  cursor: pointer;
+}
+
+//没有查询、分页时的高度
+.TableHeight {
+  height: calc(100vh - 138px);
+}
+
+//查询、分页时的高度
+.SerPagHeight {
+  height: calc(100vh - 246px);
+}
+
+//只有查询、分页时的高度
+.SerNoPagHeight {
+  height: calc(100vh - 210px);
+}
+//完全高度
+.PageHeight {
+  height: calc(100vh - 116px);
+}
+
+//弹窗公用样式
+.all_dio {
+  font-size: 14px;
+  font-weight: 400;
+  text-align: left;
+  color: #33445e;
+  line-height: 24px;
+  position: absolute;
+  top: -25px;
+  display: flex;
+  align-items: center;
+
+  .icon_dio {
+    margin-right: 10px;
+    font-size: 20px;
+  }
+}
+
+.all_dio_text {
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(102, 102, 102, 0.85);
+  line-height: 24px;
+  // text-indent: 1.8rem;
+  padding-left: 1.8rem;
+}
+
+//错误
+.errcolor {
+  color: rgba(255, 77, 79);
+}
+
+//成功
+.succolor {
+  color: rgba(82, 196, 26);
+}
+
+//消息
+.inofcolor {
+  color: rgba(37, 151, 255);
+}
+
+//警告
+.warncolor {
+  color: rgba(251, 187, 61);
+}
+
+//字体
+.fs14 {
+  font-size: 14px;
+}
+
+.el-message-box {
+  .el-message-box__btns {
+    .el-button--small {
+      font-size: 12px;
+      padding: 7px 8px;
+    }
+  }
+}
+
+//按钮自适应1366
+.PUIO {
+  width: 140px;
+  margin-left: 10px;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 1600px) {
+  .PUIO {
+    width: 110px;
+    margin-left: 0px;
+    margin-top: 10px;
+  }
+}
+
+//按钮空白处较多时
+.PUIO2 {
+  position: absolute;
+  width: 120px;
+  right: -130px;
+  margin-top: 0;
+}
+
+.link {
+  color: #448eff;
+  cursor: pointer;
+  // text-decoration: underline;
+}
